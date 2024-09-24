@@ -1,0 +1,48 @@
+package com.softwareProject.banksApplication.entity;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+
+@Entity
+@Table(name = "invoices")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class InvoiceInfo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "invoice_id")
+    private int id;
+
+    @Column(name = "invoice_no")
+    private int invoiceNo;
+
+    @Column(name = "invoice_type")
+    private InvoiceType invoiceType;
+
+    @Column(name = "invoice_amount")
+    private int invoiceAmount;
+
+    @Column(name = "pay_date")
+    private LocalDate payDate;
+
+    @Column(name = "autobill")
+    private boolean autobill;
+
+    @ManyToOne()
+    @JoinColumn(name = "invoice_receipt_id", referencedColumnName = "receipt_id")
+    @JsonIgnore
+    private ReceiptInfo receiptInfo;
+
+    public enum InvoiceType {
+        Doğalgaz,
+        Elektrik,
+        Su,
+        Telefon
+    }
+}
