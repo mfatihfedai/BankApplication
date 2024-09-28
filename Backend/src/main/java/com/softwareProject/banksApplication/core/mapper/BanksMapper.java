@@ -1,17 +1,16 @@
 package com.softwareProject.banksApplication.core.mapper;
 
 import com.softwareProject.banksApplication.dto.request.banks.BanksSaveRequest;
+import com.softwareProject.banksApplication.dto.request.banks.BanksUpdateRequest;
 import com.softwareProject.banksApplication.dto.response.banks.BanksResponse;
 import com.softwareProject.banksApplication.entity.BanksInfo;
 import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.factory.Mappers;
 
-import java.util.List;
-
-@Mapper
+@Mapper(componentModel = "spring")
 public interface BanksMapper {
-    BanksInfo asEntity(BanksSaveRequest banksSaveRequest);
-    BanksResponse asOutput(BanksInfo banksInfo);
-    List<BanksResponse> asOutput(List<BanksInfo> banksInfoList);
-    void update(@MappingTarget BanksInfo banksInfo, BanksSaveRequest banksSaveRequest);
+    BanksMapper INSTANCE = Mappers.getMapper(BanksMapper.class);
+    BanksInfo banksSaveRequestToBanks(BanksSaveRequest banksSaveRequest);
+    BanksInfo banksUpdateRequestToBanks(BanksUpdateRequest banksUpdateRequest);
+    BanksResponse banksToBanksResponse(BanksInfo banks);
 }
