@@ -10,7 +10,7 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring")
 public interface BanksMapper {
     BanksMapper INSTANCE = Mappers.getMapper(BanksMapper.class);
-    BanksInfo banksSaveRequestToBanks(BanksSaveRequest banksSaveRequest);
-    BanksInfo banksUpdateRequestToBanks(BanksUpdateRequest banksUpdateRequest);
-    BanksResponse banksToBanksResponse(BanksInfo banks);
+    BanksInfo saveRequestToEntity(BanksSaveRequest request);
+    BanksInfo updateRequestToEntity(BanksUpdateRequest request);
+    BanksResponse entityToResponse(BanksInfo banks);
 }

@@ -26,13 +26,13 @@ public class UserInfo {
     private String surname;
 
     @Column(name = "phone_number")
-    private Integer phoneNumber;
+    private Long phoneNumber;
 
     @Column(name = "identitiy_number")
-    private Integer identityNumber;
+    private Long identityNumber;
 
     @Column(name = "account_no")
-    private Integer accountNumber;
+    private Long accountNumber;
 
     @Column(name = "password")
     private String password;

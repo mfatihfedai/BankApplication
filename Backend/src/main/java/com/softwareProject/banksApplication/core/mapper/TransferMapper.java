@@ -8,9 +8,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
-public interface TransferMapper {
+public interface TransferMapper{
     TransferMapper INSTANCE = Mappers.getMapper(TransferMapper.class);
-    TransferInfo transferSaveRequestToTransfer(TransferSaveRequest transferSaveRequest);
-    TransferInfo transferUpdateRequestToTransfer(TransferUpdateRequest transferUpdateRequest);
-    TransferResponse transferToTransferResponse(TransferInfo transfer);
+    TransferInfo saveRequestToEntity(TransferSaveRequest request);
+    TransferInfo updateRequestToEntity(TransferUpdateRequest request);
+    TransferResponse entityToResponse(TransferInfo entity);
 }

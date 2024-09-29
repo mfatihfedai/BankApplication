@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class InvoiceUpdateRequest {
+    private Long id;
     private int invoiceNo;
     private InvoiceInfo.InvoiceType invoiceType;
     private int invoiceAmount;
