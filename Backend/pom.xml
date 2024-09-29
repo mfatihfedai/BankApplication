@@ -97,6 +97,13 @@
 			<scope>provided</scope>
 		</dependency>
 		<!-- mapstruct -->
+		<!-- mail sender -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+			<version>3.3.4</version>
+		</dependency>
+		<!-- mail sender -->
 	</dependencies>
 
 	<build>
