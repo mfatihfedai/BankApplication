@@ -12,6 +12,6 @@ import java.util.List;
 public class CursorResponse<T> {
     private int pageNumber;
     private int pageSize;
-    private long totalPages;
+    private long totalElements;
     private List<T> items;
 }

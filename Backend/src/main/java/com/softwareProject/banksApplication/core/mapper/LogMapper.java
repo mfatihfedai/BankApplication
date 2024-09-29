@@ -8,9 +8,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
-public interface LogMapper {
+public interface LogMapper{
     LogMapper INSTANCE = Mappers.getMapper(LogMapper.class);
-    LogInfo logSaveRequestToLog(LogSaveRequest logSaveRequest);
-    LogInfo logUpdateRequestToLog(LogUpdateRequest logUpdateRequest);
-    LogResponse logToLogResponse(LogInfo log);
+    LogInfo saveRequestToEntity(LogSaveRequest request);
+    LogInfo updateRequestToEntity(LogUpdateRequest request);
+    LogResponse entityToResponse(LogInfo log);
 }
