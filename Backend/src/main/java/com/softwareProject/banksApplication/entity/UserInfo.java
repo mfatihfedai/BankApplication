@@ -25,8 +25,8 @@ public class UserInfo {
     @Column(name = "user_surname")
     private String surname;
 
-    @Column(name = "phone_number")
-    private Long phoneNumber;
+    @Column(name = "email")
+    private String mail;
 
     @Column(name = "identitiy_number")
     private Long identityNumber;

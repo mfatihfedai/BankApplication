@@ -16,10 +16,10 @@ import java.time.LocalDateTime;
 
 @Component
 @RequiredArgsConstructor
-public class AuthEventListener implements ApplicationListener<AuthenticationSuccessEvent> {
+public class LoginEventListener implements ApplicationListener<AuthenticationSuccessEvent> {
     private final UserRepo userRepo;
     private final LogRepo logRepo;
-    private static final Logger log = LoggerFactory.getLogger(AuthEventListener.class);
+    private static final Logger log = LoggerFactory.getLogger(LoginEventListener.class);
     @Override
     public void onApplicationEvent(AuthenticationSuccessEvent event) {
         Authentication authentication = event.getAuthentication();
