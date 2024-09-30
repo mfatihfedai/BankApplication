@@ -6,6 +6,6 @@ public interface IBaseService <E, SAVEREQUEST, UPDATEREQUEST, RESPONSE> {
     RESPONSE save(SAVEREQUEST request);
     E getById(Long id);
     CursorResponse<RESPONSE> cursor(int page, int pageSize);
-    RESPONSE update(UPDATEREQUEST request);
+    RESPONSE update(Long id, UPDATEREQUEST request);
     boolean delete(Long id);
 }

@@ -7,6 +7,7 @@ import com.softwareProject.banksApplication.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.security.core.Authentication;
@@ -17,8 +18,10 @@ import java.time.LocalDateTime;
 @Component
 @RequiredArgsConstructor
 public class LoginEventListener implements ApplicationListener<AuthenticationSuccessEvent> {
-    private final UserRepo userRepo;
-    private final LogRepo logRepo;
+    @Autowired
+    private UserRepo userRepo;
+    @Autowired
+    private LogRepo logRepo;
     private static final Logger log = LoggerFactory.getLogger(LoginEventListener.class);
     @Override
     public void onApplicationEvent(AuthenticationSuccessEvent event) {

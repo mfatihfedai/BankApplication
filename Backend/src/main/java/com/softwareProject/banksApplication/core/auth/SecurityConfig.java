@@ -1,7 +1,7 @@
 package com.softwareProject.banksApplication.core.auth;
 
-import com.softwareProject.banksApplication.service.concretes.TwoFactorAuthService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -17,8 +17,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
-    private final CustomUserDetailsService customUserDetailsService;
-    private final TwoFactorAuthService twoFactorAuthService;
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
+    @Autowired
+    private TwoFactorAuthService twoFactorAuthService;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
@@ -38,7 +40,6 @@ public class SecurityConfig {
                             String otp = twoFactorAuthService.generateOTP();
                             twoFactorAuthService.sendOTP(email, otp);
 
-                            // İsteği dashboard ya da başka bir sayfaya yönlendirin
                             response.sendRedirect("/dashboard");
                         })
                         .permitAll()
