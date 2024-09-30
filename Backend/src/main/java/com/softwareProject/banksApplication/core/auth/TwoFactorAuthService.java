@@ -1,4 +1,4 @@
-package com.softwareProject.banksApplication.service.concretes;
+package com.softwareProject.banksApplication.core.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;

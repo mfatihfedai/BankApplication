@@ -8,9 +8,5 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
-public interface InvoiceMapper{
-    InvoiceMapper INSTANCE = Mappers.getMapper(InvoiceMapper.class);
-    InvoiceInfo saveRequestToEntity(InvoiceSaveRequest request);
-    InvoiceInfo updateRequestToEntity(InvoiceUpdateRequest request);
-    InvoiceResponse entityToResponse(InvoiceInfo invoice);
+public interface InvoiceMapper extends BaseMapper<InvoiceInfo, InvoiceSaveRequest, InvoiceUpdateRequest, InvoiceResponse>{
 }
