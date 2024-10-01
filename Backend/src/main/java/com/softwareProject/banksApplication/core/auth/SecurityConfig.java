@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,21 +27,28 @@ public class SecurityConfig {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(registry -> {
-                    registry.requestMatchers("/v1/admins/**").hasRole("ADMIN");
-                    registry.requestMatchers("/v1/pensions/**").hasAnyRole("ADMIN","EMPLOYEE");
+                    registry.requestMatchers("/login", "/auth/dashboard").permitAll();
+                    registry.requestMatchers("/auth/verify/**").permitAll();
+                    registry.requestMatchers("/swagger-ui/**").authenticated();
+                    registry.requestMatchers("/v1/banks/**").hasRole("ADMIN");
+                    registry.requestMatchers("/v1/invoice/**").hasAnyRole("ADMIN","USER");
+                    registry.requestMatchers("/v1/receipt/**").hasAnyRole("ADMIN","USER");
+                    registry.requestMatchers("/v1/user/**").hasRole("ADMIN");
+                    registry.requestMatchers("/v1/transfer/**").hasAnyRole("ADMIN","USER");
+                    registry.requestMatchers("/v1/pensions/**").hasAnyRole("ADMIN","USER");
                     registry.anyRequest().authenticated();
                 })
-                //.httpBasic(Customizer.withDefaults())
+//                .httpBasic(Customizer.withDefaults())
                 .formLogin(login -> login
+//                        .successForwardUrl("/generate-otp")
                         .successHandler((request, response, authentication) -> {
                             // Generate and send OTP after successful login
                             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-                            //String username = userDetails.getUsername();
                             String email = ((CustomUserDetails) userDetails).getMail();
                             String otp = twoFactorAuthService.generateOTP();
                             twoFactorAuthService.sendOTP(email, otp);
 
-                            response.sendRedirect("/dashboard");
+                            response.sendRedirect("/auth/verify");
                         })
                         .permitAll()
                 )
