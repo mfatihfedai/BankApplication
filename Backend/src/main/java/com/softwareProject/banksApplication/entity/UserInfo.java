@@ -25,20 +25,21 @@ public class UserInfo {
     @Column(name = "user_surname")
     private String surname;
 
-    @Column(name = "phone_number")
-    private Integer phoneNumber;
+    @Column(name = "email")
+    private String mail;
 
     @Column(name = "identitiy_number")
-    private Integer identityNumber;
+    private Long identityNumber;
 
     @Column(name = "account_no")
-    private Integer accountNumber;
+    private Long accountNumber;
 
     @Column(name = "password")
     private String password;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "role")
-    private String role;
+    private Role role;
 
     @Column(name = "balance")
     private Long balance;
@@ -50,4 +51,9 @@ public class UserInfo {
     @OneToMany(mappedBy = "userInfo",fetch = FetchType.LAZY)
     @JsonIgnore
     private List<LogInfo> logInfoList;
+
+    public enum Role {
+        ADMIN,
+        USER
+    }
 }
