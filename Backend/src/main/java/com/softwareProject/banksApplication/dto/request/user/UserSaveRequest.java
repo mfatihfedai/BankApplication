@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class UserSaveRequest {
     private String name;
     private String surname;
-    private Integer phoneNumber;
+    private String mail;
     private Integer identityNumber;
     private Integer accountNumber;
     private String password;

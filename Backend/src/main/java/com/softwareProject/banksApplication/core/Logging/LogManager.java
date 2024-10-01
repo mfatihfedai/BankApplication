@@ -1,11 +1,6 @@
-package com.softwareProject.banksApplication.service.concretes;
+package com.softwareProject.banksApplication.core.Logging;
 
-import com.softwareProject.banksApplication.core.exception.NotFoundException;
-import com.softwareProject.banksApplication.core.mapper.LogMapper;
 import com.softwareProject.banksApplication.core.utilies.ResultHelper;
-import com.softwareProject.banksApplication.dto.request.log.LogSaveRequest;
-import com.softwareProject.banksApplication.dto.request.log.LogUpdateRequest;
-import com.softwareProject.banksApplication.dto.response.log.LogResponse;
 import com.softwareProject.banksApplication.entity.LogInfo;
 import com.softwareProject.banksApplication.entity.UserInfo;
 import com.softwareProject.banksApplication.repo.LogRepo;

@@ -12,7 +12,7 @@ public class UserUpdateRequest {
     private Long id;
     private String name;
     private String surname;
-    private Integer phoneNumber;
+    private String mail;
     private Integer identityNumber;
     private Integer accountNumber;
     private String password;

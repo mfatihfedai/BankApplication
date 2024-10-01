@@ -3,6 +3,7 @@ package com.softwareProject.banksApplication.core.auth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
@@ -17,7 +18,7 @@ public class TwoFactorAuthService {
         Random random = new Random();
         return String.format("%06d", random.nextInt(1000000));
     }
-
+    @Async
     public void sendOTP(String email, String otp) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(email);
