@@ -8,26 +8,20 @@ function App() {
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div>
+      <h1 style={{ color: 'var(--color-black)', letterSpacing: '5px',padding: '10px , 5px' }}>RIS<span style={{ color: 'var(--color-black)', fontSize: "40px" }}>e</span></h1>
+    </div>
+      <div className='main'>
+        <h1 style={{ color: 'var(--color-white)' }}>Talha</h1>
+        <h1 className='nihan'>Nihan</h1>
+        <p style={{ color: 'var(--color-white)' }}>Lorem, ipsum dolor.</p>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className='second'>
+        <h1>Fatih</h1>
+        <h1>Merve</h1>
+        <p>Lorem, ipsum dolor.</p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+
     </>
   )
 }
