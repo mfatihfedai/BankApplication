@@ -6,10 +6,11 @@ import com.softwareProject.banksApplication.dto.request.transfer.TransferUpdateR
 import com.softwareProject.banksApplication.dto.response.transfer.TransferResponse;
 import com.softwareProject.banksApplication.entity.TransferInfo;
 import com.softwareProject.banksApplication.repo.TransferRepo;
+import com.softwareProject.banksApplication.service.abstracts.TransferService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TransferManager extends BaseManager<TransferInfo, TransferRepo, TransferSaveRequest, TransferUpdateRequest, TransferResponse, TransferMapper>{
+public class TransferManager extends BaseManager<TransferInfo, TransferRepo, TransferSaveRequest, TransferUpdateRequest, TransferResponse, TransferMapper> implements TransferService {
     public TransferManager(TransferRepo repository, TransferMapper mapper) {
         super(repository, mapper);
     }

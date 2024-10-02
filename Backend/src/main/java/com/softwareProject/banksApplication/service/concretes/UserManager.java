@@ -6,10 +6,11 @@ import com.softwareProject.banksApplication.dto.request.user.UserUpdateRequest;
 import com.softwareProject.banksApplication.dto.response.user.UserResponse;
 import com.softwareProject.banksApplication.entity.UserInfo;
 import com.softwareProject.banksApplication.repo.UserRepo;
+import com.softwareProject.banksApplication.service.abstracts.UserService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserManager extends BaseManager<UserInfo, UserRepo, UserSaveRequest, UserUpdateRequest, UserResponse, UserMapper> {
+public class UserManager extends BaseManager<UserInfo, UserRepo, UserSaveRequest, UserUpdateRequest, UserResponse, UserMapper> implements UserService {
     public UserManager(UserRepo repository, UserMapper mapper) {
         super(repository, mapper);
     }

@@ -6,10 +6,11 @@ import com.softwareProject.banksApplication.dto.request.invoice.InvoiceUpdateReq
 import com.softwareProject.banksApplication.dto.response.invoice.InvoiceResponse;
 import com.softwareProject.banksApplication.entity.InvoiceInfo;
 import com.softwareProject.banksApplication.repo.InvoiceRepo;
+import com.softwareProject.banksApplication.service.abstracts.InvoiceService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class InvoiceManager extends BaseManager<InvoiceInfo, InvoiceRepo, InvoiceSaveRequest, InvoiceUpdateRequest, InvoiceResponse, InvoiceMapper>{
+public class InvoiceManager extends BaseManager<InvoiceInfo, InvoiceRepo, InvoiceSaveRequest, InvoiceUpdateRequest, InvoiceResponse, InvoiceMapper> implements InvoiceService {
     public InvoiceManager(InvoiceRepo repository, InvoiceMapper mapper) {
         super(repository, mapper);
     }

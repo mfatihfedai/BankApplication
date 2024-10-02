@@ -4,15 +4,16 @@ import com.softwareProject.banksApplication.core.Logging.LogManager;
 import com.softwareProject.banksApplication.core.auth.CustomUserDetails;
 import com.softwareProject.banksApplication.entity.UserInfo;
 import com.softwareProject.banksApplication.core.auth.TwoFactorAuthService;
+import com.softwareProject.banksApplication.service.abstracts.UserService;
+import com.softwareProject.banksApplication.service.concretes.UserManager;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,36 +28,41 @@ public class TwoFactorAuthController {
     private final LogManager logManager;
 
     private final Map<String, String> otpStorage = new HashMap<>();  // Simple in-memory storage for OTPs
+    private final UserService userService;
 
-    @PostMapping("/generate-otp")
-    public String generateOtp(Authentication authentication) {
-        String username = authentication.getName();
+    @GetMapping("/generate-otp/{id}")
+    public String generateOtp(@PathVariable Long id) {
+        UserInfo userr = userService.getById(id);
+        String email = userr.getMail();
+        String username = userr.getName();
+        String surname = userr.getSurname();
 
+        //twoFactorAuthService ile yeni bir OTP üretilir ve mail olarak gönderilir.
         String otp = twoFactorAuthService.generateOTP();
-
-        // Assuming the user has an email attribute
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        String email = ((CustomUserDetails) userDetails).getMail();
-        twoFactorAuthService.sendOTP(email, otp);
-
+        twoFactorAuthService.sendOTP(username, surname, email, otp);
+        //Localdeki HashMap e username ve otp bilgileri kaydedilir
         otpStorage.put(username, otp);  // Save OTP for the user
+        System.out.println(username + " " + email + " " + otp);
 
-        return "redirect:/verify";  // Redirect to OTP verification page
+        return "redirect:/auth/verify";  // Redirect to OTP verification page
     }
 
     @PostMapping("/verify")
-    public String verifyOtp(@RequestParam String otp, Authentication authentication) {
+    public String verifyOtp(@RequestParam String otp, HttpServletRequest request, Authentication authentication) {
         String username = authentication.getName();
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
         UserInfo userInfo = customUserDetails.getUserInfo();
         String role = customUserDetails.getRole();
-        otpStorage.put(username, otp);
         String storedOtp = otpStorage.get(username);
 
         if (storedOtp != null && storedOtp.equals(otp)) {
+
             otpStorage.remove(username);  // OTP is valid, remove it from storage
             logManager.logUserLogin(userInfo);
+
             if (Objects.equals(role, "ADMIN")){
+                HttpSession session = request.getSession();
+                session.setAttribute("otpVerified", true);
                 return "redirect:/swagger-ui/index.html";
             } else {
                 return "redirect:/auth/dashboard";  // Redirect to user's dashboard
