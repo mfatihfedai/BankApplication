@@ -33,7 +33,7 @@ public class TwoFactorAuthController {
     @GetMapping("/generate-otp/{id}")
     public String generateOtp(@PathVariable Long id) {
         UserInfo userr = userService.getById(id);
-        String email = userr.getMail();
+        String email = userr.getEmail();
         String username = userr.getName();
         String surname = userr.getSurname();
 
