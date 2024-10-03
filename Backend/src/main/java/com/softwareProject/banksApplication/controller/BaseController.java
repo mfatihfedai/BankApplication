@@ -1,6 +1,8 @@
 package com.softwareProject.banksApplication.controller;
 
 import com.softwareProject.banksApplication.dto.CursorResponse;
+import com.softwareProject.banksApplication.dto.request.user.UserSaveRequest;
+import com.softwareProject.banksApplication.dto.response.user.UserResponse;
 import com.softwareProject.banksApplication.service.abstracts.IBaseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
