@@ -6,5 +6,6 @@ import com.softwareProject.banksApplication.dto.response.user.UserResponse;
 import com.softwareProject.banksApplication.entity.UserInfo;
 
 public interface UserService extends IBaseService<UserInfo, UserSaveRequest, UserUpdateRequest, UserResponse> {
-    UserResponse createUser(UserSaveRequest request, String role);
+    UserResponse create(UserSaveRequest request);
+    UserInfo save(UserInfo user);
 }

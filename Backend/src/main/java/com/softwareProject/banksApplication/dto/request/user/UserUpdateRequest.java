@@ -13,9 +13,5 @@ public class UserUpdateRequest {
     private String name;
     private String surname;
     private String email;
-    private Integer identityNumber;
-    private Integer accountNumber;
     private String password;
-    private UserInfo.Role role;
-    private Long balance;
 }

@@ -24,7 +24,7 @@ public abstract class BaseManager<E, R extends JpaRepository<E, Long>, SAVEREQUE
 
     @Override
     @Transactional
-    public RESPONSE save(SAVEREQUEST saveDto) {
+    public RESPONSE create(SAVEREQUEST saveDto) {
         E entity = mapper.saveRequestToEntity(saveDto);  // SAVE DTO'dan Entity'ye
         E savedEntity = repository.save(entity);  // Veritabanına kaydet
         return mapper.entityToResponse(savedEntity);  // Entity'den RESPONSE DTO'ya
