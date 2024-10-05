@@ -14,4 +14,6 @@ public class UserSaveRequest {
     private String email;
     private Integer identityNumber;
     private String password;
+    private UserInfo.Role role;
+    private Long balance;
 }

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "invoices")
@@ -29,7 +30,7 @@ public class InvoiceInfo {
     private int invoiceAmount;
 
     @Column(name = "pay_date")
-    private LocalDate payDate;
+    private LocalDateTime payDate;
 
     @Column(name = "autobill")
     private boolean autobill;

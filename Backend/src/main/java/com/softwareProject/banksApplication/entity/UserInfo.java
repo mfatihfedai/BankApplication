@@ -44,7 +44,7 @@ public class UserInfo {
     @Column(name = "balance")
     private Long balance;
 
-    @OneToOne(mappedBy = "userInfo")
+    @OneToOne(mappedBy = "userInfo", cascade = CascadeType.ALL)
     @JsonIgnore
     private ReceiptInfo receiptInfo;
 

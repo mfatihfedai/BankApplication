@@ -20,8 +20,9 @@ public class UserManager extends BaseManager<UserInfo, UserRepo, UserSaveRequest
     public UserManager(UserRepo repository, UserMapper mapper) {
         super(repository, mapper);
     }
+
     @Override
-    public UserResponse createUser(UserSaveRequest request, String role) {
+    public UserResponse create(UserSaveRequest request) {
         UserInfo user = mapper.saveRequestToEntity(request);
         // Control the identity number
         if(identityControl(String.valueOf(user.getIdentityNumber()))){
@@ -37,14 +38,29 @@ public class UserManager extends BaseManager<UserInfo, UserRepo, UserSaveRequest
         }
         user.setAccountNumber(generateAccountNumber());
         user.setPassword(BCrypt.hashpw(request.getPassword(), BCrypt.gensalt()));
-
-
+        this.repository.save(user);
         return mapper.entityToResponse(user);
     }
 
+    @Override
+    public UserInfo save(UserInfo user) {
+        return this.repository.save(user);
+    }
+
     private Long generateAccountNumber() {
-        Random random = new Random();
-        return random.nextLong(99999999);
+        long newNumber;
+        boolean isAvailable;
+        do {
+            isAvailable = false;
+            Random random = new Random();
+            newNumber = random.nextLong(99999999);
+            Optional<UserInfo> numberAvailable = this.repository.findByAccountNumber(newNumber);
+            if(numberAvailable.isPresent()){
+                isAvailable = true;
+            }
+        } while(isAvailable);
+
+        return newNumber;
     }
 
     private boolean identityControl(String tcNo)

@@ -1,15 +1,11 @@
 package com.softwareProject.banksApplication.controller;
 
 import com.softwareProject.banksApplication.dto.CursorResponse;
-import com.softwareProject.banksApplication.dto.request.user.UserSaveRequest;
-import com.softwareProject.banksApplication.dto.response.user.UserResponse;
 import com.softwareProject.banksApplication.service.abstracts.IBaseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 public class BaseController<E, SAVEREQUEST, UPDATEREQUEST, RESPONSE> {
@@ -18,7 +14,7 @@ public class BaseController<E, SAVEREQUEST, UPDATEREQUEST, RESPONSE> {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<RESPONSE> save(@RequestBody SAVEREQUEST saverequest) {
-        return ResponseEntity.ok(this.service.save(saverequest));
+        return ResponseEntity.ok(this.service.create(saverequest));
     }
 
     @PutMapping("/{id}")
