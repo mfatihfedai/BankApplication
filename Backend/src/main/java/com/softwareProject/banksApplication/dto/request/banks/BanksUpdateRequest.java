@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class BanksUpdateRequest {
     private Long id;
     private String bankName;
-    private int transferFee;
+    private float transferFee;
 }

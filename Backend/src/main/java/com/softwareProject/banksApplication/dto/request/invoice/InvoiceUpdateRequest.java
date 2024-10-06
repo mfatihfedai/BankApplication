@@ -16,6 +16,5 @@ public class InvoiceUpdateRequest {
     private int invoiceNo;
     private InvoiceInfo.InvoiceType invoiceType;
     private int invoiceAmount;
-    private LocalDateTime payDate;
     private boolean autobill;
 }

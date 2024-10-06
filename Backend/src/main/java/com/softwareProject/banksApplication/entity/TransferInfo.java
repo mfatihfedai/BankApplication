@@ -17,10 +17,10 @@ public class TransferInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "transfer_id")
-    private int id;
+    private Long id;
 
     @Column(name = "receiver_account_no")
-    private int receiverAccountNo;
+    private Long receiverAccountNo;
 
     @Column(name = "transfer_time")
     private LocalDateTime transferTime;
@@ -37,7 +37,7 @@ public class TransferInfo {
     @Column(name = "transfer_fee")
     private int transferFee;
 
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "transfer_receipt_id", referencedColumnName = "receipt_id")
     @JsonIgnore
     private ReceiptInfo receiptInfo;

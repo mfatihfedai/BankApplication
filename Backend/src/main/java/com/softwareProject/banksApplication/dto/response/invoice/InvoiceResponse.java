@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class InvoiceResponse {
-    private int id;
+    private Long id;
     private int invoiceNo;
     private InvoiceInfo.InvoiceType invoiceType;
     private int invoiceAmount;

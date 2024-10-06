@@ -12,7 +12,7 @@ public class UserSaveRequest {
     private String name;
     private String surname;
     private String email;
-    private Integer identityNumber;
+    private Long identityNumber;
     private String password;
     private UserInfo.Role role;
     private Long balance;

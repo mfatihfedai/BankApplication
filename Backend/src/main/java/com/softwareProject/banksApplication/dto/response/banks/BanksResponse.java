@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BanksResponse {
-    private int id;
+    private Long id;
     private String bankName;
-    private int transferFee;
+    private float transferFee;
 }

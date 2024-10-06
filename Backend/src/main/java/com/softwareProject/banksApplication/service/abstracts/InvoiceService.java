@@ -8,5 +8,6 @@ import com.softwareProject.banksApplication.entity.InvoiceInfo;
 import java.util.List;
 
 public interface InvoiceService extends IBaseService<InvoiceInfo, InvoiceSaveRequest, InvoiceUpdateRequest, InvoiceResponse>{
+    InvoiceResponse create(InvoiceSaveRequest saveRequest, Long id);
     List<InvoiceInfo> getByAutobillList(Long userId);
 }

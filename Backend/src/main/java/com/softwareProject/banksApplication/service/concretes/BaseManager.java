@@ -25,9 +25,9 @@ public abstract class BaseManager<E, R extends JpaRepository<E, Long>, SAVEREQUE
     @Override
     @Transactional
     public RESPONSE create(SAVEREQUEST saveDto) {
-        E entity = mapper.saveRequestToEntity(saveDto);  // SAVE DTO'dan Entity'ye
-        E savedEntity = repository.save(entity);  // Veritabanına kaydet
-        return mapper.entityToResponse(savedEntity);  // Entity'den RESPONSE DTO'ya
+        E entity = mapper.saveRequestToEntity(saveDto);
+        E savedEntity = repository.save(entity);
+        return mapper.entityToResponse(savedEntity);
     }
 
     @Override
@@ -58,6 +58,6 @@ public abstract class BaseManager<E, R extends JpaRepository<E, Long>, SAVEREQUE
     public boolean delete(Long id) {
         E entity = getById(id);
         repository.delete(entity);
-        return true;
+        return this.repository.findById(id).isEmpty();
     }
 }

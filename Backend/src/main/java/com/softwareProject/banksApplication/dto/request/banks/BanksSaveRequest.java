@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BanksSaveRequest {
     private String bankName;
-    private int transferFee;
+    private float transferFee;
 }
