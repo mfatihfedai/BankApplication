@@ -18,7 +18,7 @@ public class InvoiceInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "invoice_id")
-    private int id;
+    private Long id;
 
     @Column(name = "invoice_no")
     private int invoiceNo;
@@ -35,7 +35,7 @@ public class InvoiceInfo {
     @Column(name = "autobill")
     private boolean autobill;
 
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "invoice_receipt_id", referencedColumnName = "receipt_id")
     @JsonIgnore
     private ReceiptInfo receiptInfo;

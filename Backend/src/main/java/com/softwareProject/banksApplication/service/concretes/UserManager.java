@@ -1,32 +1,40 @@
 package com.softwareProject.banksApplication.service.concretes;
 
+import com.softwareProject.banksApplication.core.exception.DataAlreadyExistException;
+import com.softwareProject.banksApplication.core.exception.NotValidException;
 import com.softwareProject.banksApplication.core.mapper.UserMapper;
 import com.softwareProject.banksApplication.core.utilies.Msg;
 import com.softwareProject.banksApplication.core.utilies.ResultHelper;
 import com.softwareProject.banksApplication.dto.request.user.UserSaveRequest;
 import com.softwareProject.banksApplication.dto.request.user.UserUpdateRequest;
 import com.softwareProject.banksApplication.dto.response.user.UserResponse;
+import com.softwareProject.banksApplication.entity.ReceiptInfo;
 import com.softwareProject.banksApplication.entity.UserInfo;
+import com.softwareProject.banksApplication.repo.ReceiptRepo;
 import com.softwareProject.banksApplication.repo.UserRepo;
 import com.softwareProject.banksApplication.service.abstracts.UserService;
-import org.springframework.security.crypto.bcrypt.BCrypt;
+//import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
 @Service
 public class UserManager extends BaseManager<UserInfo, UserRepo, UserSaveRequest, UserUpdateRequest, UserResponse, UserMapper> implements UserService {
-    public UserManager(UserRepo repository, UserMapper mapper) {
+    private final ReceiptRepo receiptRepo;
+    public UserManager(UserRepo repository, UserMapper mapper, ReceiptRepo receiptRepo) {
         super(repository, mapper);
+        this.receiptRepo = receiptRepo;
     }
 
     @Override
     public UserResponse create(UserSaveRequest request) {
         UserInfo user = mapper.saveRequestToEntity(request);
         // Control the identity number
-        if(identityControl(String.valueOf(user.getIdentityNumber()))){
-            throw new RuntimeException("Please enter valid identity number.");
+        System.out.println(user.getIdentityNumber());
+        if(!identityControl(String.valueOf(user.getIdentityNumber()))){
+            throw new NotValidException("Please enter valid identity number.");
         }
         // Is user exist in the database
         Optional<UserInfo> userOptional = this.repository.findByEmailOrIdentityNumber(
@@ -34,17 +42,27 @@ public class UserManager extends BaseManager<UserInfo, UserRepo, UserSaveRequest
                 user.getIdentityNumber()
         );
         if(userOptional.isPresent()){
-            throw new RuntimeException(Msg.DATA_ALREADY_EXIST);
+            throw new DataAlreadyExistException(Msg.DATA_ALREADY_EXIST);
         }
         user.setAccountNumber(generateAccountNumber());
-        user.setPassword(BCrypt.hashpw(request.getPassword(), BCrypt.gensalt()));
+        //user.setPassword(BCrypt.hashpw(request.getPassword(), BCrypt.gensalt()));
         this.repository.save(user);
+
+        ReceiptInfo receiptInfo = new ReceiptInfo();
+        receiptInfo.setUserInfo(user);
+        user.setReceiptInfo(receiptInfo);
+        this.receiptRepo.save(receiptInfo);
         return mapper.entityToResponse(user);
     }
 
     @Override
     public UserInfo save(UserInfo user) {
         return this.repository.save(user);
+    }
+
+    @Override
+    public List<UserInfo> searchByKeyword(String keyword) {
+        return repository.searchByKeyword(keyword);
     }
 
     private Long generateAccountNumber() {

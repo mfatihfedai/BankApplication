@@ -1,5 +1,6 @@
 package com.softwareProject.banksApplication.service.concretes;
 
+import com.softwareProject.banksApplication.core.exception.NotValidException;
 import com.softwareProject.banksApplication.core.mapper.InvoiceMapper;
 import com.softwareProject.banksApplication.dto.request.invoice.InvoiceSaveRequest;
 import com.softwareProject.banksApplication.dto.request.invoice.InvoiceUpdateRequest;
@@ -27,13 +28,17 @@ public class InvoiceManager extends BaseManager<InvoiceInfo, InvoiceRepo, Invoic
 
     @Override
     @Transactional
-    public InvoiceResponse create(InvoiceSaveRequest saveRequest) {
+    public InvoiceResponse create(InvoiceSaveRequest saveRequest, Long userId) {
+        UserInfo user = userService.getById(userId);
+        ReceiptInfo receiptInfo = user.getReceiptInfo();
         InvoiceInfo invoiceInfo = mapper.saveRequestToEntity(saveRequest);
+        invoiceInfo.setReceiptInfo(receiptInfo);
         if(checkBalance(invoiceInfo)) {
-            throw new RuntimeException("Not enough balance");
+            throw new NotValidException("Not enough balance");
         }
         invoiceInfo.setPayDate(LocalDateTime.now());
         reduceBalance(invoiceInfo);
+        this.repository.save(invoiceInfo);
         return mapper.entityToResponse(invoiceInfo);
     }
 

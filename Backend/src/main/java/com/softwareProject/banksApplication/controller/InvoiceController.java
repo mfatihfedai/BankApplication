@@ -8,11 +8,9 @@ import com.softwareProject.banksApplication.entity.UserInfo;
 import com.softwareProject.banksApplication.service.abstracts.IBaseService;
 import com.softwareProject.banksApplication.service.abstracts.InvoiceService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+//import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,9 +23,18 @@ public class InvoiceController extends BaseController<InvoiceInfo, InvoiceSaveRe
         this.invoiceService = invoiceService;
     }
 
-    @PreAuthorize("#user.id == authentication.principal.id or hasRole('ADMIN')")
+    @PostMapping("/create")
+    public InvoiceResponse createInvoice(@RequestBody InvoiceSaveRequest saveRequest,
+                                         //@AuthenticationPrincipal
+                                         UserInfo user) {
+        // Invoice oluştururken şu anki oturum açmış kullanıcı bilgilerini kullanıyoruz.
+        return this.invoiceService.create(saveRequest, user.getId());
+    }
+
+    //@PreAuthorize("#user.id == authentication.principal.id or hasRole('ADMIN')")
     @GetMapping("/autobill")
-    public List<InvoiceInfo> autobill(@AuthenticationPrincipal UserInfo user) {
+    public List<InvoiceInfo> autobill(//@AuthenticationPrincipal
+                                      UserInfo user) {
         return this.invoiceService.getByAutobillList(user.getId());
     }
 }

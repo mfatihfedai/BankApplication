@@ -14,11 +14,11 @@ public class BanksInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "bank_id")
-    private int id;
+    private Long id;
 
     @Column(name = "bank_name")
     private String bankName;
 
     @Column(name = "transfer_fee")
-    private int transferFee;
+    private float transferFee;
 }

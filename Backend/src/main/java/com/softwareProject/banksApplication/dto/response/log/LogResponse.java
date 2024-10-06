@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LogResponse {
-    private int id;
+    private Long id;
     private LocalDateTime loginTime;
     private LocalDateTime logoutTime;
     private UserInfo userInfo;

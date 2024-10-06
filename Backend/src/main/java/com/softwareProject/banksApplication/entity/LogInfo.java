@@ -17,7 +17,7 @@ public class LogInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "log_id")
-    private int id;
+    private Long id;
 
     @Column(name = "login_time")
     private LocalDateTime loginTime;

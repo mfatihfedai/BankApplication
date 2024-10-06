@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class TransferResponse {
     private Long id;
-    private int receiverAccountNo;
+    private Long receiverAccountNo;
     private LocalDateTime transferTime;
     private int transferAmount;
     private String message;

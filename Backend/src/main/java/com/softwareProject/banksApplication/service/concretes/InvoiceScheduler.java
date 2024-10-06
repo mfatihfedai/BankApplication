@@ -6,6 +6,7 @@ import com.softwareProject.banksApplication.entity.UserInfo;
 import com.softwareProject.banksApplication.repo.InvoiceRepo;
 import com.softwareProject.banksApplication.service.abstracts.UserService;
 import jakarta.transaction.Transactional;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +29,9 @@ public class InvoiceScheduler {
 
     @Scheduled(cron = "0 0 0 1 * ?")  // Her ayın 1. günü saat 00:00'da çalışacak
     @Transactional
+    @Async
     public void processAutobillInvoices() {
-        List<InvoiceInfo> autobillInvoices = invoiceRepo.findByAutobillTrue();
+        List<InvoiceInfo> autobillInvoices = invoiceRepo.findLatestAutobillInvoices();
         Random random = new Random();
 
         for (InvoiceInfo invoice : autobillInvoices) {

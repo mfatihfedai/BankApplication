@@ -44,11 +44,11 @@ public class UserInfo {
     @Column(name = "balance")
     private Long balance;
 
-    @OneToOne(mappedBy = "userInfo", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "userInfo",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
     private ReceiptInfo receiptInfo;
 
-    @OneToMany(mappedBy = "userInfo",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "userInfo",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private List<LogInfo> logInfoList;
 
