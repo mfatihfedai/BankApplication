@@ -35,7 +35,7 @@ public class TransferInfo {
     private String bankName;
 
     @Column(name = "transfer_fee")
-    private int transferFee;
+    private float transferFee;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "transfer_receipt_id", referencedColumnName = "receipt_id")

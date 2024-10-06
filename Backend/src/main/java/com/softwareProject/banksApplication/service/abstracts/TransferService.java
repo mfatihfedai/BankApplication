@@ -6,4 +6,5 @@ import com.softwareProject.banksApplication.dto.response.transfer.TransferRespon
 import com.softwareProject.banksApplication.entity.TransferInfo;
 
 public interface TransferService extends IBaseService<TransferInfo, TransferSaveRequest, TransferUpdateRequest, TransferResponse>{
+    TransferResponse create(TransferSaveRequest request, Long userId);
 }

@@ -54,6 +54,6 @@ public class InvoiceManager extends BaseManager<InvoiceInfo, InvoiceRepo, Invoic
 
     @Override
     public List<InvoiceInfo> getByAutobillList(Long userId) {
-        return repository.findByAutobillTrueAndReceiptInfo_UserInfo_Id(userId);
+        return repository.findLatestAutobillInvoicesForUser(userId);
     }
 }

@@ -4,7 +4,6 @@ import com.softwareProject.banksApplication.core.exception.DataAlreadyExistExcep
 import com.softwareProject.banksApplication.core.exception.NotValidException;
 import com.softwareProject.banksApplication.core.mapper.UserMapper;
 import com.softwareProject.banksApplication.core.utilies.Msg;
-import com.softwareProject.banksApplication.core.utilies.ResultHelper;
 import com.softwareProject.banksApplication.dto.request.user.UserSaveRequest;
 import com.softwareProject.banksApplication.dto.request.user.UserUpdateRequest;
 import com.softwareProject.banksApplication.dto.response.user.UserResponse;
@@ -63,6 +62,11 @@ public class UserManager extends BaseManager<UserInfo, UserRepo, UserSaveRequest
     @Override
     public List<UserInfo> searchByKeyword(String keyword) {
         return repository.searchByKeyword(keyword);
+    }
+
+    @Override
+    public Optional<UserInfo> isAccountNumberExist(Long accountNumber) {
+        return this.repository.findByAccountNumber(accountNumber);
     }
 
     private Long generateAccountNumber() {

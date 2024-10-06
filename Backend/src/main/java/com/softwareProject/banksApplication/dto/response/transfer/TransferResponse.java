@@ -16,5 +16,5 @@ public class TransferResponse {
     private int transferAmount;
     private String message;
     private String bankName;
-    private int transferFee;
+    private float transferFee;
 }
