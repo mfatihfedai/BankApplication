@@ -10,10 +10,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TransferSaveRequest {
-    private int receiverAccountNo;
-    private LocalDateTime transferTime;
+    private Long receiverAccountNo;
     private int transferAmount;
     private String message;
     private String bankName;
-    private int transferFee;
+    private float transferFee;
 }

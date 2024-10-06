@@ -23,11 +23,11 @@ public class InvoiceController extends BaseController<InvoiceInfo, InvoiceSaveRe
         this.invoiceService = invoiceService;
     }
 
+    //@PreAuthorize("#user.id == authentication.principal.id or hasRole('ADMIN')")
     @PostMapping("/create")
     public InvoiceResponse createInvoice(@RequestBody InvoiceSaveRequest saveRequest,
                                          //@AuthenticationPrincipal
                                          UserInfo user) {
-        // Invoice oluştururken şu anki oturum açmış kullanıcı bilgilerini kullanıyoruz.
         return this.invoiceService.create(saveRequest, user.getId());
     }
 
