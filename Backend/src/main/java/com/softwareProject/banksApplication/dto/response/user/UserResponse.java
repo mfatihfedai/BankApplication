@@ -17,5 +17,5 @@ public class UserResponse {
     private Long accountNumber;
     private String password;
     private UserInfo.Role role;
-    private Long balance;
+    private double balance;
 }

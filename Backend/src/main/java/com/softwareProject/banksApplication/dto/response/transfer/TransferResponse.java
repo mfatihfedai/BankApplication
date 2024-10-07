@@ -13,7 +13,7 @@ public class TransferResponse {
     private Long id;
     private Long receiverAccountNo;
     private LocalDateTime transferTime;
-    private int transferAmount;
+    private double transferAmount;
     private String message;
     private String bankName;
     private float transferFee;

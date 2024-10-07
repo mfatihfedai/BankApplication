@@ -15,5 +15,5 @@ public class UserSaveRequest {
     private Long identityNumber;
     private String password;
     private UserInfo.Role role;
-    private Long balance;
+    private double balance;
 }
