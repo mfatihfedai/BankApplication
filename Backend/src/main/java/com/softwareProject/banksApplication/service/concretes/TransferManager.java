@@ -56,14 +56,19 @@ public class TransferManager extends BaseManager<TransferInfo, TransferRepo, Tra
 
     private void reduceBalanceFromSender(TransferInfo transferInfo){
         transferInfo.getReceiptInfo().getUserInfo().setBalance(
-                transferInfo.getReceiptInfo().getUserInfo().getBalance() - transferInfo.getTransferAmount());
+                (double) Math.round(
+                        (transferInfo.getReceiptInfo().getUserInfo().getBalance() -
+                                (transferInfo.getTransferAmount() + transferInfo.getTransferFee())
+                        ) * 100) /100);
         this.userService.save(transferInfo.getReceiptInfo().getUserInfo());
     }
 
     private void increaseBalanceFromReceiver(TransferInfo transferInfo){
         Optional<UserInfo> userInfoOptional = this.userService.isAccountNumberExist(transferInfo.getReceiverAccountNo());
         if(userInfoOptional.isPresent()){
-            userInfoOptional.get().setBalance(userInfoOptional.get().getBalance() + transferInfo.getTransferAmount());
+            userInfoOptional.get().setBalance(
+                    (double) Math.round(
+                            userInfoOptional.get().getBalance() + transferInfo.getTransferAmount() * 100) /100);
             this.userService.save(userInfoOptional.get());
         }
     }

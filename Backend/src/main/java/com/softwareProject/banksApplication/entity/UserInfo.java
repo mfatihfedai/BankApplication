@@ -42,7 +42,7 @@ public class UserInfo {
     private Role role;
 
     @Column(name = "balance")
-    private Long balance;
+    private double balance;
 
     @OneToOne(mappedBy = "userInfo",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore

@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class TransferSaveRequest {
     private Long receiverAccountNo;
-    private int transferAmount;
+    private double transferAmount;
     private String message;
     private String bankName;
     private float transferFee;

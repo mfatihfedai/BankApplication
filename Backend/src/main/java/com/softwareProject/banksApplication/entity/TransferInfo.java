@@ -26,7 +26,7 @@ public class TransferInfo {
     private LocalDateTime transferTime;
 
     @Column(name = "transfer_amount")
-    private int transferAmount;
+    private double transferAmount;
 
     @Column(name = "message")
     private String message;

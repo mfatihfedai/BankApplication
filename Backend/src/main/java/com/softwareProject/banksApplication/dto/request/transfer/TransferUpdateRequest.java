@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class TransferUpdateRequest {
     private Long id;
     private Long receiverAccountNo;
-    private int transferAmount;
+    private double transferAmount;
     private String message;
     private String bankName;
     private float transferFee;
