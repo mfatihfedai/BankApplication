@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,5 +19,5 @@ public class UserResponse {
     private Long accountNumber;
     private String password;
     private UserInfo.Role role;
-    private double balance;
+    private BigDecimal balance;
 }

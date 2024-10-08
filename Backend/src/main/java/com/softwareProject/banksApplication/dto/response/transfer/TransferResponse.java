@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
@@ -13,8 +14,8 @@ public class TransferResponse {
     private Long id;
     private Long receiverAccountNo;
     private LocalDateTime transferTime;
-    private double transferAmount;
+    private BigDecimal transferAmount;
     private String message;
     private String bankName;
-    private float transferFee;
+    private BigDecimal transferFee;
 }

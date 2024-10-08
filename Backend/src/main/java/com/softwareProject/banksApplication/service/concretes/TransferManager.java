@@ -14,6 +14,7 @@ import com.softwareProject.banksApplication.service.abstracts.UserService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -50,26 +51,28 @@ public class TransferManager extends BaseManager<TransferInfo, TransferRepo, Tra
         return userInfoOptional.isEmpty();
     }
 
-    private boolean checkBalance(TransferInfo transferInfo){
-        return (transferInfo.getTransferAmount() + transferInfo.getTransferFee()) > transferInfo.getReceiptInfo().getUserInfo().getBalance();
+    private boolean checkBalance(TransferInfo transferInfo) {
+        BigDecimal totalAmount = transferInfo.getTransferAmount().add(transferInfo.getTransferFee());
+        return totalAmount.compareTo(transferInfo.getReceiptInfo().getUserInfo().getBalance()) > 0;
     }
 
-    private void reduceBalanceFromSender(TransferInfo transferInfo){
-        transferInfo.getReceiptInfo().getUserInfo().setBalance(
-                (double) Math.round(
-                        (transferInfo.getReceiptInfo().getUserInfo().getBalance() -
-                                (transferInfo.getTransferAmount() + transferInfo.getTransferFee())
-                        ) * 100) /100);
+
+    private void reduceBalanceFromSender(TransferInfo transferInfo) {
+        BigDecimal totalAmount = transferInfo.getTransferAmount().add(transferInfo.getTransferFee());
+        BigDecimal newBalance = transferInfo.getReceiptInfo().getUserInfo().getBalance().subtract(totalAmount);
+
+        transferInfo.getReceiptInfo().getUserInfo().setBalance(newBalance);
         this.userService.save(transferInfo.getReceiptInfo().getUserInfo());
     }
 
-    private void increaseBalanceFromReceiver(TransferInfo transferInfo){
+    private void increaseBalanceFromReceiver(TransferInfo transferInfo) {
         Optional<UserInfo> userInfoOptional = this.userService.isAccountNumberExist(transferInfo.getReceiverAccountNo());
-        if(userInfoOptional.isPresent()){
-            userInfoOptional.get().setBalance(
-                    (double) Math.round(
-                            userInfoOptional.get().getBalance() + transferInfo.getTransferAmount() * 100) /100);
-            this.userService.save(userInfoOptional.get());
+
+        if (userInfoOptional.isPresent()) {
+            UserInfo receiver = userInfoOptional.get();
+            BigDecimal newBalance = receiver.getBalance().add(transferInfo.getTransferAmount());
+            receiver.setBalance(newBalance);
+            this.userService.save(receiver);
         }
     }
 }
