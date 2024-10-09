@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -16,7 +17,7 @@ public class InvoiceResponse {
     private Long id;
     private int invoiceNo;
     private InvoiceInfo.InvoiceType invoiceType;
-    private int invoiceAmount;
+    private BigDecimal invoiceAmount;
     private LocalDateTime payDate;
     private boolean autobill;
     private ReceiptInfo receiptInfo;

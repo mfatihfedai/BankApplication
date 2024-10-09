@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -26,7 +27,7 @@ public class TransferInfo {
     private LocalDateTime transferTime;
 
     @Column(name = "transfer_amount")
-    private double transferAmount;
+    private BigDecimal transferAmount;
 
     @Column(name = "message")
     private String message;
@@ -35,7 +36,7 @@ public class TransferInfo {
     private String bankName;
 
     @Column(name = "transfer_fee")
-    private float transferFee;
+    private BigDecimal transferFee;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "transfer_receipt_id", referencedColumnName = "receipt_id")

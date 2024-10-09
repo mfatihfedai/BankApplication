@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "banks")
 @Data
@@ -20,5 +22,5 @@ public class BanksInfo {
     private String bankName;
 
     @Column(name = "transfer_fee")
-    private float transferFee;
+    private BigDecimal transferFee;
 }

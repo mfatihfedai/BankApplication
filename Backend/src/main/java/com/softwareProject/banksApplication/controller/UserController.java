@@ -9,7 +9,7 @@ import com.softwareProject.banksApplication.service.abstracts.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-//import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,28 +20,27 @@ import java.util.List;
 public class UserController {
     private final UserService service;
 
-    @PostMapping("/create")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<UserResponse> save(
-            @RequestBody UserSaveRequest userSaveRequest) {
+    public ResponseEntity<UserResponse> save(@RequestBody UserSaveRequest userSaveRequest) {
         return ResponseEntity.ok(this.service.create(userSaveRequest));
     }
 
-    //@PreAuthorize("#id == authentication.principal.id or hasRole('ADMIN')")
+    @PreAuthorize("#id == authentication.principal.id or hasRole('ADMIN')")
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<UserInfo> get(@PathVariable("id") Long id) {
         return ResponseEntity.ok(this.service.getById(id));
     }
 
-    //@PreAuthorize("#id == authentication.principal.id or hasRole('ADMIN')")
+    @PreAuthorize("#id == authentication.principal.id or hasRole('ADMIN')")
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<UserResponse> update(@PathVariable("id") Long id, @RequestBody UserUpdateRequest userUpdateRequest) {
         return ResponseEntity.ok(this.service.update(id, userUpdateRequest));
     }
 
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     public CursorResponse<UserResponse> cursorResponse(
@@ -56,7 +55,7 @@ public class UserController {
         return ResponseEntity.ok(this.service.delete(id));
     }
 
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/search")
     public List<UserInfo> searchUsers(@RequestBody String keyword) {
         return service.searchByKeyword(keyword);

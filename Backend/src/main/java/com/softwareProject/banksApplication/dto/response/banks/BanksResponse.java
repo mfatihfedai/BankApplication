@@ -4,11 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class BanksResponse {
     private Long id;
     private String bankName;
-    private float transferFee;
+    private BigDecimal transferFee;
 }

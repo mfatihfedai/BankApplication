@@ -14,6 +14,7 @@ import com.softwareProject.banksApplication.service.abstracts.UserService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -42,13 +43,17 @@ public class InvoiceManager extends BaseManager<InvoiceInfo, InvoiceRepo, Invoic
         return mapper.entityToResponse(invoiceInfo);
     }
 
-    private boolean checkBalance(InvoiceInfo invoiceInfo){
-        return invoiceInfo.getInvoiceAmount() > invoiceInfo.getReceiptInfo().getUserInfo().getBalance();
+    private boolean checkBalance(InvoiceInfo invoiceInfo) {
+        return invoiceInfo.getInvoiceAmount()
+                .compareTo(invoiceInfo.getReceiptInfo().getUserInfo().getBalance()) > 0;
     }
 
-    private void reduceBalance(InvoiceInfo invoiceInfo){
-        invoiceInfo.getReceiptInfo().getUserInfo().setBalance(
-                invoiceInfo.getReceiptInfo().getUserInfo().getBalance() - invoiceInfo.getInvoiceAmount());
+
+    private void reduceBalance(InvoiceInfo invoiceInfo) {
+        BigDecimal newBalance = invoiceInfo.getReceiptInfo().getUserInfo().getBalance()
+                .subtract(invoiceInfo.getInvoiceAmount());
+
+        invoiceInfo.getReceiptInfo().getUserInfo().setBalance(newBalance);
         this.userService.save(invoiceInfo.getReceiptInfo().getUserInfo());
     }
 

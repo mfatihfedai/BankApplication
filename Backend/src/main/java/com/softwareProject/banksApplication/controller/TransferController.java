@@ -1,31 +1,58 @@
 package com.softwareProject.banksApplication.controller;
 
+import com.softwareProject.banksApplication.dto.CursorResponse;
 import com.softwareProject.banksApplication.dto.request.transfer.TransferSaveRequest;
 import com.softwareProject.banksApplication.dto.request.transfer.TransferUpdateRequest;
 import com.softwareProject.banksApplication.dto.response.transfer.TransferResponse;
 import com.softwareProject.banksApplication.entity.TransferInfo;
 import com.softwareProject.banksApplication.entity.UserInfo;
-import com.softwareProject.banksApplication.service.abstracts.IBaseService;
 import com.softwareProject.banksApplication.service.abstracts.TransferService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/v1/transfer")
-public class TransferController extends BaseController<TransferInfo, TransferSaveRequest, TransferUpdateRequest, TransferResponse> {
+@RequiredArgsConstructor
+public class TransferController {
     private final TransferService transferService;
-    public TransferController(IBaseService<TransferInfo, TransferSaveRequest, TransferUpdateRequest, TransferResponse> service, TransferService transferService) {
-        super(service);
-        this.transferService = transferService;
-    }
 
-    //@PreAuthorize("#user.id == authentication.principal.id or hasRole('ADMIN')")
-    @PostMapping("/create")
-    public TransferResponse create(@RequestBody TransferSaveRequest saveRequest,
-                                   //@AuthenticationPrincipal
-                                   UserInfo user) {
+    @PreAuthorize("#user.id == authentication.principal.id or hasRole('ADMIN')")
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public TransferResponse create(@RequestBody TransferSaveRequest saveRequest, @AuthenticationPrincipal UserInfo user) {
         return this.transferService.create(saveRequest, user.getId());
     }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<TransferResponse> update(@PathVariable("id") Long id, @RequestBody TransferUpdateRequest updaterequest) {
+        return ResponseEntity.ok(this.transferService.update(id, updaterequest));
+    }
+
+    @PreAuthorize("#id == authentication.principal.id or hasRole('ADMIN')")
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<TransferInfo> get(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(this.transferService.getById(id));
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping()
+    @ResponseStatus(HttpStatus.OK)
+    public CursorResponse<TransferResponse> cursorResponse(
+            @RequestParam(name = "page", required = false, defaultValue = "0") int page,
+            @RequestParam(name = "pageSize", required = false, defaultValue = "10") int pageSize) {
+        return this.transferService.cursor(page, pageSize);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Boolean> delete(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(this.transferService.delete(id));
+    }
+
 }
