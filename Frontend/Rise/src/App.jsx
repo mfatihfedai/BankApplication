@@ -6,6 +6,7 @@ function App() {
   
   return (
     <>
+    <p>NihaN için</p>
     <Logo />
     <Home />
     </>
