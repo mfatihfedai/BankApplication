@@ -7,6 +7,7 @@ function App() {
     <>
       <Logo />
       <Home />
+      FATİH EL ATTI
     </>
   );
 }
