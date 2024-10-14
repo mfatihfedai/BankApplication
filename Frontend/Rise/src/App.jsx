@@ -5,9 +5,9 @@ import Logo from "./components/Home/Logo/Logo";
 function App() {
   return (
     <>
-    <Logo />
-    <Home />
-    FATİH EL ATTI 
+      <Logo />
+      <Home />
+      FATİH EL ATTI
     </>
   );
 }
