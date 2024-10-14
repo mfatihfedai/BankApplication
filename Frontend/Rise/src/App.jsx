@@ -8,6 +8,7 @@ function App() {
       <Logo />
       <Home />
       Nihan EL ATTI sayfayı yeniledim
+      <div>manifest manifest manifest</div>
     </>
   );
 }
