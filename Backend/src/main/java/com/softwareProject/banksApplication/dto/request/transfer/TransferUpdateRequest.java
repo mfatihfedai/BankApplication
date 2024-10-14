@@ -11,10 +11,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class TransferUpdateRequest {
     private Long id;
-    private int receiverAccountNo;
-    private LocalDateTime transferTime;
-    private int transferAmount;
+    private Long receiverAccountNo;
+    private double transferAmount;
     private String message;
     private String bankName;
-    private int transferFee;
+    private float transferFee;
 }

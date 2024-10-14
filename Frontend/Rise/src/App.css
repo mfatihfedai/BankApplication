@@ -1,15 +1,13 @@
+* {
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
 :root {
   --color-black: #333333;
   --color-blue: #00333D;
   --color-orange: #E1722F;
   --color-white: #DEE6EB;
-}
-
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: "Montserrat", sans-serif;
 }
 
 .nihan {

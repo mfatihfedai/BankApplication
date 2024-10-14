@@ -3,15 +3,12 @@ package com.softwareProject.banksApplication.controller;
 import com.softwareProject.banksApplication.core.Logging.LogManager;
 import com.softwareProject.banksApplication.core.auth.CustomUserDetails;
 import com.softwareProject.banksApplication.entity.UserInfo;
-import com.softwareProject.banksApplication.core.auth.TwoFactorAuthService;
+import com.softwareProject.banksApplication.core.auth.MailMessageService;
 import com.softwareProject.banksApplication.service.abstracts.UserService;
-import com.softwareProject.banksApplication.service.concretes.UserManager;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +21,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class TwoFactorAuthController {
 
-    private final TwoFactorAuthService twoFactorAuthService;
+    private final MailMessageService mailMessageService;
     private final LogManager logManager;
 
     private final Map<String, String> otpStorage = new HashMap<>();  // Simple in-memory storage for OTPs
@@ -33,13 +30,13 @@ public class TwoFactorAuthController {
     @GetMapping("/generate-otp/{id}")
     public String generateOtp(@PathVariable Long id) {
         UserInfo userr = userService.getById(id);
-        String email = userr.getMail();
+        String email = userr.getEmail();
         String username = userr.getName();
         String surname = userr.getSurname();
 
         //twoFactorAuthService ile yeni bir OTP üretilir ve mail olarak gönderilir.
-        String otp = twoFactorAuthService.generateOTP();
-        twoFactorAuthService.sendOTP(username, surname, email, otp);
+        String otp = mailMessageService.generateOTP();
+        mailMessageService.sendOTP(username, surname, email, otp);
         //Localdeki HashMap e username ve otp bilgileri kaydedilir
         otpStorage.put(username, otp);  // Save OTP for the user
         System.out.println(username + " " + email + " " + otp);
@@ -65,6 +62,8 @@ public class TwoFactorAuthController {
                 session.setAttribute("otpVerified", true);
                 return "redirect:/swagger-ui/index.html";
             } else {
+                HttpSession session = request.getSession();
+                session.setAttribute("otpVerified", true);
                 return "redirect:/auth/dashboard";  // Redirect to user's dashboard
             }
         } else {

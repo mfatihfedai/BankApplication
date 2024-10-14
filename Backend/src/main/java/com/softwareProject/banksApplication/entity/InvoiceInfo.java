@@ -6,7 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "invoices")
@@ -17,7 +19,7 @@ public class InvoiceInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "invoice_id")
-    private int id;
+    private Long id;
 
     @Column(name = "invoice_no")
     private int invoiceNo;
@@ -26,15 +28,15 @@ public class InvoiceInfo {
     private InvoiceType invoiceType;
 
     @Column(name = "invoice_amount")
-    private int invoiceAmount;
+    private BigDecimal invoiceAmount;
 
     @Column(name = "pay_date")
-    private LocalDate payDate;
+    private LocalDateTime payDate;
 
     @Column(name = "autobill")
     private boolean autobill;
 
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "invoice_receipt_id", referencedColumnName = "receipt_id")
     @JsonIgnore
     private ReceiptInfo receiptInfo;

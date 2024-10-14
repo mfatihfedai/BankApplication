@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -15,6 +16,5 @@ public class InvoiceUpdateRequest {
     private int invoiceNo;
     private InvoiceInfo.InvoiceType invoiceType;
     private int invoiceAmount;
-    private LocalDate payDate;
     private boolean autobill;
 }
