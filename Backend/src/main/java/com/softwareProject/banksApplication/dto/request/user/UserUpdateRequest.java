@@ -12,10 +12,6 @@ public class UserUpdateRequest {
     private Long id;
     private String name;
     private String surname;
-    private String mail;
-    private Integer identityNumber;
-    private Integer accountNumber;
+    private String email;
     private String password;
-    private UserInfo.Role role;
-    private Long balance;
 }

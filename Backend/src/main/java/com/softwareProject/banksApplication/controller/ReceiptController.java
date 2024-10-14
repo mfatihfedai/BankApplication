@@ -10,8 +10,5 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/v1/receipt")
-public class ReceiptController extends BaseController<ReceiptInfo, ReceiptSaveRequest, ReceiptUpdateRequest, ReceiptResponse> {
-    public ReceiptController(IBaseService<ReceiptInfo, ReceiptSaveRequest, ReceiptUpdateRequest, ReceiptResponse> service) {
-        super(service);
-    }
+public class ReceiptController {
 }

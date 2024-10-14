@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -17,16 +18,16 @@ public class TransferInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "transfer_id")
-    private int id;
+    private Long id;
 
     @Column(name = "receiver_account_no")
-    private int receiverAccountNo;
+    private Long receiverAccountNo;
 
     @Column(name = "transfer_time")
     private LocalDateTime transferTime;
 
     @Column(name = "transfer_amount")
-    private int transferAmount;
+    private BigDecimal transferAmount;
 
     @Column(name = "message")
     private String message;
@@ -35,9 +36,9 @@ public class TransferInfo {
     private String bankName;
 
     @Column(name = "transfer_fee")
-    private int transferFee;
+    private BigDecimal transferFee;
 
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "transfer_receipt_id", referencedColumnName = "receipt_id")
     @JsonIgnore
     private ReceiptInfo receiptInfo;

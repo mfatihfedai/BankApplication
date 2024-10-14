@@ -22,9 +22,9 @@ public class ReceiptInfo {
     @JoinColumn(name = "receipt_user_id", referencedColumnName = "user_id")
     private UserInfo userInfo;
 
-    @OneToMany(mappedBy = "receiptInfo",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "receiptInfo",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<InvoiceInfo> invoiceInfoList;
 
-    @OneToMany(mappedBy = "receiptInfo",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "receiptInfo",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<TransferInfo> transferList;
 }

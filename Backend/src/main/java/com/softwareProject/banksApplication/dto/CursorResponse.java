@@ -14,4 +14,5 @@ public class CursorResponse<T> {
     private int pageSize;
     private long totalElements;
     private List<T> items;
+    private boolean hasNext;
 }

@@ -30,6 +30,7 @@ public class ResultHelper {
         cursor.setPageNumber(pageData.getNumber());
         cursor.setPageSize(pageData.getSize());
         cursor.setTotalElements(pageData.getTotalElements());
+        cursor.setHasNext(pageData.hasNext());
         return cursor;
     }
 }
