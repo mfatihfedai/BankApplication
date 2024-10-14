@@ -8,6 +8,7 @@ function App() {
       <Logo />
       <Home />
       Nihan EL ATTI sayfayı yeniledim
+      <h2>riseBank</h2>
     </>
   );
 }
