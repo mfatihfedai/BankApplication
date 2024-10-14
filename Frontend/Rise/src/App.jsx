@@ -7,6 +7,7 @@ function App() {
   
   return (
     <>
+    <p>Nihan için</p>
     <Logo />
     <Home />
     </>
