@@ -9,7 +9,6 @@ function Home() {
   return (
     <>
       <div className="parent">
-        <p>NihaN için</p>
         <Navbar/>
         <Credit/>
         <SingIn/>
