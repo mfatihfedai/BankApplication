@@ -5,14 +5,9 @@ import Logo from "./components/Home/Logo/Logo";
 function App() {
   return (
     <>
-<<<<<<< HEAD
-      <Logo />
-      <Home />
-=======
-    <p>Nihan için</p>
     <Logo />
     <Home />
->>>>>>> main
+    FATİH EL ATTI 
     </>
   );
 }
