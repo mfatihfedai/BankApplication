@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,18 +27,18 @@ public class UserController {
         return ResponseEntity.ok(this.service.create(userSaveRequest));
     }
 
-    @PreAuthorize("#id == authentication.principal.id or hasRole('ADMIN')")
-    @GetMapping("/{id}")
+    @PreAuthorize("#user.id == authentication.principal.id or hasRole('ADMIN')")
+    @GetMapping()
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<UserInfo> get(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(this.service.getById(id));
+    public ResponseEntity<UserInfo> get(@AuthenticationPrincipal UserInfo user) {
+        return ResponseEntity.ok(this.service.getById(user.getId()));
     }
 
-    @PreAuthorize("#id == authentication.principal.id or hasRole('ADMIN')")
-    @PutMapping("/{id}")
+    @PreAuthorize("#user.id == authentication.principal.id or hasRole('ADMIN')")
+    @PutMapping()
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<UserResponse> update(@PathVariable("id") Long id, @RequestBody UserUpdateRequest userUpdateRequest) {
-        return ResponseEntity.ok(this.service.update(id, userUpdateRequest));
+    public ResponseEntity<UserResponse> update(@AuthenticationPrincipal UserInfo user, @RequestBody UserUpdateRequest userUpdateRequest) {
+        return ResponseEntity.ok(this.service.update(user.getId(), userUpdateRequest));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -49,10 +50,10 @@ public class UserController {
         return this.service.cursor(page, pageSize);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping()
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Boolean> delete(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(this.service.delete(id));
+    public ResponseEntity<Boolean> delete(@AuthenticationPrincipal UserInfo user) {
+        return ResponseEntity.ok(this.service.delete(user.getId()));
     }
 
     @PreAuthorize("hasRole('ADMIN')")

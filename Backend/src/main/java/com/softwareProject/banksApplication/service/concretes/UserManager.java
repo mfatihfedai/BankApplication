@@ -13,6 +13,7 @@ import com.softwareProject.banksApplication.repo.ReceiptRepo;
 import com.softwareProject.banksApplication.repo.UserRepo;
 import com.softwareProject.banksApplication.service.abstracts.UserService;
 //import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,7 +45,7 @@ public class UserManager extends BaseManager<UserInfo, UserRepo, UserSaveRequest
             throw new DataAlreadyExistException(Msg.DATA_ALREADY_EXIST);
         }
         user.setAccountNumber(generateAccountNumber());
-        //user.setPassword(BCrypt.hashpw(request.getPassword(), BCrypt.gensalt()));
+        user.setPassword(BCrypt.hashpw(request.getPassword(), BCrypt.gensalt()));
         this.repository.save(user);
 
         ReceiptInfo receiptInfo = new ReceiptInfo();
@@ -57,6 +58,21 @@ public class UserManager extends BaseManager<UserInfo, UserRepo, UserSaveRequest
     @Override
     public UserInfo save(UserInfo user) {
         return this.repository.save(user);
+    }
+
+    @Override
+    public UserResponse update(Long id, UserUpdateRequest updateRequest){
+        UserInfo user = this.repository.findById(id).orElse(null);
+        UserInfo newUser = mapper.updateRequestToEntity(updateRequest);
+        if (user == null) {
+            throw new NotValidException("User not found.");
+        }
+        user.setName(newUser.getName());
+        user.setSurname(newUser.getSurname());
+        user.setEmail(newUser.getEmail());
+        user.setPassword(BCrypt.hashpw(newUser.getPassword(), BCrypt.gensalt()));
+        this.repository.save(user);
+        return mapper.entityToResponse(user);
     }
 
     @Override
