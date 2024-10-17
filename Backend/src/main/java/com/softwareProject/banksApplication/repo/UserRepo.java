@@ -12,6 +12,7 @@ import java.util.Optional;
 @Repository
 public interface UserRepo extends JpaRepository<UserInfo, Long> {
     UserInfo findByName(String username);
+    UserInfo findByEmail(String email);
     Optional<UserInfo> findByEmailOrIdentityNumber(String email, Long identityNumber);
     Optional<UserInfo> findByAccountNumber(Long accountNumber);
     @Query("SELECT u FROM UserInfo u WHERE " +

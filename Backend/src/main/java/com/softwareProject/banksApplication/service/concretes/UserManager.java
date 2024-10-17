@@ -85,6 +85,21 @@ public class UserManager extends BaseManager<UserInfo, UserRepo, UserSaveRequest
         return this.repository.findByAccountNumber(accountNumber);
     }
 
+    @Override
+    public UserResponse forgetEmail(String email) {
+        UserInfo user = this.repository.findByEmail(email);
+        if (user == null) {
+            throw new NotValidException("User not found.");
+        }
+
+        return null;
+    }
+
+    private String generateTempPass(){
+        Random random = new Random();
+        return String.format("%06d", random.nextInt(1000000));
+    }
+
     private Long generateAccountNumber() {
         long newNumber;
         boolean isAvailable;
