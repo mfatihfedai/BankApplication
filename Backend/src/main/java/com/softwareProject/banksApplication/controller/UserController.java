@@ -61,4 +61,9 @@ public class UserController {
     public List<UserInfo> searchUsers(@RequestBody String keyword) {
         return service.searchByKeyword(keyword);
     }
+
+    @PostMapping
+    public ResponseEntity<UserResponse> forgetPass(String email){
+        return ResponseEntity.ok(this.service.forgetEmail(email));
+    }
 }
