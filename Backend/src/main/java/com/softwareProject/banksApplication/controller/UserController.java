@@ -28,19 +28,18 @@ public class UserController {
         return ResponseEntity.ok(this.service.create(userSaveRequest));
     }
 
-    @PreAuthorize("#user.id == authentication.principal.id or hasRole('ADMIN')")
+    @PreAuthorize("#id == authentication.principal.id or hasRole('ADMIN')")
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<UserInfo> get(@PathVariable Long id) {
         return ResponseEntity.ok(this.service.getById(id));
     }
 
-    @PreAuthorize("#user.id == authentication.principal.id or hasRole('ADMIN')")
-    @PutMapping()
+    @PreAuthorize("#id == authentication.principal.id or hasRole('ADMIN')")
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<UserResponse> update(Authentication authentication, @RequestBody UserUpdateRequest userUpdateRequest) {
-        UserInfo user = (UserInfo) authentication.getPrincipal();
-        return ResponseEntity.ok(this.service.update(user.getId(), userUpdateRequest));
+    public ResponseEntity<UserResponse> update(@PathVariable Long id, @RequestBody UserUpdateRequest userUpdateRequest) {
+        return ResponseEntity.ok(this.service.update(id, userUpdateRequest));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
