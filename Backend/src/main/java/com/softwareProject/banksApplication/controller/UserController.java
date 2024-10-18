@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,16 +29,17 @@ public class UserController {
     }
 
     @PreAuthorize("#user.id == authentication.principal.id or hasRole('ADMIN')")
-    @GetMapping()
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<UserInfo> get(@AuthenticationPrincipal UserInfo user) {
-        return ResponseEntity.ok(this.service.getById(user.getId()));
+    public ResponseEntity<UserInfo> get(@PathVariable Long id) {
+        return ResponseEntity.ok(this.service.getById(id));
     }
 
     @PreAuthorize("#user.id == authentication.principal.id or hasRole('ADMIN')")
     @PutMapping()
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<UserResponse> update(@AuthenticationPrincipal UserInfo user, @RequestBody UserUpdateRequest userUpdateRequest) {
+    public ResponseEntity<UserResponse> update(Authentication authentication, @RequestBody UserUpdateRequest userUpdateRequest) {
+        UserInfo user = (UserInfo) authentication.getPrincipal();
         return ResponseEntity.ok(this.service.update(user.getId(), userUpdateRequest));
     }
 
@@ -62,7 +64,7 @@ public class UserController {
         return service.searchByKeyword(keyword);
     }
 
-    @PostMapping
+    @PostMapping("forgetPass")
     public ResponseEntity<UserResponse> forgetPass(String email){
         return ResponseEntity.ok(this.service.forgetEmail(email));
     }

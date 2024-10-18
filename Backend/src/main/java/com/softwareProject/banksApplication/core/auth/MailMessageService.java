@@ -47,4 +47,15 @@ public class MailMessageService {
 
         mailSender.send(message);
     }
+
+    @Async
+    public void sendForgetPasswordToEmail(UserInfo user, String password) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(user.getEmail());
+        message.setSubject("Forget Password Confirmation");
+        message.setText("Your temporary password is: " + password + "\n" +
+                "Please change your temporary password as soon as possible.");
+
+        mailSender.send(message);
+    }
 }

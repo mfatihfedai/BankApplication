@@ -1,5 +1,6 @@
 package com.softwareProject.banksApplication.service.concretes;
 
+import com.softwareProject.banksApplication.core.auth.MailMessageService;
 import com.softwareProject.banksApplication.core.exception.DataAlreadyExistException;
 import com.softwareProject.banksApplication.core.exception.NotValidException;
 import com.softwareProject.banksApplication.core.mapper.UserMapper;
@@ -13,6 +14,10 @@ import com.softwareProject.banksApplication.repo.ReceiptRepo;
 import com.softwareProject.banksApplication.repo.UserRepo;
 import com.softwareProject.banksApplication.service.abstracts.UserService;
 //import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.passay.CharacterData;
+import org.passay.CharacterRule;
+import org.passay.EnglishCharacterData;
+import org.passay.PasswordGenerator;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
@@ -20,12 +25,16 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
+import static org.springframework.beans.MethodInvocationException.ERROR_CODE;
+
 @Service
 public class UserManager extends BaseManager<UserInfo, UserRepo, UserSaveRequest, UserUpdateRequest, UserResponse, UserMapper> implements UserService {
     private final ReceiptRepo receiptRepo;
-    public UserManager(UserRepo repository, UserMapper mapper, ReceiptRepo receiptRepo) {
+    private final MailMessageService mailMessageService;
+    public UserManager(UserRepo repository, UserMapper mapper, ReceiptRepo receiptRepo, MailMessageService mailMessageService) {
         super(repository, mapper);
         this.receiptRepo = receiptRepo;
+        this.mailMessageService = mailMessageService;
     }
 
     @Override
@@ -91,13 +100,39 @@ public class UserManager extends BaseManager<UserInfo, UserRepo, UserSaveRequest
         if (user == null) {
             throw new NotValidException("User not found.");
         }
-
-        return null;
+        String password = this.generatePassayPassword();
+        user.setPassword(BCrypt.hashpw(password, BCrypt.gensalt()));
+        mailMessageService.sendForgetPasswordToEmail(user, password);
+        this.save(user);
+        return mapper.entityToResponse(user);
     }
 
-    private String generateTempPass(){
-        Random random = new Random();
-        return String.format("%06d", random.nextInt(1000000));
+    public String generatePassayPassword() {
+        PasswordGenerator gen = new PasswordGenerator();
+        CharacterData lowerCaseChars = EnglishCharacterData.LowerCase;
+        CharacterRule lowerCaseRule = new CharacterRule(lowerCaseChars);
+        lowerCaseRule.setNumberOfCharacters(2);
+
+        CharacterData upperCaseChars = EnglishCharacterData.UpperCase;
+        CharacterRule upperCaseRule = new CharacterRule(upperCaseChars);
+        upperCaseRule.setNumberOfCharacters(2);
+
+        CharacterData digitChars = EnglishCharacterData.Digit;
+        CharacterRule digitRule = new CharacterRule(digitChars);
+        digitRule.setNumberOfCharacters(2);
+
+        CharacterData specialChars = new CharacterData() {
+            public String getErrorCode() {
+                return ERROR_CODE;
+            }
+            public String getCharacters() {
+                return "!@#$%^&*()_+";
+            }
+        };
+        CharacterRule splCharRule = new CharacterRule(specialChars);
+        splCharRule.setNumberOfCharacters(2);
+
+        return gen.generatePassword(10, splCharRule, lowerCaseRule, upperCaseRule, digitRule);
     }
 
     private Long generateAccountNumber() {
