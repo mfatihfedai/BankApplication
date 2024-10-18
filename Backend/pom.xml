@@ -112,6 +112,12 @@
 			<artifactId>spring-dotenv</artifactId>
 			<version>4.0.0</version>
 		</dependency>
+<!--		Password Generator -->
+		<dependency>
+			<groupId>org.passay</groupId>
+			<artifactId>passay</artifactId>
+			<version>1.6.6</version>
+		</dependency>
 	</dependencies>
 
 	<build>
