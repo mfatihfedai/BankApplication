@@ -31,6 +31,7 @@ public class InvoiceController {
         return this.invoiceService.create(saveRequest, user.getId());
     }
 
+
     @PreAuthorize("#user.id == authentication.principal.id or hasRole('ADMIN')")
     @GetMapping("/autobill")
     public List<InvoiceInfo> autobill(@AuthenticationPrincipal UserInfo user) {
