@@ -52,7 +52,7 @@ public class SecurityConfig {
                     registry.requestMatchers(HttpMethod.GET,"/v1/user/**").hasAnyRole("ADMIN", "USER");
                     registry.requestMatchers(HttpMethod.POST,"/v1/user/**").permitAll();
                     registry.requestMatchers(HttpMethod.PUT,"/v1/user/**").hasAnyRole("ADMIN", "USER");
-                    registry.requestMatchers(HttpMethod.DELETE,"/v1/user/**").hasRole("ADMIN");
+                    registry.requestMatchers(HttpMethod.DELETE,"/v1/user/**").hasAnyRole("ADMIN","USER");
                     // INVOICE
                     registry.requestMatchers(HttpMethod.GET,"/v1/invoice/**").hasAnyRole("ADMIN", "USER");
                     registry.requestMatchers(HttpMethod.POST,"/v1/invoice/**").hasAnyRole("ADMIN", "USER");

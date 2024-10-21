@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -51,10 +52,14 @@ public class UserController {
         return this.service.cursor(page, pageSize);
     }
 
-    @DeleteMapping()
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Boolean> delete(@AuthenticationPrincipal UserInfo user) {
-        return ResponseEntity.ok(this.service.delete(user.getId()));
+    @PreAuthorize("#id == authentication.principal.id or hasRole('ADMIN')")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        if (this.service.delete(id)) {
+            return ResponseEntity.status(HttpStatus.FOUND).location(URI.create("/logout")).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.FOUND).location(URI.create("/error")).build();
+        }
     }
 
     @PreAuthorize("hasRole('ADMIN')")

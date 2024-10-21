@@ -1,5 +1,6 @@
 package com.softwareProject.banksApplication.service.concretes;
 
+import com.softwareProject.banksApplication.core.Logging.LogManager;
 import com.softwareProject.banksApplication.core.auth.MailMessageService;
 import com.softwareProject.banksApplication.core.exception.DataAlreadyExistException;
 import com.softwareProject.banksApplication.core.exception.NotValidException;
@@ -31,11 +32,20 @@ import static org.springframework.beans.MethodInvocationException.ERROR_CODE;
 public class UserManager extends BaseManager<UserInfo, UserRepo, UserSaveRequest, UserUpdateRequest, UserResponse, UserMapper> implements UserService {
     private final ReceiptRepo receiptRepo;
     private final MailMessageService mailMessageService;
-    public UserManager(UserRepo repository, UserMapper mapper, ReceiptRepo receiptRepo, MailMessageService mailMessageService) {
+    private final LogManager logManager;
+    public UserManager(UserRepo repository, UserMapper mapper, ReceiptRepo receiptRepo, MailMessageService mailMessageService, LogManager logManager) {
         super(repository, mapper);
         this.receiptRepo = receiptRepo;
         this.mailMessageService = mailMessageService;
+        this.logManager = logManager;
     }
+//
+//    @Override
+//    public boolean delete(Long id) {
+//        UserInfo entity = getById(id);
+//        repository.delete(entity);
+//        return this.repository.findById(id).isEmpty();
+//    }
 
     @Override
     public UserResponse create(UserSaveRequest request) {
