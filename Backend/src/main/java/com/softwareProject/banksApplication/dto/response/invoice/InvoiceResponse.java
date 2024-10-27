@@ -6,17 +6,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class InvoiceResponse {
-    private int id;
+    private Long id;
     private int invoiceNo;
     private InvoiceInfo.InvoiceType invoiceType;
-    private int invoiceAmount;
-    private LocalDate payDate;
+    private BigDecimal invoiceAmount;
+    private LocalDateTime payDate;
     private boolean autobill;
     private ReceiptInfo receiptInfo;
 }

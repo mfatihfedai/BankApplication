@@ -3,7 +3,6 @@ package com.softwareProject.banksApplication.core.auth;
 import com.softwareProject.banksApplication.entity.UserInfo;
 import com.softwareProject.banksApplication.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,10 +18,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
-        return User.builder()
-                .username(user.getName())
-                .password(user.getPassword())
-                .roles(String.valueOf(user.getRole()))
-                .build();
+        return new CustomUserDetails(user);
     }
 }
