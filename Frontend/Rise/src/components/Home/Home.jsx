@@ -1,4 +1,3 @@
-import React from "react";
 import Navbar from "./Navbar/Navbar";
 import Credit from "./Credit/Credit";
 import SingIn from "../SingIn/SingIn";
