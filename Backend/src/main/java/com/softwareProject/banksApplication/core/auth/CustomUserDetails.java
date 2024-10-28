@@ -1,6 +1,7 @@
 package com.softwareProject.banksApplication.core.auth;
 
 import com.softwareProject.banksApplication.entity.UserInfo;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
+@Getter
 public class CustomUserDetails implements UserDetails {
 
     private final UserInfo userInfo;
@@ -45,10 +47,6 @@ public class CustomUserDetails implements UserDetails {
 
     public String getRole(){
         return userInfo.getRole().toString();
-    }
-
-    public UserInfo getUserInfo() {
-        return userInfo;
     }
 
     @Override

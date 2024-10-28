@@ -106,12 +106,6 @@
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 			<version>3.3.4</version>
 		</dependency>
-		<!-- .env 	-->
-		<dependency>
-			<groupId>me.paulschwarz</groupId>
-			<artifactId>spring-dotenv</artifactId>
-			<version>4.0.0</version>
-		</dependency>
 <!--		Password Generator -->
 		<dependency>
 			<groupId>org.passay</groupId>

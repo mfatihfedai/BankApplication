@@ -8,16 +8,28 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private UserRepo userRepo;
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserInfo user = userRepo.findByName(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found with username: " + username);
+    public UserDetails loadUserByUsername(String identityOrAccountNumber) throws UsernameNotFoundException {
+        try {
+            Long numericValue = Long.parseLong(identityOrAccountNumber);
+            Optional<UserInfo> user = userRepo.findByIdentityNumber(numericValue);
+
+            if (user.isEmpty()) {
+                user = userRepo.findByAccountNumber(numericValue);
+            }
+
+            return user.map(CustomUserDetails::new)
+                    .orElseThrow(() -> new UsernameNotFoundException("User not found with identity or account number: " + identityOrAccountNumber));
+
+        } catch (NumberFormatException e) {
+            throw new UsernameNotFoundException("Invalid identity or account number format: " + identityOrAccountNumber, e);
         }
-        return new CustomUserDetails(user);
     }
+
 }
