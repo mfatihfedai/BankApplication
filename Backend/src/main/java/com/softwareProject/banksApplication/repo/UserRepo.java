@@ -15,6 +15,7 @@ public interface UserRepo extends JpaRepository<UserInfo, Long> {
     UserInfo findByEmail(String email);
     Optional<UserInfo> findByEmailOrIdentityNumber(String email, Long identityNumber);
     Optional<UserInfo> findByAccountNumber(Long accountNumber);
+    Optional<UserInfo> findByIdentityNumber(Long identityNumber);
     @Query("SELECT u FROM UserInfo u WHERE " +
             "LOWER(u.name) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
             "LOWER(u.surname) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
