@@ -20,6 +20,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             Long numericValue = Long.parseLong(identityOrAccountNumber);
             Optional<UserInfo> user = userRepo.findByIdentityNumber(numericValue);
 
+
             if (user.isEmpty()) {
                 user = userRepo.findByAccountNumber(numericValue);
             }
