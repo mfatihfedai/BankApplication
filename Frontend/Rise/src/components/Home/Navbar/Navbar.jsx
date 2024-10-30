@@ -1,16 +1,29 @@
-
-import "./Navbar.css";
+import { useState } from 'react';
+import "./navbar.style.css"
 
 const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsOpen(false);
+  };
+
   return (
-    <nav className="navbar">
-      <ul>
-        <li><a href="#home">Anasayfa</a></li>
-        <li><a href="#services">Hizmetler</a></li>
-        <li><a href="#about">Hakkımızda</a></li>
-        <li><a href="#contact">İletişim</a></li>
+    <div
+      className={`navbar ${isOpen ? 'open' : ''}`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <ul className="navbar-links">
+        <li className="navbar-item">Anasayfa</li>
+        <li className="navbar-item">Hakkımızda</li>
+        <li className="navbar-item">İletişim</li>
       </ul>
-    </nav>
+    </div>
   );
 };
 

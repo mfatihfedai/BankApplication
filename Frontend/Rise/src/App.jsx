@@ -1,18 +1,20 @@
 import "./App.css";
+import "./App.css";
+import Home from "./components/Home/Home";
+import Logo from "./components/Home/Logo/Logo";
 
 // App.js
 
-import Navbar from "./Navbar";
+
 
 function App() {
   return (
-    <div>
-      <Navbar />
-      <main style={{ padding: "20px" }}>
-        <h1>Hoşgeldiniz!</h1>
-        <p>Sayfa içeriği buraya gelecek.</p>
-      </main>
-    </div>
+    <>
+      <Logo />
+      <Home />
+      Nihan EL ATTI sayfayı yeniledim
+      <div>manifest manifest manifest</div>
+    </>
   );
 }
 
