@@ -26,6 +26,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 @Configuration
 @RequiredArgsConstructor
@@ -99,6 +100,11 @@ public class SecurityConfig {
                         .sessionRegistry(sessionRegistry())
                 )
                 .build();
+    }
+    // Oturum sonlandığnda SessionDestroyedEventi tetikler.
+    @Bean
+    public HttpSessionEventPublisher httpSessionEventPublisher() {
+        return new HttpSessionEventPublisher();
     }
     @Bean
     public SessionRegistry sessionRegistry() {
