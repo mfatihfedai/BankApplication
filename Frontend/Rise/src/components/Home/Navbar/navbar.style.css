@@ -1,6 +1,6 @@
 
 .navbar {
-  position: fixed;  /* position fixed olduğu için  anasayfanın grid yapsı bozuldu. gap vermemiz gerel*/
+  position: fixed;
   top: 0;
   left: 0;
   width: 50px;
