@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react'
 import { getRates } from '../../../service/RateApi';
 import Rate from './Rate';
+import "./rates.style.css"
 
 function Rates() {
   const [allRates, setAllRates] = useState([]);
@@ -21,12 +22,14 @@ function Rates() {
     currency === 'USD' || currency === 'EUR' || currency === 'GBP' || currency === 'CHF'
   ); 
 
+  //üst menü tekrar oluşturulacak aynı şekilde altıı boş kalacak
+
   return (
-    <div>
-      <h1>Fiyatlar ve Oranlar</h1>
-      <ul>
+    <div className='rates'>
+      {/* <h1>Fiyatlar ve Oranlar</h1> */} 
+      <ul className='currency-list'>
         {filteredRates.map(([currency, rate]) => (
-          <li key={currency}>
+          <li className='currency-list-item' key={currency}>
             <Rate currency={currency} rate = {rate} />
           </li>
         ))}
