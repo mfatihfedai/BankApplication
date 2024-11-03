@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "./rates.style.css"
 
 function Rate({ currency, rate }) {
   const [currencyName, setCurrencyName] = useState("");
@@ -25,8 +26,8 @@ function Rate({ currency, rate }) {
 
   return (
     <>
-      <div>{currencyName}</div>
-      {currency}: {(1 / rate).toFixed(2)} TL
+      <p className="currency-name">{currencyName}</p>
+      <p className="currency-info">{currency}: <span>{(1 / rate).toFixed(2)} TL </span></p> 
     </>
   );
 }
