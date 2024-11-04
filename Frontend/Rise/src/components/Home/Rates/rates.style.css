@@ -29,6 +29,8 @@
 
 .currency-info {
     font-weight: 500;
+    display: flex;
+    align-items: center;
 }
 
 .currency-name img{
@@ -37,4 +39,10 @@
     border-radius: 50%;
     object-fit: cover;
     margin-right: 0.2rem;
+}
+
+.currency-trade {
+    display: flex;
+    flex-direction: column;
+
 }
