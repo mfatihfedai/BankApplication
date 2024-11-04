@@ -1,0 +1,44 @@
+.credit{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.credit-deposit{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around; 
+    cursor: pointer;
+}
+
+.credit-deposit a {
+    text-decoration: none;
+    color: var(--color-blue);
+
+}
+
+.credit-link.active {
+    font-weight: bold; 
+    color: var(--color-blue);
+    border-bottom: 2px solid black;
+  }
+
+.credit-slider{
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.credit-info{
+   display: flex;
+   justify-content: center;
+   
+}
+
+.credit-detail{
+    display: flex;
+    flex-direction: column ;
+    max-width: 100%;
+    margin-top: 2rem;
+    gap: 2rem;
+}
