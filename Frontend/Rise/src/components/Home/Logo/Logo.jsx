@@ -1,11 +1,21 @@
-import React from 'react'
+import React from "react";
 
 function Logo() {
   return (
     <div>
-      <h1 style={{ color: 'var(--color-black)', letterSpacing: '5px',padding: '10px , 5px' }}>RIS<span style={{ color: 'var(--color-black)', fontSize: "40px" }}>e</span></h1>
+      <h1
+        style={{
+          marginLeft: "3rem",
+          color: "var(--color-black)",
+          letterSpacing: "5px",
+          padding: "10px , 5px",
+        }}
+      >
+        RIS
+        <span style={{ color: "var(--color-black)", fontSize: "40px" }}>e</span>
+      </h1>
     </div>
-  )
+  );
 }
 
-export default Logo
+export default Logo;
