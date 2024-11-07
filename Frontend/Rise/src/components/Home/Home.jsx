@@ -1,13 +1,13 @@
 import Navbar from "./Navbar/Navbar";
 import Credit from "./Credit/Credit";
-import SingIn from "../SingIn/SingIn";
+import SignIn from "../SignIn/SignIn";
 import Rates from "./Rates/Rates";
 import "./home.style.css";
 
 function Home() {
   return (
     <>
-    <div className="parent-header">
+      <div className="parent-header">
         <div></div>
         <div>Kredi Hesaplama</div>
         <div>Giriş Yap</div>
@@ -15,10 +15,10 @@ function Home() {
       </div>
       <div className="parent">
         <div></div>
-        <Navbar/> 
-        <Credit/> 
-        <SingIn/> 
-        <Rates/>
+        <Navbar />
+        <Credit />
+        <SignIn />
+        <Rates />
       </div>
     </>
   );

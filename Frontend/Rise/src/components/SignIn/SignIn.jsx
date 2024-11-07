@@ -8,9 +8,9 @@ import {
   Link,
 } from "@mui/material";
 
-import "./signIn.style.css"
+import "./signIn.style.css";
 
-const SingIn = () => {
+const SignIn = () => {
   return (
     <Container className="signIn" component="main" maxWidth="xs">
       <Box
@@ -123,4 +123,4 @@ const SingIn = () => {
     </Container>
   );
 };
-export default SingIn;
+export default SignIn;
