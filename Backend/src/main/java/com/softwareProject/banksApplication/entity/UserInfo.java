@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -25,14 +26,14 @@ public class UserInfo {
     @Column(name = "user_surname")
     private String surname;
 
-    @Column(name = "phone_number")
-    private Integer phoneNumber;
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "identitiy_number")
-    private Integer identityNumber;
+    private Long identityNumber;
 
     @Column(name = "account_no")
-    private Integer accountNumber;
+    private Long accountNumber;
 
     @Column(name = "password")
     private String password;
@@ -42,13 +43,13 @@ public class UserInfo {
     private Role role;
 
     @Column(name = "balance")
-    private Long balance;
+    private BigDecimal balance;
 
-    @OneToOne(mappedBy = "userInfo")
+    @OneToOne(mappedBy = "userInfo",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
     private ReceiptInfo receiptInfo;
 
-    @OneToMany(mappedBy = "userInfo",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "userInfo",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private List<LogInfo> logInfoList;
 

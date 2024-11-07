@@ -1,0 +1,28 @@
+* {
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  margin: 0;
+}
+
+:root {
+  --color-black: #333333;
+  --color-blue: #00333D;
+  --color-orange: #E1722F;
+  --color-white: #DEE6EB;
+}
+
+.nihan {
+  color: var(--color-black);
+}
+
+.main {
+  background-color: var(--color-orange);
+  padding : 10px;
+}
+
+.second {
+  background-color: var(--color-blue);
+  color: var(--color-white);
+  padding : 10px;
+}

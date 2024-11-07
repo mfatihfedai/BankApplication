@@ -1,14 +1,11 @@
-package com.softwareProject.banksApplication.core.base;
+package com.softwareProject.banksApplication.service.abstracts;
 
 import com.softwareProject.banksApplication.dto.CursorResponse;
 
-import java.util.List;
-
 public interface IBaseService <E, SAVEREQUEST, UPDATEREQUEST, RESPONSE> {
-    RESPONSE save(SAVEREQUEST request);
+    RESPONSE create(SAVEREQUEST request);
     E getById(Long id);
     CursorResponse<RESPONSE> cursor(int page, int pageSize);
-    List<E> getAll();
-    RESPONSE update(UPDATEREQUEST request);
+    RESPONSE update(Long id, UPDATEREQUEST request);
     boolean delete(Long id);
 }

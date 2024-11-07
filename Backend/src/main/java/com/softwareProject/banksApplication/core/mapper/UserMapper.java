@@ -8,15 +8,5 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
-public interface UserMapper {
-    UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
-
-    // Save Request'den Entity'ye
-    UserInfo userSaveRequestToUser(UserSaveRequest userSaveRequest);
-
-    // Update Request'den Entity'ye
-    UserInfo userUpdateRequestToUser(UserUpdateRequest userUpdateRequest);
-
-    // Entity'den Response DTO'ya
-    UserResponse userToUserResponse(UserInfo user);
+public interface UserMapper extends BaseMapper<UserInfo, UserSaveRequest, UserUpdateRequest, UserResponse>{
 }

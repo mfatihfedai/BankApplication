@@ -8,9 +8,5 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
-public interface ReceiptMapper {
-    ReceiptMapper INSTANCE = Mappers.getMapper(ReceiptMapper.class);
-    ReceiptMapper receiptSaveRequestToReceipt(ReceiptSaveRequest receiptSaveRequest);
-    ReceiptMapper receiptUpdateRequestToReceipt(ReceiptUpdateRequest receiptUpdateRequest);
-    ReceiptResponse receiptToReceiptResponse(ReceiptInfo receipt);
+public interface ReceiptMapper extends BaseMapper<ReceiptInfo, ReceiptSaveRequest, ReceiptUpdateRequest, ReceiptResponse>{
 }

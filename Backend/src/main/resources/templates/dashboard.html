@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .welcome-message {
+            text-align: center;
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-sections {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .section {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            width: 30%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .section h2 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #4CAF50;
+        }
+
+        .section p {
+            color: #666;
+        }
+
+        footer {
+            margin-top: 40px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-sections {
+                flex-direction: column;
+            }
+            .section {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Welcome, Customer!</h1>
+</header>
+
+<div class="container">
+    <div class="welcome-message">
+        We're glad to have you here. Here's a quick look at your account:
+    </div>
+
+    <div class="dashboard-sections">
+        <div class="section">
+            <h2>Profile</h2>
+            <p>View and edit your personal information.</p>
+        </div>
+
+        <div class="section">
+            <h2>Account Overview</h2>
+            <p>Check your balance, recent transactions, and more.</p>
+        </div>
+
+        <div class="section">
+            <h2>Recent Activities</h2>
+            <p>See your latest activity and updates.</p>
+        </div>
+    </div>
+</div>
+
+<footer>
+    &copy; 2024 Bank Application. All Rights Reserved.
+</footer>
+
+</body>
+</html>
