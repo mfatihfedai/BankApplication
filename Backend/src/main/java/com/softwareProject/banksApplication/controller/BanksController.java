@@ -12,8 +12,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static com.softwareProject.banksApplication.core.Config.RestApis.BANKSSERVICE;
+
 @RestController
-@RequestMapping("/v1/banks")
+@RequestMapping(BANKSSERVICE)
 @RequiredArgsConstructor
 public class BanksController{
     private final BanksService banksService;

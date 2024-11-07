@@ -8,13 +8,14 @@ import {
   Link,
 } from "@mui/material";
 
+import "./signIn.style.css"
+
 const SingIn = () => {
   return (
-    <Container component="main" maxWidth="xs">
+    <Container className="signIn" component="main" maxWidth="xs">
       <Box
         sx={{
           fontFamily: "Montserrat",
-          marginTop: 8,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",

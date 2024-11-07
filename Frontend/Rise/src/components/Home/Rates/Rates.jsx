@@ -5,12 +5,20 @@ import "./rates.style.css"
 
 function Rates() {
   const [allRates, setAllRates] = useState([]);
+  // const [lastList, setLastList] = useState(null);
+
+  // const [currentData, setCurrentData] = useState(null); // Güncel veri
+  const [previousData, setPreviousData] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
       try {
         const rates = await getRates();
+        // setAllRates(Object.entries(rates));
+
+        setPreviousData(allRates); // Mevcut veriyi eski veri olarak ata
         setAllRates(Object.entries(rates));
+        console.log(previousData);
       } catch (error) {
         console.log(error);
       }
@@ -18,10 +26,16 @@ function Rates() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+
+  },[allRates])
+
   const filteredRates = allRates.filter(([currency]) => 
     currency === 'USD' || currency === 'EUR' || currency === 'GBP' || currency === 'CHF'
   ); 
 
+  // console.log(filteredRates);
+ 
   //üst menü tekrar oluşturulacak aynı şekilde altıı boş kalacak
 
   return (
