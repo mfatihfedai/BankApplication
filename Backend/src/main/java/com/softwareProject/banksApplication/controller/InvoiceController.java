@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.softwareProject.banksApplication.core.Config.RestApis.INVOICESERVICE;
+
 @RestController
-@RequestMapping("/v1/invoice")
+@RequestMapping(INVOICESERVICE)
 public class InvoiceController {
     private final InvoiceService invoiceService;
 
