@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import {
   Box,
   Button,
@@ -9,8 +10,17 @@ import {
 } from "@mui/material";
 
 import "./signIn.style.css";
+import { signInUser } from "../../service/SignInApi";
+import { useState } from "react";
 
 const SignIn = () => {
+  const [identityNo, setIdentityNo] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async () => {
+    signInUser(identityNo, password);
+  };
+
   return (
     <Container className="signIn" component="main" maxWidth="xs">
       <Box
@@ -34,6 +44,8 @@ const SignIn = () => {
             margin="normal"
             required
             fullWidth
+            value={identityNo}
+            onChange={(e) => setIdentityNo(e.target.value)}
             id="customerNumber"
             label="T.C. Kimlik/Müşteri Numarası"
             name="customerNumber"
@@ -59,6 +71,8 @@ const SignIn = () => {
             fullWidth
             name="password"
             label="Şifre"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             type="password"
             id="password"
             autoComplete="current-password"
@@ -89,7 +103,8 @@ const SignIn = () => {
             </Link>
           </Box>
           <Button
-            type="submit"
+            // type="submit"
+            onClick={handleSubmit}
             fullWidth
             variant="contained"
             sx={{
