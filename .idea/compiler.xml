@@ -3,24 +3,9 @@
   <component name="CompilerConfiguration">
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
-<<<<<<< HEAD
-      <profile name="Maven default annotation processors profile" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <module name="banksApplication" />
-      </profile>
-    </annotationProcessing>
-  </component>
-  <component name="JavacSettings">
-    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="banksApplication" options="-parameters" />
-    </option>
-=======
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="banksApplication" target="17" />
     </bytecodeTargetLevel>
->>>>>>> main
   </component>
 </project>

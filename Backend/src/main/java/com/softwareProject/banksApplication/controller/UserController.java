@@ -10,8 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -32,6 +30,7 @@ public class UserController {
     @PreAuthorize("#id == authentication.principal.id or hasRole('ADMIN')")
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+
     public ResponseEntity<UserInfo> get(@PathVariable Long id) {
         return ResponseEntity.ok(this.service.getById(id));
     }
