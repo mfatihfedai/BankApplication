@@ -1,5 +1,5 @@
-import React from "react";
-import {
+import React, { useState } from "react";
+ import {
   Box,
   Button,
   Container,
@@ -9,118 +9,55 @@ import {
 } from "@mui/material";
 
 import "./signIn.style.css"
+import axios from "axios";
 
 const SingIn = () => {
-  return (
-    <Container className="signIn" component="main" maxWidth="xs">
-      <Box
-        sx={{
-          fontFamily: "Montserrat",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <Typography
-          sx={{
-            fontFamily: "Montserrat",
-          }}
-        >
-          İnternet Şubemize Hoş Geldiniz
-        </Typography>
+  const [customerNumber, setCustomerNumber] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-        <Box component="form" noValidate sx={{ mt: 1 }}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="customerNumber"
-            label="T.C. Kimlik/Müşteri Numarası"
-            name="customerNumber"
-            autoComplete="customer-number"
-            autoFocus
-            InputLabelProps={{
-              style: { color: "var(--color-blue)", fontFamily: "Montserrat" }, // Label rengi ve fontu
-            }}
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                "&:hover fieldset": {
-                  borderColor: "var(--color-blue)", // Hover
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "var(--color-blue)", // Focus
-                },
-              },
-            }}
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Şifre"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            InputLabelProps={{
-              style: { color: "var(--color-blue)", fontFamily: "Montserrat" }, // Label rengi ve fontu
-            }}
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                "&:hover fieldset": {
-                  borderColor: "var(--color-blue)", // Hover
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "var(--color-blue)", // Focus
-                },
-              },
-            }}
-          />
-          <Box>
-            <Link
-              href="#"
-              variant="body2"
-              sx={{
-                color: "var(--color-blue)",
-                fontFamily: "Montserrat",
-              }}
-            >
-              Şifremi Unuttum
-            </Link>
-          </Box>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{
-              mt: 3,
-              mb: 2,
-              fontFamily: "Montserrat",
-              backgroundColor: "var(--color-blue)",
-              color: "var(--color-white)",
-              "&:hover": {
-                backgroundColor: "var(--color-white)",
-                color: "var(--color-blue)",
-              },
-            }}
-          >
-            GİRİŞ YAP
-          </Button>
-          <Box>
-            <Link
-              href="#"
-              variant="body2"
-              sx={{
-                color: "var(--color-blue)",
-                fontFamily: "Montserrat",
-              }}
-            >
-              Müşteri Olmak İster Misiniz?
-            </Link>
-          </Box>
-        </Box>
-      </Box>
-    </Container>
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post("/login", {
+        customerNumber: customerNumber,
+        password: password,
+      });
+
+      // Giriş başarılıysa yanıt verilerinden token’ı alıp saklıyoruz
+      if (response.data && response.data.token) {
+        localStorage.setItem("token", response.data.token);
+        console.log("Giriş başarılı");
+        // Yönlendirme veya korumalı bir sayfaya geçiş yapılabilir
+      }
+    } catch (error) {
+      setErrorMessage("Giriş başarısız. Lütfen bilgilerinizi kontrol edin.");
+      console.error("Giriş hatası:", error);
+    }
+  };
+
+  return (
+    <div>
+      <form onSubmit={handleLogin}>
+        <input
+          type="text"
+          placeholder="Müşteri Numarası"
+          value={customerNumber}
+          onChange={(e) => setCustomerNumber(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Şifre"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <button type="submit">Giriş Yap</button>
+      </form>
+      {errorMessage && <p>{errorMessage}</p>}
+    </div>
   );
 };
 export default SingIn;
