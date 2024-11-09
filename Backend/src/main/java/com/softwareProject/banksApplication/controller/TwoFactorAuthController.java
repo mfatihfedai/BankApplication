@@ -14,8 +14,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextHolderStrategy;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,27 +37,24 @@ public class TwoFactorAuthController {
     @Autowired
     private final AuthenticationManager authenticationManager;
 
-    private final Map<String, String> otpStorage = new HashMap<>();  // Simple in-memory storage for OTPs
+    private final Map<Long, String> otpStorage = new HashMap<>();  // Simple in-memory storage for OTPs
     private final UserService userService;
 
     @PostMapping(LOGIN)
-    public String login(@RequestParam String identityNo, @RequestParam String password) {
-
+    public ResponseEntity<String> login(@RequestParam String identityNo, @RequestParam String password) {
         UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(identityNo, password);
-
+                UsernamePasswordAuthenticationToken.unauthenticated(identityNo, password);
         // Authenticate the user
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
 
-        // If authentication is successful, redirect to OTP generation page
         if (authentication.isAuthenticated()) {
-            System.out.println("Authenticated");
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             Long id = ((CustomUserDetails) userDetails).getId();
-            return "redirect:/auth/generate-otp/" + id;
+            generateOtpMethod(id);
+            System.out.println("bu kod front end tarafından gelmiştir");
+            return ResponseEntity.ok(id.toString());
         } else {
-            System.out.println("NOT Authenticated");
-            return "Invalid credentials";
+            return ResponseEntity.notFound().build();
         }
     }
 
@@ -71,32 +71,19 @@ public class TwoFactorAuthController {
 
     @GetMapping("/generate-otp/{id}")
     public String generateOtp(@PathVariable Long id) {
-        UserInfo userr = userService.getById(id);
-        String email = userr.getEmail();
-        String username = userr.getName();
-        String surname = userr.getSurname();
-
-        //twoFactorAuthService ile yeni bir OTP üretilir ve mail olarak gönderilir.
-        String otp = mailMessageService.generateOTP();
-        mailMessageService.sendOTP(username, surname, email, otp);
-        //Localdeki HashMap e username ve otp bilgileri kaydedilir
-        otpStorage.put(username, otp);  // Save OTP for the user
-        System.out.println(username + " " + email + " " + otp);
-
+        generateOtpMethod(id);
         return "redirect:/auth/verify";  // Redirect to OTP verification page
     }
 
     @PostMapping("/verify")
-    public String verifyOtp(@RequestBody String otp, HttpServletRequest request, Authentication authentication) {
-        String username = authentication.getName();
+    public String verifyOtp(@RequestParam String otp, HttpServletRequest request, Authentication authentication) {
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
         UserInfo userInfo = customUserDetails.getUserInfo();
         String role = customUserDetails.getRole();
-        String storedOtp = otpStorage.get(username);
+        String storedOtp = otpStorage.get(userInfo.getId());
 
         if (storedOtp != null && storedOtp.equals(otp)) {
-
-            otpStorage.remove(username);  // OTP is valid, remove it from storage
+            otpStorage.remove(userInfo.getId());  // OTP is valid, remove it from storage
             logManager.logUserLogin(userInfo);
 
             if (Objects.equals(role, "ADMIN")){
@@ -112,6 +99,29 @@ public class TwoFactorAuthController {
             return "redirect:/verify-otp?error";  // Redirect back to OTP page with error
         }
     }
+    @PostMapping("/verify-otp")
+    public ResponseEntity<String> verifyOtpFront(@RequestParam String otp, @RequestParam Long id, HttpServletRequest request) {
+        UserInfo userr = userService.getById(id);
+        String role = userr.getRole().toString();
+        String storedOtp = otpStorage.get(userr.getId());
+
+        if (storedOtp != null && storedOtp.equals(otp)) {
+            otpStorage.remove(userr.getId());  // OTP is valid, remove it from storage
+            logManager.logUserLogin(userr);
+
+            if (Objects.equals(role, "ADMIN")){
+                HttpSession session = request.getSession();
+                session.setAttribute("otpVerified", true);
+                return ResponseEntity.ok().build();
+            } else {
+                HttpSession session = request.getSession();
+                session.setAttribute("otpVerified", true);
+                return ResponseEntity.badRequest().build();  // Redirect to user's dashboard
+            }
+        } else {
+            return ResponseEntity.notFound().build();  // Redirect back to OTP page with error
+        }
+    }
     @GetMapping("/dashboard")
     public String dashboard() {
         return "dashboard";  // Return the HTML page for OTP input
@@ -120,5 +130,18 @@ public class TwoFactorAuthController {
     @GetMapping("/verify")
     public String showOtpPage() {
         return "verify";  // Return the HTML page for OTP input
+    }
+    private void generateOtpMethod(Long id) {
+        UserInfo userr = userService.getById(id);
+        String email = userr.getEmail();
+        String username = userr.getName();
+        String surname = userr.getSurname();
+
+        //twoFactorAuthService ile yeni bir OTP üretilir ve mail olarak gönderilir.
+        String otp = mailMessageService.generateOTP();
+        mailMessageService.sendOTP(username, surname, email, otp);
+        //Localdeki HashMap e username ve otp bilgileri kaydedilir
+        otpStorage.put(id, otp);  // Save OTP for the user
+        System.out.println(username + " " + email + " " + otp);
     }
 }
