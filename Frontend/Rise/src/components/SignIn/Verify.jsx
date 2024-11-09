@@ -11,12 +11,11 @@ const Verify = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `http://localhost:8080/auth/verify`,
-        { otp },  // Send OTP in the request body
-        { 
-          withCredentials: true  
-        }
+        `http://localhost:8080/auth/verify-otp?otp=${otp}&id=${1}`, //1 yazan yere contextApi den id gelecek.
+        {},
+        {withCredentials: true}
       );
+      console.log(response);
   
       if (response.status === 200) {
         const { data } = response;
