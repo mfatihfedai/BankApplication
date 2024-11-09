@@ -7,8 +7,10 @@ export const signInUser = async (identityNo, password) => {
   try {
     const response = await axios.post(
       `${apiUrl}?identityNo=${identityNo}&password=${password}`,
+      {},
       {withCredentials: true}
     );
+    console.log(response);
     return response;
   } catch (error) {
     console.log(error.message);
