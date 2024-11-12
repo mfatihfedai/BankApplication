@@ -12,9 +12,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import static com.softwareProject.banksApplication.core.Config.RestApis.RECEIPTSERVICE;
+
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/receipt")
+@RequestMapping(RECEIPTSERVICE)
 public class ReceiptController {
     private final ReceiptService receiptService;
     @GetMapping()
