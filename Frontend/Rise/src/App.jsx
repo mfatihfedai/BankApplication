@@ -10,12 +10,12 @@ import Verify from "./components/SignIn/Verify";
 function App() {
   return (
     <>
-      <Routes> 
-        <Route path="/" element={<Home />} /> 
+      <Logo />
+      <Routes>
+        <Route path="/" element={<Home />} />
         <Route path="/verify" element={<Verify />} />
       </Routes>
-      {/* <Logo />
-      <Home /> */}
+      {/* <Home /> */}
     </>
   );
 }

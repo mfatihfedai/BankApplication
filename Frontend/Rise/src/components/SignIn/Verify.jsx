@@ -1,22 +1,22 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 
 const Verify = () => {
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `http://localhost:8080/auth/verify-otp?otp=${otp}&id=${1}`, //1 yazan yere contextApi den id gelecek.
+        `http://localhost:8080/auth/verify-otp?otp=${otp}&id=${1}`, //1 yazan yere contextApi den id gelecek. State yönetimi önemli.
         {},
-        {withCredentials: true}
+        { withCredentials: true }
       );
       console.log(response);
-  
+
       if (response.status === 200) {
         const { data } = response;
         // Check if the user is an admin and navigate accordingly
