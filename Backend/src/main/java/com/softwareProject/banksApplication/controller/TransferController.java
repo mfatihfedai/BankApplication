@@ -14,8 +14,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import static com.softwareProject.banksApplication.core.Config.RestApis.TRANSFERSERVICE;
+
 @RestController
-@RequestMapping("/v1/transfer")
+@RequestMapping(TRANSFERSERVICE)
 @RequiredArgsConstructor
 public class TransferController {
     private final TransferService transferService;

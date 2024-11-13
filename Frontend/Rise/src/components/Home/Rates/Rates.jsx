@@ -18,7 +18,6 @@ function Rates() {
 
         setPreviousData(allRates); // Mevcut veriyi eski veri olarak ata
         setAllRates(Object.entries(rates));
-        console.log(previousData);
       } catch (error) {
         console.log(error);
       }

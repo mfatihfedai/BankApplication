@@ -8,7 +8,9 @@ public class RestApis {
 
     public static final String BANKSSERVICE = DEVELOPER+VERSIONS+"/banks";
     public static final String INVOICESERVICE = DEVELOPER+VERSIONS+"/invoices";
+    public static final String RECEIPTSERVICE = DEVELOPER+VERSIONS+"/receipt";
     public static final String AUTHSERVICE = "/auth";
+    public static final String TRANSFERSERVICE = DEVELOPER+VERSIONS+"/transfer";
 
 
     public static final String REGISTER = "/register";

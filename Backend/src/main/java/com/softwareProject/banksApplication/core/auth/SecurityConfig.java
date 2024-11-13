@@ -2,19 +2,14 @@ package com.softwareProject.banksApplication.core.auth;
 
 import com.softwareProject.banksApplication.core.Logging.LogManager;
 import com.softwareProject.banksApplication.entity.UserInfo;
-import com.softwareProject.banksApplication.service.abstracts.UserService;
-import com.softwareProject.banksApplication.service.concretes.UserManager;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -44,10 +39,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                //.cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(registry -> {
-                    registry.requestMatchers("/login").permitAll();
+                    registry.requestMatchers("/login/**").permitAll();
                     registry.requestMatchers("/auth/dashboard").hasRole("USER");
                     registry.requestMatchers(HttpMethod.GET, "/auth/**").permitAll();
                     registry.requestMatchers(HttpMethod.POST, "/auth/**").permitAll();
@@ -87,7 +81,6 @@ public class SecurityConfig {
                         })
                         .permitAll()
                 )
-                //.httpBasic(Customizer.withDefaults())
                 .addFilterAfter(new OtpAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .logout(logout -> logout
                         .logoutUrl("/logout")  // URL for logout
@@ -102,7 +95,7 @@ public class SecurityConfig {
                         })
                 )
                 .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                         .maximumSessions(1) // Sadece bir oturum
                         .maxSessionsPreventsLogin(true) // Yeni oturumu engelle
                         .expiredUrl("/login?expired")
@@ -146,7 +139,6 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", configuration);  // Tüm endpoint'lere izin ver
         return source;
     }
-
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
         return http.getSharedObject(AuthenticationManagerBuilder.class)
