@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.List;
 
+import static com.softwareProject.banksApplication.core.Config.RestApis.USERSERVICE;
+
 @RestController
-@RequestMapping("/v1/user")
+@RequestMapping(USERSERVICE)
 @RequiredArgsConstructor
 public class UserController {
     private final UserService service;
