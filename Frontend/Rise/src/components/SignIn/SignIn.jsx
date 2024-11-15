@@ -13,6 +13,7 @@ import {
 import "./signIn.style.css";
 import { signInUser } from "../../service/SignInApi";
 import { useState } from "react";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const SignIn = () => {
   const [identityNo, setIdentityNo] = useState("");
@@ -20,22 +21,28 @@ const SignIn = () => {
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const [colour, setColour] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
+    setLoading(true);
     try {
       const response = await signInUser(identityNo, password);
-      if (response.status === 200) {
+      console.log(response);
+      if (response.data !== null) {
         navigate("/verify");
       }else {
         setError("Kullanıcı adı veya şifre yanlış. Lütfen tekrar deneyiniz.");
         setColour("red");
       }
     } catch (error) {
+      setLoading(false);
       console.error("Login failed:", error.message);
       setError("Kullanıcı adı veya şifre yanlış. Lütfen tekrar deneyiniz.");
       setColour("red");
     }
   };
+
+  console.log(loading);
 
   return (
     <Container className="signIn" component="main" maxWidth="xs">
@@ -118,11 +125,12 @@ const SignIn = () => {
               Şifremi Unuttum
             </Link>
           </Box>
-          <Button
+          <LoadingButton
             // type="submit"
             onClick={handleSubmit}
             fullWidth
             variant="contained"
+            loading = {loading}
             sx={{
               mt: 3,
               mb: 2,
@@ -136,7 +144,7 @@ const SignIn = () => {
             }}
           >
             GİRİŞ YAP
-          </Button>
+          </LoadingButton>
           {error && <p style={{ color: colour }}>{error}</p>}
           <Box>
             <Link
