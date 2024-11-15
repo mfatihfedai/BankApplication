@@ -1,11 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { getUserById } from "../../service/UserApi";
 
 const Verify = () => {
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [user, setUser] = useState({});
+
+  // useEffect(() => {
+  //   async function fetchData(){
+  //     try{
+  //       const user = await getUserById();
+  //       console.log(user);
+  //     }catch(err){
+  //       console.log(err.message);
+  //     }
+  //   }
+  //   fetchData();
+  // },[])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,16 +29,37 @@ const Verify = () => {
         {},
         { withCredentials: true }
       );
-      console.log(response);
+      // console.log(response);
 
       if (response.status === 200) {
         const { data } = response;
+
+        setTimeout(() => {
+          async function fetchData(){
+                try{
+                  const user = await getUserById();
+                  console.log(user);
+                  setUser(user)
+                }catch(err){
+                  console.log(err.message);
+                }
+              }
+              fetchData();
+
+              if (user.role === "ADMIN") {
+                navigate("/swagger-ui/index.html");
+              } else {
+                navigate("/dashboard");
+              }
+
+        }, 3000)
+        // giriş başarıysa kullanıcı verisi çekme
         // Check if the user is an admin and navigate accordingly
-        if (data.role === "ADMIN") {
-          navigate("/swagger-ui/index.html");
-        } else {
-          navigate("/dashboard");
-        }
+        // if (data.role === "ADMIN") {
+        //   navigate("/swagger-ui/index.html");
+        // } else {
+        //   navigate("/dashboard"); 
+        // }
       }
     } catch (err) {
       setError("Invalid OTP. Please try again.");
