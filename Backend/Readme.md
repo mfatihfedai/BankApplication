@@ -2,65 +2,65 @@
 
 ## User Endpoints
 
-| **Endpoint**            | **HTTP Method** | **Access Level**                                     | **Description**                                                                 |
-|-------------------------|-----------------|------------------------------------------------------|---------------------------------------------------------------------------------|
-| `/v1/user`              | `POST`          | Public                                               | Creates a new user. Accepts `UserSaveRequest` and returns the created user.     |
-| `/v1/user/{id}`         | `GET`           | User (for own info), Admin                           | Fetches user details by ID. Only the authenticated user or an admin can access. |
-| `/v1/user/{id}`         | `PUT`           | User (for own info), Admin                           | Updates user details by ID. Accepts `UserUpdateRequest`.                        |
-| `/v1/user`              | `GET`           | Admin                                                | Provides paginated user details. Admin access required.                         |
-| `/v1/user`              | `DELETE`        | User (for own info)                                  | Deletes the logged-in user's account.                                           |
-| `/v1/user/search`       | `POST`          | Admin                                                | Searches users by a keyword. Admin access required.                             |
-| `/v1/user/forgetPass`   | `POST`          | Public                                               | Handles forgotten passwords. Accepts email and returns user details.            |
+| **Endpoint**          | **HTTP Method** | **Access Level**                                     | **Description**                                                                 |
+|-----------------------|-----------------|------------------------------------------------------|---------------------------------------------------------------------------------|
+| `/dev/v1/user`        | `POST`          | Public                                               | Creates a new user. Accepts `UserSaveRequest` and returns the created user.     |
+| `/dev/v1/user/{id}`       | `GET`           | User (for own info), Admin                           | Fetches user details by ID. Only the authenticated user or an admin can access. |
+| `/dev/v1/user/{id}`       | `PUT`           | User (for own info), Admin                           | Updates user details by ID. Accepts `UserUpdateRequest`.                        |
+| `/dev/v1/user`            | `GET`           | Admin                                                | Provides paginated user details. Admin access required.                         |
+| `/dev/v1/user`            | `DELETE`        | User (for own info)                                  | Deletes the logged-in user's account.                                           |
+| `/dev/v1/user/search`     | `POST`          | Admin                                                | Searches users by a keyword. Admin access required.                             |
+| `/dev/v1/user/forgetPass` | `POST`          | Public                                               | Handles forgotten passwords. Accepts email and returns user details.            |
 
 ## Bank Endpoints
 
 | **Endpoint**            | **HTTP Method** | **Access Level**                                     | **Description**                                                                 |
 |-------------------------|-----------------|------------------------------------------------------|---------------------------------------------------------------------------------|
-| `/v1/banks`             | `POST`          | Admin                                                | Creates a new bank entry. Accepts `BanksSaveRequest`.                           |
-| `/v1/banks/{id}`        | `PUT`           | Admin                                                | Updates a bank entry by ID. Accepts `BanksUpdateRequest`.                       |
-| `/v1/banks/{id}`        | `GET`           | User, Admin                                          | Fetches bank details by ID.                                                     |
-| `/v1/banks`             | `GET`           | Admin                                                | Fetches paginated bank details. Admin access required.                          |
-| `/v1/banks/{id}`        | `DELETE`        | Admin                                                | Deletes a bank entry by ID.                                                     |
+| `/dev/v1/banks`             | `POST`          | Admin                                                | Creates a new bank entry. Accepts `BanksSaveRequest`.                           |
+| `/dev/v1/banks/{id}`        | `PUT`           | Admin                                                | Updates a bank entry by ID. Accepts `BanksUpdateRequest`.                       |
+| `/dev/v1/banks/{id}`        | `GET`           | User, Admin                                          | Fetches bank details by ID.                                                     |
+| `/dev/v1/banks`             | `GET`           | Admin                                                | Fetches paginated bank details. Admin access required.                          |
+| `/dev/v1/banks/{id}`        | `DELETE`        | Admin                                                | Deletes a bank entry by ID.                                                     |
 
 ## Invoice Endpoints
 
 | **Endpoint**            | **HTTP Method** | **Access Level**                                     | **Description**                                                                 |
 |-------------------------|-----------------|------------------------------------------------------|---------------------------------------------------------------------------------|
-| `/v1/invoice/create`     | `POST`          | User (for own info), Admin                           | Creates an invoice for the logged-in user. Accepts `InvoiceSaveRequest`.        |
-| `/v1/invoice/autobill`   | `GET`           | User (for own info), Admin                           | Fetches autobill invoices for the logged-in user.                               |
-| `/v1/invoice/{id}`       | `PUT`           | User (for own info), Admin                           | Updates an invoice by ID. Accepts `InvoiceUpdateRequest`.                       |
-| `/v1/invoice/{id}`       | `GET`           | User (for own info), Admin                           | Fetches invoice details by ID.                                                  |
-| `/v1/invoice`            | `GET`           | Admin                                                | Fetches paginated invoice details. Admin access required.                       |
-| `/v1/invoice/{id}`       | `DELETE`        | Admin                                                | Deletes an invoice by ID.                                                       |
+| `/dev/v1/invoice/create`     | `POST`          | User (for own info), Admin                           | Creates an invoice for the logged-in user. Accepts `InvoiceSaveRequest`.        |
+| `/dev/v1/invoice/autobill`   | `GET`           | User (for own info), Admin                           | Fetches autobill invoices for the logged-in user.                               |
+| `/dev/v1/invoice/{id}`       | `PUT`           | User (for own info), Admin                           | Updates an invoice by ID. Accepts `InvoiceUpdateRequest`.                       |
+| `/dev/v1/invoice/{id}`       | `GET`           | User (for own info), Admin                           | Fetches invoice details by ID.                                                  |
+| `/dev/v1/invoice`            | `GET`           | Admin                                                | Fetches paginated invoice details. Admin access required.                       |
+| `/dev/v1/invoice/{id}`       | `DELETE`        | Admin                                                | Deletes an invoice by ID.                                                       |
 
 ## Receipt Endpoints
 
 | **Endpoint**            | **HTTP Method** | **Access Level**                                     | **Description**                                                                 |
 |-------------------------|-----------------|------------------------------------------------------|---------------------------------------------------------------------------------|
-| `/v1/receipt`           | `GET`           | Admin, User                                          | Fetches paginated receipt details.                                              |
+| `/dev/v1/receipt`           | `GET`           | Admin, User                                          | Fetches paginated receipt details.                                              |
 
 ## Transfer Endpoints
 
 | **Endpoint**            | **HTTP Method** | **Access Level**                                     | **Description**                                                                 |
 |-------------------------|-----------------|------------------------------------------------------|---------------------------------------------------------------------------------|
-| `/v1/transfer`          | `POST`          | User (for own info), Admin                           | Creates a transfer for the logged-in user. Accepts `TransferSaveRequest`.        |
-| `/v1/transfer/{id}`     | `PUT`           | Admin                                                | Updates a transfer by ID. Accepts `TransferUpdateRequest`.                      |
-| `/v1/transfer/{id}`     | `GET`           | User (for own info), Admin                           | Fetches transfer details by ID.                                                 |
-| `/v1/transfer`          | `GET`           | Admin                                                | Fetches paginated transfer details. Admin access required.                      |
-| `/v1/transfer/{id}`     | `DELETE`        | Admin, User                                          | Deletes a transfer by ID.                                                       |
+| `/dev/v1/transfer`          | `POST`          | User (for own info), Admin                           | Creates a transfer for the logged-in user. Accepts `TransferSaveRequest`.        |
+| `/dev/v1/transfer/{id}`     | `PUT`           | Admin                                                | Updates a transfer by ID. Accepts `TransferUpdateRequest`.                      |
+| `/dev/v1/transfer/{id}`     | `GET`           | User (for own info), Admin                           | Fetches transfer details by ID.                                                 |
+| `/dev/v1/transfer`          | `GET`           | Admin                                                | Fetches paginated transfer details. Admin access required.                      |
+| `/dev/v1/transfer/{id}`     | `DELETE`        | Admin, User                                          | Deletes a transfer by ID.                                                       |
 
 ## Security Configuration
 
-| **Endpoint**            | **Access Level**                                     | **Description**                                                                 |
-|-------------------------|------------------------------------------------------|---------------------------------------------------------------------------------|
-| `/login`                | Public                                               | Open to all users.                                                              |
-| `/auth/dashboard`       | Role: USER                                           | Access restricted to authenticated users.                                       |
-| `/swagger-ui/**`        | Authenticated                                        | Swagger UI access restricted to authenticated users.                            |
-| `/v1/banks/**`          | Role: ADMIN for POST, PUT, DELETE. Role: USER, ADMIN for GET | Permissions vary by method and user role.                                        |
-| `/v1/user/**`           | Role: ADMIN for DELETE, Public for POST, Role: USER, ADMIN for GET, PUT | Permissions vary by method and user role.                                       |
-| `/v1/invoice/**`        | Role: ADMIN for DELETE, Role: USER, ADMIN for POST, PUT, GET | Permissions vary by method and user role.                                       |
-| `/v1/receipt/**`        | Role: ADMIN, USER                                   | Accessible by both roles.                                                       |
-| `/v1/transfer/**`       | Role: ADMIN for DELETE, PUT. Role: USER, ADMIN for POST, GET | Permissions vary by method and user role.                                       |
+| **Endpoint**              | **Access Level**                                     | **Description**                                                                 |
+|---------------------------|------------------------------------------------------|---------------------------------------------------------------------------------|
+| `/login`                  | Public                                               | Open to all users.                                                              |
+| `/auth/dashboard`         | Role: USER                                           | Access restricted to authenticated users.                                       |
+| `/swagger-ui/**`          | Authenticated                                        | Swagger UI access restricted to authenticated users.                            |
+| `/dev/v1/banks/**`        | Role: ADMIN for POST, PUT, DELETE. Role: USER, ADMIN for GET | Permissions vary by method and user role.                                        |
+| `/dev/v1/user/**`         | Role: ADMIN for DELETE, Public for POST, Role: USER, ADMIN for GET, PUT | Permissions vary by method and user role.                                       |
+| `/dev/v1/invoice/**`      | Role: ADMIN for DELETE, Role: USER, ADMIN for POST, PUT, GET | Permissions vary by method and user role.                                       |
+| `/dev/v1/receipt/**`      | Role: ADMIN, USER                                   | Accessible by both roles.                                                       |
+| `/dev/v1/transfer/**`     | Role: ADMIN for DELETE, PUT. Role: USER, ADMIN for POST, GET | Permissions vary by method and user role.                                       |
 
 ## Auth Endpoints
 

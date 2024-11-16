@@ -32,7 +32,6 @@ public class UserController {
     @PreAuthorize("#id == authentication.principal.id or hasRole('ADMIN')")
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-
     public ResponseEntity<UserInfo> get(@PathVariable Long id) {
         return ResponseEntity.ok(this.service.getById(id));
     }
