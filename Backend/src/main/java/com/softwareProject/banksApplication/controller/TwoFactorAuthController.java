@@ -51,10 +51,9 @@ public class TwoFactorAuthController {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             Long id = ((CustomUserDetails) userDetails).getId();
             generateOtpMethod(id);
-            System.out.println("bu kod front end tarafından gelmiştir");
             return ResponseEntity.ok(id.toString());
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.badRequest().build();
         }
     }
 
@@ -75,11 +74,27 @@ public class TwoFactorAuthController {
         return "redirect:/auth/verify";  // Redirect to OTP verification page
     }
 
+    // Backend testi için gönderilecek url
     @PostMapping("/verify")
-    public String verifyOtp(@RequestParam String otp, HttpServletRequest request, Authentication authentication) {
-        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
-        UserInfo userInfo = customUserDetails.getUserInfo();
-        String role = customUserDetails.getRole();
+    public String verifyOtp(@RequestParam String otp, HttpServletRequest request
+                            //Authentication authentication
+    ) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = authentication.getPrincipal();
+        UserInfo userInfo = null;
+        String role = null;
+
+        if (principal instanceof CustomUserDetails customUserDetails) {
+            userInfo = customUserDetails.getUserInfo();
+            role = customUserDetails.getRole();
+            System.out.println("user info: " + userInfo);
+        } else {
+            System.out.println("user info ya girmedi");
+        }
+
+//        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
+//        UserInfo userInfo = customUserDetails.getUserInfo();
+//        String role = customUserDetails.getRole();
         String storedOtp = otpStorage.get(userInfo.getId());
 
         if (storedOtp != null && storedOtp.equals(otp)) {
@@ -99,6 +114,8 @@ public class TwoFactorAuthController {
             return "redirect:/verify-otp?error";  // Redirect back to OTP page with error
         }
     }
+
+    // Front end in göndereceği url
     @PostMapping("/verify-otp")
     public ResponseEntity<String> verifyOtpFront(@RequestParam String otp, @RequestParam Long id, HttpServletRequest request) {
         UserInfo userr = userService.getById(id);
@@ -139,7 +156,7 @@ public class TwoFactorAuthController {
 
         //twoFactorAuthService ile yeni bir OTP üretilir ve mail olarak gönderilir.
         String otp = mailMessageService.generateOTP();
-        mailMessageService.sendOTP(username, surname, email, otp);
+        //mailMessageService.sendOTP(username, surname, email, otp);
         //Localdeki HashMap e username ve otp bilgileri kaydedilir
         otpStorage.put(id, otp);  // Save OTP for the user
         System.out.println(username + " " + email + " " + otp);

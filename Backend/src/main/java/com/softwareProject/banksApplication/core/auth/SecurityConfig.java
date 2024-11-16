@@ -9,6 +9,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -47,40 +48,40 @@ public class SecurityConfig {
                     registry.requestMatchers(HttpMethod.POST, "/auth/**").permitAll();
                     registry.requestMatchers("/swagger-ui/**").authenticated();
                     // BANKS
-                    registry.requestMatchers(HttpMethod.GET,"/v1/banks/**").hasAnyRole("ADMIN","USER");
-                    registry.requestMatchers(HttpMethod.POST,"/v1/banks/**").hasRole("ADMIN");
-                    registry.requestMatchers(HttpMethod.PUT,"/v1/banks/**").hasRole("ADMIN");
-                    registry.requestMatchers(HttpMethod.DELETE,"/v1/banks/**").hasRole("ADMIN");
+                    registry.requestMatchers(HttpMethod.GET,"/dev/v1/banks/**").hasAnyRole("ADMIN","USER");
+                    registry.requestMatchers(HttpMethod.POST,"/dev/v1/banks/**").hasRole("ADMIN");
+                    registry.requestMatchers(HttpMethod.PUT,"/dev/v1/banks/**").hasRole("ADMIN");
+                    registry.requestMatchers(HttpMethod.DELETE,"/dev/v1/banks/**").hasRole("ADMIN");
                     // USER
-                    registry.requestMatchers(HttpMethod.GET,"/v1/user/**").hasAnyRole("ADMIN", "USER");
-                    registry.requestMatchers(HttpMethod.POST,"/v1/user/**").permitAll();
-                    registry.requestMatchers(HttpMethod.PUT,"/v1/user/**").hasAnyRole("ADMIN", "USER");
-                    registry.requestMatchers(HttpMethod.DELETE,"/v1/user/**").hasAnyRole("ADMIN","USER");
+                    registry.requestMatchers(HttpMethod.GET,"/dev/v1/user/**").hasAnyRole("ADMIN", "USER");
+                    registry.requestMatchers(HttpMethod.POST,"/dev/v1/user/**").permitAll();
+                    registry.requestMatchers(HttpMethod.PUT,"/dev/v1/user/**").hasAnyRole("ADMIN", "USER");
+                    registry.requestMatchers(HttpMethod.DELETE,"/dev/v1/user/**").hasAnyRole("ADMIN","USER");
                     // INVOICE
-                    registry.requestMatchers(HttpMethod.GET,"/v1/invoice/**").hasAnyRole("ADMIN", "USER");
-                    registry.requestMatchers(HttpMethod.POST,"/v1/invoice/**").hasAnyRole("ADMIN", "USER");
-                    registry.requestMatchers(HttpMethod.PUT,"/v1/invoice/**").hasAnyRole("ADMIN", "USER");
-                    registry.requestMatchers(HttpMethod.DELETE,"/v1/invoice/**").hasRole("ADMIN");
+                    registry.requestMatchers(HttpMethod.GET,"/dev/v1/invoice/**").hasAnyRole("ADMIN", "USER");
+                    registry.requestMatchers(HttpMethod.POST,"/dev/v1/invoice/**").hasAnyRole("ADMIN", "USER");
+                    registry.requestMatchers(HttpMethod.PUT,"/dev/v1/invoice/**").hasAnyRole("ADMIN", "USER");
+                    registry.requestMatchers(HttpMethod.DELETE,"/dev/v1/invoice/**").hasRole("ADMIN");
                     // RECEIPT
-                    registry.requestMatchers(HttpMethod.GET,"/v1/receipt/**").hasAnyRole("ADMIN", "USER");
-                    registry.requestMatchers(HttpMethod.POST,"/v1/receipt/**").hasAnyRole("ADMIN", "USER");
-                    registry.requestMatchers(HttpMethod.PUT,"/v1/receipt/**").hasRole("ADMIN");
-                    registry.requestMatchers(HttpMethod.DELETE,"/v1/receipt/**").hasAnyRole("ADMIN", "USER");
+                    registry.requestMatchers(HttpMethod.GET,"/dev/v1/receipt/**").hasAnyRole("ADMIN", "USER");
+                    registry.requestMatchers(HttpMethod.POST,"/dev/v1/receipt/**").hasAnyRole("ADMIN", "USER");
+                    registry.requestMatchers(HttpMethod.PUT,"/dev/v1/receipt/**").hasRole("ADMIN");
+                    registry.requestMatchers(HttpMethod.DELETE,"/dev/v1/receipt/**").hasAnyRole("ADMIN", "USER");
                     // TRANSFER
-                    registry.requestMatchers(HttpMethod.GET,"/v1/transfer/**").hasAnyRole("ADMIN", "USER");
-                    registry.requestMatchers(HttpMethod.POST,"/v1/transfer/**").hasAnyRole("ADMIN", "USER");
-                    registry.requestMatchers(HttpMethod.PUT,"/v1/transfer/**").hasRole("ADMIN");
-                    registry.requestMatchers(HttpMethod.DELETE,"/v1/transfer/**").hasAnyRole("ADMIN", "USER");
+                    registry.requestMatchers(HttpMethod.GET,"/dev/v1/transfer/**").hasAnyRole("ADMIN", "USER");
+                    registry.requestMatchers(HttpMethod.POST,"/dev/v1/transfer/**").hasAnyRole("ADMIN", "USER");
+                    registry.requestMatchers(HttpMethod.PUT,"/dev/v1/transfer/**").hasRole("ADMIN");
+                    registry.requestMatchers(HttpMethod.DELETE,"/dev/v1/transfer/**").hasAnyRole("ADMIN", "USER");
                     registry.anyRequest().authenticated();
                 })
-                .formLogin(login -> login
-                        .successHandler((request, response, authentication) -> {
-                            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-                            Long id = ((CustomUserDetails) userDetails).getId();
-                            response.sendRedirect("/auth/generate-otp/" + id);
-                        })
-                        .permitAll()
-                )
+//                .formLogin(login -> login
+//                        .successHandler((request, response, authentication) -> {
+//                            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+//                            Long id = ((CustomUserDetails) userDetails).getId();
+//                            response.sendRedirect("/auth/generate-otp/" + id);
+//                        })
+//                        .permitAll()
+//                )
                 .addFilterAfter(new OtpAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .logout(logout -> logout
                         .logoutUrl("/logout")  // URL for logout
@@ -133,6 +134,8 @@ public class SecurityConfig {
         configuration.addAllowedOrigin("http://localhost:5173");
         configuration.addAllowedMethod("*");
         configuration.addAllowedHeader("*");
+        configuration.addAllowedHeader("Authorization");
+        configuration.addExposedHeader("Authorization");
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

@@ -18,11 +18,16 @@ export const getUserById = async () => {
 
 export const getBanks = async () => {
     try{
+      const token = localStorage.getItem("authToken");
         const response = await axios.get(
-            "http://localhost:8080/dev/v1/banks"
+            "http://localhost:8080/dev/v1/banks",
+            {
+              Authorization: `Bearer ${token}`,
+            }
         )
-        return response
+        return response.data;
     }catch(err){
-        console.log(err);
+        console.log(err.message);
+        throw error;
     }
 }
