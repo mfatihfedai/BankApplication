@@ -53,10 +53,16 @@ public class TwoFactorAuthController {
         if (authentication.isAuthenticated()) {
             CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
             Long id = (userDetails).getId();
+            UserInfo userInfo = this.userService.getById(id);
             String role = userDetails.getRole();
             String token = jwtUtils.generateToken(userDetails.getUsername());
 
-            generateOtpMethod(id);
+
+            // two factor auth girişi olduğunda tersine çevir.
+            logManager.logUserLogin(userInfo);
+            //generateOtpMethod(id);
+
+
             LoginResponse response = new LoginResponse(token, role, id);
             return ResponseEntity.ok(response);
         } else {

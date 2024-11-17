@@ -11,7 +11,8 @@ function Dashboard() {
             try{
               const banks = await getBanks();
               console.log(banks);
-              setBank(banks);
+              setBank(banks.items);
+              console.log(bank)
             }catch(err){
               console.log(err.message);
             }
@@ -19,11 +20,21 @@ function Dashboard() {
           fetchData();
    },[])
 
-  return (
-    <div>
-      DAshno
+    return (
+      <div>
+      {/* Eğer bank boşsa bir mesaj gösterebilirsiniz */}
+      {/* {bank.length === 0 ? (
+        <p>Loading banks...</p>
+      ) : (
+        <div>
+          banks:
+          {bank.map((item, index) => (
+            <p key={index}>{item.name}</p>
+          ))}
+        </div>
+      )} */}
     </div>
-  )
+  );
 }
 
 export default Dashboard
