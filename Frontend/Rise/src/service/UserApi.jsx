@@ -18,16 +18,20 @@ export const getUserById = async () => {
 
 export const getBanks = async () => {
     try{
-      const token = localStorage.getItem("authToken");
+      const token = localStorage.getItem("token");
         const response = await axios.get(
-            "http://localhost:8080/dev/v1/banks",
-            {
-              Authorization: `Bearer ${token}`,
+            "http://localhost:8080/dev/v1/banks",{
+            headers: {
+              "Authorization": `Bearer ${token}`,
             }
+          }
         )
+        .then(response => response.json())
+        .then(dataa => console.log(dataa));
+        
         return response.data;
     }catch(err){
         console.log(err.message);
-        throw error;
+        throw err;
     }
 }

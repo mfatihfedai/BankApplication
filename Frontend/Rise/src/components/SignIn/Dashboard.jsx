@@ -20,7 +20,7 @@ function Dashboard() {
    },[])
 
   return (
-      <div>
+    <div>
       DAshno
     </div>
   )

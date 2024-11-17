@@ -2,6 +2,8 @@ package com.softwareProject.banksApplication.controller;
 
 import com.softwareProject.banksApplication.core.Logging.LogManager;
 import com.softwareProject.banksApplication.core.auth.CustomUserDetails;
+import com.softwareProject.banksApplication.core.auth.jwt.JwtUtils;
+import com.softwareProject.banksApplication.dto.response.LoginResponse;
 import com.softwareProject.banksApplication.entity.UserInfo;
 import com.softwareProject.banksApplication.core.auth.MailMessageService;
 import com.softwareProject.banksApplication.service.abstracts.UserService;
@@ -36,22 +38,27 @@ public class TwoFactorAuthController {
     private final LogManager logManager;
     @Autowired
     private final AuthenticationManager authenticationManager;
+    private final JwtUtils jwtUtils;
 
     private final Map<Long, String> otpStorage = new HashMap<>();  // Simple in-memory storage for OTPs
     private final UserService userService;
 
     @PostMapping(LOGIN)
-    public ResponseEntity<String> login(@RequestParam String identityNo, @RequestParam String password) {
-        UsernamePasswordAuthenticationToken authenticationToken =
-                UsernamePasswordAuthenticationToken.unauthenticated(identityNo, password);
-        // Authenticate the user
-        Authentication authentication = authenticationManager.authenticate(authenticationToken);
+    public ResponseEntity<LoginResponse> login(@RequestParam String identityNo, @RequestParam String password) {
+
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(identityNo, password)
+        );
 
         if (authentication.isAuthenticated()) {
-            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            Long id = ((CustomUserDetails) userDetails).getId();
+            CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+            Long id = (userDetails).getId();
+            String role = userDetails.getRole();
+            String token = jwtUtils.generateToken(userDetails.getUsername());
+
             generateOtpMethod(id);
-            return ResponseEntity.ok(id.toString());
+            LoginResponse response = new LoginResponse(token, role, id);
+            return ResponseEntity.ok(response);
         } else {
             return ResponseEntity.badRequest().build();
         }
@@ -76,38 +83,22 @@ public class TwoFactorAuthController {
 
     // Backend testi için gönderilecek url
     @PostMapping("/verify")
-    public String verifyOtp(@RequestParam String otp, HttpServletRequest request
-                            //Authentication authentication
-    ) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Object principal = authentication.getPrincipal();
-        UserInfo userInfo = null;
-        String role = null;
-
-        if (principal instanceof CustomUserDetails customUserDetails) {
-            userInfo = customUserDetails.getUserInfo();
-            role = customUserDetails.getRole();
-            System.out.println("user info: " + userInfo);
-        } else {
-            System.out.println("user info ya girmedi");
-        }
-
-//        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
-//        UserInfo userInfo = customUserDetails.getUserInfo();
-//        String role = customUserDetails.getRole();
+    public String verifyOtp(@RequestParam String otp, HttpServletRequest request, Authentication authentication) {
+        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
+        UserInfo userInfo = customUserDetails.getUserInfo();
+        String role = customUserDetails.getRole();
         String storedOtp = otpStorage.get(userInfo.getId());
 
         if (storedOtp != null && storedOtp.equals(otp)) {
             otpStorage.remove(userInfo.getId());  // OTP is valid, remove it from storage
             logManager.logUserLogin(userInfo);
 
+            HttpSession session = request.getSession();
+            session.setAttribute("otpVerified", true);
+
             if (Objects.equals(role, "ADMIN")){
-                HttpSession session = request.getSession();
-                session.setAttribute("otpVerified", true);
                 return "redirect:/swagger-ui/index.html";
             } else {
-                HttpSession session = request.getSession();
-                session.setAttribute("otpVerified", true);
                 return "redirect:/auth/dashboard";  // Redirect to user's dashboard
             }
         } else {
@@ -119,22 +110,15 @@ public class TwoFactorAuthController {
     @PostMapping("/verify-otp")
     public ResponseEntity<String> verifyOtpFront(@RequestParam String otp, @RequestParam Long id, HttpServletRequest request) {
         UserInfo userr = userService.getById(id);
-        String role = userr.getRole().toString();
         String storedOtp = otpStorage.get(userr.getId());
 
         if (storedOtp != null && storedOtp.equals(otp)) {
             otpStorage.remove(userr.getId());  // OTP is valid, remove it from storage
             logManager.logUserLogin(userr);
+            HttpSession session = request.getSession();
+            session.setAttribute("otpVerified", true);
 
-            if (Objects.equals(role, "ADMIN")){
-                HttpSession session = request.getSession();
-                session.setAttribute("otpVerified", true);
-                return ResponseEntity.ok().build();
-            } else {
-                HttpSession session = request.getSession();
-                session.setAttribute("otpVerified", true);
-                return ResponseEntity.badRequest().build();  // Redirect to user's dashboard
-            }
+            return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.notFound().build();  // Redirect back to OTP page with error
         }

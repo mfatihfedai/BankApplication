@@ -9,60 +9,38 @@ const Verify = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState({});
 
-  // useEffect(() => {
-  //   async function fetchData(){
-  //     try{
-  //       const user = await getUserById();
-  //       console.log(user);
-  //     }catch(err){
-  //       console.log(err.message);
-  //     }
-  //   }
-  //   fetchData();
-  // },[])
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const id = 1;
+    const token = localStorage.getItem("token");
     try {
       const response = await axios.post(
-        `http://localhost:8080/auth/verify-otp?otp=${otp}&id=${1}`, //1 yazan yere contextApi den id gelecek. State yönetimi önemli.
-        {},
-        { withCredentials: true }
+        `http://localhost:8080/auth/verify-otp?otp=${otp}&id=${id}`,
+        null,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
+        }
       );
-      // console.log(response);
 
-      if (response.status === 200) {
-        const { data } = response;
+      if (response.status == 200) {
+        const data = await response.json();
 
-        setTimeout(() => {
-          async function fetchData(){
-                try{
-                  const user = await getUserById();
-                  console.log(user);
-                  setUser(user)
-                }catch(err){
-                  console.log(err.message);
-                }
-              }
-              fetchData();
-
-              if (user.role === "ADMIN") {
-                navigate("/swagger-ui/index.html");
-              } else {
-                navigate("/dashboard");
-              }
-
-        }, 3000)
-        // giriş başarıysa kullanıcı verisi çekme
-        // Check if the user is an admin and navigate accordingly
-        // if (data.role === "ADMIN") {
-        //   navigate("/swagger-ui/index.html");
-        // } else {
-        //   navigate("/dashboard"); 
-        // }
+        // Kullanıcı rolüne göre yönlendirme
+        if (response.data.role === "ADMIN") {
+          navigate("/dashboard");
+        } else {
+          navigate("/dashboard");
+        }
+      } else {
+        setError("Invalid OTP. Please try again.");
       }
     } catch (err) {
-      setError("Invalid OTP. Please try again.");
+      console.error("Verification failed:", err.message);
+      setError("An error occurred while verifying OTP.");
     }
   };
 
