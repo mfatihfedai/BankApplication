@@ -20,16 +20,10 @@ export const getBanks = async () => {
     try{
       const token = localStorage.getItem("token");
         const response = await axios.get(
-            "http://localhost:8080/dev/v1/banks",{
-            headers: {
-              "Authorization": `Bearer ${token}`,
-            }
-          }
+            "http://localhost:8080/dev/v1/banks"
         )
-        .then(response => response.json())
-        .then(dataa => console.log(dataa));
-        
-        return response.data;
+
+        return response;
     }catch(err){
         console.log(err.message);
         throw err;
