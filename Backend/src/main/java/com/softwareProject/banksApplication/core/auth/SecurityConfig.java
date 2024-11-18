@@ -87,7 +87,6 @@ public class SecurityConfig {
 //                        })
 //                        .permitAll()
 //                )
-//                .formLogin(httpSecurityFormLoginConfigurer -> {})
 //                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
 //                .addFilterAfter(new OtpAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .logout(logout -> logout
