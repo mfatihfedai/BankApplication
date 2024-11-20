@@ -4,7 +4,6 @@ import com.softwareProject.banksApplication.core.Logging.LogManager;
 import com.softwareProject.banksApplication.core.auth.jwt.JwtAuthenticationFilter;
 import com.softwareProject.banksApplication.entity.UserInfo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
