@@ -44,49 +44,49 @@ public class SecurityConfig {
         return httpSecurity
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
-//                .authorizeHttpRequests(registry -> {
-//                    registry.requestMatchers("/login/**").permitAll();
-//                    registry.requestMatchers("/auth/dashboard").hasRole("USER");
-//                    registry.requestMatchers(HttpMethod.GET, "/auth/**").permitAll();
-//                    registry.requestMatchers(HttpMethod.POST, "/auth/**").permitAll();
-//                    registry.requestMatchers("/swagger-ui/**").authenticated();
-//                    // BANKS
-//                    registry.requestMatchers(HttpMethod.GET,"/dev/v1/banks/**").hasAnyRole("ADMIN","USER");
-//                    registry.requestMatchers(HttpMethod.POST,"/dev/v1/banks/**").hasRole("ADMIN");
-//                    registry.requestMatchers(HttpMethod.PUT,"/dev/v1/banks/**").hasRole("ADMIN");
-//                    registry.requestMatchers(HttpMethod.DELETE,"/dev/v1/banks/**").hasRole("ADMIN");
-//                    // USER
-//                    registry.requestMatchers(HttpMethod.GET,"/dev/v1/user/**").hasAnyRole("ADMIN", "USER");
-//                    registry.requestMatchers(HttpMethod.POST,"/dev/v1/user/**").permitAll();
-//                    registry.requestMatchers(HttpMethod.PUT,"/dev/v1/user/**").hasAnyRole("ADMIN", "USER");
-//                    registry.requestMatchers(HttpMethod.DELETE,"/dev/v1/user/**").hasAnyRole("ADMIN","USER");
-//                    // INVOICE
-//                    registry.requestMatchers(HttpMethod.GET,"/dev/v1/invoice/**").hasAnyRole("ADMIN", "USER");
-//                    registry.requestMatchers(HttpMethod.POST,"/dev/v1/invoice/**").hasAnyRole("ADMIN", "USER");
-//                    registry.requestMatchers(HttpMethod.PUT,"/dev/v1/invoice/**").hasAnyRole("ADMIN", "USER");
-//                    registry.requestMatchers(HttpMethod.DELETE,"/dev/v1/invoice/**").hasRole("ADMIN");
-//                    // RECEIPT
-//                    registry.requestMatchers(HttpMethod.GET,"/dev/v1/receipt/**").hasAnyRole("ADMIN", "USER");
-//                    registry.requestMatchers(HttpMethod.POST,"/dev/v1/receipt/**").hasAnyRole("ADMIN", "USER");
-//                    registry.requestMatchers(HttpMethod.PUT,"/dev/v1/receipt/**").hasRole("ADMIN");
-//                    registry.requestMatchers(HttpMethod.DELETE,"/dev/v1/receipt/**").hasAnyRole("ADMIN", "USER");
-//                    // TRANSFER
-//                    registry.requestMatchers(HttpMethod.GET,"/dev/v1/transfer/**").hasAnyRole("ADMIN", "USER");
-//                    registry.requestMatchers(HttpMethod.POST,"/dev/v1/transfer/**").hasAnyRole("ADMIN", "USER");
-//                    registry.requestMatchers(HttpMethod.PUT,"/dev/v1/transfer/**").hasRole("ADMIN");
-//                    registry.requestMatchers(HttpMethod.DELETE,"/dev/v1/transfer/**").hasAnyRole("ADMIN", "USER");
-//                    registry.anyRequest().authenticated();
-//                })
-//                .formLogin(login -> login
-//                        .successHandler((request, response, authentication) -> {
-//                            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-//                            Long id = ((CustomUserDetails) userDetails).getId();
-//                            response.sendRedirect("/auth/generate-otp/" + id);
-//                        })
-//                        .permitAll()
-//                )
-//                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-//                .addFilterAfter(new OtpAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+                .authorizeHttpRequests(registry -> {
+                    registry.requestMatchers("/login/**").permitAll();
+                    registry.requestMatchers("/auth/dashboard").hasRole("USER");
+                    registry.requestMatchers(HttpMethod.GET, "/auth/**").permitAll();
+                    registry.requestMatchers(HttpMethod.POST, "/auth/**").permitAll();
+                    registry.requestMatchers("/swagger-ui/**").authenticated();
+                    // BANKS
+                    registry.requestMatchers(HttpMethod.GET,"/dev/v1/banks/**").hasAnyRole("ADMIN","USER");
+                    registry.requestMatchers(HttpMethod.POST,"/dev/v1/banks/**").hasRole("ADMIN");
+                    registry.requestMatchers(HttpMethod.PUT,"/dev/v1/banks/**").hasRole("ADMIN");
+                    registry.requestMatchers(HttpMethod.DELETE,"/dev/v1/banks/**").hasRole("ADMIN");
+                    // USER
+                    registry.requestMatchers(HttpMethod.GET,"/dev/v1/user/**").hasAnyRole("ADMIN", "USER");
+                    registry.requestMatchers(HttpMethod.POST,"/dev/v1/user/**").permitAll();
+                    registry.requestMatchers(HttpMethod.PUT,"/dev/v1/user/**").hasAnyRole("ADMIN", "USER");
+                    registry.requestMatchers(HttpMethod.DELETE,"/dev/v1/user/**").hasAnyRole("ADMIN","USER");
+                    // INVOICE
+                    registry.requestMatchers(HttpMethod.GET,"/dev/v1/invoice/**").hasAnyRole("ADMIN", "USER");
+                    registry.requestMatchers(HttpMethod.POST,"/dev/v1/invoice/**").hasAnyRole("ADMIN", "USER");
+                    registry.requestMatchers(HttpMethod.PUT,"/dev/v1/invoice/**").hasAnyRole("ADMIN", "USER");
+                    registry.requestMatchers(HttpMethod.DELETE,"/dev/v1/invoice/**").hasRole("ADMIN");
+                    // RECEIPT
+                    registry.requestMatchers(HttpMethod.GET,"/dev/v1/receipt/**").hasAnyRole("ADMIN", "USER");
+                    registry.requestMatchers(HttpMethod.POST,"/dev/v1/receipt/**").hasAnyRole("ADMIN", "USER");
+                    registry.requestMatchers(HttpMethod.PUT,"/dev/v1/receipt/**").hasRole("ADMIN");
+                    registry.requestMatchers(HttpMethod.DELETE,"/dev/v1/receipt/**").hasAnyRole("ADMIN", "USER");
+                    // TRANSFER
+                    registry.requestMatchers(HttpMethod.GET,"/dev/v1/transfer/**").hasAnyRole("ADMIN", "USER");
+                    registry.requestMatchers(HttpMethod.POST,"/dev/v1/transfer/**").hasAnyRole("ADMIN", "USER");
+                    registry.requestMatchers(HttpMethod.PUT,"/dev/v1/transfer/**").hasRole("ADMIN");
+                    registry.requestMatchers(HttpMethod.DELETE,"/dev/v1/transfer/**").hasAnyRole("ADMIN", "USER");
+                    registry.anyRequest().authenticated();
+                })
+                .formLogin(login -> login
+                        .successHandler((request, response, authentication) -> {
+                            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+                            Long id = ((CustomUserDetails) userDetails).getId();
+                            response.sendRedirect("/auth/generate-otp/" + id);
+                        })
+                        .permitAll()
+                )
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterAfter(new OtpAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .logout(logout -> logout
                         .logoutUrl("/logout")  // URL for logout
                         .logoutSuccessUrl("/login?logout")
