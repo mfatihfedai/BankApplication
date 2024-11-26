@@ -59,8 +59,8 @@ public class TwoFactorAuthController {
 
 
             // two factor auth girişi olduğunda tersine çevir.
-            logManager.logUserLogin(userInfo);
-            //generateOtpMethod(id);
+            //logManager.logUserLogin(userInfo);
+            generateOtpMethod(id);
 
 
             LoginResponse response = new LoginResponse(token, role, id);
