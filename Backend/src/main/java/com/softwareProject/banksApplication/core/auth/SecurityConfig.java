@@ -45,10 +45,9 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(registry -> {
                     registry.requestMatchers("/login/**").permitAll();
-                    registry.requestMatchers("/auth/dashboard").hasRole("USER");
                     registry.requestMatchers(HttpMethod.GET, "/auth/**").permitAll();
                     registry.requestMatchers(HttpMethod.POST, "/auth/**").permitAll();
-                    registry.requestMatchers("/swagger-ui/**").authenticated();
+                    registry.requestMatchers("/auth/dashboard").hasRole("USER");
                     // BANKS
                     registry.requestMatchers(HttpMethod.GET,"/dev/v1/banks/**").hasAnyRole("ADMIN","USER");
                     registry.requestMatchers(HttpMethod.POST,"/dev/v1/banks/**").hasRole("ADMIN");
@@ -56,7 +55,7 @@ public class SecurityConfig {
                     registry.requestMatchers(HttpMethod.DELETE,"/dev/v1/banks/**").hasRole("ADMIN");
                     // USER
                     registry.requestMatchers(HttpMethod.GET,"/dev/v1/user/**").hasAnyRole("ADMIN", "USER");
-                    registry.requestMatchers(HttpMethod.POST,"/dev/v1/user/**").permitAll();
+                    registry.requestMatchers(HttpMethod.POST,"/dev/v1/user/**").hasAnyRole("ADMIN", "USER");
                     registry.requestMatchers(HttpMethod.PUT,"/dev/v1/user/**").hasAnyRole("ADMIN", "USER");
                     registry.requestMatchers(HttpMethod.DELETE,"/dev/v1/user/**").hasAnyRole("ADMIN","USER");
                     // INVOICE
@@ -76,16 +75,16 @@ public class SecurityConfig {
                     registry.requestMatchers(HttpMethod.DELETE,"/dev/v1/transfer/**").hasAnyRole("ADMIN", "USER");
                     registry.anyRequest().authenticated();
                 })
-                .formLogin(login -> login
-                        .successHandler((request, response, authentication) -> {
-                            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-                            Long id = ((CustomUserDetails) userDetails).getId();
-                            response.sendRedirect("/auth/generate-otp/" + id);
-                        })
-                        .permitAll()
-                )
+//                .formLogin(login -> login
+//                        .successHandler((request, response, authentication) -> {
+//                            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+//                            Long id = ((CustomUserDetails) userDetails).getId();
+//                            response.sendRedirect("/auth/generate-otp/" + id);
+//                        })
+//                        .permitAll()
+//                )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .addFilterAfter(new OtpAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+//                .addFilterAfter(new OtpAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .logout(logout -> logout
                         .logoutUrl("/logout")  // URL for logout
                         .logoutSuccessUrl("/login?logout")

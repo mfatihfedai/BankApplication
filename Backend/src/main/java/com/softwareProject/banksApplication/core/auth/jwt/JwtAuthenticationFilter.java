@@ -5,8 +5,11 @@ import com.softwareProject.banksApplication.core.auth.CustomUserDetailsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -27,10 +30,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String authorizationHeader = request.getHeader("Authorization");
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             String token = authorizationHeader.substring(7);
-            String username = jwtUtils.validateToken(token);
+            Long identityNumber = jwtUtils.extractIdentityNumber(token);
+            Long accountNumber = jwtUtils.extractAccountNumber(token);
 
-            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                CustomUserDetails userDetails = (CustomUserDetails) userDetailsService.loadUserByUsername(username);
+            if ((identityNumber != null || accountNumber != null) && SecurityContextHolder.getContext().getAuthentication() == null) {
+                CustomUserDetails userDetails;
+                // identity number veya account number ile giriş yapılır.
+                try {
+                    userDetails = (CustomUserDetails) userDetailsService.loadUserByUsername(String.valueOf(identityNumber));
+                } catch (UsernameNotFoundException e) {
+                    userDetails = (CustomUserDetails) userDetailsService.loadUserByUsername(String.valueOf(accountNumber));
+                }
+
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities()
                 );

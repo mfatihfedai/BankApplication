@@ -3,7 +3,9 @@ package com.softwareProject.banksApplication.controller;
 import com.softwareProject.banksApplication.core.Logging.LogManager;
 import com.softwareProject.banksApplication.core.auth.CustomUserDetails;
 import com.softwareProject.banksApplication.core.auth.jwt.JwtUtils;
+import com.softwareProject.banksApplication.core.mapper.UserMapper;
 import com.softwareProject.banksApplication.dto.response.LoginResponse;
+import com.softwareProject.banksApplication.dto.response.user.UserResponse;
 import com.softwareProject.banksApplication.entity.UserInfo;
 import com.softwareProject.banksApplication.core.auth.MailMessageService;
 import com.softwareProject.banksApplication.service.abstracts.UserService;
@@ -24,6 +26,7 @@ import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.management.RuntimeErrorException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -39,6 +42,7 @@ public class TwoFactorAuthController {
     @Autowired
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
+    private final UserMapper userMapper;
 
     private final Map<Long, String> otpStorage = new HashMap<>();  // Simple in-memory storage for OTPs
     private final UserService userService;
@@ -53,16 +57,9 @@ public class TwoFactorAuthController {
         if (authentication.isAuthenticated()) {
             CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
             Long id = (userDetails).getId();
-            UserInfo userInfo = this.userService.getById(id);
             String role = userDetails.getRole();
-            String token = jwtUtils.generateToken(userDetails.getUsername());
-
-
-            // two factor auth girişi olduğunda tersine çevir.
-            //logManager.logUserLogin(userInfo);
+            String token = jwtUtils.generateToken(userDetails);
             generateOtpMethod(id);
-
-
             LoginResponse response = new LoginResponse(token, role, id);
             return ResponseEntity.ok(response);
         } else {
@@ -114,20 +111,20 @@ public class TwoFactorAuthController {
 
     // Front end in göndereceği url
     @PostMapping("/verify-otp")
-    public ResponseEntity<String> verifyOtpFront(@RequestParam String otp, @RequestParam Long id, HttpServletRequest request) {
+    @ResponseBody
+    public ResponseEntity<UserResponse> verifyOtpFront(@RequestParam String otp, @RequestParam Long id, HttpServletRequest request) {
         UserInfo userr = userService.getById(id);
-        String storedOtp = otpStorage.get(userr.getId());
+        String storedOtp = otpStorage.get(id);
 
         if (storedOtp != null && storedOtp.equals(otp)) {
-            otpStorage.remove(userr.getId());  // OTP is valid, remove it from storage
+            otpStorage.remove(id);  // OTP is valid, remove it from storage
             logManager.logUserLogin(userr);
             HttpSession session = request.getSession();
             session.setAttribute("otpVerified", true);
-
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();  // Redirect back to OTP page with error
+            UserResponse userResponse = userMapper.entityToResponse(userr);
+            return ResponseEntity.ok(userResponse);
         }
+        return ResponseEntity.badRequest().build();
     }
     @GetMapping("/dashboard")
     public String dashboard() {

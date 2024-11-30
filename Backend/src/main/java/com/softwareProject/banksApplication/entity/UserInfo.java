@@ -57,4 +57,18 @@ public class UserInfo {
         ADMIN,
         USER
     }
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", identityNumber=" + identityNumber +
+                ", accountNumber=" + accountNumber +
+                ", role=" + role +
+                ", balance=" + balance +
+                '}';
+    }
 }

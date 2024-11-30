@@ -17,7 +17,6 @@ public class UserResponse {
     private String email;
     private Long identityNumber;
     private Long accountNumber;
-    private String password;
     private UserInfo.Role role;
     private BigDecimal balance;
 }
