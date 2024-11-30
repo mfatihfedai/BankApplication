@@ -1,6 +1,7 @@
 package com.softwareProject.banksApplication.core.auth.jwt;
 
 
+import com.softwareProject.banksApplication.core.auth.CustomUserDetails;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
@@ -10,12 +11,14 @@ import java.util.Date;
 
 @Component
 public class JwtUtils {
-    private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256); // Güvenli bir anahtar oluşturun
-    private static final long EXPIRATION_TIME = 300; // 5 min
+    private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256); // HS256 ile bir güvenlik anahtarı oluşturulur.
+    private static final long EXPIRATION_TIME = 3000000; // süre
 
-    public String generateToken(String username) {
+    public String generateToken(CustomUserDetails userDetails) {
         return Jwts.builder()
-                .setSubject(username)
+                .setSubject(userDetails.getUserInfo().getName())
+                .claim("identityNumber", userDetails.getUserInfo().getIdentityNumber())
+                .claim("accountNumber", userDetails.getUserInfo().getAccountNumber())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(key)
@@ -34,5 +37,25 @@ public class JwtUtils {
             throw new RuntimeException("Invalid or expired token");
         }
     }
+    public Claims extractAllClaims(String token) {
+        return Jwts.parser()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
 
+    public Long extractIdentityNumber(String token) {
+        Claims claims = extractAllClaims(token);
+        return claims.get("identityNumber", Long.class);
+    }
+
+    public Long extractAccountNumber(String token) {
+        Claims claims = extractAllClaims(token);
+        return claims.get("accountNumber", Long.class);
+    }
+
+    public String extractUsername(String token) {
+        return extractAllClaims(token).getSubject();
+    }
 }
