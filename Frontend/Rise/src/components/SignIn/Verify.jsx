@@ -15,7 +15,7 @@ const Verify = () => {
     const token = localStorage.getItem("token");
     try {
       const response = await axios.post(
-        `http://localhost:8080/auth/verify-otp?otp=${otp}&id=${id}&token=${token}`,
+        `http://localhost:8080/auth/verify-otp?otp=${otp}&id=${id}`,
         null,
         {
           headers: {
@@ -27,13 +27,12 @@ const Verify = () => {
       );
 
       if (response.status == 200) {
-        const data = await response.json();
-
         // Kullanıcı rolüne göre yönlendirme
+        console.log(response.data)
         if (response.data.role === "ADMIN") {
-          navigate("/dashboard");
+          navigate(`/dashboard`);
         } else {
-          navigate("/dashboard");
+          navigate("/");
         }
       } else {
         setError("Invalid OTP. Please try again.");

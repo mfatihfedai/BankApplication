@@ -7,6 +7,8 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Date;
 
 @Component
@@ -19,8 +21,8 @@ public class JwtUtils {
                 .setSubject(userDetails.getUserInfo().getName())
                 .claim("identityNumber", userDetails.getUserInfo().getIdentityNumber())
                 .claim("accountNumber", userDetails.getUserInfo().getAccountNumber())
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .setIssuedAt(Date.from(Instant.now()))
+                .setExpiration(Date.from(Instant.now().plus(Duration.ofSeconds(EXPIRATION_TIME))))
                 .signWith(key)
                 .compact();
     }
