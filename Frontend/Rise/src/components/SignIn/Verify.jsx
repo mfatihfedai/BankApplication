@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { getUserById } from "../../service/UserApi";
+import { useUser } from "../../context/UserContext";
 
 const Verify = () => {
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const [user, setUser] = useState({});
+  const {user} = useUser();
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const id = 1;
+    const id = user.id;
     const token = localStorage.getItem("token");
     try {
       const response = await axios.post(
@@ -27,12 +28,12 @@ const Verify = () => {
       );
 
       if (response.status == 200) {
-        // Kullanıcı rolüne göre yönlendirme
-        console.log(response.data)
-        if (response.data.role === "ADMIN") {
-          navigate(`/dashboard`);
-        } else {
-          navigate("/");
+        console.log(user)
+        if (user.role === "ADMIN") {
+          navigate(`/admin-dashboard`);
+        }
+        if(user.role === "USER"){
+          navigate('/user-dashboard')
         }
       } else {
         setError("Invalid OTP. Please try again.");

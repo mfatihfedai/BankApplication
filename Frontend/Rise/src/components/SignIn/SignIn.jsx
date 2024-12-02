@@ -14,6 +14,7 @@ import "./signIn.style.css";
 import { signInUser } from "../../service/SignInApi";
 import { useState } from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
+import { useUser } from "../../context/UserContext";
 
 const SignIn = () => {
   const [identityNo, setIdentityNo] = useState("");
@@ -22,13 +23,15 @@ const SignIn = () => {
   const [error, setError] = useState("");
   const [colour, setColour] = useState("");
   const [loading, setLoading] = useState(false);
+  const {newUser} = useUser();
 
   const handleSubmit = async () => {
     setLoading(true);
     try {
       const response = await signInUser(identityNo, password);
-      console.log(response);
       if (response.data !== null) {
+        const logUser = response.data.user;
+        newUser(logUser);
         navigate("/verify");
       }else {
         setError("Kullanıcı adı veya şifre yanlış. Lütfen tekrar deneyiniz.");
@@ -41,8 +44,6 @@ const SignIn = () => {
       setColour("red");
     }
   };
-
-  console.log(loading);
 
   return (
     <Container className="signIn" component="main" maxWidth="xs">

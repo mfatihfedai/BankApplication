@@ -57,10 +57,12 @@ public class TwoFactorAuthController {
         if (authentication.isAuthenticated()) {
             CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
             Long id = (userDetails).getId();
+            UserInfo user = this.userService.getById(id);
+            UserResponse userResponse = userMapper.entityToResponse(user);
             String role = userDetails.getRole();
             String token = jwtUtils.generateToken(userDetails);
             generateOtpMethod(id);
-            LoginResponse response = new LoginResponse(token, role, id);
+            LoginResponse response = new LoginResponse(token, role, id, userResponse);
             return ResponseEntity.ok(response);
         } else {
             return ResponseEntity.badRequest().build();
