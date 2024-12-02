@@ -10,12 +10,17 @@ export const UserContextProvider = ({ children }) => {
         setUser(user);
     }
 
+    // const addUser = (user) => {
+    //     setUser(user);
+    // }
+
+    
     const values = {
         user,
         setUser,
         newUser,
         userId,
-        setUserId
+        setUserId,
     }
 
     return (
