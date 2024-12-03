@@ -3,18 +3,25 @@ import { useUser } from "../../../context/UserContext";
 
 function Admin() {
   const { user, setUser } = useUser();
-  console.log(user);
+  console.log(user.role);
 
-  // useEffect(() => {
-  //   const savedData = localStorage.getItem("data");
-  //   if (savedData) {
-  //     setUser(JSON.parse(savedData));
-  //   }
-  // }, []);
+  useEffect(() => {
+    const savedData = localStorage.getItem("data");
+    if (savedData) {
+      setUser(JSON.parse(savedData));
+    }
+  }, []);
 
-  // useEffect(() => {
-  //   localStorage.setItem("data", JSON.stringify(user));
-  // }, [user]);
+  useEffect(() => {
+    localStorage.setItem("data", JSON.stringify(user));
+  }, [user]);
+
+  // Komponent unmount olduğunda localStorage'ı temizleme
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem("data");
+    };
+  }, []);
 
   return (
     <div>{`Hoşgeldiniz ${user?.name}, Kullanıcı rolünüz : ${user?.role}`}</div>

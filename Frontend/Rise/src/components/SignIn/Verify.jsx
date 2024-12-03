@@ -7,8 +7,7 @@ const Verify = () => {
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const {user} = useUser();
-
+  const { user } = useUser();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,12 +27,12 @@ const Verify = () => {
       );
 
       if (response.status == 200) {
-        console.log(user)
+        console.log(user);
         if (user.role === "ADMIN") {
           navigate(`/admin-dashboard`);
         }
-        if(user.role === "USER"){
-          navigate('/user-dashboard')
+        if (user.role === "USER") {
+          navigate("/user-dashboard");
         }
       } else {
         setError("Invalid OTP. Please try again.");
