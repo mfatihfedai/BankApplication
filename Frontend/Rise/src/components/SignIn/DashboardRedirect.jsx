@@ -4,7 +4,7 @@ import { useUser } from "../../context/UserContext";
 
 const DashboardRedirect = () => {
   const navigate = useNavigate();
-  const {user} = useUser();
+  const { user } = useUser();
 
   useEffect(() => {
     if (user?.role === "ADMIN") {
@@ -14,7 +14,7 @@ const DashboardRedirect = () => {
     } else {
       navigate("/"); // Eğer rol bilinmiyorsa ana sayfaya yönlendirme
     }
-  }, [user,navigate]);
+  }, [user, navigate]);
 
   return null; // Bu bileşen hiçbir şey render etmez, sadece yönlendirme yapar
 };

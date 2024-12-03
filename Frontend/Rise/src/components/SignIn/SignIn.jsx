@@ -23,7 +23,7 @@ const SignIn = () => {
   const [error, setError] = useState("");
   const [colour, setColour] = useState("");
   const [loading, setLoading] = useState(false);
-  const {newUser} = useUser();
+  const { newUser } = useUser();
 
   const handleSubmit = async () => {
     setLoading(true);
@@ -33,7 +33,7 @@ const SignIn = () => {
         const logUser = response.data.user;
         newUser(logUser);
         navigate("/verify");
-      }else {
+      } else {
         setError("Kullanıcı adı veya şifre yanlış. Lütfen tekrar deneyiniz.");
         setColour("red");
       }
@@ -131,7 +131,7 @@ const SignIn = () => {
             onClick={handleSubmit}
             fullWidth
             variant="contained"
-            loading = {loading}
+            loading={loading}
             sx={{
               mt: 3,
               mb: 2,
