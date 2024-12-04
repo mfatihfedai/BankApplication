@@ -6,7 +6,6 @@ import com.softwareProject.banksApplication.dto.request.invoice.InvoiceUpdateReq
 import com.softwareProject.banksApplication.dto.response.invoice.InvoiceResponse;
 import com.softwareProject.banksApplication.entity.InvoiceInfo;
 import com.softwareProject.banksApplication.entity.UserInfo;
-import com.softwareProject.banksApplication.service.abstracts.IBaseService;
 import com.softwareProject.banksApplication.service.abstracts.InvoiceService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
