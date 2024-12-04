@@ -1,6 +1,5 @@
 import axios from "axios";
-import { useContext } from "react";
-import UserContext from "../context/UserContext";
+
 // const baseURL = import.meta.env.VITE_BASE_URL;
 
 const apiUrl = `http://localhost:8080/auth/login`;
@@ -18,7 +17,6 @@ export const signInUser = async (identityNo, password) => {
       }
     );
     const token = response.data.token;
-    // setUserId(response.data.id);
     axios.defaults.headers.common["Authorization"] = "Bearer " + token;
     localStorage.setItem("token", token); // Token localStorage'a kaydoluyor.
     return response;
