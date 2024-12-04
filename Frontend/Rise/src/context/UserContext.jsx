@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const UserContext = createContext();
 
@@ -10,9 +10,22 @@ export const UserContextProvider = ({ children }) => {
         setUser(user);
     }
 
-    // const addUser = (user) => {
-    //     setUser(user);
-    // }
+    useEffect(() => {
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) {
+          setUser(JSON.parse(storedUser));
+        }
+      }, []);
+    
+      // Kullanıcı bilgisi değiştiğinde localStorage'a kaydet
+      useEffect(() => {
+        if (user) {
+          localStorage.setItem("user", JSON.stringify(user));
+        } else {
+          localStorage.removeItem("user");
+        }
+      }, [user]);
+
 
     
     const values = {

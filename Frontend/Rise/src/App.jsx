@@ -7,7 +7,6 @@ import Verify from "./components/SignIn/Verify";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Admin from "./components/SignIn/Admin/Admin";
 import User from "./components/SignIn/User/User";
-import DashboardRedirect from "./components/SignIn/DashboardRedirect";
 import { UserContextProvider } from "./context/UserContext";
 
 // App.js
@@ -20,7 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/verify" element={<Verify />} />
-          <Route path="/dashboard" element={<DashboardRedirect />} />
+          {/* <Route path="/dashboard" element={<DashboardRedirect />} /> */}
           {/* <Route path="/admin-dashboard" element={<Admin />} />
           <Route path="/user-dashboard" element={<User />} /> */}
           {/* User için korumalı rota */}
