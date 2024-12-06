@@ -8,7 +8,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class LoginResponse {
     private String token;
-    private String role;
-    private Long id;
     private UserResponse user;
 }
