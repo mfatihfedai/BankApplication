@@ -26,7 +26,6 @@ import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.management.RuntimeErrorException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
