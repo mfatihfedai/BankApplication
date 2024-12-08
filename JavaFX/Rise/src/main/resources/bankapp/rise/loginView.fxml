@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bankapp.rise.controller.LoginController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+   <Pane fx:id="txt_invalid" prefHeight="500.0" prefWidth="800.0">
+      <children>
+         <Text layoutX="318.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RISE BANK" textAlignment="CENTER" wrappingWidth="125.13671875">
+            <font>
+               <Font size="24.0" />
+            </font>
+         </Text>
+         <TextField fx:id="text_userLogin" layoutX="280.0" layoutY="226.0" prefHeight="25.0" prefWidth="203.0" promptText="Identity/Account" />
+         <Text layoutX="300.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Identity/Account Number">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Text>
+         <Text layoutX="343.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" textAlignment="CENTER" wrappingWidth="75.951171875">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Text>
+         <PasswordField fx:id="text_pass" layoutX="279.0" layoutY="285.0" prefHeight="25.0" prefWidth="203.0" promptText="Password" />
+         <Button fx:id="btn_login" layoutX="358.0" layoutY="322.0" mnemonicParsing="false" onAction="#loginButtonClick" text="Login" />
+         <Text fx:id="txt_invalid" fill="RED" layoutX="309.0" layoutY="368.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid login credentials!">
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Text>
+      </children>
+   </Pane>
+</VBox>
