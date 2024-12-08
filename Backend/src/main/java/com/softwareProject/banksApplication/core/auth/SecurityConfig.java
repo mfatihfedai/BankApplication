@@ -55,7 +55,7 @@ public class SecurityConfig {
                     registry.requestMatchers(HttpMethod.DELETE,"/dev/v1/banks/**").hasRole("ADMIN");
                     // USER
                     registry.requestMatchers(HttpMethod.GET,"/dev/v1/user/**").hasAnyRole("ADMIN", "USER");
-                    registry.requestMatchers(HttpMethod.POST,"/dev/v1/user/**").hasAnyRole("ADMIN", "USER");
+                    registry.requestMatchers(HttpMethod.POST,"/dev/v1/user/**").permitAll();
                     registry.requestMatchers(HttpMethod.PUT,"/dev/v1/user/**").hasAnyRole("ADMIN", "USER");
                     registry.requestMatchers(HttpMethod.DELETE,"/dev/v1/user/**").hasAnyRole("ADMIN","USER");
                     // INVOICE
