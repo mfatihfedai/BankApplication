@@ -1,4 +1,4 @@
-package com.softwareProject.banksApplication.service.concretes;
+package com.softwareProject.banksApplication.core.scheduler;
 
 import com.softwareProject.banksApplication.core.auth.MailMessageService;
 import com.softwareProject.banksApplication.entity.InvoiceInfo;
@@ -6,6 +6,7 @@ import com.softwareProject.banksApplication.entity.UserInfo;
 import com.softwareProject.banksApplication.repo.InvoiceRepo;
 import com.softwareProject.banksApplication.service.abstracts.UserService;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -16,17 +17,12 @@ import java.util.List;
 import java.util.Random;
 
 @Service
+@RequiredArgsConstructor
 public class InvoiceScheduler {
 
     private final InvoiceRepo invoiceRepo;
     private final UserService userService;
     private final MailMessageService mailMessageService;
-
-    public InvoiceScheduler(InvoiceRepo invoiceRepo, UserService userService, MailMessageService mailMessageService) {
-        this.invoiceRepo = invoiceRepo;
-        this.userService = userService;
-        this.mailMessageService = mailMessageService;
-    }
 
     @Scheduled(cron = "0 0 0 1 * ?")  // Her ayın 1. günü saat 00:00'da çalışacak
     @Transactional

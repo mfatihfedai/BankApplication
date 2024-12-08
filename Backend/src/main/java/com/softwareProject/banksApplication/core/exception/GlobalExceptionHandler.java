@@ -38,7 +38,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(NotValidException.class)
     public ResponseEntity<Result> handleNotValidException(NotValidException e){
-        return new ResponseEntity<>(ResultHelper.error(e.getMessage()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(ResultHelper.validateError(e.getMessage()), HttpStatus.BAD_REQUEST);
     }
 }
 

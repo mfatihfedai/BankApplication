@@ -3,6 +3,8 @@ package com.softwareProject.banksApplication.controller;
 import com.softwareProject.banksApplication.core.Logging.LogManager;
 import com.softwareProject.banksApplication.core.auth.CustomUserDetails;
 import com.softwareProject.banksApplication.core.auth.jwt.JwtUtils;
+import com.softwareProject.banksApplication.core.exception.GlobalExceptionHandler;
+import com.softwareProject.banksApplication.core.exception.NotValidException;
 import com.softwareProject.banksApplication.core.mapper.UserMapper;
 import com.softwareProject.banksApplication.dto.response.LoginResponse;
 import com.softwareProject.banksApplication.dto.response.user.UserResponse;
@@ -12,19 +14,17 @@ import com.softwareProject.banksApplication.service.abstracts.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.context.SecurityContextHolderStrategy;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
-import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.method.annotation.HandlerMethodValidationException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -43,7 +43,7 @@ public class TwoFactorAuthController {
     private final JwtUtils jwtUtils;
     private final UserMapper userMapper;
 
-    private final Map<Long, String> otpStorage = new HashMap<>();  // Simple in-memory storage for OTPs
+    private final Map<Long, OtpEntry> otpStorage = new HashMap<>();  // Simple in-memory storage for OTPs
     private final UserService userService;
 
     @PostMapping(LOGIN)
@@ -90,23 +90,30 @@ public class TwoFactorAuthController {
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
         UserInfo userInfo = customUserDetails.getUserInfo();
         String role = customUserDetails.getRole();
-        String storedOtp = otpStorage.get(userInfo.getId());
+        OtpEntry otpEntry = otpStorage.get(userInfo.getId());
 
-        if (storedOtp != null && storedOtp.equals(otp)) {
-            otpStorage.remove(userInfo.getId());  // OTP is valid, remove it from storage
-            logManager.logUserLogin(userInfo);
+        if (otpEntry != null) {
 
-            HttpSession session = request.getSession();
-            session.setAttribute("otpVerified", true);
-
-            if (Objects.equals(role, "ADMIN")){
-                return "redirect:/swagger-ui/index.html";
-            } else {
-                return "redirect:/auth/dashboard";  // Redirect to user's dashboard
+            if(System.currentTimeMillis() > otpEntry.expiritionTime()){
+                otpStorage.remove(userInfo.getId());
+                return "redirect:/verify-otp?error";
             }
-        } else {
-            return "redirect:/verify-otp?error";  // Redirect back to OTP page with error
+
+            if(otpEntry.otp().equals(otp)){
+                otpStorage.remove(userInfo.getId());  // OTP is valid, remove it from storage
+                logManager.logUserLogin(userInfo);
+
+                HttpSession session = request.getSession();
+                session.setAttribute("otpVerified", true);
+
+                if (Objects.equals(role, "ADMIN")){
+                    return "redirect:/swagger-ui/index.html";
+                } else {
+                    return "redirect:/auth/dashboard";  // Redirect to user's dashboard
+                }
+            }
         }
+        return "redirect:/verify-otp?error";  // Redirect back to OTP page with error
     }
 
     // Front end in göndereceği url
@@ -114,17 +121,24 @@ public class TwoFactorAuthController {
     @ResponseBody
     public ResponseEntity<UserResponse> verifyOtpFront(@RequestParam String otp, @RequestParam Long id, HttpServletRequest request) {
         UserInfo userr = userService.getById(id);
-        String storedOtp = otpStorage.get(id);
+        OtpEntry otpEntry = otpStorage.get(id);
 
-        if (storedOtp != null && storedOtp.equals(otp)) {
-            otpStorage.remove(id);  // OTP is valid, remove it from storage
-            logManager.logUserLogin(userr);
-            HttpSession session = request.getSession();
-            session.setAttribute("otpVerified", true);
-            UserResponse userResponse = userMapper.entityToResponse(userr);
-            return ResponseEntity.ok(userResponse);
+        if (otpEntry != null) {
+            if(System.currentTimeMillis() > otpEntry.expiritionTime()){
+                otpStorage.remove(id);
+                System.out.println("otp expireddddd");
+                throw new NotValidException("OTP Expired");
+            }
+            if (otpEntry.otp().equals(otp)) {
+                otpStorage.remove(id);  // OTP is valid, remove it from storage
+                logManager.logUserLogin(userr);
+                HttpSession session = request.getSession();
+                session.setAttribute("otpVerified", true);
+                UserResponse userResponse = userMapper.entityToResponse(userr);
+                return ResponseEntity.ok(userResponse);
+            }
         }
-        return ResponseEntity.badRequest().build();
+        throw new NotValidException("Invalid OTP");
     }
     @GetMapping("/dashboard")
     public String dashboard() {
@@ -135,6 +149,7 @@ public class TwoFactorAuthController {
     public String showOtpPage() {
         return "verify";  // Return the HTML page for OTP input
     }
+
     private void generateOtpMethod(Long id) {
         UserInfo userr = userService.getById(id);
         String email = userr.getEmail();
@@ -143,9 +158,13 @@ public class TwoFactorAuthController {
 
         //twoFactorAuthService ile yeni bir OTP üretilir ve mail olarak gönderilir.
         String otp = mailMessageService.generateOTP();
+        long expiritionTime = System.currentTimeMillis() + 60000; // 60 saniye sonra süre bitecek.
         //mailMessageService.sendOTP(username, surname, email, otp);
         //Localdeki HashMap e username ve otp bilgileri kaydedilir
-        otpStorage.put(id, otp);  // Save OTP for the user
+        otpStorage.put(id, new OtpEntry(otp, expiritionTime));  // Save OTP for the user
         System.out.println(username + " " + email + " " + otp);
+    }
+
+    public record OtpEntry(String otp, long expiritionTime) {
     }
 }
