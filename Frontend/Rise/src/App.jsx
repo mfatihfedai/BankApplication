@@ -19,9 +19,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/verify" element={<Verify />} />
-          {/* <Route path="/dashboard" element={<DashboardRedirect />} /> */}
-          {/* <Route path="/admin-dashboard" element={<Admin />} />
-          <Route path="/user-dashboard" element={<User />} /> */}
           {/* User için korumalı rota */}
           <Route
             path="/user-dashboard"

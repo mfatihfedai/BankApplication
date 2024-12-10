@@ -19,6 +19,7 @@ const ProtectedRoute = ({ role, children }) => {
     return <div>Loading...</div>; // Kullanıcı bilgisi yükleniyor önemli*
   }
 
+
   // Kullanıcı yoksa ana sayfaya yönlendir
   if (!logUser) {
     console.log("Kullanıcı yok, yönlendiriliyor...");
