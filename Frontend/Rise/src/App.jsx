@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Admin from "./components/SignIn/Admin/Admin";
 import User from "./components/SignIn/User/User";
 import { UserContextProvider } from "./context/UserContext";
+import CreateUserForm from "./components/SignIn/CreateUserForm";
 
 // App.js
 
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/verify" element={<Verify />} />
+          <Route path="/newUser" element={<CreateUserForm />} />
           {/* User için korumalı rota */}
           <Route
             path="/user-dashboard"

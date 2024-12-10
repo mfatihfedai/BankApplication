@@ -23,6 +23,10 @@ const SignIn = () => {
   const [loading, setLoading] = useState(false);
   const { newUser } = useUser();
 
+  const handleSignIn = () => {
+    navigate("/newUser")
+  }
+
   const handleSubmit = async () => {
     setLoading(true);
     try {
@@ -147,7 +151,8 @@ const SignIn = () => {
           {error && <p style={{ color: colour }}>{error}</p>}
           <Box>
             <Link
-              href="#"
+              onClick={handleSignIn}
+              // href="newUser"
               variant="body2"
               sx={{
                 color: "var(--color-blue)",
