@@ -3,7 +3,6 @@ package com.softwareProject.banksApplication.controller;
 import com.softwareProject.banksApplication.core.Logging.LogManager;
 import com.softwareProject.banksApplication.core.auth.CustomUserDetails;
 import com.softwareProject.banksApplication.core.auth.jwt.JwtUtils;
-import com.softwareProject.banksApplication.core.exception.GlobalExceptionHandler;
 import com.softwareProject.banksApplication.core.exception.NotValidException;
 import com.softwareProject.banksApplication.core.mapper.UserMapper;
 import com.softwareProject.banksApplication.dto.response.LoginResponse;
