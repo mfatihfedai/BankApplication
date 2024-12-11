@@ -11,9 +11,12 @@ import { useFormik } from "formik";
 import { registerFormSchemas } from "../Schemas/RegisterFormSchemas";
 import "./createUserForm.style.css";
 import { createUser } from "../../service/UserApi";
+import {useNavigate} from "react-router-dom";
 
 
 const CreateUserForm = () => {
+
+  const navigate = useNavigate();
 
   async function submit(){
     try{
@@ -27,7 +30,9 @@ const CreateUserForm = () => {
         balance: 0,
       };
       const response = await createUser(registerUser);
-      console.log(response);
+      if(response.request.status === 200){
+        navigate("/")
+      }
     }catch(err){
       console.log(err);
     }
@@ -45,6 +50,8 @@ const CreateUserForm = () => {
       registerTerm: "",
     },
     validationSchema: registerFormSchemas,
+    validateOnBlur: false, // Odak kaybında doğrulamayı devre dışı bırak  Nihan did it!
+    validateOnChange: false, // Değişikliklerde doğrulamayı devre dışı bırak   Nihan did it! 
     onSubmit: submit,
   });
 
