@@ -75,7 +75,8 @@ public class SecurityConfig {
                     registry.requestMatchers(HttpMethod.DELETE,"/dev/v1/transfer/**").hasAnyRole("ADMIN", "USER");
                     registry.anyRequest().authenticated();
                 })
-//                .formLogin(login -> login
+
+//                .formLogin(login -> login // 87e kadar yorum satırı
 //                        .successHandler((request, response, authentication) -> {
 //                            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 //                            Long id = ((CustomUserDetails) userDetails).getId();
@@ -83,8 +84,9 @@ public class SecurityConfig {
 //                        })
 //                        .permitAll()
 //                )
+//               .addFilterAfter(new OtpAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-//                .addFilterAfter(new OtpAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .logout(logout -> logout
                         .logoutUrl("/logout")  // URL for logout
                         .logoutSuccessUrl("/login?logout")

@@ -42,9 +42,9 @@ public class UserManager extends BaseManager<UserInfo, UserRepo, UserSaveRequest
     public UserResponse create(UserSaveRequest request) {
         UserInfo user = mapper.saveRequestToEntity(request);
         // Control the identity number
-        if(!identityControl(String.valueOf(user.getIdentityNumber()))){
-            throw new NotValidException("Please enter valid identity number.");
-        }
+//        if(!identityControl(String.valueOf(user.getIdentityNumber()))){
+//            throw new NotValidException("Please enter valid identity number.");
+//        }
         // Is user exist in the database
         Optional<UserInfo> userOptional = this.repository.findByEmailOrIdentityNumber(
                 user.getEmail(),

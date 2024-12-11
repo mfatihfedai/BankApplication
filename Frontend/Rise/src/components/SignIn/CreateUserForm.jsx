@@ -1,84 +1,174 @@
 import React, { useEffect, useState } from "react";
-import { TextField, Button, Box, Typography } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Box,
+  Typography,
+  Checkbox,
+  FormControlLabel,
+} from "@mui/material";
+import { useFormik } from "formik";
+import { registerFormSchemas } from "../Schemas/RegisterFormSchemas";
+import "./createUserForm.style.css";
+import { createUser } from "../../service/UserApi";
+import {useNavigate} from "react-router-dom";
+
 
 const CreateUserForm = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
+
+  const navigate = useNavigate();
+
+  async function submit(){
+    try{
+      const registerUser = {
+        name: values.registerName,
+        surname: values.registerSurname,
+        email: values.registerEmail,
+        identityNumber: values.registerIdentityNo,
+        password: values.registerPassword,
+        role: "USER",
+        balance: 0,
+      };
+      const response = await createUser(registerUser);
+      if(response.request.status === 200){
+        navigate("/")
+      }
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+
+  const { values, errors, handleChange, handleSubmit } = useFormik({
+    initialValues: {
+      registerName: "",
+      registerSurname: "",
+      registerEmail: "",
+      registerIdentityNo: "",
+      registerPassword: "",
+      registerPasswordConfirm: "",
+      registerTerm: "",
+    },
+    validationSchema: registerFormSchemas,
+    validateOnBlur: false, // Odak kaybında doğrulamayı devre dışı bırak  Nihan did it!
+    validateOnChange: false, // Değişikliklerde doğrulamayı devre dışı bırak   Nihan did it! 
+    onSubmit: submit,
   });
-
-  const [verificationCode, setVerificationCode] = useState("");
-
-  const generateVerificationCode = () => {
-    const newCode = Math.floor(100000 + Math.random() * 900000).toString(); // 6 haneli bir kod
-    setVerificationCode(newCode);
-};
-
-useEffect(() => {
-    generateVerificationCode()
-},[])
-
-const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-};
-
-console.log(verificationCode);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form Data Submitted:", formData);
-  };
 
   return (
     <Box
       component="form"
-      onSubmit={handleSubmit}
       sx={{
         display: "flex",
         flexDirection: "column",
         gap: 2,
-        maxWidth: 400,
+        maxWidth: 600,
         margin: "0 auto",
         padding: 2,
         border: "1px solid #ccc",
         borderRadius: 2,
         boxShadow: 1,
+        fontFamily: "Montserrat",
       }}
     >
       <Typography variant="h5" textAlign="center" gutterBottom>
-        Yeni Kullanıcı Kaydı
+        Hoşgeldiniz
       </Typography>
       <TextField
-        label="İsim"
-        name="name"
-        value={formData.name}
+        label="Ad"
+        name="registerName"
+        value={values.registerName}
         onChange={handleChange}
-        required
-        fullWidth
+        type="text"
       />
+      {errors.registerName && (
+        <Typography className="register-error">
+          {errors.registerName}
+        </Typography>
+      )}
+      <TextField
+        label="Soyad"
+        name="registerSurname"
+        value={values.registerSurname}
+        onChange={handleChange}
+        type="text"
+      />
+      {errors.registerSurname && (
+        <Typography className="register-error">
+          {errors.registerSurname}
+        </Typography>
+      )}
       <TextField
         label="Email"
-        name="email"
-        type="email"
-        value={formData.email}
+        name="registerEmail"
+        value={values.registerEmail}
         onChange={handleChange}
-        required
-        fullWidth
+        type="text"
       />
+      {errors.registerEmail && (
+        <Typography className="register-error">
+          {errors.registerEmail}
+        </Typography>
+      )}
       <TextField
-        label="Password"
-        name="password"
-        type="password"
-        value={formData.password}
+        label="T.C Kimlik"
+        name="registerIdentityNo"
+        value={values.registerIdentityNo}
         onChange={handleChange}
-        required
-        fullWidth
+        type="text"
       />
-      {verificationCode}
-      <Button type="submit" variant="contained" color="primary" fullWidth>
-        Submit
+      {errors.registerIdentityNo && (
+        <Typography className="register-error">
+          {errors.registerIdentityNo}
+        </Typography>
+      )}
+      <TextField
+        label="Şifre"
+        name="registerPassword"
+        value={values.registerPassword}
+        onChange={handleChange}
+        type="password"
+      />
+      {errors.registerPassword && (
+        <Typography className="register-error">
+          {errors.registerPassword}
+        </Typography>
+      )}
+      <TextField
+        label="Şifre Tekrarı"
+        name="registerPasswordConfirm"
+        value={values.registerPasswordConfirm}
+        onChange={handleChange}
+        type="password"
+      />
+      {errors.registerPasswordConfirm && (
+        <Typography className="register-error">
+          {errors.registerPasswordConfirm}
+        </Typography>
+      )}
+      <FormControlLabel
+        label="Bu başvuru ile İnternet Bankacılığı´na tanımlı olan hesap ve ürünlerimin tanımlanacağını kabul ediyorum."
+        control={
+          <Checkbox
+            value={values.registerTerm}
+            name="registerTerm"
+            onChange={handleChange}
+          />
+        }
+      />
+      {errors.registerTerm && (
+        <Typography className="register-error">
+          {errors.registerTerm}
+        </Typography>
+      )}
+      <Button
+        type="submit"
+        onClick={handleSubmit}
+        variant="contained"
+        color="primary"
+        fullWidth
+      >
+        Başvur
       </Button>
     </Box>
   );
