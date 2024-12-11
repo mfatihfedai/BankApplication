@@ -1,12 +1,7 @@
 package com.softwareProject.banksApplication.controller;
 
 import com.softwareProject.banksApplication.dto.CursorResponse;
-import com.softwareProject.banksApplication.dto.request.receipt.ReceiptSaveRequest;
-import com.softwareProject.banksApplication.dto.request.receipt.ReceiptUpdateRequest;
-import com.softwareProject.banksApplication.dto.response.banks.BanksResponse;
 import com.softwareProject.banksApplication.dto.response.receipt.ReceiptResponse;
-import com.softwareProject.banksApplication.entity.ReceiptInfo;
-import com.softwareProject.banksApplication.service.abstracts.IBaseService;
 import com.softwareProject.banksApplication.service.abstracts.ReceiptService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
