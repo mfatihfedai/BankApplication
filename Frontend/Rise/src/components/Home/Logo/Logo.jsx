@@ -5,7 +5,7 @@ function Logo() {
     <div>
       <h1
         style={{
-          marginLeft: "3rem",
+          // marginLeft: "3rem",
           color: "var(--color-black)",
           letterSpacing: "5px",
           padding: "10px , 5px",

@@ -11,15 +11,14 @@ import { useFormik } from "formik";
 import { registerFormSchemas } from "../Schemas/RegisterFormSchemas";
 import "./createUserForm.style.css";
 import { createUser } from "../../service/UserApi";
-import {useNavigate} from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
+import Logo from "../Home/Logo/Logo";
 
 const CreateUserForm = () => {
-
   const navigate = useNavigate();
 
-  async function submit(){
-    try{
+  async function submit() {
+    try {
       const registerUser = {
         name: values.registerName,
         surname: values.registerSurname,
@@ -30,14 +29,13 @@ const CreateUserForm = () => {
         balance: 0,
       };
       const response = await createUser(registerUser);
-      if(response.request.status === 200){
-        navigate("/")
+      if (response.request.status === 200) {
+        navigate("/");
       }
-    }catch(err){
+    } catch (err) {
       console.log(err);
     }
   }
-
 
   const { values, errors, handleChange, handleSubmit } = useFormik({
     initialValues: {
@@ -51,7 +49,7 @@ const CreateUserForm = () => {
     },
     validationSchema: registerFormSchemas,
     validateOnBlur: false, // Odak kaybında doğrulamayı devre dışı bırak  Nihan did it!
-    validateOnChange: false, // Değişikliklerde doğrulamayı devre dışı bırak   Nihan did it! 
+    validateOnChange: false, // Değişikliklerde doğrulamayı devre dışı bırak   Nihan did it!
     onSubmit: submit,
   });
 
@@ -71,7 +69,8 @@ const CreateUserForm = () => {
         fontFamily: "Montserrat",
       }}
     >
-      <Typography variant="h5" textAlign="center" gutterBottom>
+      <Typography style={{fontWeight: "bold"}} variant="h5" textAlign="center" gutterBottom>
+        <Logo/>
         Hoşgeldiniz
       </Typography>
       <TextField
@@ -167,6 +166,7 @@ const CreateUserForm = () => {
         variant="contained"
         color="primary"
         fullWidth
+        style={{ backgroundColor: "var(--color-blue)" }}
       >
         Başvur
       </Button>
