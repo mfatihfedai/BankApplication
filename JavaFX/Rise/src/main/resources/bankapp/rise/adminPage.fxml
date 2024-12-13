@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bankapp.rise.controller.AdminPageController">
+    <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+      <children>
+         <Text fx:id="txt_head" layoutX="258.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADMIN">
+            <font>
+               <Font name="System Bold" size="24.0" />
+            </font>
+         </Text>
+         <Button fx:id="btn_logout" layoutX="515.0" layoutY="18.0" mnemonicParsing="false" onAction="#onLogoutClicked" text="Logout" />
+      </children></AnchorPane>
+</VBox>

@@ -13,6 +13,7 @@ module bankapp.rise {
     requires static lombok;
     requires com.fasterxml.jackson.annotation;
     requires com.fasterxml.jackson.databind;
+    requires annotations;
     exports bankapp.rise.entity to com.fasterxml.jackson.databind;
 
     opens bankapp.rise to javafx.fxml;

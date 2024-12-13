@@ -1,5 +1,7 @@
 package bankapp.rise.controller;
 
+import bankapp.rise.core.Layout;
+import bankapp.rise.core.SessionManager;
 import bankapp.rise.entity.LoginResponse;
 import bankapp.rise.entity.Token;
 import bankapp.rise.entity.User;
@@ -18,6 +20,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import okhttp3.Response;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -30,6 +33,8 @@ public class LoginController {
     private PasswordField text_pass;
     @FXML
     private Text txt_invalid;
+    @FXML
+    private Text rise_bank;
 
     private final ApiService apiService = new ApiService();
     private static User loggedUser;
@@ -49,26 +54,23 @@ public class LoginController {
         // API servisine login isteği gönderiliyor
         apiService.login(request, new okhttp3.Callback() {
             @Override
-            public void onFailure(okhttp3.Call call, IOException e) {
+            public void onFailure(@NotNull okhttp3.Call call, @NotNull IOException e) {
                 Platform.runLater(() ->
                         showAlert("Login request failed: " + e.getMessage(), Alert.AlertType.ERROR)
                 );
+                text_userLogin.setVisible(true);
             }
 
             @Override
-            public void onResponse(okhttp3.Call call, Response response) throws IOException {
+            public void onResponse(@NotNull okhttp3.Call call, @NotNull Response response) throws IOException {
                 if (response.isSuccessful()) {
                     String responseBody = response.body().string();
                     ObjectMapper mapper = new ObjectMapper();
                     LoginResponse loginResponse = mapper.readValue(responseBody, LoginResponse.class);
                     Token.saveToken(loginResponse.getToken());
-
-                    loggedUser = loginResponse.getUser();
-                    System.out.println("Login successful! Token: " + Token.getToken());
-                    System.out.println("User Info: " + loggedUser.getName() + " " + loggedUser.getSurname());
-                    Platform.runLater(() ->
-                            showAlert("Login Successful!\nResponse: " + responseBody, Alert.AlertType.INFORMATION)
-                    );
+                    SessionManager.getInstance().setUser(loginResponse.getUser());
+                    SessionManager.getInstance().setToken(loginResponse.getToken());
+                    Layout.redirectTo("verify", rise_bank);
                 } else {
                     Platform.runLater(() ->
                             showAlert("Invalid login credentials!", Alert.AlertType.ERROR)
@@ -77,18 +79,6 @@ public class LoginController {
                 }
             }
         });
-    }
-
-    public static void showLoginScreen() {
-        try {
-            Stage stage = new Stage();
-            Parent root = FXMLLoader.load(Objects.requireNonNull(LoginController.class.getResource("/path/to/login.fxml")));
-            stage.setScene(new Scene(root));
-            stage.setTitle("Login");
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void showAlert(String message, Alert.AlertType alertType) {
