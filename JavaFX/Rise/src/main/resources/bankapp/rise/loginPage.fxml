@@ -11,7 +11,7 @@
     </padding>
    <Pane prefHeight="500.0" prefWidth="800.0">
       <children>
-         <Text layoutX="318.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RISE BANK" textAlignment="CENTER" wrappingWidth="125.13671875">
+         <Text fx:id="rise_bank" layoutX="318.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RISE BANK" textAlignment="CENTER" wrappingWidth="125.13671875">
             <font>
                <Font size="24.0" />
             </font>
