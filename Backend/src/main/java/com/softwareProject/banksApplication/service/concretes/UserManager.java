@@ -14,7 +14,6 @@ import com.softwareProject.banksApplication.entity.UserInfo;
 import com.softwareProject.banksApplication.repo.ReceiptRepo;
 import com.softwareProject.banksApplication.repo.UserRepo;
 import com.softwareProject.banksApplication.service.abstracts.UserService;
-//import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.passay.CharacterData;
 import org.passay.CharacterRule;
 import org.passay.EnglishCharacterData;
