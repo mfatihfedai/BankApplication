@@ -8,13 +8,19 @@ import bankapp.rise.service.ApiService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import okhttp3.Response;
 
 import java.io.IOException;
+import java.util.Objects;
 
 
 public class LoginController {
@@ -22,6 +28,8 @@ public class LoginController {
     private TextField text_userLogin;
     @FXML
     private PasswordField text_pass;
+    @FXML
+    private Text txt_invalid;
 
     private final ApiService apiService = new ApiService();
     private static User loggedUser;
@@ -65,11 +73,22 @@ public class LoginController {
                     Platform.runLater(() ->
                             showAlert("Invalid login credentials!", Alert.AlertType.ERROR)
                     );
-                    //txt_invalid.setVisible(true);
-
+                    txt_invalid.setVisible(true);
                 }
             }
         });
+    }
+
+    public static void showLoginScreen() {
+        try {
+            Stage stage = new Stage();
+            Parent root = FXMLLoader.load(Objects.requireNonNull(LoginController.class.getResource("/path/to/login.fxml")));
+            stage.setScene(new Scene(root));
+            stage.setTitle("Login");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void showAlert(String message, Alert.AlertType alertType) {

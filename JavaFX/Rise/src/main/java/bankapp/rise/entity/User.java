@@ -1,8 +1,14 @@
 package bankapp.rise.entity;
 
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.math.BigDecimal;
 
+
+@Getter
+@Setter
 public class User {
     private Long id;
     private String name;
@@ -12,20 +18,4 @@ public class User {
     private Long accountNumber;
     private String role;
     private BigDecimal balance;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
 }

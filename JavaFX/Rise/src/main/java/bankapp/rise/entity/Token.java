@@ -1,7 +1,5 @@
 package bankapp.rise.entity;
 
-
-
 public class Token {
     private static String token;
 
