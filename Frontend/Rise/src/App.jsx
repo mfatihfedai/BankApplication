@@ -16,7 +16,11 @@ function App() {
   return (
     <>
       <UserContextProvider>
-        <Logo />
+        <div style={{ marginLeft: "3rem" }}>
+          <a href="/" style={{textDecoration: "none"}}>
+            <Logo />
+          </a>
+        </div>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/verify" element={<Verify />} />
