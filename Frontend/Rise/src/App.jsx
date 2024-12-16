@@ -17,7 +17,7 @@ function App() {
     <>
       <UserContextProvider>
         <div style={{ marginLeft: "3rem" }}>
-          <a href="/" style={{textDecoration: "none"}}>
+          <a href="/" style={{ textDecoration: "none" }}>
             <Logo />
           </a>
         </div>
