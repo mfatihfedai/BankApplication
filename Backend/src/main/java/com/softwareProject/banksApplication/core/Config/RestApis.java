@@ -13,6 +13,5 @@ public class RestApis {
     public static final String TRANSFERSERVICE = DEVELOPER+VERSIONS+"/transfer";
     public static final String USERSERVICE = DEVELOPER+VERSIONS+"/user";
 
-    public static final String REGISTER = "/register";
     public static final String LOGIN = "/login";
 }
