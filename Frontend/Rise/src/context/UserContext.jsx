@@ -6,10 +6,15 @@ const UserContext = createContext();
 export const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [userId, setUserId] = useState(0);
+  const [lastLoginTime, setLastLoginTime] = useState();
 
   const newUser = (user) => {
     setUser(user);
   };
+
+  const saveLastLoginTime = (lastLoginTime) => {
+    setLastLoginTime(lastLoginTime);
+  }
 
   // "user" bilgisini al ve dekirpt ederek user'a tanımla
   useEffect(() => {
@@ -35,6 +40,8 @@ export const UserContextProvider = ({ children }) => {
     newUser,
     userId,
     setUserId,
+    saveLastLoginTime,
+    lastLoginTime
   };
 
   return <UserContext.Provider value={values}>{children}</UserContext.Provider>;
