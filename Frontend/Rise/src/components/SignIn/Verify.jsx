@@ -1,13 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
+import { TextField, Button, Box, Typography } from "@mui/material";
+import Logo from "../Home/Logo/Logo";
 
 const Verify = () => {
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
+  const [counter, setCounter] = useState(60);
   const navigate = useNavigate();
   const { user } = useUser();
+
+  // Sayaç için useEffect
+  useEffect(() => {
+    if (counter > 0) {
+      const timer = setInterval(() => {
+        setCounter((prevCounter) => prevCounter - 1);
+      }, 1000);
+      return () => clearInterval(timer);
+    }
+  }, [counter]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,7 +58,64 @@ const Verify = () => {
 
   return (
     <div>
-      <h1>Enter OTP</h1>
+      <form onSubmit={handleSubmit}>
+        <Box
+          component="form"
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            maxWidth: 600,
+            margin: "0 auto",
+            padding: 2,
+            border: "1px solid #ccc",
+            borderRadius: 2,
+            boxShadow: 1,
+            fontFamily: "Montserrat",
+          }}
+        >
+          <Typography
+            style={{ fontWeight: "bold" }}
+            variant="h5"
+            textAlign="center"
+            gutterBottom
+          >
+            <Logo />
+            {`Sayın ${user?.name}, `} mailinize gönderilen şifreyi girmeniz için
+            {counter > 0 ? ` ${counter} saniye var.` : " süre doldu."}
+          </Typography>
+
+          <TextField
+            label="verify"
+            name="verifyCode"
+            value={otp}
+            onChange={(e) => setOtp(e.target.value)}
+            type="text"
+            placeholder="Enter OTP"
+          />
+          {error && <p style={{ color: "red" }}>{error}</p>}
+
+          <Button
+            type="submit"
+            onClick={handleSubmit}
+            variant="contained"
+            color="primary"
+            fullWidth
+            style={{ backgroundColor: "var(--color-blue)" }}
+            disabled={counter === 0} // Sayaç 0 olunca butonu devre dışı bırak
+          >
+            Doğrula
+          </Button>
+
+          {/* Sayaç sıfır olduğunda uyarı */}
+          {counter === 0 && (
+            <Typography style={{ color: "red", textAlign: "center" }}>
+              Süre doldu, yeniden doğrulama kodu isteyin.
+            </Typography>
+          )}
+        </Box>
+      </form>
+      {/* <h1>Enter OTP</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <label>OTP:</label>
@@ -59,7 +129,7 @@ const Verify = () => {
         </div>
         {error && <p style={{ color: "red" }}>{error}</p>}
         <button type="submit">Verify</button>
-      </form>
+      </form> */}
     </div>
   );
 };
