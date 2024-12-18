@@ -1,6 +1,6 @@
 package com.softwareProject.banksApplication.controller;
 
-import com.softwareProject.banksApplication.core.Logging.LogManager;
+import com.softwareProject.banksApplication.service.concretes.LogManager;
 import com.softwareProject.banksApplication.core.auth.CustomUserDetails;
 import com.softwareProject.banksApplication.core.auth.jwt.JwtUtils;
 import com.softwareProject.banksApplication.core.exception.NotValidException;
@@ -22,6 +22,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -55,8 +56,9 @@ public class TwoFactorAuthController {
             UserInfo user = this.userService.getById(id);
             UserResponse userResponse = userMapper.entityToResponse(user);
             String token = jwtUtils.generateToken(userDetails);
+            LocalDateTime loginLastTime = logManager.getLastLogTime(id);
             generateOtpMethod(id);
-            LoginResponse response = new LoginResponse(token, userResponse);
+            LoginResponse response = new LoginResponse(token, userResponse, loginLastTime);
             return ResponseEntity.ok(response);
         } else {
             return ResponseEntity.badRequest().build();

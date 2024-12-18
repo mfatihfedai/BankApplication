@@ -1,6 +1,5 @@
 package com.softwareProject.banksApplication.service.concretes;
 
-import com.softwareProject.banksApplication.core.Logging.LogManager;
 import com.softwareProject.banksApplication.core.auth.MailMessageService;
 import com.softwareProject.banksApplication.core.exception.DataAlreadyExistException;
 import com.softwareProject.banksApplication.core.exception.NotValidException;

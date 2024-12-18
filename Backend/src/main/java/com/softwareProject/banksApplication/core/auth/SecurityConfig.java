@@ -1,6 +1,6 @@
 package com.softwareProject.banksApplication.core.auth;
 
-import com.softwareProject.banksApplication.core.Logging.LogManager;
+import com.softwareProject.banksApplication.service.concretes.LogManager;
 import com.softwareProject.banksApplication.core.auth.jwt.JwtAuthenticationFilter;
 import com.softwareProject.banksApplication.entity.UserInfo;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,6 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
