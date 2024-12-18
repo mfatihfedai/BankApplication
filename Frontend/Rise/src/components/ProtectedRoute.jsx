@@ -15,10 +15,10 @@ const ProtectedRoute = ({ role, children }) => {
   }, []);
 
   //Yükleme sırasında logUser'ın durumu null olduğu için bir kontrol yapalım. Bu olmazsa eğer null döner dönmez ana sayfaya yönlendirme yapıyor.
-  if (logUser === null) {  // sayaç koyulabilir
+  if (logUser === null) {
+    // sayaç koyulabilir
     return <div>Loading...</div>; // Kullanıcı bilgisi yükleniyor önemli*
   }
-
 
   // Kullanıcı yoksa ana sayfaya yönlendir
   if (!logUser) {
