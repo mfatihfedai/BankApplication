@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
-import { useUser } from "../../../context/UserContext";
-import LogoutButton from "../../Core/LogoutButton";
+
+import DashboardHeader from "../../General/DashboardHeader";
 
 function User() {
-  const { user } = useUser();
-
   return (
-    <div>{`Hoşgeldiniz ${user?.name}, Kullanıcı rolünüz : ${user?.role}`} <LogoutButton /></div>
-    
+    <>
+      <DashboardHeader />
+      <div>Menu Items</div>
+    </>
   );
 }
 

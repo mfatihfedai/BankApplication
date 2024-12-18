@@ -31,7 +31,7 @@ function LogoutButton() {
 
   return (
     <div>
-      <Button style={{backgroundColor: "var(--color-blue)"}} onClick={handleLogout} variant="contained" startIcon={<PowerSettingsNewIcon />}>
+      <Button style={{backgroundColor: "var(--color-orange)"}} onClick={handleLogout} variant="contained" startIcon={<PowerSettingsNewIcon />}>
         Çıkış
       </Button>
     </div>
