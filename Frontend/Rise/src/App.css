@@ -5,6 +5,17 @@
   margin: 0;
 }
 
+html{
+  background: 
+  linear-gradient(rgb(255, 255, 255), rgba(255, 255, 255, 0.678)), 
+  url("https://t3.ftcdn.net/jpg/05/31/74/50/360_F_531745035_JqfSNBmPT7gu1DPqQZ9YEiYt175oYczd.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+}
+
+
 :root {
   --color-black: #333333;
   --color-blue: #00333D;
