@@ -10,7 +10,7 @@ const Verify = () => {
   const [error, setError] = useState("");
   const [counter, setCounter] = useState(60);
   const navigate = useNavigate();
-  const { user } = useUser();
+  const { user, lastLoginTime } = useUser();
 
   // Sayaç için useEffect
   useEffect(() => {
@@ -81,7 +81,8 @@ const Verify = () => {
             gutterBottom
           >
             <Logo />
-            {`Sayın ${user?.name}, `} mailinize gönderilen şifreyi girmeniz için
+            {`Sayın ${user?.name}, `}
+            {`Son girişiniz: ${lastLoginTime}`}-----
             {counter > 0 ? ` ${counter} saniye var.` : " süre doldu."}
           </Typography>
 

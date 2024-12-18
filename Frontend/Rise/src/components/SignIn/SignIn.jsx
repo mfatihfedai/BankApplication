@@ -21,7 +21,7 @@ const SignIn = () => {
   const [error, setError] = useState("");
   const [colour, setColour] = useState("");
   const [loading, setLoading] = useState(false);
-  const { newUser } = useUser();
+  const { newUser, saveLastLoginTime } = useUser();
 
   const handleSignIn = () => {
     navigate("/newUser")
@@ -34,6 +34,7 @@ const SignIn = () => {
       if (response.data !== null) {
         const logUser = response.data.user;
         newUser(logUser);
+        saveLastLoginTime(response.data.lastLoginTime);
         navigate("/verify");
       } else {
         setError("Kullanıcı adı veya şifre yanlış. Lütfen tekrar deneyiniz.");
