@@ -69,7 +69,12 @@ public class UserController {
     }
 
     @PostMapping("forgetPass")
-    public ResponseEntity<UserResponse> forgetPass(String email){
-        return ResponseEntity.ok(this.service.forgetEmail(email));
+    public ResponseEntity<String> forgetPass(String email){
+        UserResponse userResponse = this.service.forgetEmail(email);
+        if (userResponse != null) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 }
