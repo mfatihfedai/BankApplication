@@ -65,13 +65,19 @@ const CreateUserForm = () => {
         padding: 2,
         border: "1px solid #ccc",
         borderRadius: 2,
-        boxShadow: 1,
         fontFamily: "Montserrat",
+        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+        background: "linear-gradient(to right, #ece9e6, #ffffff)",
       }}
     >
-      <Typography style={{fontWeight: "bold"}} variant="h5" textAlign="center" gutterBottom>
-        <Logo/>
-        Hoşgeldiniz
+      <Typography
+        style={{ fontWeight: "bold" }}
+        variant="h5"
+        textAlign="center"
+        gutterBottom
+      >
+        <Logo />
+        Hoş Geldiniz
       </Typography>
       <TextField
         label="Ad"
@@ -79,6 +85,7 @@ const CreateUserForm = () => {
         value={values.registerName}
         onChange={handleChange}
         type="text"
+        className="custom-textfield"
       />
       {errors.registerName && (
         <Typography className="register-error">
@@ -91,6 +98,7 @@ const CreateUserForm = () => {
         value={values.registerSurname}
         onChange={handleChange}
         type="text"
+        className="custom-textfield"
       />
       {errors.registerSurname && (
         <Typography className="register-error">
@@ -103,6 +111,7 @@ const CreateUserForm = () => {
         value={values.registerEmail}
         onChange={handleChange}
         type="text"
+        className="custom-textfield"
       />
       {errors.registerEmail && (
         <Typography className="register-error">
@@ -115,6 +124,7 @@ const CreateUserForm = () => {
         value={values.registerIdentityNo}
         onChange={handleChange}
         type="text"
+        className="custom-textfield"
       />
       {errors.registerIdentityNo && (
         <Typography className="register-error">
@@ -127,6 +137,7 @@ const CreateUserForm = () => {
         value={values.registerPassword}
         onChange={handleChange}
         type="password"
+        className="custom-textfield"
       />
       {errors.registerPassword && (
         <Typography className="register-error">
@@ -139,6 +150,7 @@ const CreateUserForm = () => {
         value={values.registerPasswordConfirm}
         onChange={handleChange}
         type="password"
+        className="custom-textfield"
       />
       {errors.registerPasswordConfirm && (
         <Typography className="register-error">
@@ -166,7 +178,7 @@ const CreateUserForm = () => {
         variant="contained"
         color="primary"
         fullWidth
-        style={{ backgroundColor: "var(--color-blue)" }}
+        style={{ backgroundColor: "var(--color-blue)", marginBottom: "1rem" }}
       >
         Başvur
       </Button>

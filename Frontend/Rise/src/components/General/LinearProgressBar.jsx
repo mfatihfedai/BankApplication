@@ -18,17 +18,16 @@ const LinearProgressBar = ({ initialSecond }) => {
   }, [secondLeft, initialSecond]);
 
   return (
-    <Box sx={{ width: "100%", textAlign: "center", marginTop: 2 }}>
+    <Box sx={{ width: "100%", textAlign: "center" }}>
       <LinearProgress
         variant="determinate"
         value={progress}
         sx={{
           height: 10,
           borderRadius: 5,
-          marginTop: 1,
 
           "& .MuiLinearProgress-bar": {
-            backgroundColor: "var(--color-blue)",
+            backgroundColor: "var(--color-orange)",
           },
         }}
       />
