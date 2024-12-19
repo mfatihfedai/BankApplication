@@ -128,6 +128,7 @@ const Verify = () => {
               style: { color: "var(--color-blue)", fontFamily: "Montserrat" }, // Label rengi ve fontu
             }}
             sx={{
+              marginBottom: 3,
               "& .MuiOutlinedInput-root": {
                 "&:hover fieldset": {
                   borderColor: "var(--color-blue)", // Hover
