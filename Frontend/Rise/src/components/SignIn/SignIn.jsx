@@ -27,6 +27,10 @@ const SignIn = () => {
     navigate("/newUser")
   }
 
+  const handleForgetPass = () => {
+    navigate("/forget-password")
+  }
+
   const handleSubmit = async () => {
     setLoading(true);
     try {
@@ -119,6 +123,7 @@ const SignIn = () => {
           />
           <Box>
             <Link
+            onClick={handleForgetPass}
               href="#"
               variant="body2"
               sx={{
