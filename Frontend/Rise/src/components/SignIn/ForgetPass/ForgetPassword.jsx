@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  Box,
-  TextField,
-  Typography,
-  Link,
-  Button,
-} from "@mui/material";
+import { Box, TextField, Typography, Link, Button } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useFormik } from "formik";
@@ -74,12 +68,28 @@ const ForgetPassword = () => {
             textAlign="center"
             sx={{ color: "gray", marginBottom: 2 }}
           >
-                {<p>Sayın müşterimiz, biz ki <strong>RISE BANK</strong> olarak müşterilerimizin sağlığına oldukça önem veririz. 
-                Sanıyoruz ki son zamanlardaki yorgunluklarınızdan dolayı bir miktar 
-                B12 takviyesi almaya ihtiyacınız var. Dilerseniz 
-                <a href="https://www.trendyol.com/sr?q=b12+vitamini&qt=b12+vitamini&st=b12+vitamini&os=1&sk=1&sst=MOST_FAVOURITE"><u><i><strong> buraya </strong></i></u></a> 
-                tıklayarak hemen satın alabilirsiniz. <br/><br/>
-                Eğer 'Hayır ihtiyacım yok' derseniz aşağıya e-mail adresinizi girerek yeni bir şifre oluşturabilirsiniz.</p>}
+            {
+              <p>
+                Sayın müşterimiz, biz ki <strong>RISE BANK</strong> olarak
+                müşterilerimizin sağlığına oldukça önem veririz. Sanıyoruz ki
+                son zamanlardaki yorgunluklarınızdan dolayı bir miktar B12
+                takviyesi almaya ihtiyacınız var. Dilerseniz
+                <a
+                  href="https://www.trendyol.com/sr?q=b12+vitamini&qt=b12+vitamini&st=b12+vitamini&os=1&sk=1&sst=MOST_FAVOURITE"
+                  target="_blank"
+                >
+                  <u>
+                    <i>
+                      <strong> buraya </strong>
+                    </i>
+                  </u>
+                </a>
+                tıklayarak hemen satın alabilirsiniz. <br />
+                <br />
+                Eğer 'Hayır ihtiyacım yok' derseniz aşağıya e-mail adresinizi
+                girerek yeni bir şifre oluşturabilirsiniz.
+              </p>
+            }
 
             {/* {`Sayın müşterimiz, biz ki `}
             <strong>RISE BANK</strong>
