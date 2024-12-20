@@ -68,8 +68,8 @@ public class UserController {
         return service.searchByKeyword(keyword);
     }
 
-    @PostMapping("forgetPass")
-    public ResponseEntity<String> forgetPass(String email){
+    @PostMapping("/forgetPass")
+    public ResponseEntity<String> forgetPass(@RequestBody String email){
         UserResponse userResponse = this.service.forgetEmail(email);
         if (userResponse != null) {
             return ResponseEntity.ok().build();
