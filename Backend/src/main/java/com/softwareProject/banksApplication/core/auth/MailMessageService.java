@@ -55,7 +55,7 @@ public class MailMessageService {
         message.setSubject("Forget Password Confirmation");
         message.setText("Your temporary password is: " + password + "\n" +
                 "Please change your temporary password as soon as possible.");
-
+        System.out.println("Your temporary password is: " + password);
         mailSender.send(message);
     }
 }
