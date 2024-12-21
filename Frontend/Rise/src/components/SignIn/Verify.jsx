@@ -108,7 +108,11 @@ const Verify = () => {
                 {" "}
                 <Typography
                   component="span"
-                  sx={{ color: "var(--color-black)", fontWeight: "bold" }}
+                  sx={{ 
+                    color: counter <= 10 ? "red" : "var(--color-black)",
+                    animation: counter <= 10 ? "pulse 0.5s infinite" : "none", 
+                    fontWeight: "bold",
+                    display: "inline-block", }}
                 >
                   {counter}
                 </Typography>{" "}
