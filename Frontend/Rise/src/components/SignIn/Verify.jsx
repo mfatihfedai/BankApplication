@@ -23,6 +23,8 @@ const Verify = () => {
       }, 1000);
       return () => clearInterval(timer);
     } else {
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
       navigate("/"); // Sayaç sıfırlanınca anasayfaya gidiyo
     }
   }, [counter, navigate]);
