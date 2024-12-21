@@ -28,6 +28,7 @@ const LinearProgressBar = ({ initialSecond }) => {
 
           "& .MuiLinearProgress-bar": {
             backgroundColor: "var(--color-orange)",
+            transition: "transform 1s linear !important",
           },
         }}
       />
