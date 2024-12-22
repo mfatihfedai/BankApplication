@@ -16,12 +16,13 @@ const Navbar = () => {
     <>
       {/* Blur overlay */}
       <div className={`blur-overlay ${isOpen ? "active" : ""}`}></div>
-
+<br/>
       {/* Navbar */}
       <div
         className={`navbar ${isOpen ? "open" : ""}`}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+       
       >
         <ul className="navbar-links">
           <li className="navbar-item">Anasayfa</li>
