@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center; /* Yatay eksende ortala */
     align-items: center; /* Dikey eksende ortala */
-    height: 100vh; /* Tüm ekranı kapsa */
+    height: 80vh; /* Tüm ekranı kapsa */
     border-right: 1px dashed var(--color-blue);
 }
 

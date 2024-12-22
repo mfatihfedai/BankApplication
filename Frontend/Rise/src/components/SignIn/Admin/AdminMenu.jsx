@@ -1,6 +1,6 @@
 import React from 'react'
 
-function AdminMenu() {
+function AdminMenu() { // silinecek
 
   return (
     <div>AdminMenu</div>

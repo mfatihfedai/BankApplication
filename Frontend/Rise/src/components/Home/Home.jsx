@@ -14,7 +14,6 @@ function Home() {
         <div>Güncel Kurlar</div>
       </div>
       <div className="parent">
-        <div></div>
         <Navbar />
         <Credit />
         <SignIn />
