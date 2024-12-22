@@ -2,7 +2,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 25px;
+  width: 30px;
   height: 100vh;
   background-color: var(--color-blue);
   transition: width 0.5s ease;
@@ -11,7 +11,7 @@
 }
 
 .navbar.open {
-  width: 10%;
+  width: 15%;
   background-color: var(--color-blue);
 }
 

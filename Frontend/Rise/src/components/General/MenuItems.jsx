@@ -1,8 +1,9 @@
 import { Button } from "@mui/material";
-import React, { useState } from "react";
+import { useAdminMenu } from "../../context/AdminMenuContext";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 function MenuItems({ list }) {
-  const [componentName, setComponentName] = useState("Anasayfa"); // contexte taşınacak ve context e göre tıklanılan component açılacak
+  const { componentName, setComponentName } = useAdminMenu();
 
   const handleClick = (header) => {
     setComponentName(header);
@@ -11,7 +12,7 @@ function MenuItems({ list }) {
   console.log(componentName);
 
   return (
-    <ul
+    <div
       style={{
         display: "flex",
         flexDirection: "column",
@@ -24,19 +25,27 @@ function MenuItems({ list }) {
         <Button
           style={{
             backgroundColor: "var(--color-blue)",
-            width: "25%",
             color: "var(--color-white)",
             margin: "1px 0",
           }}
           onClick={() => handleClick(item.header)}
           key={index}
-        //   css taşınacak ve düzenlecek css grid ile yapılacak  
+          //   css taşınacak ve düzenlecek css grid ile yapılacak
         >
-          {item.startIcon}
-          {item.header}
+          <div style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+          }}>
+            <div style={{ margin:"0 1rem"}}>{item.startIcon}</div>
+            <div>{item.header}</div>
+            <div>
+              <KeyboardArrowRightIcon />
+            </div>
+          </div>
         </Button>
       ))}
-    </ul>
+    </div>
   );
 }
 
