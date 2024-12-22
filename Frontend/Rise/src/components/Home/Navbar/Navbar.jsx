@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import "./navbar.style.css"
+import { useState } from "react";
+import "./navbar.style.css";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,17 +13,23 @@ const Navbar = () => {
   };
 
   return (
-    <div
-      className={`navbar ${isOpen ? 'open' : ''}`}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <ul className="navbar-links">
-        <li className="navbar-item">Anasayfa</li>
-        <li className="navbar-item">Hakkımızda</li>
-        <li className="navbar-item">İletişim</li>
-      </ul>
-    </div>
+    <>
+      {/* Blur overlay */}
+      <div className={`blur-overlay ${isOpen ? "active" : ""}`}></div>
+
+      {/* Navbar */}
+      <div
+        className={`navbar ${isOpen ? "open" : ""}`}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <ul className="navbar-links">
+          <li className="navbar-item">Anasayfa</li>
+          <li className="navbar-item">Hakkımızda</li>
+          <li className="navbar-item">İletişim</li>
+        </ul>
+      </div>
+    </>
   );
 };
 
