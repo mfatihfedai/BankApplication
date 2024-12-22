@@ -12,8 +12,8 @@ function Credit() {
   return (
     <div className='credit'>
       <div className='credit-deposit'>
-        <Link className={`credit-link ${isCredit ? 'active' : ''}`}  onClick={() => setIsCredit(true)}>Kredi</Link>
-        <Link className={`credit-link ${isCredit ? '' : 'active'}`}  onClick={() => setIsCredit(false)}>Mevduat</Link>
+        <Link className={`credit-link ${isCredit ? 'active' : ''}`}  onClick={() => setIsCredit(true)}></Link>
+        <Link className={`credit-link ${isCredit ? '' : 'active'}`}  onClick={() => setIsCredit(false)}></Link>
       </div>
       <div className='credit-info'>
         {isCredit ? <CreditDetail /> : <DepositDetail />}
