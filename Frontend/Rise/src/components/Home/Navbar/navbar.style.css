@@ -1,4 +1,3 @@
-/* Navbar Container */
 .navbar {
   position: fixed;
   top: 0;
@@ -11,13 +10,11 @@
   z-index: 1000;
 }
 
-/* Navbar Open State */
 .navbar.open {
   width: 10%;
   background-color: var(--color-blue);
 }
 
-/* Navbar Links */
 .navbar-links {
   list-style-type: none;
   padding: 0;
@@ -54,7 +51,7 @@
   transition-delay: 0.3s;
 }
 
-/* Overlay for Blur Effect */
+
 .blur-overlay {
   position: fixed;
   top: 0;
@@ -63,7 +60,7 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.2); /* Hafif karartma efekti */
   backdrop-filter: blur(5px); /* Blur efekti */
-  z-index: 999; /* Navbar'ın altında kalması için bir alt z-index */
+  z-index: 999; 
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.5s ease, visibility 0.5s ease;
