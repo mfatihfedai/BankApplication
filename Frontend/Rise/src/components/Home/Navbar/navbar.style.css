@@ -1,4 +1,3 @@
-
 .navbar {
   position: fixed;
   top: 0;
@@ -8,6 +7,7 @@
   background-color: var(--color-blue);
   transition: width 0.5s ease;
   overflow: hidden;
+  z-index: 1000;
 }
 
 .navbar.open {
@@ -49,4 +49,24 @@
 
 .navbar.open .navbar-item:nth-child(3) {
   transition-delay: 0.3s;
+}
+
+
+.blur-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2); /* Hafif karartma efekti */
+  backdrop-filter: blur(5px); /* Blur efekti */
+  z-index: 999; 
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.blur-overlay.active {
+  visibility: visible;
+  opacity: 1;
 }
