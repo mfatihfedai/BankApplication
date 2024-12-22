@@ -30,18 +30,18 @@ function CreditDetail() {
         variant="standard"
       />
 
-      <div className="credit-slider">
-        <Slider
-          aria-label="Months"
-          value={months}
-          onChange={(e, newValue) => setMonths(newValue)}
-          valueLabelDisplay="off"
-          step={1}
-          min={1}
-          max={48}
-        />
-        <p>Ay</p>
-      </div>
+<div className="credit-slider">
+  <Slider
+    aria-label="Months"
+    value={months}
+    onChange={(e, newValue) => setMonths(newValue)}
+    valueLabelDisplay="off"
+    step={1}
+    min={1}
+    max={48}
+  />
+  <p>{months} Ay</p>
+</div>
 
       <div>
         <p>Aylık Ödenecek Tutar: {monthlyPayment} TL</p>
