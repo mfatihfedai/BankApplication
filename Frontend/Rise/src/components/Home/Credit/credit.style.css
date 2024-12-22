@@ -1,45 +1,65 @@
-.credit{
+.credit {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: center; /* Yatay eksende ortala */
+    align-items: center; /* Dikey eksende ortala */
+    height: 100vh; /* Tüm ekranı kapsa */
     border-right: 1px dashed var(--color-blue);
 }
 
-.credit-deposit{
+.credit-deposit {
     display: flex;
     flex-direction: row;
-    justify-content: space-around; 
+    justify-content: space-around;
     cursor: pointer;
 }
 
 .credit-deposit a {
     text-decoration: none;
     color: var(--color-blue);
-
 }
 
 .credit-link.active {
-    font-weight: bold; 
+    font-weight: bold;
     color: var(--color-blue);
     border-bottom: 2px solid black;
-  }
+}
 
-.credit-slider{
+.credit-slider {
     display: flex;
     flex-direction: row;
     gap: 2rem;
 }
 
-.credit-info{
-   display: flex;
-   justify-content: center;
-   
+.credit-info {
+    display: flex;
+    justify-content: center;
 }
 
-.credit-detail{
+.credit-detail {
     display: flex;
-    flex-direction: column ;
-    max-width: 100%;
-    margin-top: 2rem;
+    flex-direction: column;
+    align-items: center; /* İçeriği ortala */
+    justify-content: center; /* Dikey eksende ortala */
+    max-width: 300px; /* Detay genişliği */
+    width: 300px;
     gap: 2rem;
+}
+
+
+.credit-detail div {
+    width: 100%; /* İçindeki tüm div'leri genişlik sabitle */
+    box-sizing: border-box; /* Taşma sorunlarını önle */
+}
+
+.credit-detail .credit-slider {
+    margin-top: 20px;
+}
+
+.credit-detail p {
+    margin: 10px 0;
+    text-align: left;
+}
+
+.credit-info {
+    width: 300px; /* credit-info için de genişlik sabit */
 }
