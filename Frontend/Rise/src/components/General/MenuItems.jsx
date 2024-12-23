@@ -1,6 +1,7 @@
 import { Button } from "@mui/material";
 import { useAdminMenu } from "../../context/AdminMenuContext";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import "./menuItem.style.css";
 
 function MenuItems({ list }) {
   const { componentName, setComponentName } = useAdminMenu();
@@ -12,37 +13,12 @@ function MenuItems({ list }) {
   console.log(componentName);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "start",
-        margin: "0",
-        padding: "0",
-      }}
-    >
+    <div className="button-group">
       {list?.map((item, index) => (
-        <Button
-          style={{
-            backgroundColor: "var(--color-blue)",
-            color: "var(--color-white)",
-            margin: "1px 0",
-          }}
-          onClick={() => handleClick(item.header)}
-          key={index}
-          //   css taşınacak ve düzenlecek css grid ile yapılacak
-        >
-          <div style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-          }}>
-            <div style={{ margin:"0 1rem"}}>{item.startIcon}</div>
-            <div>{item.header}</div>
-            <div>
-              <KeyboardArrowRightIcon />
-            </div>
-          </div>
+        <Button className="menu-button" onClick={() => handleClick(item.header)} key={index}>
+          <div className="button-start">{item.startIcon}</div>
+          <div className="button-header">{item.header}</div>
+          <div className="button-end"><KeyboardArrowRightIcon/></div>
         </Button>
       ))}
     </div>

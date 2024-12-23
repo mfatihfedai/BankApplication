@@ -5,6 +5,7 @@ import { adminList } from "../../Core/MenuLists";
 import { useAdminMenu } from "../../../context/AdminMenuContext";
 import Home from "./Home/Home";
 import Users from "./Users/Users";
+import "./admin.style.css"
 
 function Admin() {
   const { componentName } = useAdminMenu();
@@ -12,7 +13,7 @@ function Admin() {
   return (
     <>
       <DashboardHeader />
-      <div>
+      <div className = "admin-parent">
         <div className="list-item">
           <MenuItems list={adminList} />
         </div>
