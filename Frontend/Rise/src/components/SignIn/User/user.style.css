@@ -1,0 +1,14 @@
+.user-parent {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr;
+    }
+    
+.list-item { 
+    grid-area: 1 / 1 / 6 / 2; 
+}
+.component-item { 
+    grid-area: 1 / 2 / 6 / 6; 
+    margin-left: 1rem;
+    border-left: 2px #333 solid;
+}

@@ -74,7 +74,7 @@ const Verify = () => {
     <div>
       <form onSubmit={handleSubmit}>
         <Box
-          component="form"
+          // component="form" hata alıyordu form zaten var 
           sx={{
             color: "var(--color-black)",
             display: "flex",

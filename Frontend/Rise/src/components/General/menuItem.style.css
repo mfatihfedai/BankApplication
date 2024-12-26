@@ -5,25 +5,28 @@
     margin-top: 2px;
 }
 
-.menu-button  {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    font-size: 6px;
-    margin: 0;
-    width: 100%;
-    background-color: var(--color-blue);
-    color: var(--color-white);
-    margin: 2px 0;
-    background: linear-gradient(to left, var(--color-blue), var(--color-blue) 50%, var(--color-orange) 50%);
-    background-size: 200% 100%; 
-    background-position: right;
-    transition: background-position 0.75s ease-in-out; 
+.menu-button {
+    display: flex ;
+    flex-direction: row ;
+    align-items: center;
+    justify-content: space-between ;
+    color: var(--color-white) ;
+    background-color: var(--color-blue)  ;
+    font-size: 6px ;
+    min-height: 3rem;
+    cursor: pointer;
+    border: none;
+    width: 100% ;
+    margin: 2px 0 ;
+    background: linear-gradient(to left, var(--color-blue), var(--color-blue) 50%, var(--color-orange) 50%) ;
+    background-size: 200% 100% ; 
+    background-position: right ;
+    transition: background-position 0.3s ease-in-out ; 
 }
 
 .menu-button:hover  {
-    background-position: left;
-    font-weight: 700; 
+    background-position: left ;
+    font-weight: 700 ; 
 }
 
 .button-start {
@@ -33,4 +36,6 @@
 .button-end {
     display: flex;
 }
+
+
 
