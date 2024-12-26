@@ -58,15 +58,27 @@ export const adminList = [ // buraya ikon ve headeer eklediğimizde otomatik but
       startIcon: <HomeIcon />
     },
     {
-      header: "Kullanıcılar",
-      startIcon: <HomeIcon />
+      header: "EFT / Havale",
+      startIcon: <SendIcon />
     },
     {
-      header: "Ödemeler",
-      startIcon: <HomeIcon />
+      header: "Fatura Öde",
+      startIcon: <ReceiptIcon />
     },
     {
-      header: "Başarılı Girişler",
-      startIcon: <HomeIcon />
+      header: "Hesap Hareketleri",
+      startIcon: <DescriptionIcon />
+    },
+    {
+      header: "Kişisel Bilgilerim",
+      startIcon: <InfoIcon />
+    },
+    {
+      header: "Giriş Kayıtlarım",
+      startIcon: <ExitToAppIcon />
+    },
+    {
+      header: "Fatura Talimaltlarım",
+      startIcon: <RequestPageIcon />
     },
   ];

@@ -15,11 +15,11 @@ function MenuItems({ list }) {
   return (
     <div className="button-group">
       {list?.map((item, index) => (
-        <Button className="menu-button" onClick={() => handleClick(item.header)} key={index}>
+        <button className="menu-button" onClick={() => handleClick(item.header)} key={index}>
           <div className="button-start">{item.startIcon}</div>
           <div className="button-header">{item.header}</div>
           <div className="button-end"><KeyboardArrowRightIcon/></div>
-        </Button>
+        </button>
       ))}
     </div>
   );
