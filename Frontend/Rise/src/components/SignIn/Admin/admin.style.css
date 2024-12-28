@@ -10,5 +10,5 @@
 .component-item { 
     grid-area: 1 / 2 / 6 / 6; 
     margin-left: 1rem;
-    border-left: 2px #333 solid;
+    
 }

@@ -2,8 +2,13 @@ import DashboardHeader from "../../General/DashboardHeader";
 import { userList } from "../../Core/MenuLists";
 import MenuItems from "../../General/MenuItems";
 import "./user.style.css"
+import Home from "../Admin/Home/Home";
+import { useAdminMenu } from "../../../context/AdminMenuContext";
 
 function User() {
+
+  const { componentName } = useAdminMenu();
+
   return (
     <>
       <DashboardHeader />
@@ -12,7 +17,7 @@ function User() {
           <MenuItems list={userList} />
         </div>
         <div className="component-item">
-          <div>1</div>
+           {componentName == "Anasayfa" && <Home />}
         </div>
       </div>
     </>

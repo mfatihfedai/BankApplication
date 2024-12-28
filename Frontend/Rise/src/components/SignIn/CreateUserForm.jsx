@@ -30,6 +30,7 @@ const CreateUserForm = () => {
       };
       const response = await createUser(registerUser);
       if (response.request.status === 200) {
+        // bir modal ekleyelim
         navigate("/");
       }
     } catch (err) {
