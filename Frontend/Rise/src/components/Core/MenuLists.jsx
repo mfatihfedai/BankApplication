@@ -47,7 +47,7 @@ export const adminList = [ // buraya ikon ve headeer eklediğimizde otomatik but
       startIcon: <ExitToAppIcon />
     },
     {
-      header: "Fatura Talimaltlarım",
+      header: "Otomatik Ödeme Talimatlarım",
       startIcon: <RequestPageIcon />
     },
   ];
@@ -78,7 +78,7 @@ export const adminList = [ // buraya ikon ve headeer eklediğimizde otomatik but
       startIcon: <ExitToAppIcon />
     },
     {
-      header: "Fatura Talimaltlarım",
+      header: "Otomatik Ödeme Talimatlarım",
       startIcon: <RequestPageIcon />
     },
   ];

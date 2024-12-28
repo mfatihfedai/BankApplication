@@ -13,8 +13,9 @@ export const UserContextProvider = ({ children }) => {
   };
 
   const saveLastLoginTime = (lastLoginTime) => {
-    setLastLoginTime(lastLoginTime);
-  }
+    localStorage.setItem("lastLoginTime", encryptData(lastLoginTime));
+    
+  };
 
   // "user" bilgisini al ve dekirpt ederek user'a tanımla
   useEffect(() => {
@@ -41,7 +42,7 @@ export const UserContextProvider = ({ children }) => {
     userId,
     setUserId,
     saveLastLoginTime,
-    lastLoginTime
+    lastLoginTime,
   };
 
   return <UserContext.Provider value={values}>{children}</UserContext.Provider>;

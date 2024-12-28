@@ -19,7 +19,9 @@ export const signInUser = async (identityNo, password) => {
     const token = response.data.token;
     axios.defaults.headers.common["Authorization"] = "Bearer " + token;
     localStorage.setItem("token", token); // Token localStorage'a kaydoluyor.
+    console.log(response);
     return response;
+
   } catch (error) {
     console.error("Login failed:", error.message);
     throw error;
