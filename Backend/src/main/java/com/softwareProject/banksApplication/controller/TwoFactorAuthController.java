@@ -64,6 +64,7 @@ public class TwoFactorAuthController {
             return ResponseEntity.badRequest().build();
         }
     }
+
     @PostMapping("/logout")
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         if (authentication != null && authentication.getPrincipal() instanceof CustomUserDetails) {
