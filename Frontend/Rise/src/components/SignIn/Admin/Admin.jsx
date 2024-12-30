@@ -3,9 +3,16 @@ import DashboardHeader from "../../General/DashboardHeader";
 import MenuItems from "../../General/MenuItems";
 import { adminList } from "../../Core/MenuLists";
 import { useAdminMenu } from "../../../context/AdminMenuContext";
-import Home from "./Home/Home";
-import Users from "./Users/Users";
-import "./admin.style.css"
+import "./admin.style.css";
+import Home from "../GeneralComponent/Home/Home";
+import AccountActivities from "../GeneralComponent/AccountActivities/AccountActivities";
+import AutomaticPayment from "../GeneralComponent/AutomaticPayment/AutomaticPayment";
+import PersonalInfo from "../GeneralComponent/PersonalInfo/PersonalInfo";
+import Receipt from "../GeneralComponent/Receipt/Receipt";
+import Transfer from "../GeneralComponent/Transfer/Transfer";
+import LogsInfo from "../GeneralComponent/LogsInfo/LogsInfo";
+
+
 
 function Admin() {
   const { componentName } = useAdminMenu();
@@ -18,8 +25,13 @@ function Admin() {
           <MenuItems list={adminList} />
         </div>
         <div className="component-item">
-          {componentName == "Anasayfa" && <Home />}
-          {componentName == "Kullanıcılar" && <Users />}
+          {componentName == "Home" && <Home />}
+          {componentName == "AccountActivities" && <AccountActivities />}
+          {componentName == "AutomaticPayment" && <AutomaticPayment />}
+          {componentName == "PersonalInfo" && <PersonalInfo />}
+          {componentName == "Receipt" && <Receipt />}
+          {componentName == "Transfer" && <Transfer />}
+          {componentName == "LogsInfo" && <LogsInfo />}
         </div>
       </div>
     </>

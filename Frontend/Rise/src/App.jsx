@@ -3,12 +3,12 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Logo from "./components/Home/Logo/Logo";
-import Verify from "./components/SignIn/Verify";
-import ProtectedRoute from "./components/ProtectedRoute";
+import Verify from "./components/SignIn/Verify/Verify";
+import ProtectedRoute from "./components/General/ProtectedRoute";
 import Admin from "./components/SignIn/Admin/Admin";
 import User from "./components/SignIn/User/User";
 import { UserContextProvider } from "./context/UserContext";
-import CreateUserForm from "./components/SignIn/CreateUserForm";
+import CreateUserForm from "./components/SignIn/CreateUserForm/CreateUserForm";
 import ForgetPassword from "./components/SignIn/ForgetPass/ForgetPassword";
 import { AdminContextProvider } from "./context/AdminMenuContext";
 

@@ -10,6 +10,7 @@ function Home() {
 
   return (
     <div>
+      hellöööö
       {user.name} 
       {user.surname}
     </div>

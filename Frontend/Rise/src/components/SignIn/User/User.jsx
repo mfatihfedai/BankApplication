@@ -2,8 +2,15 @@ import DashboardHeader from "../../General/DashboardHeader";
 import { userList } from "../../Core/MenuLists";
 import MenuItems from "../../General/MenuItems";
 import "./user.style.css"
-import Home from "../Admin/Home/Home";
 import { useAdminMenu } from "../../../context/AdminMenuContext";
+import AccountActivities from "../GeneralComponent/AccountActivities/AccountActivities";
+import AutomaticPayment from "../GeneralComponent/AutomaticPayment/AutomaticPayment";
+import PersonalInfo from "../GeneralComponent/PersonalInfo/PersonalInfo";
+import Receipt from "../GeneralComponent/Receipt/Receipt";
+import Transfer from "../GeneralComponent/Transfer/Transfer";
+import LogsInfo from "../GeneralComponent/LogsInfo/LogsInfo";
+import Home from "../GeneralComponent/Home/Home";
+
 
 function User() {
 
@@ -17,7 +24,13 @@ function User() {
           <MenuItems list={userList} />
         </div>
         <div className="component-item">
-           {componentName == "Anasayfa" && <Home />}
+          {componentName == "Home" && <Home />}
+          {componentName == "AccountActivities" && <AccountActivities />}
+          {componentName == "AutomaticPayment" && <AutomaticPayment />}
+          {componentName == "LogsInfo" && <LogsInfo />}
+          {componentName == "PersonalInfo" && <PersonalInfo />}
+          {componentName == "Receipt" && <Receipt />}
+          {componentName == "Transfer" && <Transfer />}
         </div>
       </div>
     </>
