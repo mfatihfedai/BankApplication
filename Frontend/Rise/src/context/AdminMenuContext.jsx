@@ -4,7 +4,7 @@ const AdminMenuContext = createContext();
 
 export const AdminContextProvider = ({ children }) => {
 
-const [componentName, setComponentName] = useState("Anasayfa")
+const [componentName, setComponentName] = useState("Home")
 
   const values = {
     componentName,

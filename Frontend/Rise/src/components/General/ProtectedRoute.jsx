@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { decryptData } from "./Core/CryptoJS";
+import { decryptData } from "../Core/CryptoJS";
 
 const ProtectedRoute = ({ role, children }) => {
   const [logUser, setLogUser] = useState(null); // Başlangıçta null olarak ayarlandı

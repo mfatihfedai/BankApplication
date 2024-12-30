@@ -8,11 +8,11 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import { useFormik } from "formik";
-import { registerFormSchemas } from "../Schemas/RegisterFormSchemas";
+import { registerFormSchemas } from "../../Schemas/RegisterFormSchemas";
 import "./createUserForm.style.css";
-import { createUser } from "../../service/UserApi";
+import { createUser } from "../../../service/UserApi";
 import { useNavigate } from "react-router-dom";
-import Logo from "../Home/Logo/Logo";
+import Logo from "../../Home/Logo/Logo";
 
 const CreateUserForm = () => {
   const navigate = useNavigate();

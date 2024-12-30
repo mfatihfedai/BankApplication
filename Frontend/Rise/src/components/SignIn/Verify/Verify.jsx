@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../../context/UserContext";
+import { useUser } from "../../../context/UserContext";
 import { TextField, Button, Box, Typography } from "@mui/material";
-import Logo from "../Home/Logo/Logo";
-import LinearProgressBar from "../General/LinearProgressBar";
+import Logo from "../../Home/Logo/Logo";
+import LinearProgressBar from "../../General/LinearProgressBar";
 
 const Verify = () => {
   const [otp, setOtp] = useState("");
@@ -63,18 +63,21 @@ const Verify = () => {
     }
   };
   function maskEmail(email) {
-    //TALHA DID IT :)
-    const [localPart, domain] = email.split("@");
-    const maskedLocalPart =
-      localPart.substring(0, 1) + "*".repeat(localPart.length - 2);
-    return `${maskedLocalPart}@${domain}`;
+    
+      const [localPart, domain] = email.split("@");
+      if(localPart.length > 1){
+        const maskedLocalPart =
+        localPart.substring(0, 1) + "*".repeat(localPart.length - 1);
+        return `${maskedLocalPart}@${domain}`;
+      }
+      return email;
+    
   }
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <Box
-          // component="form" hata alıyordu form zaten var 
           sx={{
             color: "var(--color-black)",
             display: "flex",
@@ -168,30 +171,9 @@ const Verify = () => {
           >
             Doğrula
           </Button>
-
-          {/* Sayaç sıfır olduğunda uyarı
-          {counter === 0 && (
-            <Typography style={{ color: "red", textAlign: "center" }}>
-              Süre doldu, yeniden doğrulama kodu isteyin.
-            </Typography>
-          )} */}
         </Box>
       </form>
-      {/* <h1>Enter OTP</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>OTP:</label>
-          <input
-            type="text"
-            name="otp"
-            value={otp}
-            onChange={(e) => setOtp(e.target.value)}
-            placeholder="Enter OTP"
-          />
-        </div>
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        <button type="submit">Verify</button>
-      </form> */}
+      
     </div>
   );
 };

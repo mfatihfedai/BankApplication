@@ -9,7 +9,6 @@ import { decryptData } from "../Core/CryptoJS";
 
 function DashboardHeader() {
   const { user } = useUser();
-  console.log(user);
   const [formattedDate, setFormattedDate] = useState("");
   const [rawDate, setRawDate] = useState();
 
@@ -28,7 +27,7 @@ function DashboardHeader() {
       <div className="dashboard-header-welcome">
         <p>Sayın {`${user?.name} ${user?.surname}`}</p>
         {rawDate?.getFullYear() === 1970 ? (
-          <p>Last Login: First Date</p>
+          <p>Last Login: İlk Giriş</p>
         ) : (
           <p>Last Login: {formattedDate}</p>
         )}

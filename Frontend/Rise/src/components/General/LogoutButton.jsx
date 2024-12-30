@@ -4,11 +4,13 @@ import { useUser } from "../../context/UserContext";
 import { logoutUser } from "../../service/LogoutApi";
 import Button from '@mui/material/Button';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
+import { useAdminMenu } from "../../context/AdminMenuContext";
 
 
 function LogoutButton() {
   const { user, setUser } = useUser(); // Eğer user'ı context'ten temizlemeniz gerekirse
   const navigate = useNavigate();
+  const {setComponentName} = useAdminMenu();
 
   // Logout işlemi
   const handleLogout = async () => {
@@ -22,6 +24,7 @@ function LogoutButton() {
 
       // Ana sayfaya yönlendir
       navigate("/");
+      setComponentName("Home")
 
       return response;
     } catch (error) {
