@@ -113,11 +113,11 @@ function CreditDetail() {
       />
 
       {/* Faiz Oranı */}
-      <TextField
+      <TextField style={{ width: "300px", borderRadius: '6px', color: "black" }}
         disabled
-        value={`Faiz Oranı: ${interestRate.toFixed(2)}%`}
+        value  ={`Faiz Oranı: ${interestRate.toFixed(2)}%`}
         id="standard-basic"
-        variant="standard"
+      
       />
 
       {/* Kredi Vadesi */}
@@ -137,7 +137,8 @@ function CreditDetail() {
       </div>
 
       {/* Aylık Ödeme */}
-      <div style={{ textAlign: 'center' }}>
+     
+      <div style={{ textAlign: 'center',  }}>
       <p style={{ fontSize: '18px', fontWeight: 'bold', textAlign: 'center' }}>
     Aylık Ödenecek Tutar:
   </p>
