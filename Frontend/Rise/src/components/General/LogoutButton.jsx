@@ -2,15 +2,14 @@ import React from "react";
 import { useNavigate } from "react-router";
 import { useUser } from "../../context/UserContext";
 import { logoutUser } from "../../service/LogoutApi";
-import Button from '@mui/material/Button';
-import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
+import Button from "@mui/material/Button";
+import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import { useAdminMenu } from "../../context/AdminMenuContext";
-
 
 function LogoutButton() {
   const { user, setUser } = useUser(); // Eğer user'ı context'ten temizlemeniz gerekirse
   const navigate = useNavigate();
-  const {setComponentName} = useAdminMenu();
+  const { setComponentName } = useAdminMenu();
 
   // Logout işlemi
   const handleLogout = async () => {
@@ -24,7 +23,7 @@ function LogoutButton() {
 
       // Ana sayfaya yönlendir
       navigate("/");
-      setComponentName("Home")
+      setComponentName("Home");
 
       return response;
     } catch (error) {
@@ -34,7 +33,12 @@ function LogoutButton() {
 
   return (
     <div>
-      <Button style={{backgroundColor: "var(--color-orange)"}} onClick={handleLogout} variant="contained" startIcon={<PowerSettingsNewIcon />}>
+      <Button
+        style={{ backgroundColor: "var(--color-red)" }}
+        onClick={handleLogout}
+        variant="contained"
+        startIcon={<PowerSettingsNewIcon />}
+      >
         Çıkış
       </Button>
     </div>
