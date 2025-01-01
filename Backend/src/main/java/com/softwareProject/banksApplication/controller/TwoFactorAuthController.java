@@ -46,9 +46,7 @@ public class TwoFactorAuthController {
     @PostMapping(LOGIN)
     public ResponseEntity<LoginResponse> login(@RequestParam String identityNo, @RequestParam String password) {
 
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(identityNo, password)
-        );
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(identityNo, password));
 
         if (authentication.isAuthenticated()) {
             CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
