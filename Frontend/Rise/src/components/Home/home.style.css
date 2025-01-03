@@ -1,15 +1,15 @@
 .parent {
     display: grid;
-    grid-template-columns: 0.5fr 5fr 4fr 5fr;
+    grid-template-columns: 0.5fr 5fr 5fr 5fr;
     grid-template-rows: 1fr;
     grid-column-gap: 0.5px;
     grid-row-gap: 0px;
-    height: 20vh;
+    height: 90vh;
 }
 
 .parent-header {
     display: grid;
-    grid-template-columns: 1fr 5fr 4fr 5fr;
+    grid-template-columns: 0.5fr 5fr 5fr 5fr;
     grid-template-rows: 1fr;
     grid-column-gap: 0.5px;
     grid-row-gap: 0px;

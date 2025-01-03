@@ -60,17 +60,21 @@ const SignIn = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          justifyContent: "center",
         }}
       >
         <Typography
           sx={{
             fontFamily: "Montserrat",
+            marginBottom: "2rem",
           }}
         >
-          İnternet Şubemize Hoş Geldiniz
+          <b style={{fontSize:"1.1rem", fontWeight:"800"}}>İnternet Şubemize Hoş Geldiniz</b>
         </Typography>
 
-        <Box component="form" noValidate sx={{ mt: 1 }}>
+        <Box component="form" noValidate sx={{ mt: 1, width: "100%", margin: "0 auto", display: "flex", flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center", }}>
           <TextField
             margin="normal"
             required
@@ -83,15 +87,15 @@ const SignIn = () => {
             autoComplete="customer-number"
             autoFocus
             InputLabelProps={{
-              style: { color: "var(--color-blue)", fontFamily: "Montserrat" }, // Label rengi ve fontu
+              style: { color: "var(--color-blue)", fontFamily: "Montserrat" },
             }}
             sx={{
               "& .MuiOutlinedInput-root": {
                 "&:hover fieldset": {
-                  borderColor: "var(--color-blue)", // Hover
+                  borderColor: "var(--color-blue)",
                 },
                 "&.Mui-focused fieldset": {
-                  borderColor: "var(--color-blue)", // Focus
+                  borderColor: "var(--color-blue)",
                 },
               },
             }}
@@ -108,34 +112,20 @@ const SignIn = () => {
             id="password"
             autoComplete="current-password"
             InputLabelProps={{
-              style: { color: "var(--color-blue)", fontFamily: "Montserrat" }, // Label rengi ve fontu
+              style: { color: "var(--color-blue)", fontFamily: "Montserrat" },
             }}
             sx={{
               "& .MuiOutlinedInput-root": {
                 "&:hover fieldset": {
-                  borderColor: "var(--color-blue)", // Hover
+                  borderColor: "var(--color-blue)",
                 },
                 "&.Mui-focused fieldset": {
-                  borderColor: "var(--color-blue)", // Focus
+                  borderColor: "var(--color-blue)",
                 },
               },
             }}
           />
-          <Box>
-            <Link
-            onClick={handleForgetPass}
-              href="#"
-              variant="body2"
-              sx={{
-                color: "var(--color-blue)",
-                fontFamily: "Montserrat",
-              }}
-            >
-              Şifremi Unuttum
-            </Link>
-          </Box>
           <LoadingButton
-            // type="submit"
             onClick={handleSubmit}
             fullWidth
             variant="contained"
@@ -143,6 +133,7 @@ const SignIn = () => {
             sx={{
               mt: 3,
               mb: 2,
+              width: "80%",
               fontFamily: "Montserrat",
               backgroundColor: "var(--color-blue)",
               color: "var(--color-white)",
@@ -154,16 +145,23 @@ const SignIn = () => {
           >
             GİRİŞ YAP
           </LoadingButton>
+
           {error && <p style={{ color: colour }}>{error}</p>}
-          <Box>
+
+          <Box className="linkContainer">
+            <Link
+              onClick={handleForgetPass}
+              href="#"
+              variant="body2"
+              className="linkButton"
+            >
+              Şifremi Unuttum
+            </Link>
             <Link
               onClick={handleSignIn}
-              href=""
+              href="#"
               variant="body2"
-              sx={{
-                color: "var(--color-blue)",
-                fontFamily: "Montserrat",
-              }}
+              className="linkButton"
             >
               Müşteri Olmak İster Misiniz?
             </Link>
