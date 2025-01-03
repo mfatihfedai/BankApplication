@@ -32,17 +32,17 @@ function DashboardHeader() {
   const [formattedDate, setFormattedDate] = useState("");
   const [rawDate, setRawDate] = useState();
   const navigate = useNavigate();
-  const [time, setTime] = useState(300);
+  const [time, setTime] = useState(10);
   const [showModal, setShowModal] = useState(false);
 
   // Sayaç sıfırlama fonksiyonu
   const resetTimer = useCallback(() => {
-    setTime(300);
+    setTime(10);
   }, []);
 
   // Kullanıcı etkinliklerini dinleme
   useEffect(() => {
-    const resetEvents = ["mousemove", "keydown", "click", "scroll"];
+    const resetEvents = [ "keydown", "click", "scroll"];
     const resetOnActivity = () => resetTimer();
 
     resetEvents.forEach((event) =>

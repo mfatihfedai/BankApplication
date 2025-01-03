@@ -109,15 +109,33 @@ function CreditDetail() {
           '& .MuiInputBase-root': {
             borderRadius: '5px', // Border kenarına ovallik verdik
           },
-        }}
+          marginBottom: 3,
+          "& .MuiOutlinedInput-root": {
+            "&:hover fieldset": {
+              borderColor: "var(--color-blue)", // Hover
+            },
+            "&.Mui-focused fieldset": {
+              borderColor: "var(--color-blue)", // Focus
+            },
+          },
+        }} 
       />
 
       {/* Faiz Oranı */}
-      <TextField style={{ width: "300px", borderRadius: '6px', color: "black" }}
-        disabled
+      <TextField style={{ width: "300px", borderRadius: '6px', color: "black" }}   
         value  ={`Faiz Oranı: ${interestRate.toFixed(2)}%`}
         id="standard-basic"
-      
+        sx={{
+          marginBottom: 3,
+          "& .MuiOutlinedInput-root": {
+            "&:hover fieldset": {
+              borderColor: "var(--color-blue)", // Hover
+            },
+            "&.Mui-focused fieldset": {
+              borderColor: "var(--color-blue)", // Focus
+            },
+          },
+        }}
       />
 
       {/* Kredi Vadesi */}
