@@ -50,18 +50,22 @@ function Rate({ currency, rate }) {
   return (
     <>
       <p className="currency-name">
-        <img src={flagSrc} alt="" /> {currencyName}
+        <img src={flagSrc} alt="" /> <b>{currencyName}</b> <span>{isIncrease ? <ArrowDropUpIcon style={{color : "green"}} /> :<ArrowDropDownIcon style={{color : "red"}}/>}</span>
       </p>
-      <p className="currency-info">
-        {currency}: <span>{(1 / rate).toFixed(4)} TL </span> <span>{isIncrease ? <ArrowDropUpIcon style={{color : "green"}} /> :<ArrowDropDownIcon style={{color : "red"}}/>}</span>
-      </p>
+      {/* <p className="currency-info">
+        {currency}: <span>{(1 / rate).toFixed(4)} TL </span> 
+      </p> */}
       <div className="currency-trade">
-        <p className="currency-buy">
-          Banka Satış: <span>{((1 / rate) * 1.02).toFixed(4)} TL </span>
-        </p>
-        <p className="currency-sell">
-          Banka Alış: <span>{((1 / rate) * 0.98).toFixed(4)} TL </span>
-        </p>
+        <div className="currency-bank">
+          <p className="currency-buy">
+            Banka Satış <div>{((1 / rate) * 1.02).toFixed(4)} TL </div>
+          </p>
+        </div>
+        <div className="currency-bank">
+          <p className="currency-sell">
+            Banka Alış <div>{((1 / rate) * 0.98).toFixed(4)} TL </div>
+          </p>
+        </div>
       </div>
     </>
   );
