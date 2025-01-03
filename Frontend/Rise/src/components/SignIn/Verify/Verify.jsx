@@ -5,6 +5,7 @@ import { useUser } from "../../../context/UserContext";
 import { TextField, Button, Box, Typography } from "@mui/material";
 import Logo from "../../Home/Logo/Logo";
 import LinearProgressBar from "../../General/LinearProgressBar";
+import { verifyUser } from "../../../service/VerifyApi";
 
 const Verify = () => {
   const [otp, setOtp] = useState("");
@@ -32,19 +33,8 @@ const Verify = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const id = user.id;
-    const token = localStorage.getItem("token");
     try {
-      const response = await axios.post(
-        `http://localhost:8080/auth/verify-otp?otp=${otp}&id=${id}`,
-        null,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          withCredentials: true,
-        }
-      );
+      const response = await verifyUser(otp, id)
 
       if (response.status == 200) {
         console.log(user);
