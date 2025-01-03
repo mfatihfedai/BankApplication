@@ -1,11 +1,11 @@
 import axios from "axios";
-// const baseURL = import.meta.env.VITE_BASE_URL;
+const API_URL = `${import.meta.env.VITE_BASE_URL}${import.meta.env.VITE_DEV}${import.meta.env.VITE_VERSION}`;
 
-const apiUrl = `http://localhost:8080/dev/v1/user`;
+const apiUrl = `${API_URL}/user`;
 
 export const createUser = async (user) => {
    try {
-    const response = await axios.post(apiUrl,user);
+    const response = await axios.post(apiUrl, user);
     return response;
   } catch (error) {
     console.error("Logout failed:", error);

@@ -1,8 +1,8 @@
 import axios from "axios";
 
-// const baseURL = import.meta.env.VITE_BASE_URL;
+const API_URL = `${import.meta.env.VITE_BASE_URL}`;
 
-const apiUrl = `http://localhost:8080/auth/login`;
+const apiUrl = `${API_URL}/auth/login`;
 
 export const signInUser = async (identityNo, password) => {
   // const {setUserId, userId} = useContext(UserContext);
@@ -19,7 +19,6 @@ export const signInUser = async (identityNo, password) => {
     const token = response.data.token;
     axios.defaults.headers.common["Authorization"] = "Bearer " + token;
     localStorage.setItem("token", token); // Token localStorage'a kaydoluyor.
-    console.log(response);
     return response;
 
   } catch (error) {

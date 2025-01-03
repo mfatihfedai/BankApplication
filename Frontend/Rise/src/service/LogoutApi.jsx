@@ -1,6 +1,7 @@
 import axios from "axios";
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-const apiUrl = `http://localhost:8080/auth/logout`;
+const apiUrl = `${BASE_URL}/auth/logout`;
 
 export const logoutUser = async ({user}) => {
   

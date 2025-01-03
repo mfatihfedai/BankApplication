@@ -1,11 +1,10 @@
 import axios from "axios";
-import FORGET_PASS from "./RestApis";
-
+const API_URL = `${import.meta.env.VITE_BASE_URL}${import.meta.env.VITE_DEV}${import.meta.env.VITE_VERSION}`;
 
 
 export const forgetPass = async (email) => {
     try {
-        const response = await axios.post("http://localhost:8080/dev/v1/user/forgetPass", email, {
+        const response = await axios.post(`${API_URL}/user/forgetPass`, email, {
             headers: { "Content-Type": "text/plain" },
         });
         return response;
