@@ -121,18 +121,20 @@ function CreditDetail() {
       />
 
       {/* Kredi Vadesi */}
-      <div className="credit-slider">
-        <Slider
-          aria-label="Months"
-          value={months}
-          onChange={handleSliderChange}
-          valueLabelDisplay="off"
-          step={1}
-          min={1}
-          max={maxMonthsValue} 
-        />
-        <div style={{ display: 'inline-block', transition: 'none' }}>
-          {months} <span style={{ marginLeft: '5px' }}>Ay</span>
+      <div className="credit-slider-box">
+        <div className="credit-slider">
+          <Slider
+            aria-label="Months"
+            value={months}
+            onChange={handleSliderChange}
+            valueLabelDisplay="off"
+            step={1}
+            min={1}
+            max={maxMonthsValue}
+          />
+          <div style={{ display: 'inline-block', transition: 'none', width: '80px' }}>
+            {months} <span>Ay</span>
+          </div>
         </div>
       </div>
 
