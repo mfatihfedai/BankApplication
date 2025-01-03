@@ -1,17 +1,41 @@
-.signIn{
-    display: flex;
-    align-items: center;
+.signIn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background: linear-gradient(to right, rgba(236, 233, 230, 0.8), rgba(255, 255, 255, 0.8)); */
+  background: rgba(236, 233, 230, 0.8);
+  border-right: 1px dashed var(--color-blue);
+  border-left: 1px dashed var(--color-blue);
+  max-width: 100% !important;
+  height: 90vh;
 }
 
+.linkContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.linkButton {
+  padding: 5px 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.linkButton:hover {
+  transform: scale(1.05);
+}
+
+
 @keyframes pulse {
-    0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.3);
-    }
-    100% {
-      transform: scale(1);
-    }
+  0% {
+    transform: scale(1);
   }
-  
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
