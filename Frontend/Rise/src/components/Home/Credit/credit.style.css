@@ -2,6 +2,8 @@
     display: flex;
     justify-content: center; /* Yatay eksende ortala */
     align-items: center; /* Dikey eksende ortala */
+    margin-top: 30px;
+    margin-bottom: 30px;
 
 }
 

@@ -15,9 +15,9 @@ import { Box } from "@mui/material";
 function CreditDetail() {
   const [amount, setAmount] = useState(""); 
   const [formattedAmount, setFormattedAmount] = useState(""); 
-  const [months, setMonths] = useState(30); // Varsayılan ay
+  const [months, setMonths] = useState(30); 
   const [creditType, setCreditType] = useState("Tüketici Kredisi"); 
-  const [openModal, setOpenModal] = useState(false); // Modalın default durumu
+  const [openModal, setOpenModal] = useState(false); 
 
   const interestRates = {
     "Tüketici Kredisi": 3.99,
@@ -34,24 +34,23 @@ function CreditDetail() {
   const maxMonthsValue = maxMonths[creditType];
 
   useEffect(() => {
-    setMonths(30); // Her kredi türü değiştiğinde slider'ı 30'a sıfırlandı
+    setMonths(30);
   }, [creditType]);
 
   const handleSliderChange = useCallback((e, newValue) => {
     setMonths(newValue);
   }, []);
 
-  // Tutarın para birimini belirledik
   const formatAmount = (value) => {
     return value.toLocaleString("tr-TR");
   };
 
   const handleAmountChange = (e) => {
-    const rawValue = e.target.value.replace(/\D/g, ""); // Sadece sayıları aldık
+    const rawValue = e.target.value.replace(/\D/g, "");
     const numericValue = Number(rawValue);
 
     if (numericValue > 400000) {
-      setAmount(400000); // Amount'u 400.000 ile sabitledk
+      setAmount(400000); 
       setFormattedAmount(formatAmount(400000)); 
       setOpenModal(true); 
     } else {
@@ -60,28 +59,25 @@ function CreditDetail() {
     }
   };
 
-  // Kredi türü değiştiğinde faiz oranını ve max ay sayısı güncelledik
   const handleCreditTypeChange = (e) => {
     setCreditType(e.target.value);
   };
 
-  // Aylık ödeme hesaplama
   const monthlyPayment =
     amount > 0 && months > 0
       ? ((amount * (1 + interestRate / 100)) / months).toFixed(2)
       : 0;
 
-  // Modalı kapatma fonksiyonu
   const handleCloseModal = () => {
     setOpenModal(false);
-    setAmount(0); // Modal kapatıldığında amount 0 ladık
+    setAmount(0); 
     setFormattedAmount(""); 
   };
 
   return (
-    <div className="credit-detail">
+    <div className="credit-detail" style={{ marginTop: "50px", marginBottom: "50px" }}>
       {/* Kredi Türü Combobox */}
-      <FormControl style={{ width: "300px", borderRadius: '6px' }}>
+      <FormControl style={{ width: "300px", borderRadius: '6px' }} sx={{ marginBottom: -1 }}>
         <Select
           labelId="credit-type-label"
           value={creditType}
@@ -95,66 +91,66 @@ function CreditDetail() {
 
       {/* Tutar Input */}
       <TextField
-  type="text"
-  id="standard-basic"
-  label="Tutar"
-  variant="outlined"
-  value={formattedAmount}
-  onChange={handleAmountChange}
-  onBlur={() => setFormattedAmount(formatAmount(amount))}
-  InputProps={{
-    endAdornment: (
-      <InputAdornment
-        position="end"
-        style={{
-          marginRight: "-5px", // Girdiye yaklaştırdık
-          transform: "translateX(-60px)", 
-          fontSize: "14px", 
+        type="text"
+        id="standard-basic"
+        label="Tutar"
+        variant="outlined"
+        value={formattedAmount}
+        onChange={handleAmountChange}
+        onBlur={() => setFormattedAmount(formatAmount(amount))}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment
+              position="end"
+              style={{
+                marginRight: "-5px",
+                transform: "translateX(-60px)",
+                fontSize: "14px",
+              }}
+            >
+              TL
+            </InputAdornment>
+          ),
         }}
-      >
-        TL
-      </InputAdornment>
-    ), 
-  }}
-  fullWidth
-  sx={{
-    "& .MuiInputBase-root": {
-      borderRadius: "5px", 
-    },
-  }}
-/>
+        fullWidth
+        sx={{
+          marginBottom: -1,
+          "& .MuiInputBase-root": {
+            borderRadius: "5px",
+          },
+        }}
+      />
 
       {/* Faiz Oranı */}
-  <TextField
-  style={{ width: "300px", borderRadius: "6px", color: "black" }}
-  id="standard-basic"
-  value={`Faiz Oranı:`}
-  sx={{
-    marginBottom: 3,
-    "& .MuiOutlinedInput-root": {
-      "&:hover fieldset": {
-        borderColor: "var(--color-blue)", 
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "var(--color-blue)", 
-      },
-    },
-  }}
-  InputProps={{
-    startAdornment: (
-      <span style={{ fontSize: "9px", color: "black", marginRight: "10px" }}>   
-      </span>
-    ),
-    endAdornment: (
-      <span style={{ fontSize: "18px", color: "black" }}>
-        {interestRate.toFixed(2)}% 
-      </span>
-    ),
-  }}
-/>
+      <TextField
+        style={{ width: "300px", borderRadius: "6px", color: "black" }}
+        id="standard-basic"
+        value={`Faiz Oranı:`}
+        sx={{
+          marginBottom: -1,
+          "& .MuiOutlinedInput-root": {
+            "&:hover fieldset": {
+              borderColor: "var(--color-blue)",
+            },
+            "&.Mui-focused fieldset": {
+              borderColor: "var(--color-blue)",
+            },
+          },
+        }}
+        InputProps={{
+          startAdornment: (
+            <span style={{ fontSize: "9px", color: "black", marginRight: "10px" }}></span>
+          ),
+          endAdornment: (
+            <span style={{ fontSize: "18px", color: "black" }}>
+              {interestRate.toFixed(2)}%
+            </span>
+          ),
+        }}
+      />
 
       {/* Kredi Vadesi */}
-      <div className="credit-slider-box">
+      <div className="credit-slider-box" style={{ marginBottom: -1 }}>
         <div className="credit-slider">
           <Slider
             aria-label="Months"
@@ -168,41 +164,39 @@ function CreditDetail() {
           <div style={{ display: 'inline-block', transition: 'none', width: '80px', color: "black" }}>
             {months} <span>Ay</span>
           </div>
-        </div>      
+        </div>
       </div>
 
-    {/* Aylık Ödeme */}     
-    <Box
-    sx={{
-    textAlign: "center",
-    width: "300px",
-    borderRadius: "6px",
-    border: "2px solid", 
-    borderColor: "var(--color-blue)",
-    padding: "10px", 
-    "& .MuiInputBase-root": {
-      borderRadius: "5px", 
-    },
-  }}
-  >
-  <p
-    style={{
-      fontSize: "16px",
-      fontWeight: "bold",
-      textAlign: "center",
-    }}
-  >
-    Aylık Ödenecek Tutar:
-  </p>
-  <p
-    style={{
-      fontSize: "20px",
-      textAlign: "center",
-    }}
-  >
-    {monthlyPayment} TL
-  </p>
-</Box>
+      {/* Aylık Ödeme */}     
+      <Box
+        sx={{
+          textAlign: "center",
+          width: "300px",
+          borderRadius: "6px",
+          border: "2px solid", 
+          borderColor: "var(--color-blue)",
+          padding: "8px",
+          marginBottom: -1,
+        }}
+      >
+        <p
+          style={{
+            fontSize: "16px",
+            fontWeight: "bold",
+            textAlign: "center",
+          }}
+        >
+          Aylık Ödenecek Tutar:
+        </p>
+        <p
+          style={{
+            fontSize: "20px",
+            textAlign: "center",
+          }}
+        >
+          {monthlyPayment} TL
+        </p>
+      </Box>
 
       {/* Hata Modalı */}
       <Dialog open={openModal} onClose={handleCloseModal}>
