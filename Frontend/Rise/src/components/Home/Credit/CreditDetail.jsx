@@ -10,6 +10,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Button from "@mui/material/Button";
+import { Box } from "@mui/material";
 
 function CreditDetail() {
   const [amount, setAmount] = useState(""); 
@@ -94,49 +95,63 @@ function CreditDetail() {
 
       {/* Tutar Input */}
       <TextField
-        type="text"
-        id="standard-basic"
-        label="Tutar"
-        variant="outlined"
-        value={formattedAmount}
-        onChange={handleAmountChange}
-        onBlur={() => setFormattedAmount(formatAmount(amount))}
-        InputProps={{
-          endAdornment: <InputAdornment position="end">TL</InputAdornment>, // TL sona ekledik
+  type="text"
+  id="standard-basic"
+  label="Tutar"
+  variant="outlined"
+  value={formattedAmount}
+  onChange={handleAmountChange}
+  onBlur={() => setFormattedAmount(formatAmount(amount))}
+  InputProps={{
+    endAdornment: (
+      <InputAdornment
+        position="end"
+        style={{
+          marginRight: "-5px", // Girdiye yaklaştırdık
+          transform: "translateX(-60px)", 
+          fontSize: "14px", 
         }}
-        fullWidth
-        sx={{
-          '& .MuiInputBase-root': {
-            borderRadius: '5px', // Border kenarına ovallik verdik
-          },
-          marginBottom: 3,
-          "& .MuiOutlinedInput-root": {
-            "&:hover fieldset": {
-              borderColor: "var(--color-blue)", // Hover
-            },
-            "&.Mui-focused fieldset": {
-              borderColor: "var(--color-blue)", // Focus
-            },
-          },
-        }} 
-      />
+      >
+        TL
+      </InputAdornment>
+    ), 
+  }}
+  fullWidth
+  sx={{
+    "& .MuiInputBase-root": {
+      borderRadius: "5px", 
+    },
+  }}
+/>
 
       {/* Faiz Oranı */}
-      <TextField style={{ width: "300px", borderRadius: '6px', color: "black" }}   
-        value  ={`Faiz Oranı: ${interestRate.toFixed(2)}%`}
-        id="standard-basic"
-        sx={{
-          marginBottom: 3,
-          "& .MuiOutlinedInput-root": {
-            "&:hover fieldset": {
-              borderColor: "var(--color-blue)", // Hover
-            },
-            "&.Mui-focused fieldset": {
-              borderColor: "var(--color-blue)", // Focus
-            },
-          },
-        }}
-      />
+  <TextField
+  style={{ width: "300px", borderRadius: "6px", color: "black" }}
+  id="standard-basic"
+  value={`Faiz Oranı:`}
+  sx={{
+    marginBottom: 3,
+    "& .MuiOutlinedInput-root": {
+      "&:hover fieldset": {
+        borderColor: "var(--color-blue)", 
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: "var(--color-blue)", 
+      },
+    },
+  }}
+  InputProps={{
+    startAdornment: (
+      <span style={{ fontSize: "9px", color: "black", marginRight: "10px" }}>   
+      </span>
+    ),
+    endAdornment: (
+      <span style={{ fontSize: "18px", color: "black" }}>
+        {interestRate.toFixed(2)}% 
+      </span>
+    ),
+  }}
+/>
 
       {/* Kredi Vadesi */}
       <div className="credit-slider-box">
@@ -150,22 +165,44 @@ function CreditDetail() {
             min={1}
             max={maxMonthsValue}
           />
-          <div style={{ display: 'inline-block', transition: 'none', width: '80px' }}>
+          <div style={{ display: 'inline-block', transition: 'none', width: '80px', color: "black" }}>
             {months} <span>Ay</span>
           </div>
-        </div>
+        </div>      
       </div>
 
-      {/* Aylık Ödeme */}
-     
-      <div style={{ textAlign: 'center',  }}>
-      <p style={{ fontSize: '18px', fontWeight: 'bold', textAlign: 'center' }}>
+    {/* Aylık Ödeme */}     
+    <Box
+    sx={{
+    textAlign: "center",
+    width: "300px",
+    borderRadius: "6px",
+    border: "2px solid", 
+    borderColor: "var(--color-blue)",
+    padding: "10px", 
+    "& .MuiInputBase-root": {
+      borderRadius: "5px", 
+    },
+  }}
+  >
+  <p
+    style={{
+      fontSize: "16px",
+      fontWeight: "bold",
+      textAlign: "center",
+    }}
+  >
     Aylık Ödenecek Tutar:
   </p>
-  <p style={{ fontSize: '20px',  textAlign: 'center' }}>
+  <p
+    style={{
+      fontSize: "20px",
+      textAlign: "center",
+    }}
+  >
     {monthlyPayment} TL
   </p>
-      </div>
+</Box>
 
       {/* Hata Modalı */}
       <Dialog open={openModal} onClose={handleCloseModal}>
