@@ -13,9 +13,23 @@ import "./createUserForm.style.css";
 import { createUser } from "../../../service/UserApi";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../Home/Logo/Logo";
+import InfoModal from "./InfoModal";
 
 const CreateUserForm = () => {
   const navigate = useNavigate();
+  const [openModal, setOpenModal] = useState(null);
+  const [isKvkkChecked, setIsKvkkChecked] = useState(false);
+  const [isInfoChecked, setIsInfoChecked] = useState(false);
+
+  const handleModalResult = (type, result) => {
+    if (type === "info") {
+      setIsInfoChecked(result);
+    }
+    if (type === "kvkk") {
+      setIsKvkkChecked(result);
+    }
+    setOpenModal(null);
+  };
 
   async function submit() {
     try {
@@ -46,7 +60,6 @@ const CreateUserForm = () => {
       registerIdentityNo: "",
       registerPassword: "",
       registerPasswordConfirm: "",
-      registerTerm: "",
     },
     validationSchema: registerFormSchemas,
     validateOnBlur: false, // Odak kaybında doğrulamayı devre dışı bırak  Nihan did it!
@@ -158,7 +171,7 @@ const CreateUserForm = () => {
           {errors.registerPasswordConfirm}
         </Typography>
       )}
-      <FormControlLabel
+      {/* <FormControlLabel
         label="Bu başvuru ile İnternet Bankacılığı´na tanımlı olan hesap ve ürünlerimin tanımlanacağını kabul ediyorum."
         control={
           <Checkbox
@@ -172,7 +185,39 @@ const CreateUserForm = () => {
         <Typography className="register-error">
           {errors.registerTerm}
         </Typography>
-      )}
+      )} */}
+        <FormControlLabel
+          label="Aydınlatma Metnini okudum ve kabul ediyorum."
+          control={
+            <Checkbox
+              value={isInfoChecked}
+              name="registerInfo"
+              checked={isInfoChecked}
+              onClick={() => setOpenModal("info")}
+            />
+          }
+        />
+        {errors.isInfoChecked && (
+          <Typography className="register-error">
+            {errors.isInfoChecked}
+          </Typography>
+        )}
+        <FormControlLabel
+          label="KVKK Metnini okudum ve kabul ediyorum."
+          control={
+            <Checkbox
+              value={isKvkkChecked}
+              name="registerKVKK"
+              checked={isKvkkChecked}
+              onClick={() => setOpenModal("kvkk")}
+            />
+          }
+        />
+        {errors.isKvkkChecked && (
+          <Typography className="register-error">
+            {errors.isKvkkChecked}
+          </Typography>
+        )}
       <Button
         type="submit"
         onClick={handleSubmit}
@@ -183,6 +228,18 @@ const CreateUserForm = () => {
       >
         Başvur
       </Button>
+      <InfoModal
+          open={openModal === "info"}
+          onClose={(result) => handleModalResult("info", result)}
+          title="Aydınlatma Metni"
+          content="Bu metinde kişisel verilerinizin işlenme amacı, hukuki sebebi ve haklarınız hakkında bilgi verilmektedir."
+        />
+        <InfoModal
+          open={openModal === "kvkk"}
+          onClose={(result) => handleModalResult("kvkk", result)}
+          title="KVKK Metni"
+          content="6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında kişisel verilerinizin işlenmesine dair bilgilendirme metni."
+        />
     </Box>
   );
 };
