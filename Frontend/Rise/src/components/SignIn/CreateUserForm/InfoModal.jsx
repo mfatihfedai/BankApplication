@@ -26,24 +26,37 @@ const InfoModal = ({ open, onClose, title, content }) => {
         <Typography variant="body1" gutterBottom>
           {content}
         </Typography>
-        <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleAccept}
-            fullWidth
-          >
-            Kabul Ediyorum
-          </Button>
-          <Button
-            variant="outlined"
-            color="secondary"
-            onClick={handleDecline}
-            fullWidth
-          >
-            Kabul Etmiyorum
-          </Button>
-        </Stack>
+        {title === "Uyarı" || title === "Başarılı" ? (
+          <Stack>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleAccept}
+              fullWidth
+            >
+              Kapat
+            </Button>
+          </Stack>
+        ) : (
+          <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleAccept}
+              fullWidth
+            >
+              Kabul Ediyorum
+            </Button>
+            <Button
+              variant="outlined"
+              color="secondary"
+              onClick={handleDecline}
+              fullWidth
+            >
+              Kabul Etmiyorum
+            </Button>
+          </Stack>
+        )}
       </Box>
     </Modal>
   );
