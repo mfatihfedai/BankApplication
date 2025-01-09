@@ -6,7 +6,6 @@ import {
   Typography,
   Checkbox,
   FormControlLabel,
-  Alert,
 } from "@mui/material";
 import { useFormik } from "formik";
 import { registerFormSchemas } from "../../Schemas/RegisterFormSchemas";
@@ -53,7 +52,6 @@ const CreateUserForm = () => {
       const response = await createUser(registerUser);
       if (response.request.status === 200) {
         setShowSuccessModal(true);
-        // navigate("/");
       }
     } catch (err) {
       console.log(err);
