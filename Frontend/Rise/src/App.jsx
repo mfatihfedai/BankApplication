@@ -11,45 +11,48 @@ import { UserContextProvider } from "./context/UserContext";
 import CreateUserForm from "./components/SignIn/CreateUserForm/CreateUserForm";
 import ForgetPassword from "./components/SignIn/ForgetPass/ForgetPassword";
 import { AdminContextProvider } from "./context/AdminMenuContext";
+import { BankContextProvider } from "./context/BankContext";
 
 // App.js
 
 function App() {
   return (
     <>
+          <BankContextProvider>
       <UserContextProvider>
         <AdminContextProvider>
-          <div style={{ marginLeft: "3rem" }}>
-            <a href="/" style={{ textDecoration: "none" }}>
-              <Logo />
-            </a>
-          </div>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/verify" element={<Verify />} />
-            <Route path="/newUser" element={<CreateUserForm />} />
-            <Route path="/forget-password" element={<ForgetPassword />} />
-            {/* User için korumalı rota */}
-            <Route
-              path="/user-dashboard"
-              element={
-                <ProtectedRoute role="USER">
-                  <User />
-                </ProtectedRoute>
-              }
-            />
-            {/* Admin için korumalı rota */}
-            <Route
-              path="/admin-dashboard"
-              element={
-                <ProtectedRoute role="ADMIN">
-                  <Admin />
-                </ProtectedRoute>
-              }
-            />
-          </Routes>
+            <div style={{ marginLeft: "3rem" }}>
+              <a href="/" style={{ textDecoration: "none" }}>
+                <Logo />
+              </a>
+            </div>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/verify" element={<Verify />} />
+              <Route path="/newUser" element={<CreateUserForm />} />
+              <Route path="/forget-password" element={<ForgetPassword />} />
+              {/* User için korumalı rota */}
+              <Route
+                path="/user-dashboard"
+                element={
+                  <ProtectedRoute role="USER">
+                    <User />
+                  </ProtectedRoute>
+                }
+              />
+              {/* Admin için korumalı rota */}
+              <Route
+                path="/admin-dashboard"
+                element={
+                  <ProtectedRoute role="ADMIN">
+                    <Admin />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
         </AdminContextProvider>
       </UserContextProvider>
+          </BankContextProvider>
     </>
   );
 }

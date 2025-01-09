@@ -32,12 +32,12 @@ function DashboardHeader() {
   const [formattedDate, setFormattedDate] = useState("");
   const [rawDate, setRawDate] = useState();
   const navigate = useNavigate();
-  const [time, setTime] = useState(10);
+  const [time, setTime] = useState(10000); // çalışmak için arttırıld
   const [showModal, setShowModal] = useState(false);
 
   // Sayaç sıfırlama fonksiyonu
   const resetTimer = useCallback(() => {
-    setTime(10);
+    setTime(10000);  // burası da değişecek
   }, []);
 
   // Kullanıcı etkinliklerini dinleme
