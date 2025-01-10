@@ -108,6 +108,7 @@ public class SecurityConfig {
                 )
                 .build();
     }
+
     // Oturum sonlandığnda SessionDestroyedEventi tetikler.
     @Bean
     public HttpSessionEventPublisher httpSessionEventPublisher() {
