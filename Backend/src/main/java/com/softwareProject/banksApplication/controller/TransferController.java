@@ -1,5 +1,6 @@
 package com.softwareProject.banksApplication.controller;
 
+import com.softwareProject.banksApplication.core.auth.CustomUserDetails;
 import com.softwareProject.banksApplication.dto.CursorResponse;
 import com.softwareProject.banksApplication.dto.request.transfer.TransferSaveRequest;
 import com.softwareProject.banksApplication.dto.request.transfer.TransferUpdateRequest;
@@ -22,10 +23,10 @@ import static com.softwareProject.banksApplication.core.Config.RestApis.TRANSFER
 public class TransferController {
     private final TransferService transferService;
 
-    @PreAuthorize("#user.id == authentication.principal.id or hasRole('ADMIN')")
     @PostMapping
+    @PreAuthorize("#user.id == authentication.principal.id or hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
-    public TransferResponse create(@RequestBody TransferSaveRequest saveRequest, @AuthenticationPrincipal UserInfo user) {
+    public TransferResponse create(@RequestBody TransferSaveRequest saveRequest, @AuthenticationPrincipal CustomUserDetails user) {
         return this.transferService.create(saveRequest, user.getId());
     }
 

@@ -1,5 +1,6 @@
 package com.softwareProject.banksApplication.controller;
 
+import com.softwareProject.banksApplication.core.auth.CustomUserDetails;
 import com.softwareProject.banksApplication.dto.CursorResponse;
 import com.softwareProject.banksApplication.dto.request.invoice.InvoiceSaveRequest;
 import com.softwareProject.banksApplication.dto.request.invoice.InvoiceUpdateRequest;
@@ -28,14 +29,14 @@ public class InvoiceController {
 
     @PreAuthorize("#user.id == authentication.principal.id or hasRole('ADMIN')")
     @PostMapping("/create")
-    public InvoiceResponse createInvoice(@RequestBody InvoiceSaveRequest saveRequest, @AuthenticationPrincipal UserInfo user) {
+    public InvoiceResponse createInvoice(@RequestBody InvoiceSaveRequest saveRequest, @AuthenticationPrincipal CustomUserDetails user) {
         return this.invoiceService.create(saveRequest, user.getId());
     }
 
 
     @PreAuthorize("#user.id == authentication.principal.id or hasRole('ADMIN')")
     @GetMapping("/autobill")
-    public List<InvoiceInfo> autobill(@AuthenticationPrincipal UserInfo user) {
+    public List<InvoiceInfo> autobill(@AuthenticationPrincipal CustomUserDetails user) {
         return this.invoiceService.getByAutobillList(user.getId());
     }
 
