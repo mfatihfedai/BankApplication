@@ -20,7 +20,8 @@ function Receiver() {
         };
         const response = await createTransfer(transfer);
         console.log(transfer);
-        if (response.request.status === 200) {
+        console.log(response)
+        if (response.status === 200) {
           console.log(true);
         }
       } catch (err) {
