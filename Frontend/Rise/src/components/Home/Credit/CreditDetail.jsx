@@ -91,31 +91,30 @@ function CreditDetail() {
 
       {/* Tutar Input */}
       <TextField
+        style={{ width: "300px", borderRadius: "6px", color: "black"}}
         type="text"
         id="standard-basic"
-        label="Tutar"
         variant="outlined"
         value={formattedAmount}
         onChange={handleAmountChange}
         onBlur={() => setFormattedAmount(formatAmount(amount))}
         InputProps={{
+          startAdornment: (
+            <div style={{width:"100%", fontSize: "18px", color: "black", marginRight:"4rem" }}>Tutar:</div>
+          ),
           endAdornment: (
             <InputAdornment
-              position="end"
-              style={{
-                marginRight: "-5px",
-                transform: "translateX(-60px)",
-                fontSize: "14px",
-              }}
-            >
-              TL
-            </InputAdornment>
+              position="right"
+            ><span style={{color:"black", fontWeight:"500"}}>TL</span></InputAdornment>
+            
           ),
         }}
         fullWidth
         sx={{
           marginBottom: -1,
           "& .MuiInputBase-root": {
+            fontFamily: "Montserrat, sans-serif",
+            fontWeight:"500",
             borderRadius: "5px",
           },
         }}
@@ -125,10 +124,11 @@ function CreditDetail() {
       <TextField
         style={{ width: "300px", borderRadius: "6px", color: "black" }}
         id="standard-basic"
-        value={`Faiz Oranı:`}
+        disabled
         sx={{
           marginBottom: -1,
           "& .MuiOutlinedInput-root": {
+            fontWeight:"500",
             "&:hover fieldset": {
               borderColor: "var(--color-blue)",
             },
@@ -139,10 +139,10 @@ function CreditDetail() {
         }}
         InputProps={{
           startAdornment: (
-            <span style={{ fontSize: "9px", color: "black", marginRight: "10px" }}></span>
+            <span style={{width:"100%", fontSize: "18px", color: "black" }}>Faiz Oranı:</span>
           ),
           endAdornment: (
-            <span style={{ fontSize: "18px", color: "black" }}>
+            <span style={{ fontSize: "20px",fontWeight:"500", color: "black" }}>
               {interestRate.toFixed(2)}%
             </span>
           ),
@@ -157,6 +157,7 @@ function CreditDetail() {
             value={months}
             onChange={handleSliderChange}
             valueLabelDisplay="off"
+            color="var(--color-blue)"
             step={1}
             min={1}
             max={maxMonthsValue}
