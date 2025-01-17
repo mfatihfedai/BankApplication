@@ -73,6 +73,8 @@ public class SecurityConfig {
                     registry.requestMatchers(HttpMethod.POST,"/dev/v1/transfer/**").hasAnyRole("ADMIN", "USER");
                     registry.requestMatchers(HttpMethod.PUT,"/dev/v1/transfer/**").hasRole("ADMIN");
                     registry.requestMatchers(HttpMethod.DELETE,"/dev/v1/transfer/**").hasAnyRole("ADMIN", "USER");
+                    // LOGS
+                    registry.requestMatchers(HttpMethod.GET,"/dev/v1/logs/**").hasAnyRole("ADMIN","USER");
                     registry.anyRequest().authenticated();
                 })
 
