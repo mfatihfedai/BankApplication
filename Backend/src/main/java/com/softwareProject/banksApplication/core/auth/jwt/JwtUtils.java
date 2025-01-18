@@ -14,7 +14,7 @@ import java.util.Date;
 @Component
 public class JwtUtils {
     private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256); // HS256 ile bir güvenlik anahtarı oluşturulur.
-    private static final long EXPIRATION_TIME = 3000000; // süre
+    private static final long EXPIRATION_TIME = 900000000; // süre
 
     public String generateToken(CustomUserDetails userDetails) {
         return Jwts.builder()

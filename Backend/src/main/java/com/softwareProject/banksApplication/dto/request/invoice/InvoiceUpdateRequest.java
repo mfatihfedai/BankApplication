@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class InvoiceUpdateRequest {
     private Long id;
-    private int invoiceNo;
+    private Long invoiceNo;
     private InvoiceInfo.InvoiceType invoiceType;
     private int invoiceAmount;
     private boolean autobill;
