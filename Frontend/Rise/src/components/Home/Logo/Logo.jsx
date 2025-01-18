@@ -11,8 +11,8 @@ function Logo() {
           padding: "10px , 5px",
         }}
       >
-        RIS
-        <span style={{ color: "var(--color-black)", fontSize: "40px" }}>e</span>
+        PRISM
+        <span style={{ color: "var(--color-black)", fontSize: "40px" }}>a</span>
       </h1>
     </div>
   );

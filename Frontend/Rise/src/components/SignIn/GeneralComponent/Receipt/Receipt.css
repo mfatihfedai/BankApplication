@@ -1,0 +1,5 @@
+.MuiDataGrid-container--top [role="row"],
+.MuiDataGrid-container--bottom [role="row"] {
+  background: none !important;
+  text-align: center;
+}

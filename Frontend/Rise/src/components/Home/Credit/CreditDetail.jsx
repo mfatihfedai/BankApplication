@@ -162,7 +162,7 @@ function CreditDetail() {
             min={1}
             max={maxMonthsValue}
           />
-          <div style={{ display: 'inline-block', transition: 'none', width: '80px', color: "black" }}>
+          <div style={{ display: 'inline-block', transition: 'none', width: '97px', color: "black" }}>
             {months} <span>Ay</span>
           </div>
         </div>
