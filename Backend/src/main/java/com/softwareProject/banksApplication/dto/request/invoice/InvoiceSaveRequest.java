@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class InvoiceSaveRequest {
-    private int invoiceNo;
+    private Long invoiceNo;
     private InvoiceInfo.InvoiceType invoiceType;
     private BigDecimal invoiceAmount;
     private boolean autobill;

@@ -22,7 +22,7 @@ public class InvoiceInfo {
     private Long id;
 
     @Column(name = "invoice_no")
-    private int invoiceNo;
+    private Long invoiceNo;
 
     @Column(name = "invoice_type")
     private InvoiceType invoiceType;
