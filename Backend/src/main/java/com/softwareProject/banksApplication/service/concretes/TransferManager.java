@@ -42,6 +42,7 @@ public class TransferManager extends BaseManager<TransferInfo, TransferRepo, Tra
         transferInfo.setTransferTime(LocalDateTime.now());
         reduceBalanceFromSender(transferInfo);
         increaseBalanceFromReceiver(transferInfo);
+        repository.save(transferInfo);
 
         return mapper.entityToResponse(transferInfo);
     }

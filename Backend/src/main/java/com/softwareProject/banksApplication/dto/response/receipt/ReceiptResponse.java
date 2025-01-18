@@ -14,7 +14,6 @@ import java.util.List;
 @NoArgsConstructor
 public class ReceiptResponse {
     private Long id;
-    private UserInfo userInfo;
     private List<InvoiceInfo> invoiceInfoList;
     private List<TransferInfo> transferList;
 }
