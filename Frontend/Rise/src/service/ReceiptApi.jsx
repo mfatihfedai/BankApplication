@@ -13,3 +13,13 @@ export const getReceipts = async (currentPage) => {
         throw error;
     }
 }
+
+export const getAllReceipts = async (currentPage) => {
+    try {
+        const response = await axios.get(`${API_URL}/receipt/getAll?page=${currentPage}&pageSize=10`);
+        return response;
+    } catch(error){
+        console.error("No receipt found ", error.message);
+        throw error;
+    }
+}

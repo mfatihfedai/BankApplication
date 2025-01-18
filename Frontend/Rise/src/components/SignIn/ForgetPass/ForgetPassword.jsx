@@ -86,10 +86,6 @@ const ForgetPassword = () => {
                 <a href="https://www.trendyol.com/sr?q=b12+vitamini&qt=b12+vitamini&st=b12+vitamini&os=1&sk=1&sst=MOST_FAVOURITE"><u><i><strong> buraya </strong></i></u></a>
                 tıklayarak hemen satın alabilirsiniz. <br/><br/>
                 Eğer 'Hayır ihtiyacım yok' derseniz aşağıya e-mail adresinizi girerek yeni bir şifre oluşturabilirsiniz.</p>} */}
-
-            {/* {`Sayın müşterimiz, biz ki `}
-            <strong>RISE BANK</strong>
-            {`, sağlığınıza önem veriyoruz. Lütfen email adresinizi girin.`} */}
           </Typography>
           <TextField
             margin="normal"

@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from '@mui/material';
-import jsPDF from 'jspdf';
-import autoTable from 'jspdf-autotable';
+import './Receipt.css';
 import ReceiptGenerator from './ReceiptGenerator';
 import { getReceipts } from '../../../../service/ReceiptApi';
+import { decryptData } from "../../../Core/CryptoJS";
 
 function Receipt() {
   const [logs, setLogs] = useState([]);
   const [page, setPage] = useState(0);
-  const [pageSize, setPageSize] = useState(5);
   const [rowCount, setRowCount] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [hasNext, setHasNext] = useState(false);
 
   const formatPayDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleString('tr-TR', { dateStyle: 'medium', timeStyle: 'short' });
+  };
+
+  const generateRandomRef = () => {
+    return Math.floor(100000000000 + Math.random() * 900000000000).toString();
   };
 
   const fetchLogs = async (currentPage) => {
@@ -33,6 +35,8 @@ function Receipt() {
           description: invoice.invoiceType,
           amount: invoice.invoiceAmount,
           receipt: item.id,
+          rawDate: invoice.payDate,
+          type: 'invoice',
         }));
 
         const transfers = item.transferList.map((transfer) => ({
@@ -42,13 +46,14 @@ function Receipt() {
           description: transfer.message,
           amount: transfer.transferAmount,
           receipt: item.id,
+          rawDate: transfer.transferTime,
+          type: 'transfer',
         }));
 
         return [...invoices, ...transfers];
       });
 
       setLogs(formattedLogs);
-      setHasNext(hasNext);
       setRowCount(totalElements);
     } catch (error) {
       console.error('Error fetching logs:', error);
@@ -58,77 +63,84 @@ function Receipt() {
   };
 
   useEffect(() => {
-    fetchLogs(page, pageSize);
-  }, [page, pageSize]);
+    fetchLogs(page);
+  }, [page]);
 
-  const handleReceiptDownload = (receiptId) => {
-    // Find the log by receiptId
-    const selectedLog = logs.find((log) => log.receipt === receiptId);
-    if (!selectedLog) {
-      console.error('Receipt not found');
+  const handleReceiptDownload = (log) => {
+    const storedUser = localStorage.getItem('user');
+    const user = decryptData(storedUser);
+    console.log(user)
+    if (!user) {
+      console.error('User not found in localStorage');
       return;
     }
 
     const data = {
-      customerNo: '60274994',
-      processRef: '248405016131',
-      iban: 'TR95 0006 7010 0000 0044 7990 02',
-      processDate: '04.01.2025 14:00:39',
-      documentNo: 'SYA2025037574986',
+      subeCode: '0285/MERKEZ/OSMANİYE ŞUBESİ',
+      processBank: 'PRISMA BANK',
+      customerNo: user.accountNumber,
+      taxOffice: 'OSMANİYE VERGİ DAİRESİ',
+      processDate: formatPayDate(log.rawDate),
+      processRef: generateRandomRef(),
       currency: 'TL',
-      amount: '3,04',
-      explanation: 'Bakiye Sıfırlama 420343******4418',
-      customerName: 'MEHMET FATİH FEDAİ',
+      amount: log.amount,
+      explanation: log.description,
+      fileName: `${user.name}-${user.surname}-dekont`,
+      customerName: `${user.name} ${user.surname}`,
     };
-    
+
     const receipt = new ReceiptGenerator();
-    const pdfDoc = receipt.generateReceipt(data);
-    receipt.downloadPDF(pdfDoc);
+    receipt.generateReceipt(data);
+    receipt.downloadPDF(`${user.name}-${user.surname}-dekont`);
   };
 
   const columns = [
     { field: 'payDate', headerName: 'İşlem Tarihi', width: 250, sortable: true },
     { field: 'channel', headerName: 'Kanal', width: 180, sortable: true },
-    { field: 'description', headerName: 'Açıklama', width: 320, sortable: true },
+    { field: 'description', headerName: 'Açıklama', width: 320, sortable: false },
     { field: 'amount', headerName: 'İşlem Tutarı', width: 200, sortable: true },
     {
       field: 'receipt',
       headerName: 'Dekont',
       width: 150,
+      sortable: false,
       renderCell: (params) => (
         <Button
-          variant="contained"
-          color="primary"
-          size="small"
-          onClick={() => handleReceiptDownload(params.value)}
-        >
-          PDF
-        </Button>
+        variant="contained"
+        size="medium"
+        onClick={() => handleReceiptDownload(params.row)}
+        sx={{
+          backgroundColor: '#E1722A',
+          color: '#ffffff',
+          '&:hover': {
+            backgroundColor: '#D1611C',
+          },
+        }}
+      >
+        PDF
+      </Button>
       ),
     },
   ];
 
   return (
-    <div style={{ height: '30rem', width: '95%', padding: '20px' }}>
-      <h1>Hesap Hareketlerim</h1>
+    <div style={{ height: '31rem', width: '95%', padding: '20px' }}>
+      <h1>HESAP HAREKETLERİM</h1>
       <DataGrid
         rows={logs}
-        columns={columns}
+        columns={columns.map((col) => ({
+          ...col,
+          flex: 1, // Sütun genişliklerini ekran boyutuna göre ayarla
+        }))}
         pagination
         paginationMode="server"
         rowCount={rowCount}
-        page={page}
-        pageSize={pageSize}
-        onPageChange={(newPage) => {
-          if (hasNext || newPage < page) {
-            setPage(newPage);
-          }
-        }}
-        pageSizeOptions={[5, 10, 20]}
         loading={loading}
         disableColumnResize
         disableColumnMenu
         disableSelectionOnClick
+        disableRowSelectionOnClick
+        disableVirtualization
         sortingOrder={['asc', 'desc']}
         initialState={{
           sorting: {
@@ -136,10 +148,37 @@ function Receipt() {
           },
         }}
         sx={{
-          '& .MuiDataGrid-columnHeader': {
-            '& .MuiDataGrid-sortIcon': {
-              opacity: 1,
+          height: '100%',
+          '& .MuiDataGrid-root': {
+            border: 'none',
+          },
+          '& .MuiDataGrid-columnHeaders': {
+            backgroundColor: '#00333D !important', 
+            color: '#ffffff',
+            fontSize: '16px',
+            fontWeight: 'bold',
+            textAlign: 'center',
+            '& .MuiDataGrid-columnHeaderTitleContainer': {
+              display: 'flex',
+              justifyContent: 'center', 
+              alignItems: 'center',
             },
+          },
+          '& .MuiDataGrid-cell': {
+            textAlign: 'center',
+            fontSize: '18px',
+          },
+          '& .MuiDataGrid-row:nth-of-type(odd)': {
+            backgroundColor: '#f1f9ff', 
+          },
+          '& .MuiDataGrid-row:nth-of-type(even)': {
+            backgroundColor: '#ffffff',
+          },
+          '& .MuiDataGrid-footerContainer': {
+            display: 'none',
+          },
+          '& .MuiDataGrid-sortIcon': {
+            color: '#ffffff',
           },
         }}
       />
