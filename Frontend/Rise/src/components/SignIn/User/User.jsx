@@ -3,7 +3,7 @@ import { userList } from "../../Core/MenuLists";
 import MenuItems from "../../General/MenuItems";
 import "./user.style.css"
 import { useAdminMenu } from "../../../context/AdminMenuContext";
-import AccountActivities from "../GeneralComponent/AccountActivities/AccountActivities";
+import Invoice from "../GeneralComponent/Invoice/Invoice";
 import AutomaticPayment from "../GeneralComponent/AutomaticPayment/AutomaticPayment";
 import PersonalInfo from "../GeneralComponent/PersonalInfo/PersonalInfo";
 import Receipt from "../GeneralComponent/Receipt/Receipt";
@@ -25,11 +25,11 @@ function User() {
         </div>
         <div className="component-item">
           {componentName == "Home" && <Home />}
-          {componentName == "AccountActivities" && <AccountActivities />}
+          {componentName == "Receipt" && <Receipt />}
           {componentName == "AutomaticPayment" && <AutomaticPayment />}
           {componentName == "LogsInfo" && <LogsInfo />}
           {componentName == "PersonalInfo" && <PersonalInfo />}
-          {componentName == "Receipt" && <Receipt />}
+          {componentName == "Invoice" && <Invoice />}
           {componentName == "Transfer" && <Transfer />}
         </div>
       </div>

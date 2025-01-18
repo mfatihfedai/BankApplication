@@ -39,12 +39,12 @@ export const adminList = [ // buraya ikon ve header eklediğimizde otomatik buto
     {
       header: "Fatura Öde",
       startIcon: <ReceiptIcon />,
-      returnComponent : "Receipt"
+      returnComponent : "Invoice"
     },
     {
       header: "Hesap Hareketleri",
       startIcon: <DescriptionIcon />,
-      returnComponent : "AccountActivities"
+      returnComponent : "Receipt"
 
     },
     {
@@ -79,12 +79,12 @@ export const adminList = [ // buraya ikon ve header eklediğimizde otomatik buto
     {
       header: "Fatura Öde",
       startIcon: <ReceiptIcon />,
-      returnComponent : "Receipt"
+      returnComponent : "Invoice"
     },
     {
       header: "Hesap Hareketleri",
       startIcon: <DescriptionIcon />,
-      returnComponent : "AccountActivities"
+      returnComponent : "Receipt"
 
     },
     {
