@@ -18,4 +18,5 @@ public class TransferResponse {
     private String message;
     private String bankName;
     private BigDecimal transferFee;
+    private boolean isReceiver;
 }

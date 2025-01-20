@@ -16,4 +16,5 @@ public class TransferUpdateRequest {
     private String message;
     private String bankName;
     private float transferFee;
+    private boolean isReceiver;
 }

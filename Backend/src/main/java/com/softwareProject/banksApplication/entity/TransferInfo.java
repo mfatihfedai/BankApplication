@@ -38,6 +38,9 @@ public class TransferInfo {
     @Column(name = "transfer_fee")
     private BigDecimal transferFee;
 
+    @Column(name = "is_receiver")
+    private boolean isReceiver;
+
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "transfer_receipt_id", referencedColumnName = "receipt_id")
     @JsonIgnore

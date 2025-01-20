@@ -14,4 +14,5 @@ public interface UserService extends IBaseService<UserInfo, UserSaveRequest, Use
     List<UserInfo> searchByKeyword(String keyword);
     Optional<UserInfo> isAccountNumberExist(Long accountNumber);
     UserResponse forgetEmail(String email);
+    UserInfo findByAccountNumber(Long receiverAccountNo);
 }

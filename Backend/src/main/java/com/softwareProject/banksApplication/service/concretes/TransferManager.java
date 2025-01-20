@@ -44,7 +44,24 @@ public class TransferManager extends BaseManager<TransferInfo, TransferRepo, Tra
         increaseBalanceFromReceiver(transferInfo);
         repository.save(transferInfo);
 
+        TransferInfo receiverTransfer = getTransferInfo(user, transferInfo);
+        repository.save(receiverTransfer);
+
         return mapper.entityToResponse(transferInfo);
+    }
+
+    private TransferInfo getTransferInfo(UserInfo user, TransferInfo transferInfo) {
+        UserInfo newUser = userService.findByAccountNumber(transferInfo.getReceiverAccountNo());
+        TransferInfo receiverTransfer = new TransferInfo();
+        receiverTransfer.setReceiverAccountNo(user.getAccountNumber());
+        receiverTransfer.setTransferFee(transferInfo.getTransferFee());
+        receiverTransfer.setTransferAmount(transferInfo.getTransferAmount());
+        receiverTransfer.setReceiptInfo(newUser.getReceiptInfo());
+        receiverTransfer.setReceiver(true);
+        receiverTransfer.setTransferTime(transferInfo.getTransferTime());
+        receiverTransfer.setMessage(transferInfo.getMessage());
+        receiverTransfer.setBankName(transferInfo.getBankName());
+        return receiverTransfer;
     }
 
     private boolean checkAccountNumber(Long receiverAccountNo){

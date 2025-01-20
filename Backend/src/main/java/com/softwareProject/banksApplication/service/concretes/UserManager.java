@@ -101,6 +101,11 @@ public class UserManager extends BaseManager<UserInfo, UserRepo, UserSaveRequest
         return mapper.entityToResponse(user);
     }
 
+    @Override
+    public UserInfo findByAccountNumber(Long receiverAccountNo) {
+        return repository.findByAccountNumber(receiverAccountNo).orElse(null);
+    }
+
     public String generatePassayPassword() {
         PasswordGenerator gen = new PasswordGenerator();
         CharacterData lowerCaseChars = EnglishCharacterData.LowerCase;

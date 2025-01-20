@@ -40,6 +40,12 @@ public class InvoiceController {
         return this.invoiceService.getByAutobillList(user.getId());
     }
 
+    @PreAuthorize("#user.id == authentication.principal.id or hasRole('ADMIN')")
+    @GetMapping("/lastFourInvoiceAmount")
+    public ResponseEntity<List<InvoiceInfo>> getLastFourInvoiceAmount(@RequestParam Long invoiceNumber, @AuthenticationPrincipal CustomUserDetails user) {
+        return ResponseEntity.ok(this.invoiceService.getLastFourInvoiceAmount(invoiceNumber, user.getId()));
+    }
+
     @PreAuthorize("#id == authentication.principal.id or hasRole('ADMIN')")
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
