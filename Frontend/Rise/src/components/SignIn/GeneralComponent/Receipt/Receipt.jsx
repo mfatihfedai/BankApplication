@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { DataGrid } from '@mui/x-data-grid';
-import { Button } from '@mui/material';
-import './Receipt.css';
-import ReceiptGenerator from './ReceiptGenerator';
-import { getReceipts } from '../../../../service/ReceiptApi';
+import React, { useEffect, useState } from "react";
+import { DataGrid } from "@mui/x-data-grid";
+import { Button } from "@mui/material";
+import "./Receipt.css";
+import ReceiptGenerator from "./ReceiptGenerator";
+import { getReceipts } from "../../../../service/ReceiptApi";
 import { decryptData } from "../../../Core/CryptoJS";
 
 function Receipt() {
@@ -14,7 +14,10 @@ function Receipt() {
 
   const formatPayDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleString('tr-TR', { dateStyle: 'medium', timeStyle: 'short' });
+    return date.toLocaleString("tr-TR", {
+      dateStyle: "medium",
+      timeStyle: "short",
+    });
   };
 
   const generateRandomRef = () => {
@@ -26,28 +29,28 @@ function Receipt() {
     try {
       const response = await getReceipts(currentPage);
       const { items, totalElements } = response.data;
-      console.log(response)
+      console.log(response);
       const formattedLogs = items.flatMap((item) => {
         const invoices = item.invoiceInfoList.map((invoice) => ({
           id: `invoice-${invoice.id}`,
           payDate: formatPayDate(invoice.payDate),
-          channel: 'Fatura',
+          channel: "Fatura",
           description: invoice.invoiceType,
           amount: invoice.invoiceAmount,
           receipt: item.id,
           rawDate: invoice.payDate,
-          type: 'invoice',
+          type: "invoice",
         }));
 
         const transfers = item.transferList.map((transfer) => ({
           id: `transfer-${transfer.id}`,
           payDate: formatPayDate(transfer.transferTime),
-          channel: 'Havale',
+          channel: "Havale",
           description: transfer.message,
           amount: transfer.transferAmount,
           receipt: item.id,
           rawDate: transfer.transferTime,
-          type: 'transfer',
+          type: "transfer",
           receiver: transfer.receiver,
         }));
 
@@ -57,7 +60,7 @@ function Receipt() {
       setLogs(formattedLogs);
       setRowCount(totalElements);
     } catch (error) {
-      console.error('Error fetching logs:', error);
+      console.error("Error fetching logs:", error);
     } finally {
       setLoading(false);
     }
@@ -68,21 +71,21 @@ function Receipt() {
   }, [page]);
 
   const handleReceiptDownload = (log) => {
-    const storedUser = localStorage.getItem('user');
+    const storedUser = localStorage.getItem("user");
     const user = decryptData(storedUser);
     if (!user) {
-      console.error('User not found in localStorage');
+      console.error("User not found in localStorage");
       return;
     }
 
     const data = {
-      subeCode: '0285/MERKEZ/OSMANİYE ŞUBESİ',
-      processBank: 'PRISMA BANK',
+      subeCode: "0285/MERKEZ/OSMANİYE ŞUBESİ",
+      processBank: "PRISMA BANK",
       customerNo: user.accountNumber,
-      taxOffice: 'OSMANİYE VERGİ DAİRESİ',
+      taxOffice: "OSMANİYE VERGİ DAİRESİ",
       processDate: formatPayDate(log.rawDate),
       processRef: generateRandomRef(),
-      currency: 'TL',
+      currency: "TL",
       amount: log.amount,
       explanation: log.description,
       fileName: `${user.name}-${user.surname}-dekont`,
@@ -95,42 +98,30 @@ function Receipt() {
   };
 
   const columns = [
-    { field: 'payDate', headerName: 'İşlem Tarihi', sortable: true },
-    { field: 'channel', headerName: 'Kanal', sortable: true },
-    { field: 'description', headerName: 'Açıklama', sortable: false },
+    { field: "payDate", headerName: "İşlem Tarihi", sortable: true },
+    { field: "channel", headerName: "Kanal", sortable: true },
+    { field: "description", headerName: "Açıklama", sortable: false },
     {
-      field: 'amount',
-      headerName: 'İşlem Tutarı',
+      field: "amount",
+      headerName: "İşlem Tutarı",
       sortable: true,
       renderCell: (params) => {
         const { type, receiver, amount } = params.row;
-        const isTransfer = type === 'transfer';
-        const fontWeight = 'bold';
-        let displayAmount = amount;
-        let color = '#000';
+        const isTransfer = type === "transfer";
+        const fontWeight = "bold";
+        let displayAmount = `-${amount}`;
+        let color = "red";
 
-        if (isTransfer) {
-          if (receiver) {
-            color = 'green';
-            displayAmount = `+${amount}`;
-          } else {
-            color = 'red';
-            displayAmount = `-${amount}`;
-          }
-        } else {
-          color = 'red';
-          displayAmount = `-${amount}`;
+        if (isTransfer && receiver) {
+          color = "green";
+          displayAmount = `+${amount}`;
         }
-        return (
-          <span style={{ fontWeight, color }}>
-            {displayAmount} ₺
-          </span>
-        );
+        return <span style={{ fontWeight, color }}>{displayAmount} ₺</span>;
       },
     },
     {
-      field: 'receipt',
-      headerName: 'Dekont',
+      field: "receipt",
+      headerName: "Dekont",
       width: 150,
       sortable: false,
       renderCell: (params) => {
@@ -144,10 +135,10 @@ function Receipt() {
             size="medium"
             onClick={() => handleReceiptDownload(params.row)}
             sx={{
-              backgroundColor: '#E1722A',
-              color: '#ffffff',
-              '&:hover': {
-                backgroundColor: '#D1611C',
+              backgroundColor: "#E1722A",
+              color: "#ffffff",
+              "&:hover": {
+                backgroundColor: "#D1611C",
               },
             }}
           >
@@ -159,7 +150,7 @@ function Receipt() {
   ];
 
   return (
-    <div style={{ height: '31rem', width: '95%', padding: '20px' }}>
+    <div style={{ height: "31rem", width: "95%", padding: "20px" }}>
       <h1>HESAP HAREKETLERİM</h1>
       <DataGrid
         rows={logs}
@@ -176,44 +167,44 @@ function Receipt() {
         disableSelectionOnClick
         disableRowSelectionOnClick
         disableVirtualization
-        sortingOrder={['asc', 'desc']}
+        sortingOrder={["asc", "desc"]}
         initialState={{
           sorting: {
-            sortModel: [{ field: 'payDate', sort: 'desc' }],
+            sortModel: [{ field: "payDate", sort: "desc" }],
           },
         }}
         sx={{
-          height: '100%',
-          '& .MuiDataGrid-root': {
-            border: 'none',
+          height: "100%",
+          "& .MuiDataGrid-root": {
+            border: "none",
           },
-          '& .MuiDataGrid-columnHeaders': {
-            backgroundColor: '#00333D !important',
-            color: '#ffffff',
-            fontSize: '16px',
-            fontWeight: 'bold',
-            textAlign: 'center',
-            '& .MuiDataGrid-columnHeaderTitleContainer': {
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
+          "& .MuiDataGrid-columnHeaders": {
+            backgroundColor: "#00333D !important",
+            color: "#ffffff",
+            fontSize: "16px",
+            fontWeight: "bold",
+            textAlign: "center",
+            "& .MuiDataGrid-columnHeaderTitleContainer": {
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             },
           },
-          '& .MuiDataGrid-cell': {
-            textAlign: 'center',
-            fontSize: '18px',
+          "& .MuiDataGrid-cell": {
+            textAlign: "center",
+            fontSize: "18px",
           },
-          '& .MuiDataGrid-row:nth-of-type(odd)': {
-            backgroundColor: '#f1f9ff',
+          "& .MuiDataGrid-row:nth-of-type(odd)": {
+            backgroundColor: "#f1f9ff",
           },
-          '& .MuiDataGrid-row:nth-of-type(even)': {
-            backgroundColor: '#ffffff',
+          "& .MuiDataGrid-row:nth-of-type(even)": {
+            backgroundColor: "#ffffff",
           },
-          '& .MuiDataGrid-footerContainer': {
-            display: 'none',
+          "& .MuiDataGrid-footerContainer": {
+            display: "none",
           },
-          '& .MuiDataGrid-sortIcon': {
-            color: '#ffffff',
+          "& .MuiDataGrid-sortIcon": {
+            color: "#ffffff",
           },
         }}
       />

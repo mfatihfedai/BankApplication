@@ -5,27 +5,32 @@ import { getBanks } from "../../../../service/BankApi";
 import { createTransfer } from "../../../../service/TransferApi";
 import { useFormik } from "formik";
 import { receiverFormSchemas } from "../../../Schemas/ReceiverFormSchemas";
+import { useAdminMenu } from "../../../../context/AdminMenuContext";
+import { useUser } from "../../../../context/UserContext";
 
 function Receiver() {
-  const { banks, setBanks } = useBanks();
 
+  const {user} = useUser();
+  const {setComponentName} = useAdminMenu();
+  
   async function submit() {
       try {
         const transfer = {
           receiverAccountNo: values.receiverAccountNo,
           transferAmount: values.transferAmount,
-          message: values.transferMessage,
+          message: `${values.transferMessage}: ${user.name} ${user.surname} tarafından gönderildi`,
           bankName: values.bankName,
           transferFee: values.transferFee,
+          isReceiver: false
         };
         const response = await createTransfer(transfer);
-        console.log(transfer);
-        console.log(response)
-        if (response.status === 200) {
-          console.log(true);
-        }
+        console.log(response);
+        // başarılı modal
+        setComponentName("Home");
       } catch (err) {
-        console.log(err);
+        console.log(err.response.data.data);
+        // başarısız modal
+        setState("err.response.data.data")
       }
     }
   
@@ -34,26 +39,14 @@ function Receiver() {
         receiverAccountNo: "",
         transferAmount: "",
         transferMessage: "",
-        bankName: "",
-        transferFee: "",
+        bankName: "Prisma Bank",
+        transferFee: 1.00,
       },
       validationSchema: receiverFormSchemas,
       validateOnBlur: false, // Odak kaybında doğrulamayı devre dışı bırak  Nihan did it!
       validateOnChange: false, // Değişikliklerde doğrulamayı devre dışı bırak   Nihan did it!
       onSubmit: submit,
     });
-
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-  //       const banksData  = await getBanks();
-  //       setBanks(banksData);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-  //   fetchData();
-  // }, []);
   
   return (
     <div>
@@ -91,19 +84,21 @@ function Receiver() {
         />
 
         <TextField
+        disabled
           label="Banka Adı"
           name="bankName"
-            value={values.bankName}
-            onChange={handleChange}
+          value={values.bankName}
+          onChange={handleChange}
           type="text"
           className="custom-textfield"
         />
 
         <TextField
+        disabled
           label="Transfer Ücreti"
           name="transferFee"
-            value={values.transferFee}
-            onChange={handleChange}
+          value={values.transferFee}
+          onChange={handleChange}
           type="number"
           className="custom-textfield"
         />
