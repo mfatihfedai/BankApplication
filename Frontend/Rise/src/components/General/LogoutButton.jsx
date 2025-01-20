@@ -19,6 +19,7 @@ function LogoutButton() {
       // Kullanıcıyı ve tokenı context'ten ve localStorage'dan temizleme
       localStorage.removeItem("user");
       localStorage.removeItem("token");
+      localStorage.removeItem("lastLoginTime");
       setUser(null); // Eğer kullanıyorsanız user context'ten de temizleme
 
       // Ana sayfaya yönlendir
