@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Button } from "@mui/material";
+import { Button, IconButton, Box, Typography, Modal } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import CloseIcon from "@mui/icons-material/Close";
 import "./Receipt.css";
 import ReceiptGenerator from "./ReceiptGenerator";
 import { getReceipts } from "../../../../service/ReceiptApi";
@@ -11,6 +13,7 @@ function Receipt() {
   const [page, setPage] = useState(0);
   const [rowCount, setRowCount] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [selectedDetails, setSelectedDetails] = useState(null);
 
   const formatPayDate = (dateString) => {
     const date = new Date(dateString);
@@ -20,16 +23,11 @@ function Receipt() {
     });
   };
 
-  const generateRandomRef = () => {
-    return Math.floor(100000000000 + Math.random() * 900000000000).toString();
-  };
-
   const fetchLogs = async (currentPage) => {
     setLoading(true);
     try {
       const response = await getReceipts(currentPage);
       const { items, totalElements } = response.data;
-      console.log(response);
       const formattedLogs = items.flatMap((item) => {
         const invoices = item.invoiceInfoList.map((invoice) => ({
           id: `invoice-${invoice.id}`,
@@ -52,6 +50,12 @@ function Receipt() {
           rawDate: transfer.transferTime,
           type: "transfer",
           receiver: transfer.receiver,
+          details: {
+            payDate: formatPayDate(transfer.transferTime),
+            receiver: transfer.receiverAccountNo,
+            amount: transfer.transferAmount,
+            messages: transfer.message,
+          },
         }));
 
         return [...invoices, ...transfers];
@@ -97,6 +101,14 @@ function Receipt() {
     receipt.downloadPDF(`${user.name}-${user.surname}-dekont`);
   };
 
+  const handleOpenDetails = (details) => {
+    setSelectedDetails(details);
+  };
+
+  const handleCloseDetails = () => {
+    setSelectedDetails(null);
+  };
+
   const columns = [
     { field: "payDate", headerName: "İşlem Tarihi", sortable: true },
     { field: "channel", headerName: "Kanal", sortable: true },
@@ -104,7 +116,7 @@ function Receipt() {
     {
       field: "amount",
       headerName: "İşlem Tutarı",
-      sortable: true,
+      sortable: false,
       renderCell: (params) => {
         const { type, receiver, amount } = params.row;
         const isTransfer = type === "transfer";
@@ -121,29 +133,39 @@ function Receipt() {
     },
     {
       field: "receipt",
-      headerName: "Dekont",
+      headerName: "Detaylar",
       width: 150,
       sortable: false,
       renderCell: (params) => {
-        const { receiver } = params.row;
+        const { receiver, details } = params.row;
 
-        if (receiver) return null;
+        if (!receiver) {
+          return (
+            <Button
+              variant="contained"
+              size="medium"
+              onClick={() => handleReceiptDownload(params.row)}
+              sx={{
+                backgroundColor: "#E1722A",
+                color: "#ffffff",
+                "&:hover": {
+                  backgroundColor: "#D1611C",
+                },
+              }}
+            >
+              PDF
+            </Button>
+          );
+        }
 
         return (
-          <Button
-            variant="contained"
-            size="medium"
-            onClick={() => handleReceiptDownload(params.row)}
-            sx={{
-              backgroundColor: "#E1722A",
-              color: "#ffffff",
-              "&:hover": {
-                backgroundColor: "#D1611C",
-              },
-            }}
+          <IconButton
+            size="small"
+            onClick={() => handleOpenDetails(details)}
+            sx={{ color: "#00333D" }}
           >
-            PDF
-          </Button>
+            <AddIcon />
+          </IconButton>
         );
       },
     },
@@ -208,6 +230,57 @@ function Receipt() {
           },
         }}
       />
+      <Modal
+        open={!!selectedDetails}
+        onClose={handleCloseDetails}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Box
+          sx={{
+            width: 600,
+            bgcolor: "white",
+            borderRadius: "8px",
+            boxShadow: 24,
+            p: 4,
+            position: "relative",
+          }}
+        >
+          <IconButton
+            onClick={handleCloseDetails}
+            sx={{ position: "absolute", top: 8, right: 8 }}
+          >
+            <CloseIcon />
+          </IconButton>
+          {selectedDetails && (
+            <>
+              <Typography variant="h6" gutterBottom sx={{ textAlign: 'center', fontWeight: '800' }}>
+                Hesap Detayları
+              </Typography>
+              <Box
+              sx={{
+                margin: '10px',
+                border: 'solid',
+                borderColor: 'black',
+                padding: '1rem',
+                display: 'grid',
+                gridTemplateColumns: 'repeat(2, 1fr)',
+                gridTemplateRows: 'repeat(7, 1fr)',
+                lineHeight:'1',
+              }}
+              >
+                <Typography>İşlem Tarihi:</Typography> <Typography sx={{ textAlign: 'right', fontWeight: '600' }}> {selectedDetails.payDate}</Typography>
+                <Typography>Gönderen Hesap No:</Typography> <Typography sx={{ textAlign: 'right', fontWeight: '600' }}> {selectedDetails.receiver}</Typography>
+                <Typography>Gönderilen Miktar:</Typography> <Typography sx={{ textAlign: 'right', color:'green', fontWeight: '600' }}> +{selectedDetails.amount} ₺</Typography>
+                <Typography>Açıklama:</Typography> <Typography sx={{ textAlign: 'right', gridRow:'span 4 / span 4', fontWeight: '600' }}> {selectedDetails.messages}</Typography>
+              </Box>
+            </>
+          )}
+        </Box>
+      </Modal>
     </div>
   );
 }
