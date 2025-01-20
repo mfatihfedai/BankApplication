@@ -20,6 +20,8 @@ import { createInvoice } from "../../../../service/InvoiceApi";
 function Invoice() {
   const [loading, setLoading] = useState(false);
   const [successModalOpen, setSuccessModalOpen] = useState(false);
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const validationSchema = Yup.object({
     invoiceNo: Yup.number()
@@ -58,6 +60,8 @@ function Invoice() {
         }
       } catch (error) {
         console.error("Fatura ödeme hatası:", error.message);
+        setErrorMessage("Fatura ödemesi yapılamadı. Lütfen tekrar deneyiniz.");
+        setErrorModalOpen(true);
       } finally {
         setLoading(false);
       }
@@ -91,12 +95,49 @@ function Invoice() {
             Fatura Başarıyla Ödendi!
           </Typography>
           <Button
-            sx={{ mt: 2, backgroundColor: '#00333D' }}
+            sx={{ mt: 2, backgroundColor: "#00333D" }}
             variant="contained"
             onClick={() => {
               setSuccessModalOpen(false);
               formik.resetForm();
             }}
+          >
+            Kapat
+          </Button>
+        </Box>
+      </Modal>
+
+      {/* Hata Modal */}
+      <Modal
+        open={errorModalOpen}
+        onClose={() => setErrorModalOpen(false)}
+        aria-labelledby="error-modal-title"
+        aria-describedby="error-modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 400,
+            bgcolor: "white",
+            boxShadow: 24,
+            p: 4,
+            borderRadius: 2,
+            textAlign: "center",
+          }}
+        >
+          <Typography id="error-modal-title" variant="h6" color="error" fontWeight="bold">
+            Hata
+          </Typography>
+          <Typography id="error-modal-description" sx={{ mt: 2 }}>
+            {errorMessage}
+          </Typography>
+          <Button
+            sx={{ mt: 2, backgroundColor: "#ff1744" }}
+            variant="contained"
+            onClick={() => setErrorModalOpen(false)}
           >
             Kapat
           </Button>
@@ -193,16 +234,6 @@ function Invoice() {
             }
             label="Otomatik Ödeme Talimatı"
           />
-
-          {/* Otomatik Ödeme Bilgilendirme */}
-          {formik.values.autobill && (
-            <Typography
-              sx={{ fontSize: "14px", color: "gray", marginTop: "-10px" }}
-            >
-              Ödemeleriniz her ayın 1. günü ilk ödeme miktarınıza bağlı bir
-              miktarda yapılacaktır.
-            </Typography>
-          )}
 
           {/* Gönder Butonu */}
           <LoadingButton

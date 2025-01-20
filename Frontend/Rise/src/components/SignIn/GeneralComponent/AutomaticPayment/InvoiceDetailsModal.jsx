@@ -22,37 +22,29 @@ function InvoiceDetailsModal({ open, onClose, invoice, onSave }) {
   const [loading, setLoading] = useState(false);
   const [datas, setDatas] = useState([])
 
-    // Örnek grafik verileri
-  const data = [
-    { month: 'Ekim', amount: 180 },
-    { month: 'Kasım', amount: 240 },
-    { month: 'Aralık', amount: 200 },
-    { month: 'Ocak', amount: 300 },
-  ];
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      console.log(invoice.invoiceNo)
+      const response = await getLastFourInvoice(invoice.invoiceNo);
+      console.log(response);
+      const formattedDatas = response.data.map((item) => ({
+        id: item.id,
+        month: new Date(item.payDate).toLocaleString('tr-TR', { dateStyle: 'medium' }),
+        ödeme: item.invoiceAmount,
+      }));
+      setDatas(formattedDatas);
+      console.log(datas);
+    } catch (error) {
+      console.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        console.log(invoice.invoiceNo)
-        const response = await getLastFourInvoice(invoice.invoiceNo);
-        console.log(response);
-        const formattedDatas = response.data.map((item) => ({
-          id: item.id,
-          month: new Date(item.payDate).toLocaleString('tr-TR', { dateStyle: 'medium' }),
-          ödeme: item.invoiceAmount,
-        }));
-        setDatas(formattedDatas);
-        console.log(datas);
-      } catch (error) {
-        console.error(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    useEffect(() => {
+  useEffect(() => {
     fetchData();
-    }, []);
+  }, []);
 
   const handleSwitchChange = (event) => {
     const isChecked = event.target.checked;
@@ -70,11 +62,11 @@ function InvoiceDetailsModal({ open, onClose, invoice, onSave }) {
 
   const handleSave = () => {
     const datas = {
-        id: invoice.id,
-        invoiceNo: invoice.invoiceNo,
-        invoiceType: invoice.invoiceType,
-        invoiceAmount: invoice.invoiceAmount,
-        autobill: localAutobill
+      id: invoice.id,
+      invoiceNo: invoice.invoiceNo,
+      invoiceType: invoice.invoiceType,
+      invoiceAmount: invoice.invoiceAmount,
+      autobill: localAutobill
     }
     onSave(invoice.id, datas);
     setSaveConfirmationOpen(true);
@@ -84,49 +76,49 @@ function InvoiceDetailsModal({ open, onClose, invoice, onSave }) {
     <Modal open={open} onClose={() => onClose()}>
       <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 600, bgcolor: 'background.paper', boxShadow: 24, p: 4 }}>
         <Typography variant="h6" gutterBottom sx={{ textAlign: 'center', fontWeight: '800' }}>
-           Fatura Detayları
+          Fatura Detayları
         </Typography>
         <Box
-           sx={{
-             border: 'solid',
-             borderColor: 'black',
-             padding: '1rem',
-             display: 'grid',
-             gridTemplateColumns:'repeat(2, 1fr)',
-             gridTemplateRows:'repeat(5, 1fr)',
-             
-           }}
-         >
-            <Typography>Son İşlem Tarihi:</Typography> <Typography sx={{textAlign:'right'}}> {invoice.payDate}</Typography>
-            <Typography>Fatura Tipi:</Typography> <Typography sx={{textAlign:'right'}}> {invoice.invoiceType}</Typography>
-            <Typography>Fatura Numarası:</Typography> <Typography sx={{textAlign:'right'}}> {invoice.invoiceNo}</Typography>
-            <Typography>Son Ödenen Tutar:</Typography> <Typography sx={{textAlign:'right'}}> {invoice.amount} ₺</Typography>
-            <Typography>Otomatik Ödeme Talimatı:</Typography><Switch sx={{marginLeft:'9.5rem'}} checked={localAutobill} onChange={handleSwitchChange} />
+          sx={{
+            border: 'solid',
+            borderColor: 'black',
+            padding: '1rem',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            gridTemplateRows: 'repeat(5, 1fr)',
+
+          }}
+        >
+          <Typography>Son İşlem Tarihi:</Typography> <Typography sx={{ textAlign: 'right' }}> {invoice.payDate}</Typography>
+          <Typography>Fatura Tipi:</Typography> <Typography sx={{ textAlign: 'right' }}> {invoice.invoiceType}</Typography>
+          <Typography>Fatura Numarası:</Typography> <Typography sx={{ textAlign: 'right' }}> {invoice.invoiceNo}</Typography>
+          <Typography>Son Ödenen Tutar:</Typography> <Typography sx={{ textAlign: 'right' }}> {invoice.amount} ₺</Typography>
+          <Typography>Otomatik Ödeme Talimatı:</Typography><Switch sx={{ marginLeft: '9.5rem' }} checked={localAutobill} onChange={handleSwitchChange} />
         </Box>
 
         <Box sx={{ mt: 2 }}>
-           <Typography variant="h6" sx={{ textAlign: 'center', marginBottom: 2 }}>
-             Son Ödemeler Grafiği
-           </Typography>
-           <BarChart
-             width={500}
-             height={300}
-             data={datas}
-             loading={loading}
-             margin={{
-               top: 20,
-               right: 20,
-               left: 0,
-               bottom: 0,
-             }}
-           >
-             <CartesianGrid strokeDasharray="3 3" />
-             <XAxis dataKey="month" />
-             <YAxis />
-             <Tooltip />
-             <Legend />
-             <Bar dataKey="ödeme" fill="#00333D" />
-           </BarChart>
+          <Typography variant="h6" sx={{ textAlign: 'center', marginBottom: 2 }}>
+            Son Ödemeler Grafiği
+          </Typography>
+          <BarChart
+            width={500}
+            height={300}
+            data={datas}
+            loading={loading}
+            margin={{
+              top: 20,
+              right: 20,
+              left: 0,
+              bottom: 0,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="month" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="ödeme" fill="#00333D" />
+          </BarChart>
         </Box>
 
         <Box sx={{ mt: 2, display: 'flex', justifyContent: 'space-between' }}>
@@ -138,7 +130,7 @@ function InvoiceDetailsModal({ open, onClose, invoice, onSave }) {
         <Dialog open={confirmationOpen} onClose={() => setConfirmationOpen(false)}>
           <DialogTitle variant="h6" gutterBottom sx={{ textAlign: 'center', fontWeight: '600' }}>Otomatik Ödeme İptali</DialogTitle>
           <DialogContent>
-            <DialogContentText sx={{color:'black'}}>Otomatik ödemenizi iptal etmek istiyor musunuz?</DialogContentText>
+            <DialogContentText sx={{ color: 'black' }}>Otomatik ödemenizi iptal etmek istiyor musunuz?</DialogContentText>
           </DialogContent>
           <DialogActions>
             <Button variant='contained' color='success' onClick={confirmCancel}>Evet</Button>
@@ -146,13 +138,13 @@ function InvoiceDetailsModal({ open, onClose, invoice, onSave }) {
           </DialogActions>
         </Dialog>
 
-        <Dialog open={saveConfirmationOpen} onClose={() => setSaveConfirmationOpen(false)}>
+        <Dialog open={saveConfirmationOpen} onClose={() => { setSaveConfirmationOpen(false), onClose }}>
           <DialogTitle>Başarılı</DialogTitle>
           <DialogContent>
             <DialogContentText>Otomatik ödeme talimatınız iptal edildi.</DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => {setSaveConfirmationOpen(false), onClose}}>Tamam</Button>
+            <Button onClick={() => { setSaveConfirmationOpen(false), onClose }}>Tamam</Button>
           </DialogActions>
         </Dialog>
       </Box>
