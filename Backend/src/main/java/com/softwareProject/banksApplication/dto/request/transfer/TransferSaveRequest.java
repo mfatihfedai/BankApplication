@@ -16,4 +16,5 @@ public class TransferSaveRequest {
     private String message;
     private String bankName;
     private BigDecimal transferFee;
+    private boolean isReceiver;
 }

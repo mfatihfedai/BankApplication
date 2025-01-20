@@ -9,9 +9,11 @@ function LogsInfo() {
   const [page, setPage] = useState(0);
   const [hasNext, setHasNext] = useState(false);
   const [hasPrevious, setHasPrevious] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const fetchLogs = async (currentPage) => {
     try {
+      setLoading(true);
       const response = await getLogs(currentPage);
       const { items, hasNext } = response.data;
       setLogs(items);
@@ -19,6 +21,8 @@ function LogsInfo() {
       setHasPrevious(currentPage > 0);
     } catch (error) {
       console.error('Error fetching logs:', error);
+    } finally {
+      setLoading(false);
     }
   };
 

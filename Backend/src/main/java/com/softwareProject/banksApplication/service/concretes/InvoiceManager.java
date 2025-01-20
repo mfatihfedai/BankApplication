@@ -61,4 +61,9 @@ public class InvoiceManager extends BaseManager<InvoiceInfo, InvoiceRepo, Invoic
     public List<InvoiceInfo> getByAutobillList(Long userId) {
         return repository.findLatestAutobillInvoicesForUser(userId);
     }
+
+    @Override
+    public List<InvoiceInfo> getLastFourInvoiceAmount(Long invoiceNo, Long id) {
+        return repository.findLastFourInvoiceAmount(invoiceNo, id);
+    }
 }

@@ -25,8 +25,8 @@ function Receipt() {
     setLoading(true);
     try {
       const response = await getReceipts(currentPage);
-      const { items, hasNext, totalElements } = response.data;
-
+      const { items, totalElements } = response.data;
+      console.log(response)
       const formattedLogs = items.flatMap((item) => {
         const invoices = item.invoiceInfoList.map((invoice) => ({
           id: `invoice-${invoice.id}`,
@@ -48,6 +48,7 @@ function Receipt() {
           receipt: item.id,
           rawDate: transfer.transferTime,
           type: 'transfer',
+          receiver: transfer.receiver,
         }));
 
         return [...invoices, ...transfers];
@@ -69,7 +70,6 @@ function Receipt() {
   const handleReceiptDownload = (log) => {
     const storedUser = localStorage.getItem('user');
     const user = decryptData(storedUser);
-    console.log(user)
     if (!user) {
       console.error('User not found in localStorage');
       return;
@@ -95,31 +95,66 @@ function Receipt() {
   };
 
   const columns = [
-    { field: 'payDate', headerName: 'İşlem Tarihi', width: 250, sortable: true },
-    { field: 'channel', headerName: 'Kanal', width: 180, sortable: true },
-    { field: 'description', headerName: 'Açıklama', width: 320, sortable: false },
-    { field: 'amount', headerName: 'İşlem Tutarı', width: 200, sortable: true },
+    { field: 'payDate', headerName: 'İşlem Tarihi', sortable: true },
+    { field: 'channel', headerName: 'Kanal', sortable: true },
+    { field: 'description', headerName: 'Açıklama', sortable: false },
+    {
+      field: 'amount',
+      headerName: 'İşlem Tutarı',
+      sortable: true,
+      renderCell: (params) => {
+        const { type, receiver, amount } = params.row;
+        const isTransfer = type === 'transfer';
+        const fontWeight = 'bold';
+        let displayAmount = amount;
+        let color = '#000';
+
+        if (isTransfer) {
+          if (receiver) {
+            color = 'green';
+            displayAmount = `+${amount}`;
+          } else {
+            color = 'red';
+            displayAmount = `-${amount}`;
+          }
+        } else {
+          color = 'red';
+          displayAmount = `-${amount}`;
+        }
+        return (
+          <span style={{ fontWeight, color }}>
+            {displayAmount} ₺
+          </span>
+        );
+      },
+    },
     {
       field: 'receipt',
       headerName: 'Dekont',
       width: 150,
       sortable: false,
-      renderCell: (params) => (
-        <Button
-        variant="contained"
-        size="medium"
-        onClick={() => handleReceiptDownload(params.row)}
-        sx={{
-          backgroundColor: '#E1722A',
-          color: '#ffffff',
-          '&:hover': {
-            backgroundColor: '#D1611C',
-          },
-        }}
-      >
-        PDF
-      </Button>
-      ),
+      renderCell: (params) => {
+        const { receiver } = params.row;
+
+        if (receiver) return null;
+
+        return (
+          <Button
+            variant="contained"
+            size="medium"
+            onClick={() => handleReceiptDownload(params.row)}
+            sx={{
+              backgroundColor: '#E1722A',
+              color: '#ffffff',
+              '&:hover': {
+                backgroundColor: '#D1611C',
+              },
+            }}
+          >
+            PDF
+          </Button>
+        );
+      },
     },
   ];
 
@@ -130,7 +165,7 @@ function Receipt() {
         rows={logs}
         columns={columns.map((col) => ({
           ...col,
-          flex: 1, // Sütun genişliklerini ekran boyutuna göre ayarla
+          flex: 1,
         }))}
         pagination
         paginationMode="server"
@@ -153,14 +188,14 @@ function Receipt() {
             border: 'none',
           },
           '& .MuiDataGrid-columnHeaders': {
-            backgroundColor: '#00333D !important', 
+            backgroundColor: '#00333D !important',
             color: '#ffffff',
             fontSize: '16px',
             fontWeight: 'bold',
             textAlign: 'center',
             '& .MuiDataGrid-columnHeaderTitleContainer': {
               display: 'flex',
-              justifyContent: 'center', 
+              justifyContent: 'center',
               alignItems: 'center',
             },
           },
@@ -169,7 +204,7 @@ function Receipt() {
             fontSize: '18px',
           },
           '& .MuiDataGrid-row:nth-of-type(odd)': {
-            backgroundColor: '#f1f9ff', 
+            backgroundColor: '#f1f9ff',
           },
           '& .MuiDataGrid-row:nth-of-type(even)': {
             backgroundColor: '#ffffff',
