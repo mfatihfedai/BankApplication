@@ -7,6 +7,7 @@ import com.softwareProject.banksApplication.dto.response.user.UserResponse;
 import com.softwareProject.banksApplication.entity.UserInfo;
 import com.softwareProject.banksApplication.service.abstracts.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -63,9 +64,12 @@ public class UserController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/search")
-    public List<UserInfo> searchUsers(@RequestBody String keyword) {
-        return service.searchByKeyword(keyword);
+    @GetMapping("/search")
+    public CursorResponse<UserResponse> searchUsers(
+            @RequestParam(name = "page", required = false, defaultValue = "0") int page,
+            @RequestParam(name = "pageSize", required = false, defaultValue = "10") int pageSize,
+            @RequestParam String keyword) {
+        return this.service.searchByKeyword(page, pageSize, keyword);
     }
 
     @PostMapping("/forgetPass")
