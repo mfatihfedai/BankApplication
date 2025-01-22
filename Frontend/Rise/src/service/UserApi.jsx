@@ -43,4 +43,3 @@ export const getTransactionsByDate = async (userId, date) => {
     console.error("Error fetching transactions by date:", error);
     throw error;
   }
-};

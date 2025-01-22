@@ -7,12 +7,14 @@ import "./Receipt.css";
 import ReceiptGenerator from "./ReceiptGenerator";
 import { getReceipts } from "../../../../service/ReceiptApi";
 import { decryptData } from "../../../Core/CryptoJS";
+import Logo from "../../../../assets/LogoNonBackground.png";
+import "../../../Core/logo.css";
 
 function Receipt() {
   const [logs, setLogs] = useState([]);
   const [page, setPage] = useState(0);
   const [rowCount, setRowCount] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [selectedDetails, setSelectedDetails] = useState(null);
 
   const formatPayDate = (dateString) => {
@@ -24,7 +26,7 @@ function Receipt() {
   };
 
   const fetchLogs = async (currentPage) => {
-    setLoading(true);
+    setLoading(false);
     try {
       const response = await getReceipts(currentPage);
       const { items, totalElements } = response.data;
@@ -66,7 +68,7 @@ function Receipt() {
     } catch (error) {
       console.error("Error fetching logs:", error);
     } finally {
-      setLoading(false);
+      setLoading(true);
     }
   };
 
@@ -175,6 +177,14 @@ function Receipt() {
     },
   ];
 
+  if (loading) {
+    return (
+      <div className="logo-container">
+        <img src={Logo} alt="Logo" className="logo" />
+      </div>
+    );
+  }
+
   return (
     <div style={{ height: "31rem", width: "95%", padding: "20px" }}>
       <h1>HESAP HAREKETLERİM</h1>
@@ -187,7 +197,6 @@ function Receipt() {
         pagination
         paginationMode="server"
         rowCount={rowCount}
-        loading={loading}
         disableColumnResize
         disableColumnMenu
         disableSelectionOnClick

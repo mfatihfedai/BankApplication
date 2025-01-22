@@ -5,6 +5,8 @@ import com.softwareProject.banksApplication.core.exception.DataAlreadyExistExcep
 import com.softwareProject.banksApplication.core.exception.NotValidException;
 import com.softwareProject.banksApplication.core.mapper.UserMapper;
 import com.softwareProject.banksApplication.core.utilies.Msg;
+import com.softwareProject.banksApplication.core.utilies.ResultHelper;
+import com.softwareProject.banksApplication.dto.CursorResponse;
 import com.softwareProject.banksApplication.dto.request.user.UserSaveRequest;
 import com.softwareProject.banksApplication.dto.request.user.UserUpdateRequest;
 import com.softwareProject.banksApplication.dto.response.user.UserResponse;
@@ -17,6 +19,9 @@ import org.passay.CharacterData;
 import org.passay.CharacterRule;
 import org.passay.EnglishCharacterData;
 import org.passay.PasswordGenerator;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
@@ -79,8 +84,11 @@ public class UserManager extends BaseManager<UserInfo, UserRepo, UserSaveRequest
     }
 
     @Override
-    public List<UserInfo> searchByKeyword(String keyword) {
-        return repository.searchByKeyword(keyword);
+    public CursorResponse<UserResponse> searchByKeyword(int page, int pageSize, String keyword) {
+        Pageable pageable = PageRequest.of(page, pageSize);
+        Page<UserInfo> users = this.repository.searchByKeyword(keyword, pageable);
+        Page<UserResponse> entityToResponse = users.map(mapper::entityToResponse);
+        return ResultHelper.cursor(entityToResponse);
     }
 
     @Override

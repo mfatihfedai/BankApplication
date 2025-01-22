@@ -1,6 +1,8 @@
 package com.softwareProject.banksApplication.repo;
 
 import com.softwareProject.banksApplication.entity.UserInfo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -22,6 +24,6 @@ public interface UserRepo extends JpaRepository<UserInfo, Long> {
             "LOWER(u.email) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
             "CAST(u.identityNumber AS string) LIKE CONCAT('%', :keyword, '%') OR " +
             "CAST(u.accountNumber AS string) LIKE CONCAT('%', :keyword, '%')")
-    List<UserInfo> searchByKeyword(@Param("keyword") String keyword);
+    Page<UserInfo> searchByKeyword(@Param("keyword") String keyword, Pageable pageable);
 //    List<UserInfo> findByNameContainingIgnoreCaseOrSurnameContainingIgnoreCaseOrEmailContainingIgnoreCaseOrIdentityNumberToStringContainingOrAccountNumberToStringContaining(String name, String surname, String email, String identityNumber, String accountNumber);
 }
