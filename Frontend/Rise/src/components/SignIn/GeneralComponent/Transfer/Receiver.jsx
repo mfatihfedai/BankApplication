@@ -1,111 +1,113 @@
 import { Box, Button, TextField } from "@mui/material";
-import { useEffect } from "react";
-import { useBanks } from "../../../../context/BankContext";
-import { getBanks } from "../../../../service/BankApi";
-import { createTransfer } from "../../../../service/TransferApi";
+import { useState } from "react";
 import { useFormik } from "formik";
-import { receiverFormSchemas } from "../../../Schemas/ReceiverFormSchemas";
-import { useAdminMenu } from "../../../../context/AdminMenuContext";
 import { useUser } from "../../../../context/UserContext";
+import TransferModal from "./TransferModal";
+import { createTransfer } from "../../../../service/TransferApi";
+import { receiverFormSchemas } from "../../../Schemas/ReceiverFormSchemas";
 
 function Receiver() {
+  const { user } = useUser();
+  const [showModal, setShowModal] = useState(false);
+  const [transferMessage, setTransferMessage] = useState("");
+  const [success, setSuccess] = useState(false);
 
-  const {user} = useUser();
-  const {setComponentName} = useAdminMenu();
-  
+  const handleClose = () => {
+    setShowModal(false); // Modal'ı kapat
+  };
+
   async function submit() {
-      try {
-        const transfer = {
-          receiverAccountNo: values.receiverAccountNo,
-          transferAmount: values.transferAmount,
-          message: `${values.transferMessage}: ${user.name} ${user.surname} tarafından gönderildi`,
-          bankName: values.bankName,
-          transferFee: values.transferFee,
-          isReceiver: false
-        };
-        const response = await createTransfer(transfer);
-        console.log(response);
-        // başarılı modal
-        setComponentName("Home");
-      } catch (err) {
-        console.log(err.response.data.data);
-        // başarısız modal
-        setState("err.response.data.data")
+    try {
+      const transfer = {
+        receiverAccountNo: values.receiverAccountNo,
+        transferAmount: values.transferAmount,
+        message: `${values.transferMessage}: ${user.name} ${user.surname} tarafından gönderildi`,
+        bankName: values.bankName,
+        transferFee: values.transferFee,
+        isReceiver: false,
+      };
+      await createTransfer(transfer);
+      setShowModal(true);
+      setSuccess(true);
+      setTransferMessage("Para gönderme işlemi başarıyla gerçekleştirildi");
+    } catch (err) {
+      setShowModal(true);
+      if(err.response?.data?.data == "There is no receiver account number"){
+        setTransferMessage("Lütfen hesap numarasını doğru girdiğinizden emin olun.")
+      }if(err.response?.data?.data == "There is no balance"){
+        setTransferMessage("Yetersiz bakiye")
       }
     }
-  
-    const { values, errors, handleChange, handleSubmit } = useFormik({
-      initialValues: {
-        receiverAccountNo: "",
-        transferAmount: "",
-        transferMessage: "",
-        bankName: "Prisma Bank",
-        transferFee: 1.00,
-      },
-      validationSchema: receiverFormSchemas,
-      validateOnBlur: false, // Odak kaybında doğrulamayı devre dışı bırak  Nihan did it!
-      validateOnChange: false, // Değişikliklerde doğrulamayı devre dışı bırak   Nihan did it!
-      onSubmit: submit,
-    });
-  
+  }
+
+  const { values, handleChange, handleSubmit } = useFormik({
+    initialValues: {
+      receiverAccountNo: "",
+      transferAmount: "",
+      transferMessage: "",
+      bankName: "Prisma Bank",
+      transferFee: 1.0,
+    },
+    validationSchema: receiverFormSchemas,
+    validateOnBlur: false,
+    validateOnChange: false,
+    onSubmit: submit,
+  });
+
   return (
     <div>
       <Box
-        component="form"
         sx={{
           display: "flex",
           flexDirection: "column",
+          gap: 2,
+          maxWidth: 700,
+          margin: "20px auto",
+          padding: "1rem 3rem",
+          borderRadius: 4,
+          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+          background: "linear-gradient(to right, #ece9e6, #ffffff)",
         }}
       >
         <TextField
           label="Alıcı Hesap No"
           name="receiverAccountNo"
-            value={values.receiverAccountNo}
-            onChange={handleChange}
-          type="text"
-          className="custom-textfield"
+          value={values.receiverAccountNo}
+          onChange={handleChange}
+          type="number"
         />
+
         <TextField
           label="Tutar"
           name="transferAmount"
-            value={values.transferAmount}
-            onChange={handleChange}
+          value={values.transferAmount}
+          onChange={handleChange}
           type="number"
-          className="custom-textfield"
         />
 
         <TextField
           label="Açıklama"
           name="transferMessage"
-            value={values.transferMessage}
-            onChange={handleChange}
+          value={values.transferMessage}
+          onChange={handleChange}
           type="text"
-          className="custom-textfield"
         />
 
         <TextField
-        disabled
+          disabled
           label="Banka Adı"
           name="bankName"
           value={values.bankName}
-          onChange={handleChange}
           type="text"
-          className="custom-textfield"
         />
 
         <TextField
-        disabled
+          disabled
           label="Transfer Ücreti"
           name="transferFee"
           value={values.transferFee}
-          onChange={handleChange}
           type="number"
-          className="custom-textfield"
         />
-      
-        {/* {banks.map((item, index) => (<p key={index}>{item.bankName}</p>))} */}
-
-
 
         <Button
           type="submit"
@@ -113,11 +115,21 @@ function Receiver() {
           variant="contained"
           color="primary"
           fullWidth
-          style={{ backgroundColor: "var(--color-blue)", marginBottom: "1rem" }}
+          style={{ backgroundColor: "var(--color-blue)" }}
         >
           Gönder
         </Button>
       </Box>
+
+      {/* Transfer Modal */}
+      {showModal && (
+        <TransferModal
+          open={showModal}
+          handleClose={handleClose}
+          message={transferMessage}
+          success={success}
+        />
+      )}
     </div>
   );
 }

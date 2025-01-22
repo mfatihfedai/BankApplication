@@ -1,25 +1,10 @@
-.transfer{
-    margin: 1rem;
+
+
+.table{
+    display: flex;
+    justify-content: center;
 }
 
-.sender{
+.header{
     margin-top: 1rem;
-    display: flex;
-    flex-direction: column;
-    border: 5px solid var(--color-blue);
-    padding: 1rem;
-    margin: 1rem 1rem 1rem 0;
-}
-.sender-headers{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-}
-
-.sender-infos{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    font-weight: 300;
 }
