@@ -74,6 +74,10 @@ function Receipt() {
     fetchLogs(page);
   }, [page]);
 
+  const generateRandomRef = () => {
+    return Math.floor(100000000000 + Math.random() * 900000000000).toString();
+  };
+
   const handleReceiptDownload = (log) => {
     const storedUser = localStorage.getItem("user");
     const user = decryptData(storedUser);
@@ -257,25 +261,53 @@ function Receipt() {
           </IconButton>
           {selectedDetails && (
             <>
-              <Typography variant="h6" gutterBottom sx={{ textAlign: 'center', fontWeight: '800' }}>
+              <Typography
+                variant="h6"
+                gutterBottom
+                sx={{ textAlign: "center", fontWeight: "800" }}
+              >
                 Hesap Detayları
               </Typography>
               <Box
-              sx={{
-                margin: '10px',
-                border: 'solid',
-                borderColor: 'black',
-                padding: '1rem',
-                display: 'grid',
-                gridTemplateColumns: 'repeat(2, 1fr)',
-                gridTemplateRows: 'repeat(7, 1fr)',
-                lineHeight:'1',
-              }}
+                sx={{
+                  margin: "10px",
+                  border: "solid",
+                  borderColor: "black",
+                  padding: "1rem",
+                  display: "grid",
+                  gridTemplateColumns: "repeat(2, 1fr)",
+                  gridTemplateRows: "repeat(7, 1fr)",
+                  lineHeight: "1",
+                }}
               >
-                <Typography>İşlem Tarihi:</Typography> <Typography sx={{ textAlign: 'right', fontWeight: '600' }}> {selectedDetails.payDate}</Typography>
-                <Typography>Gönderen Hesap No:</Typography> <Typography sx={{ textAlign: 'right', fontWeight: '600' }}> {selectedDetails.receiver}</Typography>
-                <Typography>Gönderilen Miktar:</Typography> <Typography sx={{ textAlign: 'right', color:'green', fontWeight: '600' }}> +{selectedDetails.amount} ₺</Typography>
-                <Typography>Açıklama:</Typography> <Typography sx={{ textAlign: 'right', gridRow:'span 4 / span 4', fontWeight: '600' }}> {selectedDetails.messages}</Typography>
+                <Typography>İşlem Tarihi:</Typography>{" "}
+                <Typography sx={{ textAlign: "right", fontWeight: "600" }}>
+                  {" "}
+                  {selectedDetails.payDate}
+                </Typography>
+                <Typography>Gönderen Hesap No:</Typography>{" "}
+                <Typography sx={{ textAlign: "right", fontWeight: "600" }}>
+                  {" "}
+                  {selectedDetails.receiver}
+                </Typography>
+                <Typography>Gönderilen Miktar:</Typography>{" "}
+                <Typography
+                  sx={{ textAlign: "right", color: "green", fontWeight: "600" }}
+                >
+                  {" "}
+                  +{selectedDetails.amount} ₺
+                </Typography>
+                <Typography>Açıklama:</Typography>{" "}
+                <Typography
+                  sx={{
+                    textAlign: "right",
+                    gridRow: "span 4 / span 4",
+                    fontWeight: "600",
+                  }}
+                >
+                  {" "}
+                  {selectedDetails.messages}
+                </Typography>
               </Box>
             </>
           )}
