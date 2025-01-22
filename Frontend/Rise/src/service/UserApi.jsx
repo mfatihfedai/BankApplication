@@ -34,3 +34,13 @@ export const updateUser = async (id, data) => {
       throw error;
   }
 }
+
+export const getAll = async (currentPage) => {
+  try {
+    const response = await axios.get(`${apiUrl}/search/page=${currentPage}`);
+    return response;
+  } catch(error) {
+    console.error(error.message);
+    throw error;
+  }
+}

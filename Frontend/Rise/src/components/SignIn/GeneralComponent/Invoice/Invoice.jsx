@@ -234,6 +234,15 @@ function Invoice() {
             }
             label="Otomatik Ödeme Talimatı"
           />
+          {/* Otomatik Ödeme Bilgilendirme */}
+          {formik.values.autobill && (
+            <Typography
+              sx={{ fontSize: "14px", color: "gray", marginTop: "-10px" }}
+            >
+              Ödemeleriniz her ayın 1. günü ilk ödeme miktarınıza bağlı bir
+              miktarda yapılacaktır.
+            </Typography>
+          )}
 
           {/* Gönder Butonu */}
           <LoadingButton
