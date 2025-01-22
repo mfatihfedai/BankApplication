@@ -10,7 +10,6 @@ function MenuItems({ list }) {
     setComponentName(e);
   };
 
-  console.log(componentName);
 
   return (
     <div className="button-group">
