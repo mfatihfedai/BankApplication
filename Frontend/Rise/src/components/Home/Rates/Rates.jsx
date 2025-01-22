@@ -3,6 +3,7 @@ import { getRates } from '../../../service/RateApi';
 import Rate from './Rate';
 import "./rates.style.css"
 
+
 function Rates() {
   const [allRates, setAllRates] = useState([]);
 
