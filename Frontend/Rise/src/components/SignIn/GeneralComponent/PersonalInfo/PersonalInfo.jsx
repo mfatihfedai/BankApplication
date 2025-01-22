@@ -15,6 +15,8 @@ import {
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { decryptData, encryptData } from "../../../Core/CryptoJS";
 import { getUserById, updateUser } from "../../../../service/UserApi";
+import Logo from "../../../../assets/LogoNonBackground.png";
+import "../../../Core/logo.css";
 
 function PersonalInfo() {
   const [user, setUser] = useState(null);
@@ -28,6 +30,7 @@ function PersonalInfo() {
   });
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -76,7 +79,6 @@ function PersonalInfo() {
         const decryptUser = encryptData(response.data);
         localStorage.setItem('user', decryptUser);
         setUser(response.data);
-        
 
         const updatedUser = {
           ...user,
@@ -92,11 +94,18 @@ function PersonalInfo() {
     }
   };
 
-  if (!user) {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false); 
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
     return (
-      <Typography variant="h6" align="center" color="textSecondary">
-        Kullanıcı bilgileri yükleniyor...
-      </Typography>
+      <div className="logo-container">
+        <img src={Logo} alt="Logo" className="logo" />
+      </div>
     );
   }
 
