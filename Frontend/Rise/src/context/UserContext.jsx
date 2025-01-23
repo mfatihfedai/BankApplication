@@ -17,22 +17,22 @@ export const UserContextProvider = ({ children }) => {
   };
 
   // "user" bilgisini al ve dekirpt ederek user'a tanımla
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(decryptData(storedUser));
-    }
-  }, []);
+  // useEffect(() => {
+  //   const storedUser = localStorage.getItem("user");
+  //   if (storedUser) {
+  //     setUser(decryptData(storedUser));
+  //   }
+  // }, []);
 
-  // Kullanıcı bilgisi değiştiğinde localStorage'a kaydet ve veriyi kriptola
-  useEffect(() => {
-    if (user) {
-      const encryptUser = encryptData(user);
-      localStorage.setItem("user", encryptUser);
-    } else {
-      localStorage.removeItem("user");
-    }
-  }, [user]);
+  // // Kullanıcı bilgisi değiştiğinde localStorage'a kaydet ve veriyi kriptola
+  // useEffect(() => {
+  //   if (user) {
+  //     const encryptUser = encryptData(user);
+  //     localStorage.setItem("user", encryptUser);
+  //   } else {
+  //     localStorage.removeItem("user");
+  //   }
+  // }, [user]);
 
   const values = {
     user,
