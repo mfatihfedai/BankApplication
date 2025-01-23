@@ -4,24 +4,37 @@ import "./transfer.style.css";
 import Receiver from "./Receiver";
 import { getUserById } from "../../../../service/UserApi";
 import { useAdminMenu } from "../../../../context/AdminMenuContext";
+import Logo from "../../../../assets/LogoNonBackground.png";
 
 function Transfer() {
   const { user, newUser } = useUser();
   const [balance, setBalance] = useState(user.balance);
+  const [loading, setLoading] = useState(true);
 
   const fetchData = async (id) => {
+    setLoading(true);
     try {
       const response = await getUserById(user.id);
       setBalance(response.data.balance);
       newUser(response.data);
     } catch (error) {
       console.error("Error fetching logs:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="logo-container">
+        <img src={Logo} alt="Logo" className="logo" />
+      </div>
+    );
+  }
 
   return (
     <div className="transfer">

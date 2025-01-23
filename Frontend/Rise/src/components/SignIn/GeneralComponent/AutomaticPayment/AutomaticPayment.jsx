@@ -3,6 +3,7 @@ import { getAllAutobill, updateInvoice } from '../../../../service/AutoPaymentAp
 import { DataGrid } from '@mui/x-data-grid';
 import { Button, } from '@mui/material';
 import InvoiceDetailsModal from './InvoiceDetailsModal';
+import Logo from "../../../../assets/LogoNonBackground.png";
 
 function AutomaticPayment() {
   const [datas, setDatas] = useState([]);
@@ -73,13 +74,20 @@ function AutomaticPayment() {
     },
   ];
 
+  if (loading) {
+    return (
+      <div className="logo-container">
+        <img src={Logo} alt="Logo" className="logo" />
+      </div>
+    );
+  }
+
   return (
     <div style={{ height: '31rem', width: '95%', padding: '20px' }}>
       <h1>OTOMATİK ÖDEME TALİMATLARIM</h1>
       <DataGrid
         rows={datas}
         columns={columns.map((col) => ({ ...col, flex: 1 }))}
-        loading={loading}
         disableColumnMenu
         sx={{
           height: '100%',

@@ -14,7 +14,7 @@ function Receipt() {
   const [logs, setLogs] = useState([]);
   const [page, setPage] = useState(0);
   const [rowCount, setRowCount] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [selectedDetails, setSelectedDetails] = useState(null);
 
   const formatPayDate = (dateString) => {
@@ -26,7 +26,7 @@ function Receipt() {
   };
 
   const fetchLogs = async (currentPage) => {
-    setLoading(false);
+    setLoading(true);
     try {
       const response = await getReceipts(currentPage);
       const { items, totalElements } = response.data;
@@ -68,7 +68,7 @@ function Receipt() {
     } catch (error) {
       console.error("Error fetching logs:", error);
     } finally {
-      setLoading(true);
+      setLoading(false);
     }
   };
 
