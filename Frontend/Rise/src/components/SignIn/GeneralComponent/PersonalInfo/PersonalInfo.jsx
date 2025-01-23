@@ -17,9 +17,11 @@ import { decryptData, encryptData } from "../../../Core/CryptoJS";
 import { getUserById, updateUser } from "../../../../service/UserApi";
 import Logo from "../../../../assets/LogoNonBackground.png";
 import "../../../Core/logo.css";
+import { useUser } from "../../../../context/UserContext";
 
 function PersonalInfo() {
-  const [user, setUser] = useState(null);
+  const { user,newUser } = useUser();
+
   const [modalOpen, setModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     id: "",
@@ -30,23 +32,15 @@ function PersonalInfo() {
   });
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsLoading(true);
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      const decryptedUser = decryptData(storedUser);
-      setUser(decryptedUser);
-      setFormData({
-        id: decryptedUser.id,
-        name: decryptedUser.name,
-        surname: decryptedUser.surname,
-        email: decryptedUser.email,
-        password: "",
-      });
-    }
-    setIsLoading(false);
+    setFormData({
+      id: user.id,
+      name: user.name,
+      surname: user.surname,
+      email: user.email,
+      password: "",
+    });
   }, []);
 
   const handleInputChange = (e) => {
@@ -78,9 +72,7 @@ function PersonalInfo() {
         }, 2000);
         setSuccessMessage("Bilgiler başarıyla güncellendi.");
         const response = await getUserById(user.id);
-        const decryptUser = encryptData(response.data);
-        localStorage.setItem('user', decryptUser);
-        setUser(response.data);
+        newUser(response.data);
 
         const updatedUser = {
           ...user,
@@ -88,21 +80,12 @@ function PersonalInfo() {
           surname: formData.surname,
           email: formData.email,
         };
-        setUser(updatedUser);
-        localStorage.setItem("user", encryptData(updatedUser));
+        newUser(updatedUser);
       }
     } catch (error) {
       setErrorMessage("Bilgiler güncellenirken bir hata oluştu.");
     }
   };
-
-  if (isLoading) {
-    return (
-      <div className="logo-container">
-        <img src={Logo} alt="Logo" className="logo" />
-      </div>
-    );
-  }
 
   return (
     <Box
@@ -132,9 +115,7 @@ function PersonalInfo() {
               marginBottom: 3,
             }}
           >
-            <Avatar
-              sx={{ bgcolor: "#00333D", width: 80, height: 80, mb: 2 }}
-            >
+            <Avatar sx={{ bgcolor: "#00333D", width: 80, height: 80, mb: 2 }}>
               <AccountCircleIcon sx={{ fontSize: 50 }} />
             </Avatar>
             <Typography variant="h5" fontWeight="bold">
@@ -146,12 +127,12 @@ function PersonalInfo() {
           </Box>
           <Divider sx={{ mb: 3 }} />
 
-          <Grid 
-            container 
+          <Grid
+            container
             spacing={2}
             sx={{
-              gridTemplateColumns: 'repeat(2, 1fr)',
-              gridTemplateRows: 'repeat(5, 1fr)',
+              gridTemplateColumns: "repeat(2, 1fr)",
+              gridTemplateRows: "repeat(5, 1fr)",
             }}
           >
             <Grid item xs={6}>

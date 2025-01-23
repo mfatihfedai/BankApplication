@@ -66,7 +66,7 @@ export default function TransferModal({ open, handleClose, message, success }) {
     >
       <Fade in={open}>
         <Box sx={style}>
-        <img style={{maxHeight: "100px"}} src="../../../../../../public/LogoWithName.png" alt="" />
+        <img style={{maxHeight: "100px"}} src="../../../../../../src/assets/LogoWithName.png" alt="bank_image" />
           <div>
             {success ? (
               <CheckCircleIcon sx={iconStyle("green")} />

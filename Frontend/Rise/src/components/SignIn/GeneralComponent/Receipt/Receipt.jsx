@@ -9,8 +9,12 @@ import { getReceipts } from "../../../../service/ReceiptApi";
 import { decryptData } from "../../../Core/CryptoJS";
 import Logo from "../../../../assets/LogoNonBackground.png";
 import "../../../Core/logo.css";
+import { useUser } from "../../../../context/UserContext";
 
 function Receipt() {
+
+  const { user } = useUser();
+
   const [logs, setLogs] = useState([]);
   const [page, setPage] = useState(0);
   const [rowCount, setRowCount] = useState(0);
@@ -81,13 +85,6 @@ function Receipt() {
   };
 
   const handleReceiptDownload = (log) => {
-    const storedUser = localStorage.getItem("user");
-    const user = decryptData(storedUser);
-    if (!user) {
-      console.error("User not found in localStorage");
-      return;
-    }
-
     const data = {
       subeCode: "0285/MERKEZ/OSMANİYE ŞUBESİ",
       processBank: "PRISMA BANK",
