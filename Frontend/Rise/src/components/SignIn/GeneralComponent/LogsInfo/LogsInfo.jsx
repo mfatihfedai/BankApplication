@@ -3,13 +3,14 @@ import { getLogs } from '../../../../service/LogApi';
 import { format } from "date-fns";
 import { tr } from "date-fns/locale";
 import './LogsInfo.css';
+import Logo from "../../../../assets/LogoNonBackground.png";
 
 function LogsInfo() {
   const [logs, setLogs] = useState([]);
   const [page, setPage] = useState(0);
   const [hasNext, setHasNext] = useState(false);
   const [hasPrevious, setHasPrevious] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const fetchLogs = async (currentPage) => {
     try {
@@ -34,6 +35,14 @@ function LogsInfo() {
     const date = new Date(dateTime);
     return format(date, "d MMMM yyyy HH:mm", { locale: tr });
   };
+
+    if (loading) {
+      return (
+        <div className="logo-container">
+          <img src={Logo} alt="Logo" className="logo" />
+        </div>
+      );
+    }
 
   return (
     <div style={{ padding: '20px' }}>

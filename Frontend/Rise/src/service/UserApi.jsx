@@ -33,8 +33,18 @@ export const updateUser = async (id, data) => {
   }
 };
 
-export const getTransactionsByDate = async (userId, date) => {
+export const getAll = async (currentPage) => {
   try {
+    const response = await axios.get(`${apiUrl}/search/page=${currentPage}`);
+    return response;
+  } catch (error) {
+    console.error(error.message);
+    throw error;
+  }
+}
+
+export const getTransactionsByDate = async (userId, date) => {
+    try {
     const response = await axios.get(`${API_URL}/transactions/${userId}`, {
       params: { date: date }
     });
@@ -43,3 +53,4 @@ export const getTransactionsByDate = async (userId, date) => {
     console.error("Error fetching transactions by date:", error);
     throw error;
   }
+}

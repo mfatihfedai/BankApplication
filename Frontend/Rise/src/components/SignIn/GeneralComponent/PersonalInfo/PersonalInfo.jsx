@@ -33,6 +33,7 @@ function PersonalInfo() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       const decryptedUser = decryptData(storedUser);
@@ -45,6 +46,7 @@ function PersonalInfo() {
         password: "",
       });
     }
+    setIsLoading(false);
   }, []);
 
   const handleInputChange = (e) => {
@@ -93,13 +95,6 @@ function PersonalInfo() {
       setErrorMessage("Bilgiler güncellenirken bir hata oluştu.");
     }
   };
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false); 
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, []);
 
   if (isLoading) {
     return (
