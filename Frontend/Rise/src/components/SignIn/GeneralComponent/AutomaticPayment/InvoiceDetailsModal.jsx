@@ -13,28 +13,27 @@ import {
   Tooltip,
 } from '@mui/material';
 import { Bar, BarChart, CartesianGrid, Legend, XAxis, YAxis } from 'recharts';
-import { getLastFourInvoice } from '../../../../service/AutoPaymentApi';
+import { getLastFourInvoice, updateAutobill } from '../../../../service/InvoiceApi';
 
-function InvoiceDetailsModal({ open, onClose, invoice, onSave }) {
+function InvoiceDetailsModal({ open, onClose, invoice }) {
   const [localAutobill, setLocalAutobill] = useState(invoice.autobill);
   const [confirmationOpen, setConfirmationOpen] = useState(false);
   const [saveConfirmationOpen, setSaveConfirmationOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [datas, setDatas] = useState([])
+  const [datas, setDatas] = useState([]);
+  const [modalTitle, setModalTitle] = useState();
+  const [modalInfo, setModalInfo] = useState();
 
   const fetchData = async () => {
     setLoading(true);
     try {
-      console.log(invoice.invoiceNo)
       const response = await getLastFourInvoice(invoice.invoiceNo);
-      console.log(response);
       const formattedDatas = response.data.map((item) => ({
         id: item.id,
         month: new Date(item.payDate).toLocaleString('tr-TR', { dateStyle: 'medium' }),
         ödeme: item.invoiceAmount,
       }));
       setDatas(formattedDatas);
-      console.log(datas);
     } catch (error) {
       console.error(error.message);
     } finally {
@@ -60,16 +59,20 @@ function InvoiceDetailsModal({ open, onClose, invoice, onSave }) {
     setConfirmationOpen(false);
   };
 
-  const handleSave = () => {
-    const datas = {
-      id: invoice.id,
-      invoiceNo: invoice.invoiceNo,
-      invoiceType: invoice.invoiceType,
-      invoiceAmount: invoice.invoiceAmount,
-      autobill: localAutobill
+  const handleSave = async () => {
+    try {
+      const response = await updateAutobill(invoice.id, localAutobill);
+      if(response.status === 200) {
+        setModalTitle("Başarılı");
+        setModalInfo("Ödeme başarılı bir şekilde kaydedildi.");
+        setSaveConfirmationOpen(true);
+      }
+    } catch(error) {
+      console.error('Error updating autobill:', error);
+      setModalTitle("Hata");
+      setModalInfo("Bir hata oluştu. Lütfen yeniden deneyiniz.");
+      setSaveConfirmationOpen(true);
     }
-    onSave(invoice.id, datas);
-    setSaveConfirmationOpen(true);
   };
 
   return (
@@ -138,13 +141,13 @@ function InvoiceDetailsModal({ open, onClose, invoice, onSave }) {
           </DialogActions>
         </Dialog>
 
-        <Dialog open={saveConfirmationOpen} onClose={() => { setSaveConfirmationOpen(false), onClose }}>
-          <DialogTitle>Başarılı</DialogTitle>
+        <Dialog open={saveConfirmationOpen} onClose={() => { setSaveConfirmationOpen(false), onClose() }}>
+          <DialogTitle>{modalTitle}</DialogTitle>
           <DialogContent>
-            <DialogContentText>Otomatik ödeme talimatınız iptal edildi.</DialogContentText>
+            <DialogContentText>{modalInfo}</DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => { setSaveConfirmationOpen(false), onClose }}>Tamam</Button>
+            <Button onClick={() => { setSaveConfirmationOpen(false), onClose() }}>Tamam</Button>
           </DialogActions>
         </Dialog>
       </Box>
