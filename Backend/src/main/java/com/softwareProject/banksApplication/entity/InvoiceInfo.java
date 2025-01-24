@@ -36,7 +36,7 @@ public class InvoiceInfo {
     @Column(name = "autobill")
     private boolean autobill;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "invoice_receipt_id", referencedColumnName = "receipt_id")
     @JsonIgnore
     private ReceiptInfo receiptInfo;
@@ -46,5 +46,16 @@ public class InvoiceInfo {
         Elektrik,
         Su,
         Telefon
+    }
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "id=" + id +
+                ", invoiceNo='" + invoiceNo + '\'' +
+                ", invoiceType='" + invoiceType + '\'' +
+                ", invoiceAmount='" + invoiceAmount + '\'' +
+                ", payDate=" + payDate + '\'' +
+                ", autobill=" + autobill +
+                '}';
     }
 }

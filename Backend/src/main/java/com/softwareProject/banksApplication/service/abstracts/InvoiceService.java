@@ -11,4 +11,5 @@ public interface InvoiceService extends IBaseService<InvoiceInfo, InvoiceSaveReq
     InvoiceResponse create(InvoiceSaveRequest saveRequest, Long id);
     List<InvoiceInfo> getByAutobillList(Long userId);
     List<InvoiceInfo> getLastFourInvoiceAmount(Long invoiceNo, Long id);
+    InvoiceResponse update(Long id, boolean autobill);
 }

@@ -1,5 +1,6 @@
 package com.softwareProject.banksApplication.service.concretes;
 
+import com.softwareProject.banksApplication.core.exception.NotFoundException;
 import com.softwareProject.banksApplication.core.exception.NotValidException;
 import com.softwareProject.banksApplication.core.mapper.InvoiceMapper;
 import com.softwareProject.banksApplication.dto.request.invoice.InvoiceSaveRequest;
@@ -17,7 +18,6 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class InvoiceManager extends BaseManager<InvoiceInfo, InvoiceRepo, InvoiceSaveRequest, InvoiceUpdateRequest, InvoiceResponse, InvoiceMapper> implements InvoiceService {
@@ -41,6 +41,15 @@ public class InvoiceManager extends BaseManager<InvoiceInfo, InvoiceRepo, Invoic
         reduceBalance(invoiceInfo);
         this.repository.save(invoiceInfo);
         return mapper.entityToResponse(invoiceInfo);
+    }
+
+    @Transactional
+    public InvoiceResponse update(Long id, boolean autobill) {
+        InvoiceInfo oldInvoice = repository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Invoice not found"));
+        oldInvoice.setAutobill(autobill);
+        repository.save(oldInvoice);
+        return mapper.entityToResponse(oldInvoice);
     }
 
     private boolean checkBalance(InvoiceInfo invoiceInfo) {
