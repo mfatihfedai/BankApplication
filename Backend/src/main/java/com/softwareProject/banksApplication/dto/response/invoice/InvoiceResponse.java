@@ -20,5 +20,4 @@ public class InvoiceResponse {
     private BigDecimal invoiceAmount;
     private LocalDateTime payDate;
     private boolean autobill;
-    private ReceiptInfo receiptInfo;
 }

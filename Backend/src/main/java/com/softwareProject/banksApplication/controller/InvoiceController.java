@@ -54,6 +54,13 @@ public class InvoiceController {
     }
 
     @PreAuthorize("#id == authentication.principal.id or hasRole('ADMIN')")
+    @PutMapping("/autobill/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<InvoiceResponse> updateAutobill(@RequestParam boolean autobill, @PathVariable Long id) {
+        return ResponseEntity.ok(this.invoiceService.update(id, autobill));
+    }
+
+    @PreAuthorize("#id == authentication.principal.id or hasRole('ADMIN')")
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<InvoiceInfo> get(@PathVariable("id") Long id) {
