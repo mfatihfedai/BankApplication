@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getAllAutobill, updateInvoice } from '../../../../service/AutoPaymentApi';
+import { getAllAutobill } from '../../../../service/InvoiceApi';
 import { DataGrid } from '@mui/x-data-grid';
 import { Button, } from '@mui/material';
 import InvoiceDetailsModal from './InvoiceDetailsModal';
@@ -34,18 +34,6 @@ function AutomaticPayment() {
   useEffect(() => {
     fetchData();
   }, []);
-
-  const handleSave = async (invoiceId, datas) => {
-    try {
-      console.log(invoiceId);
-      console.log(datas);
-      const response = await updateInvoice(invoiceId, datas);
-      console.log(response);
-      fetchData();
-    } catch (error) {
-      console.error('Error updating autobill:', error);
-    }
-  };
 
   const handleSetInvoice = (invoice) => {
     setSelectedInvoice(invoice);
@@ -127,9 +115,8 @@ function AutomaticPayment() {
       {modalOpen && (
         <InvoiceDetailsModal
           open={modalOpen}
-          onClose={() => setModalOpen(false)}
+          onClose={() => {setModalOpen(false), fetchData()}}
           invoice={selectedInvoice}
-          onSave={handleSave}
         />
       )}
     </div>

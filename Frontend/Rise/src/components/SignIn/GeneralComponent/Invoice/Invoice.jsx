@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import {
@@ -11,18 +11,54 @@ import {
   Switch,
   FormControlLabel,
   Modal,
-  Button,
+  Fade,
 } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SendIcon from "@mui/icons-material/Send";
+import Backdrop from "@mui/material/Backdrop";
+import CancelIcon from "@mui/icons-material/Cancel";
 import { createInvoice } from "../../../../service/InvoiceApi";
+import { GridCheckCircleIcon } from "@mui/x-data-grid";
+import { useAdminMenu } from "../../../../context/AdminMenuContext";
+import './invoice.css'
 
 function Invoice() {
   const [loading, setLoading] = useState(false);
-  const [successModalOpen, setSuccessModalOpen] = useState(false);
-  const [errorModalOpen, setErrorModalOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [countdown, setCountdown] = useState(3); 
+  const { setComponentName } = useAdminMenu();
+  const [modalInfo, setModalInfo] = useState();
+  const [success, setSuccess] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
+  const iconStyle = (color) => ({
+    fontSize: 60,
+    color: color,
+    animation: "pop-in 1s ease",
+  });
+
+  const handleClose = () => {
+    setShowModal(false); // Modal'ı kapat
+  };
+  
+  useEffect(() => {
+    let timer;
+    if (showModal && success) {
+      // Geri sayım başlat
+      timer = setInterval(() => {
+        setCountdown((prev) => {
+          if (prev > 1) return prev - 1;
+          clearInterval(timer); 
+          setComponentName("Home"); 
+          return 0;
+        });
+      }, 1000); 
+    }
+
+    return () => {
+      clearInterval(timer); 
+    };
+  }, [showModal, success, setComponentName]);
+  
   const validationSchema = Yup.object({
     invoiceNo: Yup.number()
       .required("Fatura numarası zorunludur")
@@ -56,12 +92,13 @@ function Invoice() {
 
         const response = await createInvoice(data);
         if (response.status === 200) {
-          setSuccessModalOpen(true); 
+          setShowModal(true);
+          setSuccess(true);
         }
       } catch (error) {
         console.error("Fatura ödeme hatası:", error.message);
-        setErrorMessage("Fatura ödemesi yapılamadı. Lütfen tekrar deneyiniz.");
-        setErrorModalOpen(true);
+        setShowModal(true);
+        setModalInfo("Fatura ödemesi yapılamadı. Lütfen tekrar deneyiniz.");
       } finally {
         setLoading(false);
       }
@@ -70,79 +107,53 @@ function Invoice() {
 
   return (
     <div>
-      {/* Başarılı Modal */}
       <Modal
-        open={successModalOpen}
-        onClose={() => setSuccessModalOpen(false)}
-        aria-labelledby="success-modal-title"
-        aria-describedby="success-modal-description"
-      >
-        <Box
-          sx={{
+      aria-labelledby="transition-modal-title"
+      aria-describedby="transition-modal-description"
+      open={showModal}
+      onClose={!success && handleClose}
+      closeAfterTransition
+      slots={{ backdrop: Backdrop }}
+      slotProps={{
+        backdrop: {
+          timeout: 500,
+        },
+      }}
+    >
+      <Fade in={showModal}>
+        <Box sx={{
             position: "absolute",
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
             width: 400,
-            bgcolor: "white",
+            bgcolor: "background.paper",
             boxShadow: 24,
             p: 4,
-            borderRadius: 2,
-            textAlign: "center",
-          }}
-        >
-          <Typography id="success-modal-title" variant="h6" fontWeight="bold">
-            Fatura Başarıyla Ödendi!
+            textAlign: "center", 
+        }}>
+        <img style={{maxHeight: "100px"}} src="../../../../../../src/assets/LogoWithName.png" alt="bank_image" />
+          <div>
+            {success ? (
+              <GridCheckCircleIcon sx={iconStyle("green")} />
+            ) : (
+              <CancelIcon sx={iconStyle("red")} />
+            )}
+          </div>
+          <Typography id="transition-modal-title" variant="h6" component="h2">
+            Fatura Ödeme {success ? "Başarılı" : "Başarısız"}
           </Typography>
-          <Button
-            sx={{ mt: 2, backgroundColor: "#00333D" }}
-            variant="contained"
-            onClick={() => {
-              setSuccessModalOpen(false);
-              formik.resetForm();
-            }}
-          >
-            Kapat
-          </Button>
+          <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+            {modalInfo}
+          </Typography>
+          {success && (
+            <Typography id="transition-modal-countdown" sx={{ mt: 2 }}>
+              {countdown} saniye içinde anasayfaya yönlendiriliyorsunuz...
+            </Typography>
+          )}
         </Box>
-      </Modal>
-
-      {/* Hata Modal */}
-      <Modal
-        open={errorModalOpen}
-        onClose={() => setErrorModalOpen(false)}
-        aria-labelledby="error-modal-title"
-        aria-describedby="error-modal-description"
-      >
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 400,
-            bgcolor: "white",
-            boxShadow: 24,
-            p: 4,
-            borderRadius: 2,
-            textAlign: "center",
-          }}
-        >
-          <Typography id="error-modal-title" variant="h6" color="error" fontWeight="bold">
-            Hata
-          </Typography>
-          <Typography id="error-modal-description" sx={{ mt: 2 }}>
-            {errorMessage}
-          </Typography>
-          <Button
-            sx={{ mt: 2, backgroundColor: "#ff1744" }}
-            variant="contained"
-            onClick={() => setErrorModalOpen(false)}
-          >
-            Kapat
-          </Button>
-        </Box>
-      </Modal>
+      </Fade>
+    </Modal>
 
       {/* Fatura Formu */}
       <form onSubmit={formik.handleSubmit}>
