@@ -3,10 +3,6 @@ const API_URL = `${import.meta.env.VITE_BASE_URL}${import.meta.env.VITE_DEV}${
   import.meta.env.VITE_VERSION
 }`;
 
-
-// const mytoken = localStorage.getItem("token")
-
-
 export const getBanks = async () => {
   try {
     const response = await axios.get(`${API_URL}/banks`);
