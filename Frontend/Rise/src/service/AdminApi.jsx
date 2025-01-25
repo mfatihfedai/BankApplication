@@ -3,13 +3,13 @@ const API_URL = `${import.meta.env.VITE_BASE_URL}${import.meta.env.VITE_DEV}${im
 
 const apiUrl = `${API_URL}/admin`;
 
-export const getUsersLogs = async(keyword, page, pageSize) => {
+export const getUsersLogs = async(keyword, page) => {
     try {
         const response = await axios.get(`${apiUrl}/logChartResponse`, {
             params: {
                 keyword: keyword,
                 page: page,
-                pageSize: pageSize,
+                pageSize: 10,
             }
         });
         return response.data;

@@ -23,10 +23,10 @@ function UserActivities() {
   };
 
   // Verileri API'den çekme
-  const fetchDatas = async (keyword, page, pageSize) => {
+  const fetchDatas = async (keyword, page) => {
     setLoading(true);
     try {
-      const response = await getUsersLogs(keyword, page, pageSize);
+      const response = await getUsersLogs(keyword, page);
       console.log(response);
 
       // Tablo verilerini güncelle
@@ -118,8 +118,8 @@ function UserActivities() {
 
   // Sayfa değiştiğinde verileri yeniden çek
   useEffect(() => {
-    fetchDatas(keyword, page, pageSize);
-  }, [page, pageSize]);
+    fetchDatas(keyword, page);
+  }, [page]);
 
   if (loading) {
     return (
@@ -131,78 +131,80 @@ function UserActivities() {
 
   return (
     <>
-      <h1 style={{ marginTop: "1rem" }}>KULLANICI HAREKETLERİ</h1>
+      <h1 style={{ marginTop: "20px" }}>KULLANICI HAREKETLERİ</h1>
       {/* Switch Butonu */}
-      <div className="switch-container">
-        {/* Sol Taraftaki Yazı */}
-        <span
-          style={{
-            color: showTable ? "#E1722F" : "#00333D", // showTable true ise turuncu, değilse varsayılan renk
-            fontWeight: "800", // showTable true ise kalın, değilse normal
-          }}
-        >
-          Giriş Kayıtları Tablosu
-        </span>
+      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", width:"90%", margin:"auto" }}>
+        <div className="switch-container">
+          {/* Sol Taraftaki Yazı */}
+          <span
+            style={{
+              color: showTable ? "#E1722F" : "#00333D", // showTable true ise turuncu, değilse varsayılan renk
+              fontWeight: "800", // showTable true ise kalın, değilse normal
+            }}
+          >
+            Giriş Kayıtları Tablosu
+          </span>
 
-        {/* Switch Butonu */}
-        <label className="switch">
-          <input
-            type="checkbox"
-            checked={!showTable}
-            onChange={() => setShowTable(!showTable)}
+          {/* Switch Butonu */}
+          <label className="switch">
+            <input
+              type="checkbox"
+              checked={!showTable}
+              onChange={() => setShowTable(!showTable)}
+            />
+            <span className="slider round"></span>
+          </label>
+
+          {/* Sağ Taraftaki Yazı */}
+          <span
+            style={{
+              color: !showTable ? "#E1722F" : "#00333D", // showTable false ise turuncu, değilse varsayılan renk
+              fontWeight: "800", // showTable false ise kalın, değilse normal
+            }}
+          >
+            Giriş Kayıtları Grafiği
+          </span>
+        </div>
+
+        {/* Arama Çubuğu */}
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              margin:"auto",
+              justifyContent: "right",
+              gap: "10px",
+              marginRight:"1rem",
+            }}
+          >        
+          <TextField
+            variant="outlined"
+            placeholder="Kullanıcı Ara..."
+            value={keyword}
+            onChange={(e) => setKeyword(e.target.value)} // Input değeri değiştiğinde state'i güncelle
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                borderRadius: "8px",
+              },
+            }}
           />
-          <span className="slider round"></span>
-        </label>
 
-        {/* Sağ Taraftaki Yazı */}
-        <span
-          style={{
-            color: !showTable ? "#E1722F" : "#00333D", // showTable false ise turuncu, değilse varsayılan renk
-            fontWeight: "800", // showTable false ise kalın, değilse normal
-          }}
-        >
-          Giriş Kayıtları Grafiği
-        </span>
-      </div>
-
-      {/* Arama Çubuğu */}
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          margin:"auto",
-          justifyContent: "left",
-          gap: "10px",
-          width:"90%",
-        }}
-      >
-        <TextField
-          variant="outlined"
-          placeholder="Kullanıcı Ara..."
-          value={keyword}
-          onChange={(e) => setKeyword(e.target.value)} // Input değeri değiştiğinde state'i güncelle
-          sx={{
-            "& .MuiOutlinedInput-root": {
+          <Button
+            variant="contained"
+            onClick={() => fetchDatas(keyword, page, pageSize)} // Butona tıklandığında arama yap
+            sx={{
+              backgroundColor: "#00333D",
+              color: "#fff",
               borderRadius: "8px",
-            },
-            width:"20%",
-          }}
-        />
-        <Button
-          variant="contained"
-          onClick={() => fetchDatas(keyword, page, pageSize)} // Butona tıklandığında arama yap
-          sx={{
-            backgroundColor: "#00333D",
-            color: "#fff",
-            borderRadius: "8px",
-            padding: "10px 20px",
-            "&:hover": {
-              backgroundColor: "#E1722F",
-            },
-          }}
-        >
-          Ara
-        </Button>
+              padding: "10px 20px",
+              "&:hover": {
+                backgroundColor: "#E1722F",
+              },
+            }}
+          >
+            Ara
+          </Button>
+        </Box>
       </Box>
 
       <div className="content-container">
@@ -221,6 +223,9 @@ function UserActivities() {
                   Hesap Numarası
                 </th>
                 <th style={{ border: "1px solid #ddd", padding: "8px" }}>
+                  TC Kimlik Numarası
+                </th>
+                <th style={{ border: "1px solid #ddd", padding: "8px" }}>
                   Giriş Tarihi
                 </th>
                 <th style={{ border: "1px solid #ddd", padding: "8px" }}>
@@ -236,6 +241,9 @@ function UserActivities() {
                   </td>
                   <td style={{ border: "1px solid #ddd", padding: "8px" }}>
                     {log.userInfo.accountNumber}
+                  </td>
+                  <td style={{ border: "1px solid #ddd", padding: "8px" }}>
+                    {log.userInfo.identityNumber}
                   </td>
                   <td style={{ border: "1px solid #ddd", padding: "8px" }}>
                     {formatDateTime(log.loginTime)}
