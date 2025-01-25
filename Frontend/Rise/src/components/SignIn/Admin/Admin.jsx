@@ -13,6 +13,7 @@ import Transfer from "../GeneralComponent/Transfer/Transfer";
 import LogsInfo from "../GeneralComponent/LogsInfo/LogsInfo";
 import UserList from "../AdminComponent/UserList/UserList";
 import UserActivities from "../AdminComponent/UserActivities/UserActivities";
+import Banks from "../AdminComponent/Banks/Banks";
 
 
 
@@ -29,6 +30,7 @@ function Admin() {
         <div className="component-item">
           {componentName == "Home" && <Home />}
           {componentName == "UserList" && <UserList />}
+          {componentName == "Banks" && <Banks />}
           {componentName == "UserActivities" && <UserActivities />}
           {componentName == "Invoice" && <Invoice />}
           {componentName == "AutomaticPayment" && <AutomaticPayment />}

@@ -36,6 +36,8 @@ function Receiver() {
         setTransferMessage("Lütfen hesap numarasını doğru girdiğinizden emin olun.")
       }if(err.response?.data?.data == "There is no balance"){
         setTransferMessage("Yetersiz bakiye")
+      }if(err.response?.data?.data == "Can not send transfer your own account number"){
+        setTransferMessage("Kendi hesap numaranıza havale yapamazsınız.")
       }
     }
   }
