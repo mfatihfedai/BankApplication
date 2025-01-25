@@ -25,5 +25,12 @@ public interface UserRepo extends JpaRepository<UserInfo, Long> {
             "CAST(u.identityNumber AS string) LIKE CONCAT('%', :keyword, '%') OR " +
             "CAST(u.accountNumber AS string) LIKE CONCAT('%', :keyword, '%')")
     Page<UserInfo> searchByKeyword(@Param("keyword") String keyword, Pageable pageable);
-//    List<UserInfo> findByNameContainingIgnoreCaseOrSurnameContainingIgnoreCaseOrEmailContainingIgnoreCaseOrIdentityNumberToStringContainingOrAccountNumberToStringContaining(String name, String surname, String email, String identityNumber, String accountNumber);
+
+    @Query("SELECT u FROM UserInfo u WHERE " +
+            "LOWER(u.name) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+            "LOWER(u.surname) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+            "LOWER(u.email) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+            "CAST(u.identityNumber AS string) LIKE CONCAT('%', :keyword, '%') OR " +
+            "CAST(u.accountNumber AS string) LIKE CONCAT('%', :keyword, '%')")
+    List<UserInfo> searchByKeyword(@Param("keyword") String keyword);
 }
