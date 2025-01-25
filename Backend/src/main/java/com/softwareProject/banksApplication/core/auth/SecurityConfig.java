@@ -48,6 +48,8 @@ public class SecurityConfig {
                     registry.requestMatchers(HttpMethod.GET, "/auth/**").permitAll();
                     registry.requestMatchers(HttpMethod.POST, "/auth/**").permitAll();
                     registry.requestMatchers("/auth/dashboard").hasRole("USER");
+                    // ADMIN
+                    registry.requestMatchers(HttpMethod.GET,"/dev/v1/admin/**").hasRole("ADMIN");
                     // BANKS
                     registry.requestMatchers(HttpMethod.GET,"/dev/v1/banks/**").hasAnyRole("ADMIN","USER");
                     registry.requestMatchers(HttpMethod.POST,"/dev/v1/banks/**").hasRole("ADMIN");
