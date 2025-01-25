@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -33,6 +34,9 @@ public class TransferManager extends BaseManager<TransferInfo, TransferRepo, Tra
         ReceiptInfo receiptInfo = user.getReceiptInfo();
         TransferInfo transferInfo = mapper.saveRequestToEntity(transferSaveRequest);
         transferInfo.setReceiptInfo(receiptInfo);
+        if(Objects.equals(user.getAccountNumber(), transferInfo.getReceiverAccountNo())) {
+            throw new NotValidException("Can not send transfer your own account number");
+        }
         if(checkAccountNumber(transferInfo.getReceiverAccountNo())){
             throw new NotValidException("There is no receiver account number");
         }
