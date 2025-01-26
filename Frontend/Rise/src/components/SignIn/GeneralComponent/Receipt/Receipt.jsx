@@ -6,7 +6,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import "./Receipt.css";
 import ReceiptGenerator from "./ReceiptGenerator";
 import { getReceipts } from "../../../../service/ReceiptApi";
-import { decryptData } from "../../../Core/CryptoJS";
 import Logo from "../../../../assets/LogoNonBackground.png";
 import "../../../Core/logo.css";
 import { useUser } from "../../../../context/UserContext";
@@ -16,7 +15,6 @@ function Receipt() {
   const { user } = useUser();
 
   const [logs, setLogs] = useState([]);
-  const [page, setPage] = useState(0);
   const [rowCount, setRowCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [selectedDetails, setSelectedDetails] = useState(null);
@@ -29,10 +27,10 @@ function Receipt() {
     });
   };
 
-  const fetchLogs = async (currentPage) => {
+  const fetchLogs = async () => {
     setLoading(true);
     try {
-      const response = await getReceipts(currentPage);
+      const response = await getReceipts();
       const { items, totalElements } = response.data;
       const formattedLogs = items.flatMap((item) => {
         const invoices = item.invoiceInfoList.map((invoice) => ({
@@ -64,8 +62,10 @@ function Receipt() {
           },
         }));
 
+        
         return [...invoices, ...transfers];
       });
+      formattedLogs.sort((a, b) => new Date(b.rawDate) - new Date(a.rawDate));
 
       setLogs(formattedLogs);
       setRowCount(totalElements);
@@ -77,8 +77,8 @@ function Receipt() {
   };
 
   useEffect(() => {
-    fetchLogs(page);
-  }, [page]);
+    fetchLogs();
+  }, []);
 
   const generateRandomRef = () => {
     return Math.floor(100000000000 + Math.random() * 900000000000).toString();
@@ -113,7 +113,7 @@ function Receipt() {
   };
 
   const columns = [
-    { field: "payDate", headerName: "İşlem Tarihi", sortable: true },
+    { field: "payDate", headerName: "İşlem Tarihi", sortable: false },
     { field: "channel", headerName: "Kanal", sortable: true },
     { field: "description", headerName: "Açıklama", sortable: false },
     {
@@ -202,7 +202,7 @@ function Receipt() {
         sortingOrder={["asc", "desc"]}
         initialState={{
           sorting: {
-            sortModel: [{ field: "payDate", sort: "desc" }],
+            sortModel: [{ field: {logs}, sort: "desc" }],
           },
         }}
         sx={{

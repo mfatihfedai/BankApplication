@@ -4,9 +4,9 @@ const API_URL = `${import.meta.env.VITE_BASE_URL}${import.meta.env.VITE_DEV}${
 }`;
 
 
-export const getReceipts = async (currentPage) => {
+export const getReceipts = async () => {
     try {
-        const response = await axios.get(`${API_URL}/receipt/get?page=${currentPage}&pageSize=10`);
+        const response = await axios.get(`${API_URL}/receipt/get`);
         return response;
     } catch(error){
         console.error("No receipt found ", error.message);
@@ -14,9 +14,9 @@ export const getReceipts = async (currentPage) => {
     }
 }
 
-export const getAllReceipts = async (currentPage) => {
+export const getAllReceipts = async () => {
     try {
-        const response = await axios.get(`${API_URL}/receipt/getAll?page=${currentPage}&pageSize=10`);
+        const response = await axios.get(`${API_URL}/receipt/getAll`);
         return response;
     } catch(error){
         console.error("No receipt found ", error.message);

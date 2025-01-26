@@ -21,7 +21,7 @@ function App() {
       <BankContextProvider>
         <UserContextProvider>
           <AdminContextProvider>
-              <div style={{ marginLeft: "3rem" }}>
+              <div>
                 <a href="/" style={{ textDecoration: "none" }}>
                   <Logo />
                 </a>

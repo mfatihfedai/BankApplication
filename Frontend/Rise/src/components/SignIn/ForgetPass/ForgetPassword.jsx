@@ -71,7 +71,6 @@ const ForgetPassword = () => {
             fontWeight="bold"
             gutterBottom
           >
-            <Logo />
             <br />
             Şifrenizi mi unuttunuz?
           </Typography>

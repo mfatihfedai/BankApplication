@@ -118,7 +118,6 @@ function InvoiceDetailsModal({ open, onClose, invoice }) {
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="month" />
             <YAxis />
-            <Tooltip />
             <Legend />
             <Bar dataKey="ödeme" fill="#00333D" />
           </BarChart>
