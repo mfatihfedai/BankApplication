@@ -1,18 +1,22 @@
 import React from "react";
+import Logos from "../../../assets/LogoNonBackground.png";
 
 function Logo() {
   return (
-    <div>
+    <div style={{}}>
       <h1
         style={{
-          // marginLeft: "3rem",
+          display:"flex", 
+          alignItems:"center", 
+          gap:"5px", 
+          justifyContent:"center",
           color: "var(--color-black)",
           letterSpacing: "5px",
-          padding: "10px , 5px",
+          fontSize:"30px",
+          marginBottom:"0px",
         }}
       >
-        PRISM
-        <span style={{ color: "var(--color-black)", fontSize: "40px" }}>a</span>
+        <img src={Logos} alt="Logo" className="logos" />PRISMA
       </h1>
     </div>
   );

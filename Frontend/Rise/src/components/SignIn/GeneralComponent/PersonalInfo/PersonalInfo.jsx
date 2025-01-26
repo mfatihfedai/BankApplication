@@ -18,10 +18,10 @@ import { getUserById, updateUser } from "../../../../service/UserApi";
 import Logo from "../../../../assets/LogoNonBackground.png";
 import "../../../Core/logo.css";
 import { useUser } from "../../../../context/UserContext";
+import { useAdminMenu } from "../../../../context/AdminMenuContext";
 
 function PersonalInfo() {
   const { user,newUser } = useUser();
-
   const [modalOpen, setModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     id: "",
@@ -32,6 +32,7 @@ function PersonalInfo() {
   });
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const { componentName} = useAdminMenu();
 
   useEffect(() => {
     setFormData({
@@ -90,7 +91,7 @@ function PersonalInfo() {
   return (
     <Box
       sx={{
-        display: "flex",
+        display: "flex",        // BURALARI COMPONENTNAME'E GÖRE DÜZELT
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
@@ -163,7 +164,10 @@ function PersonalInfo() {
               <Button
                 fullWidth
                 variant="contained"
-                sx={{ backgroundColor: "#00333D" }}
+                sx={{ 
+                  backgroundColor: "#00333D",
+                  display: componentName == "Home" ? "none" : "block",
+                 }}
                 onClick={() => setModalOpen(true)}
               >
                 Bilgileri Güncelle

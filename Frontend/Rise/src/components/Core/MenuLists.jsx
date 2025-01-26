@@ -29,7 +29,6 @@ export const adminList = [ // buraya ikon ve header eklediğimizde otomatik buto
       header: "Kullanıcı Hareketleri",
       startIcon: <RecentActorsIcon />,
       returnComponent : "UserActivities"
-
     },
     {
       header: "EFT / Havale",

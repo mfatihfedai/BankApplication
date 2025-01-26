@@ -29,7 +29,6 @@
   pointer-events: none;
 }
 .chart-container.hidden {
-   display: none; /* BU SATIR GRAFİĞİN SAĞA GİTMESİNİ ENGELLİYOR ANCAK EFEKTLERİ DE YOK EDİYOR. */
   opacity: 0;
   transform: translate(100%, -50%) scale(0.8);
   pointer-events: none;

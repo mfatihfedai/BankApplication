@@ -89,8 +89,7 @@ const Verify = () => {
             fontWeight="bold"
             gutterBottom
           >
-            <Logo />
-            <br />
+            <h1 style={{fontSize:"35px",color:"--color-orange", paddingTop:"1rem", textDecoration:"underline"}}>PRISMA BANK</h1>
             {`Sayın ${user?.name} ${user?.surname} `}
           </Typography>
           <Typography

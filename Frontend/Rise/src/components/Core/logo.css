@@ -11,6 +11,13 @@
     animation: rotate 2.8s linear infinite;
     transform-origin: center;
   }
+
+  .logos {
+    width: 75px; 
+    height: 75px;
+    animation: rotate 6.8s linear infinite;
+    transform-origin: center;
+  }
   
   @keyframes rotate {
     from {
