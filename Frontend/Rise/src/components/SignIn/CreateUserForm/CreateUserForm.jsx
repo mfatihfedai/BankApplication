@@ -12,7 +12,6 @@ import { registerFormSchemas } from "../../Schemas/RegisterFormSchemas";
 import "./createUserForm.style.css";
 import { createUser } from "../../../service/UserApi";
 import { useNavigate } from "react-router-dom";
-import Logo from "../../Home/Logo/Logo";
 import InfoModal from "./InfoModal";
 
 const CreateUserForm = () => {
@@ -22,7 +21,6 @@ const CreateUserForm = () => {
   const [isInfoChecked, setIsInfoChecked] = useState(false);
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-
 
   const handleModalResult = (type, result) => {
     if (type === "info") {
@@ -41,8 +39,8 @@ const CreateUserForm = () => {
     }
     try {
       const registerUser = {
-        name: values.registerName,
-        surname: values.registerSurname,
+        name: values.registerName.toLocaleUpperCase(),
+        surname: values.registerSurname.toLocaleUpperCase(),
         email: values.registerEmail,
         identityNumber: values.registerIdentityNo,
         password: values.registerPassword,
@@ -94,12 +92,21 @@ const CreateUserForm = () => {
         }}
       >
         <Typography
-          style={{ fontWeight: "bold" }}
           variant="h5"
           textAlign="center"
+          fontWeight="bold"
           gutterBottom
         >
-          <Logo />
+          <h1
+            style={{
+              fontSize: "35px",
+              color: "--color-orange",
+              paddingTop: "1rem",
+              textDecoration: "underline",
+            }}
+          >
+            PRISMA BANK
+          </h1>
           Hoş Geldiniz
         </Typography>
         <TextField
