@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { getLogs } from '../../../../service/LogApi';
+import React, { useEffect, useState } from "react";
+import { getLogs } from "../../../../service/LogApi";
 import { format } from "date-fns";
 import { tr } from "date-fns/locale";
-import './LogsInfo.css';
+import "./LogsInfo.css";
 import Logo from "../../../../assets/LogoNonBackground.png";
 
 function LogsInfo() {
@@ -16,12 +16,13 @@ function LogsInfo() {
     try {
       setLoading(true);
       const response = await getLogs(currentPage);
+      console.log(response);
       const { items, hasNext } = response.data;
       setLogs(items);
       setHasNext(hasNext);
       setHasPrevious(currentPage > 0);
     } catch (error) {
-      console.error('Error fetching logs:', error);
+      console.error("Error fetching logs:", error);
     } finally {
       setLoading(false);
     }
@@ -36,16 +37,16 @@ function LogsInfo() {
     return format(date, "d MMMM yyyy HH:mm", { locale: tr });
   };
 
-    if (loading) {
-      return (
-        <div className="logo-container">
-          <img src={Logo} alt="Logo" className="logo" />
-        </div>
-      );
-    }
+  if (loading) {
+    return (
+      <div className="logo-container">
+        <img src={Logo} alt="Logo" className="logo" />
+      </div>
+    );
+  }
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div style={{ padding: "20px" }}>
       <h1>GİRİŞ KAYITLARIM</h1>
       <table>
         <thead>
@@ -58,15 +59,20 @@ function LogsInfo() {
           {logs?.map((log) => (
             <tr key={log.id}>
               <td>{formatDateTime(log.loginTime)}</td>
-              <td>
-                {log.logoutTime ? formatDateTime(log.logoutTime) : '-'}
-              </td>
+              <td>{log.logoutTime ? formatDateTime(log.logoutTime) : "-"}</td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px', width:"95%" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginTop: "20px",
+          width: "95%",
+        }}
+      >
         <button
           onClick={() => setPage((prevPage) => Math.max(prevPage - 1, 0))}
           disabled={!hasPrevious}

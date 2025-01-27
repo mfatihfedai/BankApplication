@@ -133,7 +133,15 @@ function UserActivities() {
     <>
       <h1 style={{ marginTop: "20px" }}>KULLANICI HAREKETLERİ</h1>
       {/* Switch Butonu */}
-      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", width:"90%", margin:"auto" }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          width: "90%",
+          margin: "auto",
+        }}
+      >
         <div className="switch-container">
           {/* Sol Taraftaki Yazı */}
           <span
@@ -167,16 +175,16 @@ function UserActivities() {
         </div>
 
         {/* Arama Çubuğu */}
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              margin:"auto",
-              justifyContent: "right",
-              gap: "10px",
-              marginRight:"1rem",
-            }}
-          >        
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            margin: "auto",
+            justifyContent: "right",
+            gap: "10px",
+            marginRight: "1rem",
+          }}
+        >
           <TextField
             variant="outlined"
             placeholder="Kullanıcı Ara..."
@@ -209,9 +217,7 @@ function UserActivities() {
 
       <div className="content-container">
         {/* Sol Taraf: Tablo */}
-        <div
-          className={`table-container ${showTable ? "visible" : "hidden"}`}
-        >
+        <div className={`table-container ${showTable ? "visible" : "hidden"}`}>
           {/* Tablo */}
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
@@ -221,9 +227,6 @@ function UserActivities() {
                 </th>
                 <th style={{ border: "1px solid #ddd", padding: "8px" }}>
                   Hesap Numarası
-                </th>
-                <th style={{ border: "1px solid #ddd", padding: "8px" }}>
-                  TC Kimlik Numarası
                 </th>
                 <th style={{ border: "1px solid #ddd", padding: "8px" }}>
                   Giriş Tarihi
@@ -241,9 +244,6 @@ function UserActivities() {
                   </td>
                   <td style={{ border: "1px solid #ddd", padding: "8px" }}>
                     {log.userInfo.accountNumber}
-                  </td>
-                  <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-                    {log.userInfo.identityNumber}
                   </td>
                   <td style={{ border: "1px solid #ddd", padding: "8px" }}>
                     {formatDateTime(log.loginTime)}
@@ -281,9 +281,7 @@ function UserActivities() {
         </div>
 
         {/* Sağ Taraf: Grafik */}
-        <div
-          className={`chart-container ${!showTable ? "visible" : "hidden"}`}
-        >
+        <div className={`chart-container ${!showTable ? "visible" : "hidden"}`}>
           {chartData.series && (
             <ReactApexChart
               options={chartData.options}
