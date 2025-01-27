@@ -75,6 +75,9 @@ public class UserManager extends BaseManager<UserInfo, UserRepo, UserSaveRequest
         if (user == null) {
             throw new NotValidException("User not found.");
         }
+        user.setName(newUser.getName());
+        user.setSurname(newUser.getSurname());
+        user.setEmail(newUser.getEmail());
         user.setPassword(BCrypt.hashpw(newUser.getPassword(), BCrypt.gensalt()));
         this.repository.save(user);
         return mapper.entityToResponse(user);
