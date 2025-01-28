@@ -1,5 +1,6 @@
 package com.softwareProject.banksApplication.controller;
 
+import com.softwareProject.banksApplication.core.auth.CustomUserDetails;
 import com.softwareProject.banksApplication.dto.CursorResponse;
 import com.softwareProject.banksApplication.dto.request.user.UserSaveRequest;
 import com.softwareProject.banksApplication.dto.request.user.UserUpdateRequest;
@@ -11,10 +12,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Objects;
 
 import static com.softwareProject.banksApplication.core.Config.RestApis.USERSERVICE;
 
@@ -53,16 +56,17 @@ public class UserController {
         return this.service.cursor(page, pageSize);
     }
 
-    @PreAuthorize("#id == authentication.principal.id or hasRole('ADMIN')")
+    @PreAuthorize("#user.id == authentication.principal.id or hasRole('ADMIN')")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        if (this.service.delete(id)) {
-            return ResponseEntity.status(HttpStatus.FOUND).location(URI.create("/logout")).build();
+    public ResponseEntity<Void> delete(@PathVariable Long id, @AuthenticationPrincipal CustomUserDetails user) {
+        this.service.delete(id);
+
+        if (Objects.equals(id, user.getId())) {
+            return ResponseEntity.noContent().build();
         } else {
-            return ResponseEntity.status(HttpStatus.FOUND).location(URI.create("/error")).build();
+            return ResponseEntity.ok().build();
         }
     }
-
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/search")
     public CursorResponse<UserResponse> searchUsers(

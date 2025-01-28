@@ -34,14 +34,12 @@ export const updateUser = async (id, data) => {
     throw error;
   }
 };
-
-export const getAll = async (currentPage) => {
+export const deleteUser = async (id) => {
   try {
-    const response = await axios.get(`${apiUrl}/search/page=${currentPage}`);
-    console.log(response);
+    const response = await axios.delete(`${apiUrl}/${id}`);
     return response;
   } catch (error) {
-    console.error(error.message);
+    console.error("Do not delete the user: ", error.message);
     throw error;
   }
 };
@@ -57,21 +55,6 @@ export const getTransactionsByDate = async (userId, date) => {
     throw error;
   }
 };
-
-// export const getUserList = async (page) => {
-//   try {
-//     const response = await axios.get(`${apiUrl}`, {
-//       params: {
-//         page: page,
-//         pageSize: 10,
-//       },
-//     });
-//     return response.data;
-//   } catch (error) {
-//     console.error(error);
-//     throw error;
-//   }
-// };
 
 export const getSearchUsers = async (keyword, page) => {
   try {

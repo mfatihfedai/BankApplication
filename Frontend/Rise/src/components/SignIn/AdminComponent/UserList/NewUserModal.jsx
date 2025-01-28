@@ -1,26 +1,27 @@
 import React, { useState } from "react";
-import { TextField, Button, Box, Typography } from "@mui/material";
+import { TextField, Button, Box, Typography, Modal } from "@mui/material";
 import { useFormik } from "formik";
 import { createUser } from "../../../../service/UserApi";
-import { useNavigate } from "react-router-dom";
+import { Select, MenuItem, FormControl, InputLabel } from "@mui/material";
+import { registerFormSchemas } from "../../../Schemas/RegisterFormSchemas";
 
-const NewUserModal = () => {
-  const navigate = useNavigate();
+const NewUserModal = ({ open, onClose }) => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const submit = async (values) => {
     try {
-      const registerUser = {
-        name: values.registerName.toLocaleUpperCase(),
-        surname: values.registerSurname.toLocaleUpperCase(),
+      const newUser = {
+        name: values.registerName,
+        surname: values.registerSurname,
         email: values.registerEmail,
         identityNumber: values.registerIdentityNo,
         password: values.registerPassword,
         role: values.registerRole,
         balance: values.registerBalance,
       };
-
-      const response = await createUser(registerUser);
+      console.log(newUser);
+      const response = await createUser(newUser);
+      console.log(newUser);
 
       if (response.request.status === 200) {
         setShowSuccessModal(true);
@@ -30,7 +31,14 @@ const NewUserModal = () => {
     }
   };
 
-  const { values, errors, handleChange, handleSubmit } = useFormik({
+  const {
+    values,
+    errors,
+    handleChange,
+    onSubmit,
+    handleSubmit,
+    setFieldValue,
+  } = useFormik({
     initialValues: {
       registerName: "",
       registerSurname: "",
@@ -40,22 +48,30 @@ const NewUserModal = () => {
       registerRole: "",
       registerBalance: "",
     },
+    validationSchema: registerFormSchemas,
+    validateOnChange: false,
 
     onSubmit: submit,
   });
 
   return (
-    <>
+    <Modal open={open} onClose={() => onClose()}>
       <Box
         component="form"
         onSubmit={handleSubmit}
         sx={{
           display: "flex",
+          flexWrap: "wrap",
           flexDirection: "column",
-          gap: 2,
-          maxWidth: 600,
-          margin: "0 auto",
-          padding: 2,
+          textAlign: "center",
+          gap: 3,
+          width: 600,
+          padding: "10",
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          padding: 3,
           border: "1px solid #ccc",
           borderRadius: 2,
           fontFamily: "Montserrat",
@@ -82,44 +98,136 @@ const NewUserModal = () => {
         </Typography>
 
         {/* Form Fields */}
+        <div
+          style={{
+            display: "flex",
+            gap: "30px",
+            flexDirection: "row",
+            justifyContent: "center",
+          }}
+        >
+          <TextField
+            label="Ad"
+            name="registerName"
+            value={values.registerName}
+            onChange={handleChange}
+            type="text"
+            className="custom-textfield"
+          />
+          {errors.registerName && (
+            <Typography className="register-error">
+              {errors.registerName}
+            </Typography>
+          )}
+          <TextField
+            label="Soyad"
+            name="registerSurname"
+            value={values.registerSurname}
+            onChange={handleChange}
+            type="text"
+            className="custom-textfield"
+          />
+          {errors.registerSurname && (
+            <Typography className="register-error">
+              {errors.registerSurname}
+            </Typography>
+          )}
+        </div>
+        <div
+          style={{
+            display: "flex",
+            gap: "30px",
+            flexDirection: "row",
+            justifyContent: "center",
+          }}
+        >
+          <TextField
+            label="T.C Kimlik"
+            name="registerIdentityNo"
+            value={values.registerIdentityNo}
+            onChange={handleChange}
+            type="text"
+            className="custom-textfield"
+          />
+
+          {errors.registerIdentityNo && (
+            <Typography className="register-error">
+              {errors.registerIdentityNo}
+            </Typography>
+          )}
+          <FormControl sx={{ width: 237 }}>
+            <InputLabel>Rol</InputLabel>
+            <Select
+              name="registerRole"
+              value={values.registerRole}
+              onChange={(e) => setFieldValue("registerRole", e.target.value)}
+            >
+              <MenuItem value="USER">USER</MenuItem>
+              <MenuItem value="ADMIN">ADMIN</MenuItem>
+            </Select>
+          </FormControl>
+          {errors.registerRole && (
+            <Typography className="register-error">
+              {errors.registerRole}
+            </Typography>
+          )}
+
+          {errors.registerRole && (
+            <Typography className="register-error">
+              {errors.registerRole}
+            </Typography>
+          )}
+        </div>
         <TextField
-          label="Ad"
-          name="registerName"
-          value={values.registerName}
-          onChange={(e) =>
-            handleChange({
-              target: {
-                name: "registerName",
-                value: e.target.value.toLocaleUpperCase(),
-              },
-            })
-          }
-          type="text"
+          sx={{ width: 500, margin: "auto" }}
+          label="Mail"
+          name="registerEmail"
+          value={values.registerEmail}
+          onChange={handleChange}
+          type="mail"
           className="custom-textfield"
         />
-        {errors.registerName && (
+        {errors.registerEmail && (
           <Typography className="register-error">
-            {errors.registerName}
+            {errors.registerEmail}
           </Typography>
         )}
+        <div
+          style={{
+            display: "flex",
+            gap: "30px",
+            flexDirection: "row",
+            justifyContent: "center",
+          }}
+        >
+          <TextField
+            label="Şifre"
+            name="registerPassword"
+            value={values.registerPassword}
+            onChange={handleChange}
+            type="password"
+            className="custom-textfield"
+          />
+          {errors.registerPassword && (
+            <Typography className="register-error">
+              {errors.registerPassword}
+            </Typography>
+          )}
 
-        {/* Diğer Alanlar */}
-        <TextField
-          label="Soyad"
-          name="registerSurname"
-          value={values.registerSurname}
-          onChange={(e) =>
-            handleChange({
-              target: {
-                name: "registerSurname",
-                value: e.target.value.toLocaleUpperCase(),
-              },
-            })
-          }
-          type="text"
-          className="custom-textfield"
-        />
-        {/* ... */}
+          <TextField
+            label="Balance"
+            name="registerBalance"
+            value={values.registerBalance}
+            onChange={handleChange}
+            type="text"
+            className="custom-textfield"
+          />
+          {errors.registerBalance && (
+            <Typography className="register-error">
+              {errors.registerBalance}
+            </Typography>
+          )}
+        </div>
 
         {/* Submit Button */}
         <Button
@@ -128,20 +236,12 @@ const NewUserModal = () => {
           color="primary"
           fullWidth
           style={{ backgroundColor: "var(--color-blue)", marginBottom: "1rem" }}
+          onClick={submit}
         >
           Kullanıcı Ekle
         </Button>
-        <InfoModal
-          open={showSuccessModal}
-          onClose={() => {
-            setShowSuccessModal(false);
-            navigate("/");
-          }}
-          title="Başarılı"
-          content="Kayıt İşleminiz Başarılı Şekilde Gerçekleşti"
-        />
       </Box>
-    </>
+    </Modal>
   );
 };
 
