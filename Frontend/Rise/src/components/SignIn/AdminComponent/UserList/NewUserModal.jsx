@@ -8,16 +8,16 @@ import { registerFormSchemas } from "../../../Schemas/RegisterFormSchemas";
 const NewUserModal = ({ open, onClose }) => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
-  const submit = async (values) => {
+  const submit = async () => {
     try {
       const newUser = {
-        name: values.registerName,
-        surname: values.registerSurname,
-        email: values.registerEmail,
-        identityNumber: values.registerIdentityNo,
-        password: values.registerPassword,
-        role: values.registerRole,
-        balance: values.registerBalance,
+        name: registerName.value,
+        surname: registerSurname.value,
+        email: registerEmail.value,
+        identityNumber: registerIdentityNo.value,
+        password: registerPassword.value,
+        role: registerRole.value,
+        balance: registerBalance.value,
       };
       console.log(newUser);
       const response = await createUser(newUser);
@@ -30,15 +30,7 @@ const NewUserModal = ({ open, onClose }) => {
       console.error("Hata oluştu:", err);
     }
   };
-
-  const {
-    values,
-    errors,
-    handleChange,
-    onSubmit,
-    handleSubmit,
-    setFieldValue,
-  } = useFormik({
+  const formik = useFormik({
     initialValues: {
       registerName: "",
       registerSurname: "",
@@ -49,16 +41,14 @@ const NewUserModal = ({ open, onClose }) => {
       registerBalance: "",
     },
     validationSchema: registerFormSchemas,
-    validateOnChange: false,
-
     onSubmit: submit,
   });
 
   return (
-    <Modal open={open} onClose={() => onClose()}>
+    <Modal open={open} onClose={onClose}>
       <Box
         component="form"
-        onSubmit={handleSubmit}
+        onSubmit={formik.handleSubmit}
         sx={{
           display: "flex",
           flexWrap: "wrap",
@@ -71,7 +61,6 @@ const NewUserModal = ({ open, onClose }) => {
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          padding: 3,
           border: "1px solid #ccc",
           borderRadius: 2,
           fontFamily: "Montserrat",
@@ -108,28 +97,30 @@ const NewUserModal = ({ open, onClose }) => {
         >
           <TextField
             label="Ad"
+            id="registerName"
             name="registerName"
-            value={values.registerName}
-            onChange={handleChange}
+            value={formik.values.registerName || ""}
+            onChange={formik.handleChange}
             type="text"
             className="custom-textfield"
           />
-          {errors.registerName && (
+          {formik.errors.registerName && (
             <Typography className="register-error">
-              {errors.registerName}
+              {formik.errors.registerName}
             </Typography>
           )}
           <TextField
             label="Soyad"
+            id="registerSurname"
             name="registerSurname"
-            value={values.registerSurname}
-            onChange={handleChange}
+            value={formik.values.registerSurname}
+            onChange={formik.handleChange}
             type="text"
             className="custom-textfield"
           />
-          {errors.registerSurname && (
+          {formik.errors.registerSurname && (
             <Typography className="register-error">
-              {errors.registerSurname}
+              {formik.errors.registerSurname}
             </Typography>
           )}
         </div>
@@ -143,53 +134,50 @@ const NewUserModal = ({ open, onClose }) => {
         >
           <TextField
             label="T.C Kimlik"
+            id="registerIdentityNo"
             name="registerIdentityNo"
-            value={values.registerIdentityNo}
-            onChange={handleChange}
+            value={formik.values.registerIdentityNo}
+            onChange={formik.handleChange}
             type="text"
             className="custom-textfield"
           />
 
-          {errors.registerIdentityNo && (
+          {formik.errors.registerIdentityNo && (
             <Typography className="register-error">
-              {errors.registerIdentityNo}
+              {formik.errors.registerIdentityNo}
             </Typography>
           )}
           <FormControl sx={{ width: 237 }}>
             <InputLabel>Rol</InputLabel>
             <Select
+              id="registerRole"
               name="registerRole"
-              value={values.registerRole}
-              onChange={(e) => setFieldValue("registerRole", e.target.value)}
+              value={formik.values.registerRole || ""}
+              onChange={formik.handleChange}
             >
               <MenuItem value="USER">USER</MenuItem>
               <MenuItem value="ADMIN">ADMIN</MenuItem>
             </Select>
           </FormControl>
-          {errors.registerRole && (
+          {formik.errors.registerRole && (
             <Typography className="register-error">
-              {errors.registerRole}
-            </Typography>
-          )}
-
-          {errors.registerRole && (
-            <Typography className="register-error">
-              {errors.registerRole}
+              {formik.errors.registerRole}
             </Typography>
           )}
         </div>
         <TextField
           sx={{ width: 500, margin: "auto" }}
           label="Mail"
+          id="registerEmail"
           name="registerEmail"
-          value={values.registerEmail}
-          onChange={handleChange}
+          value={formik.values.registerEmail}
+          onChange={formik.handleChange}
           type="mail"
           className="custom-textfield"
         />
-        {errors.registerEmail && (
+        {formik.errors.registerEmail && (
           <Typography className="register-error">
-            {errors.registerEmail}
+            {formik.errors.registerEmail}
           </Typography>
         )}
         <div
@@ -202,29 +190,31 @@ const NewUserModal = ({ open, onClose }) => {
         >
           <TextField
             label="Şifre"
+            id="registerPassword"
             name="registerPassword"
-            value={values.registerPassword}
-            onChange={handleChange}
+            value={formik.values.registerPassword}
+            onChange={formik.handleChange}
             type="password"
             className="custom-textfield"
           />
-          {errors.registerPassword && (
+          {formik.errors.registerPassword && (
             <Typography className="register-error">
-              {errors.registerPassword}
+              {formik.errors.registerPassword}
             </Typography>
           )}
 
           <TextField
+            id="registerBalance"
             label="Balance"
             name="registerBalance"
-            value={values.registerBalance}
-            onChange={handleChange}
+            value={formik.values.registerBalance}
+            onChange={formik.handleChange}
             type="text"
             className="custom-textfield"
           />
-          {errors.registerBalance && (
+          {formik.errors.registerBalance && (
             <Typography className="register-error">
-              {errors.registerBalance}
+              {formik.errors.registerBalance}
             </Typography>
           )}
         </div>
@@ -234,8 +224,12 @@ const NewUserModal = ({ open, onClose }) => {
           type="submit"
           variant="contained"
           color="primary"
-          fullWidth
-          style={{ backgroundColor: "var(--color-blue)", marginBottom: "1rem" }}
+          style={{
+            backgroundColor: "var(--color-blue)",
+            marginLeft: "2rem",
+            marginRight: "2rem",
+            marginBottom: "2rem",
+          }}
           onClick={submit}
         >
           Kullanıcı Ekle
