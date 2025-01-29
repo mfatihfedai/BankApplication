@@ -70,3 +70,10 @@
   visibility: visible;
   opacity: 1;
 }
+
+@media (max-width: 1044px) {
+
+  .navbar {
+    display: none;
+  }
+}

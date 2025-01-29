@@ -25,3 +25,17 @@
     grid-area: 1 / 1 / 3 / 6; 
     border-left: 1px solid #333;
 } */
+
+@media (max-width: 1044px) {
+
+    .parent {
+        grid-template-columns: 1fr; /* Tek sütun yap */
+        height: max-content;
+    }
+    
+    .parent-header {
+        display: none;
+    }
+}
+
+/* 576px için margin yapılacak */

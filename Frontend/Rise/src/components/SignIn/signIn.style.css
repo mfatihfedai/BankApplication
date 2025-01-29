@@ -9,6 +9,9 @@
   max-width: 100% !important;
   height: 87vh;
 }
+.sign-in-header{
+  display: none;
+}
 
 .linkContainer {
   display: flex;
@@ -38,4 +41,17 @@
   100% {
     transform: scale(1);
   }
+}
+
+@media (max-width: 1044px) {
+
+  .sign-in-header{
+    display: block;
+    background-color: var(--color-blue);
+    padding: 1rem;
+    width: 100%;
+    color: var(--color-white);
+    margin: 0;
+  }  
+  
 }

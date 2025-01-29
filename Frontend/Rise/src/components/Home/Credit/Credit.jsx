@@ -10,7 +10,9 @@ function Credit() {
   const [isCredit, setIsCredit] = useState(true);
 
   return (
+    <>
     <div className='credit'>
+      <h1 className='credit-header'>Kredi Hesaplama</h1>
       <div className='credit-deposit'>
         <Link className={`credit-link ${isCredit ? 'active' : ''}`}  onClick={() => setIsCredit(true)}></Link>
         <Link className={`credit-link ${isCredit ? '' : 'active'}`}  onClick={() => setIsCredit(false)}></Link>
@@ -19,6 +21,7 @@ function Credit() {
         {isCredit ? <CreditDetail /> : <DepositDetail />}
       </div>
     </div>
+    </>
   )
 }
 

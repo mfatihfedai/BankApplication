@@ -32,6 +32,7 @@ function Rates() {
 
   return (
     <div className='rates'>
+      <h1 className="rates-header">Güncel Kurlar</h1>
       {/* <h1>Fiyatlar ve Oranlar</h1> */} 
       <ul className='currency-list'>
         {filteredRates?.map(([currency, rate]) => (
