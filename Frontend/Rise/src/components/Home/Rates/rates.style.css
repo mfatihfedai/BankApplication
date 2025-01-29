@@ -7,6 +7,10 @@
 
 }
 
+.rates-header{
+    display: none;
+}
+
 .currency-list{
     list-style-type: none;
     display: flex;
@@ -56,4 +60,18 @@
     margin-top: 4px;
     font-size: x-large;
     font-weight: 500;
+}
+
+
+@media (max-width: 1044px) {
+
+    .rates-header{
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        padding: 1rem;
+        background-color: var(--color-blue);
+        color: var(--color-white);
+    }
+
 }

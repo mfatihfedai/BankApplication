@@ -12,3 +12,15 @@
     margin-left: 1rem;
     
 }
+
+@media (max-width: 1044px) {
+
+    .list-item { 
+        display: none; 
+    }
+    .component-item { 
+        grid-area: 1 / 1 / 6 / 6; 
+        margin-left: 0;
+        
+    }
+}

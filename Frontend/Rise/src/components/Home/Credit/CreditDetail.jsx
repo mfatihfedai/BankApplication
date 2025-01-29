@@ -91,7 +91,7 @@ function CreditDetail() {
 
       {/* Tutar Input */}
       <TextField
-        style={{ width: "300px", borderRadius: "6px", color: "black"}}
+        // style={{ width: "300px", borderRadius: "6px", color: "black"}}
         type="text"
         id="standard-basic"
         variant="outlined"
