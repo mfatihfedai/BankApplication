@@ -8,15 +8,12 @@ import com.softwareProject.banksApplication.dto.response.user.UserResponse;
 import com.softwareProject.banksApplication.entity.UserInfo;
 import com.softwareProject.banksApplication.service.abstracts.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
-import java.util.List;
 import java.util.Objects;
 
 import static com.softwareProject.banksApplication.core.Config.RestApis.USERSERVICE;
