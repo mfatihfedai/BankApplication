@@ -108,6 +108,7 @@ function DashboardHeader() {
           <LinearProgressBar initialSecond={300} />
         </div> */}
         <div
+        className="logout-counter"
           style={{
             marginBottom: "5px",
             color: "var(--color-white)",

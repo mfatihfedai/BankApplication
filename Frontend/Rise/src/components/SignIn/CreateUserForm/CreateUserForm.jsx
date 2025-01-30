@@ -76,6 +76,7 @@ const CreateUserForm = () => {
   return (
     <>
       <Box
+        className = "create-user-form"
         component="form"
         sx={{
           display: "flex",

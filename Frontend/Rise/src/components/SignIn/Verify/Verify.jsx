@@ -6,6 +6,7 @@ import { TextField, Button, Box, Typography } from "@mui/material";
 import Logo from "../../Home/Logo/Logo";
 import LinearProgressBar from "../../General/LinearProgressBar";
 import { verifyUser } from "../../../service/VerifyApi";
+import "./verify.style.css"
 
 const Verify = () => {
   const [otp, setOtp] = useState("");
@@ -68,6 +69,7 @@ const Verify = () => {
     <div>
       <form onSubmit={handleSubmit}>
         <Box
+        className = "verify"
           sx={{
             color: "var(--color-black)",
             display: "flex",
