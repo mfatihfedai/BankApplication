@@ -33,3 +33,32 @@
     padding:0 2rem;
     border-left: 2px solid #ffffff;
 }
+
+@media (max-width: 1044px) {
+
+    .dashboard-header{
+        display: flex;
+        justify-content: center;
+    }
+
+    .dashboard-header-logout-button{
+        border: none;
+        margin-top: 1rem;
+    }
+
+    .dashboard-header-role{
+        display: none;
+    }
+
+    .logout-counter{
+        display: none;
+    }
+
+    .dashboard-header-welcome{
+        border-right: none;
+        border-left: none;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+   
+}
