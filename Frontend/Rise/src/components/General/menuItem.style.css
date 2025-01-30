@@ -5,6 +5,16 @@
     margin-top: 2px;
 }
 
+.hamburger-button {
+    display: block;
+    background: var(--color-blue);
+    color: var(--color-white);
+    font-size: 1.5rem;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
 .menu-button {
     display: flex ;
     flex-direction: row ;
@@ -36,6 +46,7 @@
 .button-end {
     display: flex;
 }
+
 
 
 

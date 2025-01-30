@@ -15,4 +15,12 @@
 .custom-textfield .MuiOutlinedInput-root.Mui-focused fieldset {
     border-color: var(--color-blue);
 }
+
+@media (max-width: 714px) {
+
+    .create-user-form{
+        margin: 0 10% !important;
+    }
+   
+}
   

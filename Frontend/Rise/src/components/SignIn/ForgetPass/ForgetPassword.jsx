@@ -12,7 +12,7 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { forgetPass } from "../../../service/ForgetPassApi";
-import Logo from "../../Home/Logo/Logo";
+import "./forgetPassword.style.css"
 
 const ForgetPassword = () => {
   const [loading, setLoading] = useState(false);
@@ -50,9 +50,10 @@ const ForgetPassword = () => {
   }
 
   return (
-    <div>
+    <div className= "forget-password">
       <form onSubmit={formik.handleSubmit}>
         <Box
+          // className= "forget-password"
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -63,6 +64,7 @@ const ForgetPassword = () => {
             borderRadius: 4,
             boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
             background: "linear-gradient(to right, #ece9e6, #ffffff)",
+            
           }}
         >
           <Typography

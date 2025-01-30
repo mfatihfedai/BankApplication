@@ -15,15 +15,40 @@ import UserList from "../AdminComponent/UserList/UserList";
 import UserActivities from "../AdminComponent/UserActivities/UserActivities";
 import Banks from "../AdminComponent/Banks/Banks";
 
-
-
 function Admin() {
   const { componentName } = useAdminMenu();
+  const [menuOpen, setMenuOpen] = useState(false); // Menü aç/kapat
 
   return (
     <>
-      <DashboardHeader />
-      <div className = "admin-parent">
+     <DashboardHeader />
+      <div className="admin-parent">
+        <button className="hamburger-menu" onClick={() => setMenuOpen(!menuOpen)}>
+          ☰
+        </button>
+
+        {/* Menü (Mobilde Açılır/Kapanır) */}
+        <div className={`list-item ${menuOpen ? "open" : ""}`}>
+          <MenuItems setMenuOpen={setMenuOpen} list={adminList} />
+        </div>
+
+        <div className="component-item">
+          {componentName === "Home" && <Home />}
+          {componentName === "UserList" && <UserList />}
+          {componentName === "Banks" && <Banks />}
+          {componentName === "UserActivities" && <UserActivities />}
+          {componentName === "Invoice" && <Invoice />}
+          {componentName === "AutomaticPayment" && <AutomaticPayment />}
+          {componentName === "PersonalInfo" && <PersonalInfo />}
+          {componentName === "Receipt" && <Receipt />}
+          {componentName === "Transfer" && <Transfer />}
+          {componentName === "LogsInfo" && <LogsInfo />}
+        </div>
+      </div>
+
+      {/* <DashboardHeader />
+      <div className="admin-parent">
+        <button onClick={} className="hamburger-menu">Hamburger</button>
         <div className="list-item">
           <MenuItems list={adminList} />
         </div>
@@ -39,7 +64,7 @@ function Admin() {
           {componentName == "Transfer" && <Transfer />}
           {componentName == "LogsInfo" && <LogsInfo />}
         </div>
-      </div>
+      </div> */}
     </>
   );
 }
