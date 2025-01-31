@@ -12,7 +12,6 @@ import com.softwareProject.banksApplication.repo.LogRepo;
 import com.softwareProject.banksApplication.repo.UserRepo;
 import com.softwareProject.banksApplication.service.abstracts.AdminService;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
