@@ -1,8 +1,6 @@
 package com.softwareProject.banksApplication.service.concretes;
 
 import com.softwareProject.banksApplication.core.mapper.LogMapperImpl;
-import com.softwareProject.banksApplication.core.utilies.ResultHelper;
-import com.softwareProject.banksApplication.dto.CursorResponse;
 import com.softwareProject.banksApplication.dto.response.admin.AdminLogResponse;
 import com.softwareProject.banksApplication.dto.response.admin.AdminPaginationLogResponse;
 import com.softwareProject.banksApplication.dto.response.log.LogResponse;
