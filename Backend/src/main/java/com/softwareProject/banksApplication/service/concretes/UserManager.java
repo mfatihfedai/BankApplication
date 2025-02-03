@@ -77,6 +77,9 @@ public class UserManager extends BaseManager<UserInfo, UserRepo, UserSaveRequest
         user.setName(newUser.getName());
         user.setSurname(newUser.getSurname());
         user.setEmail(newUser.getEmail());
+        if(newUser.getRole() != null) {
+            user.setRole(newUser.getRole());
+        }
         if(newUser.getPassword() != null) {
             user.setPassword(BCrypt.hashpw(newUser.getPassword(), BCrypt.gensalt()));
         }

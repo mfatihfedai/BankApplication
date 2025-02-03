@@ -12,10 +12,8 @@ html{
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  height: 100%;
   overflow-x: hidden !important;
 }
-
 
 :root {
   --color-black: #333333;

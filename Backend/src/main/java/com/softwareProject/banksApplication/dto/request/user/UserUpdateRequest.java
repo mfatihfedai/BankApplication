@@ -13,5 +13,6 @@ public class UserUpdateRequest {
     private String name;
     private String surname;
     private String email;
+    private UserInfo.Role role;
     private String password;
 }
