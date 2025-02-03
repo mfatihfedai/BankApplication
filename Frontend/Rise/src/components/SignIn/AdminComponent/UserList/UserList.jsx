@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  getSearchUsers,
-  deleteUser,
-  createUser,
-} from "../../../../service/UserApi";
+import { getSearchUsers, deleteUser } from "../../../../service/UserApi";
 import { TextField, Button, Box, Modal, Alert } from "@mui/material";
 import "./userList.css";
 import { useUser } from "../../../../context/UserContext";
@@ -24,13 +20,12 @@ function UserList() {
   const [hasPrevious, setHasPrevious] = useState(false);
   const [loading, setLoading] = useState(true);
   const [newUserModal, setNewUserModal] = useState(false);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
   const [updateUserModal, setUpdateUserModal] = useState(false);
-  const [createUserModal, setCreateUserModal] = useState(false);
   const { user } = useUser();
   const navigate = useNavigate();
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState(null);
 
   const fetchDatas = async (keyword, page) => {
     setLoading(true);
@@ -52,15 +47,9 @@ function UserList() {
   const handleDelete = async (id) => {
     try {
       const response = await deleteUser(id);
-      console.log(response);
-      console.log(id);
+
       if (id === user.id) {
         navigate("/");
-      }
-
-      if (response.status === 200) {
-        setSuccessMessage("Kullanıcı başarıyla silindi.");
-        setIsDeleteModalOpen(true);
       }
     } catch (error) {
       setErrorMessage("Kullanıcı silinirken bir hata oluştu.");
@@ -69,7 +58,7 @@ function UserList() {
 
   useEffect(() => {
     fetchDatas(keyword, page);
-  }, [page, isDeleteModalOpen]);
+  }, [page, isDeleteModalOpen, newUserModal, updateUserModal]);
 
   if (loading) {
     return (
@@ -130,10 +119,10 @@ function UserList() {
         <table style={{ width: "100%", borderCollapse: "collapse" }}>
           <thead>
             <tr>
-              {/* <th>TC Kimlik Numarası</th> */}
+              <th>TC Kimlik Numarası</th>
               <th>İsim Soyisim</th>
               <th>Hesap Numarası</th>
-              {/* <th>E-Mail</th> */}
+              <th>E-Mail</th>
               <th>Rol</th>
               <th>İşlemler</th>
             </tr>
@@ -141,12 +130,12 @@ function UserList() {
           <tbody>
             {logs?.map((log) => (
               <tr key={log.id}>
-                {/* <td>{log.identityNumber || "Bilinmiyor"}</td> */}
+                <td>{log.identityNumber || "Bilinmiyor"}</td>
                 <td>
                   {log.name || ""} {log.surname || ""}
                 </td>
                 <td>{log.accountNumber || "Bilinmiyor"}</td>
-                {/* <td>{log.email || "Bilinmiyor"}</td> */}
+                <td>{log.email || "Bilinmiyor"}</td>
 
                 <td>{log.role || "Bilinmiyor"}</td>
                 <td>
@@ -156,13 +145,17 @@ function UserList() {
                   >
                     <EditIcon
                       variant="contained"
-                      onClick={() => setUpdateUserModal(log)}
+                      onClick={() => {
+                        setSelectedUser(log);
+                        setUpdateUserModal(true);
+                      }}
                     />
                   </IconButton>
                   <IconButton aria-label="delete">
                     <DeleteIcon
                       onClick={() => {
-                        handleDelete(log.id);
+                        setSelectedUserId(log.id);
+                        setIsDeleteModalOpen(true);
                       }}
                       style={{ color: "var(--color-blue)" }}
                     />
@@ -204,35 +197,63 @@ function UserList() {
           <UpdateUserModal
             open={updateUserModal}
             onClose={() => setUpdateUserModal(false)}
+            userData={selectedUser}
           />
         )}
-      </div>
-      <Modal
-        open={!!successMessage || !!errorMessage}
-        onClose={() => {
-          setSuccessMessage("");
-          setErrorMessage("");
-        }}
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Box
+        <Modal
+          open={isDeleteModalOpen}
+          onClose={() => setIsDeleteModalOpen(false)}
           sx={{
-            width: 400,
-            bgcolor: "white",
-            borderRadius: "8px",
-            boxShadow: 24,
-            p: 4,
-            position: "relative",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          {successMessage && <Alert severity="success">{successMessage}</Alert>}
-          {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
-        </Box>
-      </Modal>
+          <Box
+            sx={{
+              width: 400,
+              bgcolor: "white",
+              borderRadius: "8px",
+              boxShadow: 24,
+              p: 4,
+              position: "relative",
+              textAlign: "center",
+            }}
+          >
+            <p>Bu kullanıcıyı silmek istediğinizden emin misiniz?</p>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                gap: "10px",
+                marginTop: "1rem",
+              }}
+            >
+              <Button
+                variant="contained"
+                onClick={() => {
+                  handleDelete(selectedUserId);
+                  setIsDeleteModalOpen(false);
+                }}
+                sx={{
+                  backgroundColor: "var(--color-blue)",
+                }}
+              >
+                Sil
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => setIsDeleteModalOpen(false)}
+                sx={{
+                  backgroundColor: "var(--color-blue)",
+                }}
+              >
+                İptal
+              </Button>
+            </Box>
+          </Box>
+        </Modal>
+      </div>
     </>
   );
 }

@@ -6,7 +6,6 @@ import com.softwareProject.banksApplication.dto.request.invoice.InvoiceSaveReque
 import com.softwareProject.banksApplication.dto.request.invoice.InvoiceUpdateRequest;
 import com.softwareProject.banksApplication.dto.response.invoice.InvoiceResponse;
 import com.softwareProject.banksApplication.entity.InvoiceInfo;
-import com.softwareProject.banksApplication.entity.UserInfo;
 import com.softwareProject.banksApplication.service.abstracts.InvoiceService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +31,6 @@ public class InvoiceController {
     public InvoiceResponse createInvoice(@RequestBody InvoiceSaveRequest saveRequest, @AuthenticationPrincipal CustomUserDetails user) {
         return this.invoiceService.create(saveRequest, user.getId());
     }
-
 
     @PreAuthorize("#user.id == authentication.principal.id or hasRole('ADMIN')")
     @GetMapping("/autobill")
