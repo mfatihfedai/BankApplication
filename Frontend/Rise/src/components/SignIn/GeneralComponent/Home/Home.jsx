@@ -8,9 +8,12 @@ function Home() {
 
   return (
     <>
-    <div >
+    <div id="personal" >
       <PersonalInfo />
-      <ReceiptTable />
+    </div>
+
+    <div id="receipt"> 
+    <ReceiptTable />
     </div>
     </>
   );
