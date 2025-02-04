@@ -7,7 +7,6 @@ import com.softwareProject.banksApplication.dto.request.receipt.ReceiptSaveReque
 import com.softwareProject.banksApplication.dto.request.receipt.ReceiptUpdateRequest;
 import com.softwareProject.banksApplication.dto.response.receipt.ReceiptResponse;
 import com.softwareProject.banksApplication.entity.ReceiptInfo;
-import com.softwareProject.banksApplication.entity.UserInfo;
 import com.softwareProject.banksApplication.repo.ReceiptRepo;
 import com.softwareProject.banksApplication.service.abstracts.ReceiptService;
 import org.springframework.data.domain.Page;
