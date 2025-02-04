@@ -16,3 +16,19 @@
   color: #5c6bc0;
   padding: 6px 0;
 }
+
+
+#personal{
+flex-wrap: wrap;
+  display: flex;
+  justify-content: left;
+  margin-top: -50px;
+ 
+
+}
+
+#receipt{
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: right;
+}
