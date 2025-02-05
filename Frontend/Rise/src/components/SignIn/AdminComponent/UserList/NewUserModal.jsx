@@ -17,6 +17,7 @@ const NewUserModal = ({ open, onClose }) => {
       registerEmail: "",
       registerIdentityNo: "",
       registerPassword: "",
+      registerPasswordConfirm: "",
       registerRole: "",
       registerBalance: "",
     },
@@ -27,8 +28,8 @@ const NewUserModal = ({ open, onClose }) => {
     onSubmit: async (values) => {
       try {
         const newUser = {
-          name: values.registerName,
-          surname: values.registerSurname,
+          name: values.registerName.toLocaleUpperCase("tr-TR"),
+          surname: values.registerSurname.toLocaleUpperCase("tr-TR"),
           email: values.registerEmail,
           identityNumber: values.registerIdentityNo,
           password: values.registerPassword,
@@ -107,7 +108,7 @@ const NewUserModal = ({ open, onClose }) => {
           <div
             style={{
               display: "flex",
-              gap: "30px",
+              gap: "1.5rem",
               flexDirection: "row",
               justifyContent: "center",
             }}
@@ -149,7 +150,7 @@ const NewUserModal = ({ open, onClose }) => {
           <div
             style={{
               display: "flex",
-              gap: "30px",
+              gap: "1.5rem",
               flexDirection: "row",
               justifyContent: "center",
             }}
@@ -171,12 +172,12 @@ const NewUserModal = ({ open, onClose }) => {
                 </Typography>
               )}
             </div>
-            <div>
+            <div style={{ textAlign: "left", width: "40%" }}>
               <Select
                 id="registerRole"
                 name="registerRole"
                 sx={{
-                  width: "240px",
+                  width: "100%",
                   "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
                     borderColor: "var(--color-blue)",
                   },
@@ -197,27 +198,51 @@ const NewUserModal = ({ open, onClose }) => {
               )}
             </div>
           </div>
-          <div>
-            <TextField
-              sx={{ width: 500, margin: "auto" }}
-              label="Mail"
-              id="registerEmail"
-              name="registerEmail"
-              value={formik.values.registerEmail}
-              onChange={formik.handleChange}
-              type="mail"
-              className="custom-textfield"
-            />
-            {formik.errors.registerEmail && (
-              <Typography className="register-error">
-                {formik.errors.registerEmail}
-              </Typography>
-            )}
+          <div
+            style={{
+              display: "flex",
+              gap: "1.5rem",
+              flexDirection: "row",
+              justifyContent: "center",
+            }}
+          >
+            <div>
+              <TextField
+                label="Mail"
+                id="registerEmail"
+                name="registerEmail"
+                value={formik.values.registerEmail}
+                onChange={formik.handleChange}
+                type="mail"
+                className="custom-textfield"
+              />
+              {formik.errors.registerEmail && (
+                <Typography className="register-error">
+                  {formik.errors.registerEmail}
+                </Typography>
+              )}
+            </div>
+            <div>
+              <TextField
+                id="registerBalance"
+                label="Bakiye"
+                name="registerBalance"
+                value={formik.values.registerBalance}
+                onChange={formik.handleChange}
+                type="text"
+                className="custom-textfield"
+              />
+              {formik.errors.registerBalance && (
+                <Typography className="register-error">
+                  {formik.errors.registerBalance}
+                </Typography>
+              )}
+            </div>
           </div>
           <div
             style={{
               display: "flex",
-              gap: "30px",
+              gap: "1.5rem",
               flexDirection: "row",
               justifyContent: "center",
             }}
@@ -240,17 +265,16 @@ const NewUserModal = ({ open, onClose }) => {
             </div>
             <div>
               <TextField
-                id="registerBalance"
-                label="Balance"
-                name="registerBalance"
-                value={formik.values.registerBalance}
+                label="Şifre Tekrarı"
+                name="registerPasswordConfirm"
+                value={formik.values.registerPasswordConfirm}
                 onChange={formik.handleChange}
-                type="text"
+                type="password"
                 className="custom-textfield"
               />
-              {formik.errors.registerBalance && (
+              {formik.errors.registerPasswordConfirm && (
                 <Typography className="register-error">
-                  {formik.errors.registerBalance}
+                  {formik.errors.registerPasswordConfirm}
                 </Typography>
               )}
             </div>

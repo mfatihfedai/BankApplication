@@ -13,6 +13,13 @@ export const newUserFormSchemas = yup.object().shape({
     .matches(/^[1-9]{1}[0-9]{9}[02468]{1}$/, "Geçerli bir TC No giriniz."),
   registerRole: yup.string().required("Kullanıcı rolü seçilmelidir."),
   registerPassword: yup.string().required("Şifre zorunludur."),
+  registerPasswordConfirm: yup
+    .string()
+    .required("Şifre tekrarı zorunludur.")
+    .oneOf(
+      [yup.ref("registerPassword", yup.registerPassword)],
+      "Şifreler eşleşmiyor."
+    ),
   registerBalance: yup
     .number()
     .required("Bakiye bilgisi zorunludur.")

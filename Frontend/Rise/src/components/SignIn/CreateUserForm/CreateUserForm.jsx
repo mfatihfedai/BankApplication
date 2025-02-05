@@ -39,8 +39,8 @@ const CreateUserForm = () => {
     }
     try {
       const registerUser = {
-        name: values.registerName.toLocaleUpperCase(),
-        surname: values.registerSurname.toLocaleUpperCase(),
+        name: values.registerName.toLocaleUpperCase("tr-TR"),
+        surname: values.registerSurname.toLocaleUpperCase("tr-TR"),
         email: values.registerEmail,
         identityNumber: values.registerIdentityNo,
         password: values.registerPassword,
@@ -76,7 +76,7 @@ const CreateUserForm = () => {
   return (
     <>
       <Box
-        className = "create-user-form"
+        className="create-user-form"
         component="form"
         sx={{
           display: "flex",
