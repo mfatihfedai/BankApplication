@@ -20,8 +20,8 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
   const handleUpdate = async () => {
     try {
       const user = {
-        name: formik.values.registerName,
-        surname: formik.values.registerSurname,
+        name: formik.values.registerName.toLocaleUpperCase("tr-TR"),
+        surname: formik.values.registerSurname.toLocaleUpperCase("tr-TR"),
         email: formik.values.registerEmail,
         identityNumber: formik.values.registerIdentityNo,
         role: formik.values.registerRole,
@@ -118,7 +118,7 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
           <div
             style={{
               display: "flex",
-              gap: "30px",
+              gap: "5%",
               flexDirection: "row",
               justifyContent: "center",
             }}
@@ -160,7 +160,7 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
           <div
             style={{
               display: "flex",
-              gap: "30px",
+              gap: "5%",
               flexDirection: "row",
               justifyContent: "center",
             }}
@@ -181,7 +181,7 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
                 </Typography>
               )}
             </div>
-            <FormControl sx={{ width: 237 }}>
+            <FormControl sx={{ width: "40%", textAlign: "left" }}>
               <Select
                 id="registerRole"
                 name="registerRole"
@@ -206,40 +206,47 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
               )}
             </FormControl>
           </div>
-          <div>
-            <TextField
-              sx={{ width: 500, margin: "auto" }}
-              label="Mail"
-              id="registerEmail"
-              name="registerEmail"
-              value={formik.values.registerEmail}
-              onChange={formik.handleChange}
-              type="mail"
-              className="custom-textfield"
-            />
-            {formik.errors.registerEmail && (
-              <Typography className="register-error">
-                {formik.errors.registerEmail}
-              </Typography>
-            )}
-          </div>
+          <div
+            style={{
+              display: "flex",
+              gap: "5%",
+              flexDirection: "row",
+              justifyContent: "center",
+            }}
+          >
+            <div>
+              <TextField
+                label="Mail"
+                id="registerEmail"
+                name="registerEmail"
+                value={formik.values.registerEmail}
+                onChange={formik.handleChange}
+                type="mail"
+                className="custom-textfield"
+              />
+              {formik.errors.registerEmail && (
+                <Typography className="register-error">
+                  {formik.errors.registerEmail}
+                </Typography>
+              )}
+            </div>
 
-          <div>
-            <TextField
-              sx={{ width: 500, margin: "auto" }}
-              id="registerBalance"
-              label="Balance"
-              name="registerBalance"
-              value={formik.values.registerBalance}
-              onChange={formik.handleChange}
-              type="text"
-              className="custom-textfield"
-            />
-            {formik.errors.registerBalance && (
-              <Typography className="register-error">
-                {formik.errors.registerBalance}
-              </Typography>
-            )}
+            <div>
+              <TextField
+                id="registerBalance"
+                label="Bakiye"
+                name="registerBalance"
+                value={formik.values.registerBalance}
+                onChange={formik.handleChange}
+                type="text"
+                className="custom-textfield"
+              />
+              {formik.errors.registerBalance && (
+                <Typography className="register-error">
+                  {formik.errors.registerBalance}
+                </Typography>
+              )}
+            </div>
           </div>
           <Button
             type="submit"
