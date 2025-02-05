@@ -7,7 +7,8 @@ import ReceiptTable from "./ReceiptTable";
 function Home() {
 
   return (
-    <>
+    
+    <div className="persorece">
     <div id="personal" >
       <PersonalInfo />
     </div>
@@ -15,7 +16,8 @@ function Home() {
     <div id="receipt"> 
     <ReceiptTable />
     </div>
-    </>
+    </div>
+   
   );
 }
 
