@@ -1,54 +1,54 @@
 h1 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
+  text-align: center;
+  margin-bottom: 20px;
+}
   
-  table {
-    width: 95%;
-    border-collapse: collapse;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  }
+table {
+  width: 95%;
+  border-collapse: collapse;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
   
-  thead {
-    background-color: var(--color-blue);
-    color: var(--color-white);
-  }
+thead {
+  background-color: var(--color-blue);
+  color: var(--color-white);
+}
   
-  th,
-  td {
-    padding: 10px;
-    text-align: center;
-    border-bottom: 5px solid var(--color-gray);
-  }
+th,
+td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 5px solid var(--color-gray);
+}
   
-  tbody tr:nth-child(odd) {
-    background-color: var(--color-light-blue);
-  }
+tbody tr:nth-child(odd) {
+   background-color: var(--color-light-blue);
+}
   
-  tbody tr:nth-child(even) {
-    background-color: var(--color-white);
-  }
+tbody tr:nth-child(even) {
+  background-color: var(--color-white);
+}
   
-  tbody tr:hover {
-    background-color: var(--color-orange);
-    color: var(--color-white);
-    transition: background-color 0.3s ease;
-  }
+tbody tr:hover {
+  background-color: var(--color-orange);
+  color: var(--color-white);
+  transition: background-color 0.3s ease;
+}
   
   /* Butonlar */
-  button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    color: var(--color-white);
-    font-weight: bold;
-    background-color: var(--color-blue);
-    cursor: pointer;
-    margin: 5px;
-  }
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  color: var(--color-white);
+  font-weight: bold;
+  background-color: var(--color-blue);
+  cursor: pointer;
+  margin: 5px;
+}
   
-  button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
   

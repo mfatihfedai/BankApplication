@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-export const newUserFormSchemas = yup.object().shape({
+export const updateUserFormSchemas = yup.object().shape({
   registerName: yup.string().required("Kullanıcı adı zorunludur."),
   registerSurname: yup.string().required("Kullanıcı soyadı zorunludur."),
   registerEmail: yup
@@ -12,7 +12,6 @@ export const newUserFormSchemas = yup.object().shape({
     .required("TC No zorunludur.")
     .matches(/^[1-9]{1}[0-9]{9}[02468]{1}$/, "Geçerli bir TC No giriniz."),
   registerRole: yup.string().required("Kullanıcı rolü seçilmelidir."),
-  registerPassword: yup.string().required("Şifre zorunludur."),
   registerBalance: yup
     .number()
     .required("Bakiye bilgisi zorunludur.")

@@ -8,15 +8,55 @@ import {
   Alert,
 } from "@mui/material";
 import { useFormik } from "formik";
-import { Select, MenuItem, FormControl, InputLabel } from "@mui/material";
-
+import { Select, MenuItem, FormControl } from "@mui/material";
 import { updateUser } from "../../../../service/UserApi";
-import { newUserFormSchemas } from "../../../Schemas/NewUserFormSchemas";
+import { updateUserFormSchemas } from "../../../Schemas/UpdateUserFormSchemas";
 
 const UpdateUserModal = ({ open, onClose, userData }) => {
   const [successModalOpen, setSuccessModalOpen] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  const handleUpdate = async () => {
+    try {
+      const user = {
+        name: formik.values.registerName,
+        surname: formik.values.registerSurname,
+        email: formik.values.registerEmail,
+        identityNumber: formik.values.registerIdentityNo,
+        role: formik.values.registerRole,
+        balance: formik.values.registerBalance,
+      };
+
+      const errors = await formik.validateForm(); //validasyon hatalarında yanlış updatei engelledim
+      if (Object.keys(errors).length > 0) {
+        console.log("Validation hatalarıııııı:", errors);
+        return;
+      }
+      const response = await updateUser(userData.id, user);
+      console.log(user);
+
+      if (response.status === 200) {
+        setSuccessMessage("Bilgiler başarıyla güncellendi.");
+        setSuccessModalOpen(true);
+        setTimeout(() => {
+          // 2 saniye sonra otomatik kapattım
+          setSuccessMessage("");
+          setSuccessModalOpen(false);
+          onClose(); // Modalı kapat
+        }, 2000);
+      }
+    } catch (err) {
+      console.error("Hata oluştu:", err);
+      setErrorMessage("Güncelleme sırasında bir hata oluştu.");
+      setSuccessModalOpen(true);
+      setTimeout(() => {
+        // 2 saniye sonra otomatik kapattım
+        setErrorMessage("");
+        setSuccessModalOpen(false);
+      }, 2000);
+    }
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -27,42 +67,10 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
       registerRole: userData?.role || "",
       registerBalance: userData?.balance || "",
     },
-    onSubmit: async () => {
-      try {
-        const user = {
-          name: formik.values.registerName,
-          surname: formik.values.registerSurname,
-          email: formik.values.registerEmail,
-          identityNumber: formik.values.registerIdentityNo,
-          role: formik.values.registerRole,
-          balance: formik.values.registerBalance,
-        };
-
-        const response = await updateUser(userData.id, user);
-        console.log(response);
-        console.log(user);
-
-        if (response.request.status === 200) {
-          setSuccessMessage("Bilgiler başarıyla güncellendi.");
-          setSuccessModalOpen(true);
-          setTimeout(() => {
-            // 2 saniye sonra otomatik kapattım
-            setSuccessMessage("");
-            setSuccessModalOpen(false);
-            onClose(); // Modalı kapat
-          }, 2000);
-        }
-      } catch (err) {
-        console.error("Hata oluştu:", err);
-        setErrorMessage("Güncelleme sırasında bir hata oluştu.");
-        setSuccessModalOpen(true);
-        setTimeout(() => {
-          // 2 saniye sonra otomatik kapattım
-          setErrorMessage("");
-          setSuccessModalOpen(false);
-        }, 2000);
-      }
-    },
+    validationSchema: updateUserFormSchemas,
+    validateOnBlur: false,
+    validateOnChange: false,
+    onSubmit: handleUpdate,
   });
 
   return (
@@ -107,8 +115,6 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
               PRISMA BANK
             </h1>
           </Typography>
-
-          {/* Form Alanları */}
           <div
             style={{
               display: "flex",
@@ -117,24 +123,38 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
               justifyContent: "center",
             }}
           >
-            <TextField
-              label="Ad"
-              id="registerName"
-              name="registerName"
-              value={formik.values.registerName || ""}
-              onChange={formik.handleChange}
-              type="text"
-              className="custom-textfield"
-            />
-            <TextField
-              label="Soyad"
-              id="registerSurname"
-              name="registerSurname"
-              value={formik.values.registerSurname}
-              onChange={formik.handleChange}
-              type="text"
-              className="custom-textfield"
-            />
+            <div>
+              <TextField
+                label="Ad"
+                id="registerName"
+                name="registerName"
+                value={formik.values.registerName || ""}
+                onChange={formik.handleChange}
+                type="text"
+                className="custom-textfield"
+              />
+              {formik.errors.registerName && (
+                <Typography className="register-error">
+                  {formik.errors.registerName}
+                </Typography>
+              )}
+            </div>
+            <div>
+              <TextField
+                label="Soyad"
+                id="registerSurname"
+                name="registerSurname"
+                value={formik.values.registerSurname}
+                onChange={formik.handleChange}
+                type="text"
+                className="custom-textfield"
+              />
+              {formik.errors.registerSurname && (
+                <Typography className="register-error">
+                  {formik.errors.registerSurname}
+                </Typography>
+              )}
+            </div>
           </div>
 
           <div
@@ -145,52 +165,68 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
               justifyContent: "center",
             }}
           >
-            <TextField
-              label="T.C Kimlik"
-              id="registerIdentityNo"
-              name="registerIdentityNo"
-              value={formik.values.registerIdentityNo}
-              onChange={formik.handleChange}
-              type="text"
-              className="custom-textfield"
-            />
+            <div>
+              <TextField
+                label="T.C Kimlik"
+                id="registerIdentityNo"
+                name="registerIdentityNo"
+                value={formik.values.registerIdentityNo}
+                onChange={formik.handleChange}
+                type="text"
+                className="custom-textfield"
+              />
+              {formik.errors.registerIdentityNo && (
+                <Typography className="register-error">
+                  {formik.errors.registerIdentityNo}
+                </Typography>
+              )}
+            </div>
             <FormControl sx={{ width: 237 }}>
-              <InputLabel id="registerRole-label">Rol</InputLabel>
               <Select
-                labelId="registerRole-label"
                 id="registerRole"
                 name="registerRole"
+                sx={{
+                  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "var(--color-blue)",
+                  },
+                  "&:hover .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "var(--color-blue)",
+                  },
+                }}
                 value={formik.values.registerRole || ""}
-                onChange={(event) =>
-                  formik.setFieldValue("registerRole", event.target.value)
-                }
+                onChange={formik.handleChange}
               >
                 <MenuItem value="USER">USER</MenuItem>
                 <MenuItem value="ADMIN">ADMIN</MenuItem>
               </Select>
+              {formik.errors.registerRole && (
+                <Typography className="register-error">
+                  {formik.errors.registerRole}
+                </Typography>
+              )}
             </FormControl>
           </div>
-
-          <TextField
-            sx={{ width: 500, margin: "auto" }}
-            label="Mail"
-            id="registerEmail"
-            name="registerEmail"
-            value={formik.values.registerEmail}
-            onChange={formik.handleChange}
-            type="mail"
-            className="custom-textfield"
-          />
-
-          <div
-            style={{
-              display: "flex",
-              gap: "30px",
-              flexDirection: "row",
-              justifyContent: "center",
-            }}
-          >
+          <div>
             <TextField
+              sx={{ width: 500, margin: "auto" }}
+              label="Mail"
+              id="registerEmail"
+              name="registerEmail"
+              value={formik.values.registerEmail}
+              onChange={formik.handleChange}
+              type="mail"
+              className="custom-textfield"
+            />
+            {formik.errors.registerEmail && (
+              <Typography className="register-error">
+                {formik.errors.registerEmail}
+              </Typography>
+            )}
+          </div>
+
+          <div>
+            <TextField
+              sx={{ width: 500, margin: "auto" }}
               id="registerBalance"
               label="Balance"
               name="registerBalance"
@@ -199,9 +235,12 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
               type="text"
               className="custom-textfield"
             />
+            {formik.errors.registerBalance && (
+              <Typography className="register-error">
+                {formik.errors.registerBalance}
+              </Typography>
+            )}
           </div>
-
-          {/* Güncelle Butonu */}
           <Button
             type="submit"
             variant="contained"
@@ -212,6 +251,7 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
               marginRight: "2rem",
               marginBottom: "2rem",
             }}
+            onClick={handleUpdate}
           >
             Bilgileri Güncelle
           </Button>

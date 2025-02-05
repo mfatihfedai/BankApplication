@@ -1,4 +1,5 @@
 .register-error{
+    font-size: 0.8rem !important;
     color: var(--color-orange);
 }
 /* Focusta label rengi */
