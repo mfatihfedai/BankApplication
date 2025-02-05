@@ -3,7 +3,6 @@ import { useUser } from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import LogoutButton from "./LogoutButton";
 import "./dashboardHeader.style.css";
-import LinearProgressBar from "../General/LinearProgressBar";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -32,17 +31,17 @@ function DashboardHeader() {
   const [formattedDate, setFormattedDate] = useState("");
   const [rawDate, setRawDate] = useState();
   const navigate = useNavigate();
-  const [time, setTime] = useState(10000); // çalışmak için arttırıld
+  const [time, setTime] = useState(10000); // çalışmak için arttırıldı
   const [showModal, setShowModal] = useState(false);
 
   // Sayaç sıfırlama fonksiyonu
   const resetTimer = useCallback(() => {
-    setTime(10000);  // burası da değişecek
+    setTime(10000); // burası da değişecek
   }, []);
 
   // Kullanıcı etkinliklerini dinleme
   useEffect(() => {
-    const resetEvents = [ "keydown", "click", "scroll"];
+    const resetEvents = ["keydown", "click", "scroll"];
     const resetOnActivity = () => resetTimer();
 
     resetEvents.forEach((event) =>
@@ -107,7 +106,7 @@ function DashboardHeader() {
         {/* <div style={{ marginBottom: "5px" }}>
           <LinearProgressBar initialSecond={300} />
         </div> */}
-        <div
+        {/* <div
         className="logout-counter"
           style={{
             marginBottom: "5px",
@@ -116,7 +115,7 @@ function DashboardHeader() {
           }}
         >
           {formatTime(time)}
-        </div>
+        </div> */}
         <LogoutButton />
       </div>
       <Modal

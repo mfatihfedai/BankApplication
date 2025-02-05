@@ -4,9 +4,28 @@
     flex-direction: column;
     align-items: center;
 }
-
 .addAndSearch {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    margin-bottom: 1rem;
+}
+.tableInf th{
+    padding: 10px;
+}
+.userListTable td{
+    padding: 0px !important;
+}
+
+.userListTable tr:hover {
+  background-color: transparent;
+  color:var(--color-blue);
+}
+
+
+.icon{
+   color: var(--color-blue);
+}
+.icon:hover {
+    color: var(--color-orange);
 }

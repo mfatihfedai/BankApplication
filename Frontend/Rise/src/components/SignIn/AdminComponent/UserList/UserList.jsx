@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getSearchUsers, deleteUser } from "../../../../service/UserApi";
-import { TextField, Button, Box, Modal, Alert } from "@mui/material";
+import { TextField, Button, Box, Modal } from "@mui/material";
 import "./userList.css";
 import { useUser } from "../../../../context/UserContext";
 import IconButton from "@mui/material/IconButton";
@@ -31,9 +31,7 @@ function UserList() {
     setLoading(true);
     try {
       const response = await getSearchUsers(keyword, page);
-      console.log(response);
       setLogs(response.items);
-
       setHasNext(response.hasNext);
       setHasPrevious(page > 0);
     } catch (error) {
@@ -47,7 +45,6 @@ function UserList() {
   const handleDelete = async (id) => {
     try {
       const response = await deleteUser(id);
-
       if (id === user.id) {
         navigate("/");
       }
@@ -69,8 +66,8 @@ function UserList() {
   }
 
   return (
-    <>
-      <h1 style={{ marginTop: "20px" }}>EMİR ASAF'LA KULLANICI LİSTESİ</h1>
+    <div style={{ padding: "20px" }}>
+      <h1>EMİR ASAF'LA KULLANICI LİSTESİ</h1>
       <div className="addAndSearch">
         <Box sx={{ display: "flex", justifyContent: "", alignItems: "" }}>
           <Button
@@ -78,8 +75,8 @@ function UserList() {
             startIcon={<AddIcon />}
             onClick={() => setNewUserModal(true)}
             sx={{
-              backgroundColor: "#00333D",
-              "&:hover": { backgroundColor: "#E1722F" },
+              backgroundColor: "var(--color-blue)",
+              "&:hover": { backgroundColor: "var(--color-orange)" },
             }}
           >
             Yeni Kullanıcı
@@ -99,7 +96,15 @@ function UserList() {
             placeholder="Kullanıcı Ara..."
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
-            sx={{ "& .MuiOutlinedInput-root": { borderRadius: "8px" } }}
+            sx={{
+              "& .MuiOutlinedInput-root": { borderRadius: "8px" },
+              "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                borderColor: "var(--color-blue)",
+              },
+              "&:hover .MuiOutlinedInput-notchedOutline": {
+                borderColor: "var(--color-blue)",
+              },
+            }}
           />
           <Button
             variant="contained"
@@ -116,8 +121,8 @@ function UserList() {
         </Box>
       </div>
       <div className="content-container">
-        <table style={{ width: "100%", borderCollapse: "collapse" }}>
-          <thead>
+        <table>
+          <thead className="tableInf">
             <tr>
               <th>TC Kimlik Numarası</th>
               <th>İsim Soyisim</th>
@@ -127,7 +132,7 @@ function UserList() {
               <th>İşlemler</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="userListTable">
             {logs?.map((log) => (
               <tr key={log.id}>
                 <td>{log.identityNumber || "Bilinmiyor"}</td>
@@ -136,14 +141,11 @@ function UserList() {
                 </td>
                 <td>{log.accountNumber || "Bilinmiyor"}</td>
                 <td>{log.email || "Bilinmiyor"}</td>
-
                 <td>{log.role || "Bilinmiyor"}</td>
                 <td>
-                  <IconButton
-                    aria-label="edit"
-                    style={{ color: "var(--color-blue)" }}
-                  >
+                  <IconButton aria-label="edit">
                     <EditIcon
+                      className="icon"
                       variant="contained"
                       onClick={() => {
                         setSelectedUser(log);
@@ -153,11 +155,11 @@ function UserList() {
                   </IconButton>
                   <IconButton aria-label="delete">
                     <DeleteIcon
+                      className="icon"
                       onClick={() => {
                         setSelectedUserId(log.id);
                         setIsDeleteModalOpen(true);
                       }}
-                      style={{ color: "var(--color-blue)" }}
                     />
                   </IconButton>
                 </td>
@@ -187,74 +189,74 @@ function UserList() {
             İleri
           </button>
         </div>
-        {newUserModal && (
-          <NewUserModal
-            open={newUserModal}
-            onClose={() => setNewUserModal(false)}
-          />
-        )}
-        {updateUserModal && (
-          <UpdateUserModal
-            open={updateUserModal}
-            onClose={() => setUpdateUserModal(false)}
-            userData={selectedUser}
-          />
-        )}
-        <Modal
-          open={isDeleteModalOpen}
-          onClose={() => setIsDeleteModalOpen(false)}
+      </div>
+      {newUserModal && (
+        <NewUserModal
+          open={newUserModal}
+          onClose={() => setNewUserModal(false)}
+        />
+      )}
+      {updateUserModal && (
+        <UpdateUserModal
+          open={updateUserModal}
+          onClose={() => setUpdateUserModal(false)}
+          userData={selectedUser}
+        />
+      )}
+      <Modal
+        open={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Box
           sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+            width: 400,
+            bgcolor: "white",
+            borderRadius: "8px",
+            boxShadow: 24,
+            p: 4,
+            position: "relative",
+            textAlign: "center",
           }}
         >
+          <p>Bu kullanıcıyı silmek istediğinizden emin misiniz?</p>
           <Box
             sx={{
-              width: 400,
-              bgcolor: "white",
-              borderRadius: "8px",
-              boxShadow: 24,
-              p: 4,
-              position: "relative",
-              textAlign: "center",
+              display: "flex",
+              justifyContent: "center",
+              gap: "10px",
+              marginTop: "1rem",
             }}
           >
-            <p>Bu kullanıcıyı silmek istediğinizden emin misiniz?</p>
-            <Box
+            <Button
+              variant="contained"
+              onClick={() => {
+                handleDelete(selectedUserId);
+                setIsDeleteModalOpen(false);
+              }}
               sx={{
-                display: "flex",
-                justifyContent: "center",
-                gap: "10px",
-                marginTop: "1rem",
+                backgroundColor: "var(--color-blue)",
               }}
             >
-              <Button
-                variant="contained"
-                onClick={() => {
-                  handleDelete(selectedUserId);
-                  setIsDeleteModalOpen(false);
-                }}
-                sx={{
-                  backgroundColor: "var(--color-blue)",
-                }}
-              >
-                Sil
-              </Button>
-              <Button
-                variant="contained"
-                onClick={() => setIsDeleteModalOpen(false)}
-                sx={{
-                  backgroundColor: "var(--color-blue)",
-                }}
-              >
-                İptal
-              </Button>
-            </Box>
+              Sil
+            </Button>
+            <Button
+              variant="contained"
+              onClick={() => setIsDeleteModalOpen(false)}
+              sx={{
+                backgroundColor: "var(--color-blue)",
+              }}
+            >
+              İptal
+            </Button>
           </Box>
-        </Modal>
-      </div>
-    </>
+        </Box>
+      </Modal>
+    </div>
   );
 }
 
