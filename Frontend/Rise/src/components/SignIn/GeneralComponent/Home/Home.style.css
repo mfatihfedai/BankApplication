@@ -1,3 +1,17 @@
+.persorece{
+
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ flex-direction: row;
+ width: 100%;
+ 
+}
+@media (max-width: 1044px) {
+  .persorece{
+    flex-direction: column;
+  }  
+}
 
 .react-calendar__month-view__weekdays {
   display: flex;
@@ -20,15 +34,11 @@
 
 #personal{
 flex-wrap: wrap;
-  display: flex;
-  justify-content: left;
-  margin-top: -50px;
- 
-
+  display: flex; 
+  width: 90%;
 }
 
 #receipt{
-  flex-wrap: wrap;
-  display: flex;
-  justify-content: right;
+width: 90%;
 }
+
