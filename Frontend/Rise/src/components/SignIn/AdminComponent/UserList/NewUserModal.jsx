@@ -74,8 +74,7 @@ const NewUserModal = ({ open, onClose }) => {
             flexWrap: "wrap",
             flexDirection: "column",
             textAlign: "center",
-            gap: 3,
-            width: 600,
+            width: 700,
             padding: "10",
             position: "absolute",
             top: "50%",
@@ -105,194 +104,195 @@ const NewUserModal = ({ open, onClose }) => {
               PRISMA BANK
             </h1>
           </Typography>
-          <div
-            style={{
-              display: "flex",
-              gap: "1.5rem",
-              flexDirection: "row",
-              justifyContent: "center",
-            }}
-          >
-            <div>
-              <TextField
-                label="Ad"
-                id="registerName"
-                name="registerName"
-                value={formik.values.registerName || ""}
-                onChange={formik.handleChange}
-                type="text"
-                className="custom-textfield"
-              />
-              {formik.errors.registerName && (
-                <Typography className="register-error">
-                  {formik.errors.registerName}
-                </Typography>
-              )}
+          <div className="information-area">
+            <div
+              style={{
+                display: "flex",
+                gap: "1.5rem",
+                flexDirection: "row",
+                justifyContent: "center",
+              }}
+            >
+              <div>
+                <TextField
+                  label="Ad"
+                  id="registerName"
+                  name="registerName"
+                  value={formik.values.registerName || ""}
+                  onChange={formik.handleChange}
+                  type="text"
+                  className="custom-textfield"
+                />
+                {formik.errors.registerName && (
+                  <Typography className="register-error">
+                    {formik.errors.registerName}
+                  </Typography>
+                )}
+              </div>
+              <div>
+                <TextField
+                  label="Soyad"
+                  id="registerSurname"
+                  name="registerSurname"
+                  value={formik.values.registerSurname}
+                  onChange={formik.handleChange}
+                  type="text"
+                  className="custom-textfield"
+                />
+                {formik.errors.registerSurname && (
+                  <Typography className="register-error">
+                    {formik.errors.registerSurname}
+                  </Typography>
+                )}
+              </div>
             </div>
-            <div>
-              <TextField
-                label="Soyad"
-                id="registerSurname"
-                name="registerSurname"
-                value={formik.values.registerSurname}
-                onChange={formik.handleChange}
-                type="text"
-                className="custom-textfield"
-              />
-              {formik.errors.registerSurname && (
-                <Typography className="register-error">
-                  {formik.errors.registerSurname}
-                </Typography>
-              )}
+            <div
+              style={{
+                display: "flex",
+                gap: "1.5rem",
+                flexDirection: "row",
+                justifyContent: "center",
+                width: "100%",
+              }}
+            >
+              <div>
+                <TextField
+                  label="T.C Kimlik Numarası"
+                  id="registerIdentityNo"
+                  name="registerIdentityNo"
+                  value={formik.values.registerIdentityNo}
+                  onChange={formik.handleChange}
+                  type="text"
+                  className="custom-textfield"
+                />
+                {formik.errors.registerIdentityNo && (
+                  <Typography className="register-error">
+                    {formik.errors.registerIdentityNo}
+                  </Typography>
+                )}
+              </div>
+              <div className="identity-role-area">
+                <Select
+                  id="registerRole"
+                  name="registerRole"
+                  sx={{
+                    width: "100%",
+                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "var(--color-blue)",
+                    },
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "var(--color-blue)",
+                    },
+                  }}
+                  value={formik.values.registerRole || ""}
+                  onChange={formik.handleChange}
+                >
+                  <MenuItem value="USER">USER</MenuItem>
+                  <MenuItem value="ADMIN">ADMIN</MenuItem>
+                </Select>
+                {formik.errors.registerRole && (
+                  <Typography className="register-error">
+                    {formik.errors.registerRole}
+                  </Typography>
+                )}
+              </div>
             </div>
+            <div
+              style={{
+                display: "flex",
+                gap: "1.5rem",
+                flexDirection: "row",
+                justifyContent: "center",
+              }}
+            >
+              <div>
+                <TextField
+                  label="Mail"
+                  id="registerEmail"
+                  name="registerEmail"
+                  value={formik.values.registerEmail}
+                  onChange={formik.handleChange}
+                  type="mail"
+                  className="custom-textfield"
+                />
+                {formik.errors.registerEmail && (
+                  <Typography className="register-error">
+                    {formik.errors.registerEmail}
+                  </Typography>
+                )}
+              </div>
+              <div>
+                <TextField
+                  id="registerBalance"
+                  label="Bakiye"
+                  name="registerBalance"
+                  value={formik.values.registerBalance}
+                  onChange={formik.handleChange}
+                  type="text"
+                  className="custom-textfield"
+                />
+                {formik.errors.registerBalance && (
+                  <Typography className="register-error">
+                    {formik.errors.registerBalance}
+                  </Typography>
+                )}
+              </div>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                gap: "1.5rem",
+                flexDirection: "row",
+                justifyContent: "center",
+              }}
+            >
+              <div>
+                <TextField
+                  label="Şifre"
+                  id="registerPassword"
+                  name="registerPassword"
+                  value={formik.values.registerPassword}
+                  onChange={formik.handleChange}
+                  type="password"
+                  className="custom-textfield"
+                />
+                {formik.errors.registerPassword && (
+                  <Typography className="register-error">
+                    {formik.errors.registerPassword}
+                  </Typography>
+                )}
+              </div>
+              <div>
+                <TextField
+                  label="Şifre Tekrarı"
+                  name="registerPasswordConfirm"
+                  value={formik.values.registerPasswordConfirm}
+                  onChange={formik.handleChange}
+                  type="password"
+                  className="custom-textfield"
+                />
+                {formik.errors.registerPasswordConfirm && (
+                  <Typography className="register-error">
+                    {formik.errors.registerPasswordConfirm}
+                  </Typography>
+                )}
+              </div>
+            </div>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              style={{
+                backgroundColor: "var(--color-blue)",
+                marginLeft: "2rem",
+                marginRight: "2rem",
+                marginBottom: "2rem",
+              }}
+              onClick={formik.handleSubmit}
+            >
+              Kullanıcı Ekle
+            </Button>
           </div>
-
-          <div
-            style={{
-              display: "flex",
-              gap: "1.5rem",
-              flexDirection: "row",
-              justifyContent: "center",
-            }}
-          >
-            <div>
-              <TextField
-                label="T.C Kimlik Numarası"
-                id="registerIdentityNo"
-                name="registerIdentityNo"
-                value={formik.values.registerIdentityNo}
-                onChange={formik.handleChange}
-                type="text"
-                className="custom-textfield"
-              />
-
-              {formik.errors.registerIdentityNo && (
-                <Typography className="register-error">
-                  {formik.errors.registerIdentityNo}
-                </Typography>
-              )}
-            </div>
-            <div style={{ textAlign: "left", width: "40%" }}>
-              <Select
-                id="registerRole"
-                name="registerRole"
-                sx={{
-                  width: "100%",
-                  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "var(--color-blue)",
-                  },
-                  "&:hover .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "var(--color-blue)",
-                  },
-                }}
-                value={formik.values.registerRole || ""}
-                onChange={formik.handleChange}
-              >
-                <MenuItem value="USER">USER</MenuItem>
-                <MenuItem value="ADMIN">ADMIN</MenuItem>
-              </Select>
-              {formik.errors.registerRole && (
-                <Typography className="register-error">
-                  {formik.errors.registerRole}
-                </Typography>
-              )}
-            </div>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              gap: "1.5rem",
-              flexDirection: "row",
-              justifyContent: "center",
-            }}
-          >
-            <div>
-              <TextField
-                label="Mail"
-                id="registerEmail"
-                name="registerEmail"
-                value={formik.values.registerEmail}
-                onChange={formik.handleChange}
-                type="mail"
-                className="custom-textfield"
-              />
-              {formik.errors.registerEmail && (
-                <Typography className="register-error">
-                  {formik.errors.registerEmail}
-                </Typography>
-              )}
-            </div>
-            <div>
-              <TextField
-                id="registerBalance"
-                label="Bakiye"
-                name="registerBalance"
-                value={formik.values.registerBalance}
-                onChange={formik.handleChange}
-                type="text"
-                className="custom-textfield"
-              />
-              {formik.errors.registerBalance && (
-                <Typography className="register-error">
-                  {formik.errors.registerBalance}
-                </Typography>
-              )}
-            </div>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              gap: "1.5rem",
-              flexDirection: "row",
-              justifyContent: "center",
-            }}
-          >
-            <div>
-              <TextField
-                label="Şifre"
-                id="registerPassword"
-                name="registerPassword"
-                value={formik.values.registerPassword}
-                onChange={formik.handleChange}
-                type="password"
-                className="custom-textfield"
-              />
-              {formik.errors.registerPassword && (
-                <Typography className="register-error">
-                  {formik.errors.registerPassword}
-                </Typography>
-              )}
-            </div>
-            <div>
-              <TextField
-                label="Şifre Tekrarı"
-                name="registerPasswordConfirm"
-                value={formik.values.registerPasswordConfirm}
-                onChange={formik.handleChange}
-                type="password"
-                className="custom-textfield"
-              />
-              {formik.errors.registerPasswordConfirm && (
-                <Typography className="register-error">
-                  {formik.errors.registerPasswordConfirm}
-                </Typography>
-              )}
-            </div>
-          </div>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            style={{
-              backgroundColor: "var(--color-blue)",
-              marginLeft: "2rem",
-              marginRight: "2rem",
-              marginBottom: "2rem",
-            }}
-            onClick={formik.handleSubmit}
-          >
-            Kullanıcı Ekle
-          </Button>
         </Box>
       </Modal>
       <Modal

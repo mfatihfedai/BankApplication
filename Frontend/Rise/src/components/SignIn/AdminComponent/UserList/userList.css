@@ -4,15 +4,41 @@
     flex-direction: column;
     align-items: center;
 }
+
+.information-area {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    padding: 10px;
+    height: 45vh;
+}
+
+.information-area-update {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    padding: 10px;
+    height: 35vh;
+}
+
+.identity-role-area {
+    text-align: left;
+    width: 40%;
+}
+
 .addAndSearch {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     margin-bottom: 1rem;
 }
+
 .tableInf th{
     padding: 10px;
 }
+
 .userListTable td{
     padding: 0px !important;
 }
@@ -22,10 +48,15 @@
   color:var(--color-blue);
 }
 
-
 .icon{
    color: var(--color-blue);
 }
 .icon:hover {
     color: var(--color-orange);
+}
+
+@media (max-width: 1044px) {
+    .identity-role-area {
+        width: 26%;
+    }
 }
