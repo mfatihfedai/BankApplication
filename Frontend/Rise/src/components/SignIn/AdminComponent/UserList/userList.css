@@ -10,8 +10,9 @@
     flex-direction: column;
     gap: 20px;
     align-items: center;
-    padding: 10px;
-    height: 45vh;
+}
+.formUser {
+    width: 12rem !important;
 }
 
 .information-area-update {
@@ -19,13 +20,10 @@
     flex-direction: column;
     gap: 20px;
     align-items: center;
-    padding: 10px;
-    height: 35vh;
 }
 
 .identity-role-area {
     text-align: left;
-    width: 40%;
 }
 
 .addAndSearch {

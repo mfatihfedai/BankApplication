@@ -1,13 +1,11 @@
 import { Box, Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { useFormik } from "formik";
-import { useUser } from "../../../../context/UserContext";
 import TransferModal from "./TransferModal";
 import { createTransfer } from "../../../../service/TransferApi";
 import { receiverFormSchemas } from "../../../Schemas/ReceiverFormSchemas";
 
 function Receiver() {
-  const { user } = useUser();
   const [showModal, setShowModal] = useState(false);
   const [transferMessage, setTransferMessage] = useState("");
   const [success, setSuccess] = useState(false);
@@ -21,7 +19,7 @@ function Receiver() {
       const transfer = {
         receiverAccountNo: values.receiverAccountNo,
         transferAmount: values.transferAmount,
-        message: `${values.transferMessage}: ${user.name} ${user.surname} tarafından gönderildi`,
+        message: `${values.transferMessage}`,
         bankName: values.bankName,
         transferFee: values.transferFee,
         isReceiver: false,
@@ -32,12 +30,19 @@ function Receiver() {
       setTransferMessage("Para gönderme işlemi başarıyla gerçekleştirildi");
     } catch (err) {
       setShowModal(true);
-      if(err.response?.data?.data == "There is no receiver account number"){
-        setTransferMessage("Lütfen hesap numarasını doğru girdiğinizden emin olun.")
-      }if(err.response?.data?.data == "There is no balance"){
-        setTransferMessage("Yetersiz bakiye")
-      }if(err.response?.data?.data == "Can not send transfer your own account number"){
-        setTransferMessage("Kendi hesap numaranıza havale yapamazsınız.")
+      if (err.response?.data?.data == "There is no receiver account number") {
+        setTransferMessage(
+          "Lütfen hesap numarasını doğru girdiğinizden emin olun."
+        );
+      }
+      if (err.response?.data?.data == "There is no balance") {
+        setTransferMessage("Yetersiz bakiye");
+      }
+      if (
+        err.response?.data?.data ==
+        "Can not send transfer your own account number"
+      ) {
+        setTransferMessage("Kendi hesap numaranıza havale yapamazsınız.");
       }
     }
   }
