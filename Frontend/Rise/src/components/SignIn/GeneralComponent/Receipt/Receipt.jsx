@@ -11,7 +11,6 @@ import "../../../Core/logo.css";
 import { useUser } from "../../../../context/UserContext";
 
 function Receipt() {
-
   const { user } = useUser();
 
   const [logs, setLogs] = useState([]);
@@ -62,7 +61,6 @@ function Receipt() {
           },
         }));
 
-        
         return [...invoices, ...transfers];
       });
       formattedLogs.sort((a, b) => new Date(b.rawDate) - new Date(a.rawDate));
@@ -202,7 +200,7 @@ function Receipt() {
         sortingOrder={["asc", "desc"]}
         initialState={{
           sorting: {
-            sortModel: [{ field: {logs}, sort: "desc" }],
+            sortModel: [{ field: { logs }, sort: "desc" }],
           },
         }}
         sx={{

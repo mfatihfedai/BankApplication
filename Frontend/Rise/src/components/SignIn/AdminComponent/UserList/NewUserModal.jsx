@@ -115,13 +115,13 @@ const NewUserModal = ({ open, onClose }) => {
             >
               <div>
                 <TextField
+                  className="formUser"
                   label="Ad"
                   id="registerName"
                   name="registerName"
                   value={formik.values.registerName || ""}
                   onChange={formik.handleChange}
                   type="text"
-                  className="custom-textfield"
                 />
                 {formik.errors.registerName && (
                   <Typography className="register-error">
@@ -131,13 +131,13 @@ const NewUserModal = ({ open, onClose }) => {
               </div>
               <div>
                 <TextField
+                  className="formUser"
                   label="Soyad"
                   id="registerSurname"
                   name="registerSurname"
                   value={formik.values.registerSurname}
                   onChange={formik.handleChange}
                   type="text"
-                  className="custom-textfield"
                 />
                 {formik.errors.registerSurname && (
                   <Typography className="register-error">
@@ -157,13 +157,13 @@ const NewUserModal = ({ open, onClose }) => {
             >
               <div>
                 <TextField
+                  className="formUser"
                   label="T.C Kimlik Numarası"
                   id="registerIdentityNo"
                   name="registerIdentityNo"
                   value={formik.values.registerIdentityNo}
                   onChange={formik.handleChange}
                   type="text"
-                  className="custom-textfield"
                 />
                 {formik.errors.registerIdentityNo && (
                   <Typography className="register-error">
@@ -173,6 +173,7 @@ const NewUserModal = ({ open, onClose }) => {
               </div>
               <div className="identity-role-area">
                 <Select
+                  className="formUser"
                   id="registerRole"
                   name="registerRole"
                   sx={{
@@ -207,13 +208,13 @@ const NewUserModal = ({ open, onClose }) => {
             >
               <div>
                 <TextField
+                  className="formUser"
                   label="Mail"
                   id="registerEmail"
                   name="registerEmail"
                   value={formik.values.registerEmail}
                   onChange={formik.handleChange}
                   type="mail"
-                  className="custom-textfield"
                 />
                 {formik.errors.registerEmail && (
                   <Typography className="register-error">
@@ -223,13 +224,13 @@ const NewUserModal = ({ open, onClose }) => {
               </div>
               <div>
                 <TextField
+                  className="formUser"
                   id="registerBalance"
                   label="Bakiye"
                   name="registerBalance"
                   value={formik.values.registerBalance}
                   onChange={formik.handleChange}
                   type="text"
-                  className="custom-textfield"
                 />
                 {formik.errors.registerBalance && (
                   <Typography className="register-error">
@@ -248,13 +249,13 @@ const NewUserModal = ({ open, onClose }) => {
             >
               <div>
                 <TextField
+                  className="formUser"
                   label="Şifre"
                   id="registerPassword"
                   name="registerPassword"
                   value={formik.values.registerPassword}
                   onChange={formik.handleChange}
                   type="password"
-                  className="custom-textfield"
                 />
                 {formik.errors.registerPassword && (
                   <Typography className="register-error">
@@ -264,12 +265,12 @@ const NewUserModal = ({ open, onClose }) => {
               </div>
               <div>
                 <TextField
+                  className="formUser"
                   label="Şifre Tekrarı"
                   name="registerPasswordConfirm"
                   value={formik.values.registerPasswordConfirm}
                   onChange={formik.handleChange}
                   type="password"
-                  className="custom-textfield"
                 />
                 {formik.errors.registerPasswordConfirm && (
                   <Typography className="register-error">

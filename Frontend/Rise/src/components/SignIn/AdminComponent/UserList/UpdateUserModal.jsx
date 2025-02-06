@@ -98,11 +98,7 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
             background: "linear-gradient(to right, #ece9e6, #ffffff)",
           }}
         >
-          <Typography
-            variant="h5"
-            textAlign="center"
-            fontWeight="bold"
-          >
+          <Typography variant="h5" textAlign="center" fontWeight="bold">
             <h1
               style={{
                 fontSize: "35px",
@@ -131,7 +127,7 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
                   value={formik.values.registerName || ""}
                   onChange={formik.handleChange}
                   type="text"
-                  className="custom-textfield"
+                  className="formUser"
                 />
                 {formik.errors.registerName && (
                   <Typography className="register-error">
@@ -147,7 +143,7 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
                   value={formik.values.registerSurname}
                   onChange={formik.handleChange}
                   type="text"
-                  className="custom-textfield"
+                  className="formUser"
                 />
                 {formik.errors.registerSurname && (
                   <Typography className="register-error">
@@ -162,7 +158,7 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
                 gap: "1.5rem",
                 flexDirection: "row",
                 justifyContent: "center",
-                width:"100%",
+                width: "100%",
               }}
             >
               <div>
@@ -173,7 +169,7 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
                   value={formik.values.registerIdentityNo}
                   onChange={formik.handleChange}
                   type="text"
-                  className="custom-textfield"
+                  className="formUser"
                 />
                 {formik.errors.registerIdentityNo && (
                   <Typography className="register-error">
@@ -183,10 +179,11 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
               </div>
               <div className="identity-role-area">
                 <Select
+                  className="formUser"
                   id="registerRole"
                   name="registerRole"
                   sx={{
-                    width:"100%",
+                    width: "100%",
                     "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
                       borderColor: "var(--color-blue)",
                     },
@@ -223,7 +220,7 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
                   value={formik.values.registerEmail}
                   onChange={formik.handleChange}
                   type="mail"
-                  className="custom-textfield"
+                  className="formUser"
                 />
                 {formik.errors.registerEmail && (
                   <Typography className="register-error">
@@ -240,7 +237,7 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
                   value={formik.values.registerBalance}
                   onChange={formik.handleChange}
                   type="text"
-                  className="custom-textfield"
+                  className="formUser"
                 />
                 {formik.errors.registerBalance && (
                   <Typography className="register-error">
@@ -249,20 +246,20 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
                 )}
               </div>
             </div>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            style={{
-              backgroundColor: "var(--color-blue)",
-              marginLeft: "2rem",
-              marginRight: "2rem",
-              marginBottom: "2rem",
-            }}
-            onClick={handleUpdate}
-          >
-            Bilgileri Güncelle
-          </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              style={{
+                backgroundColor: "var(--color-blue)",
+                marginLeft: "2rem",
+                marginRight: "2rem",
+                marginBottom: "2rem",
+              }}
+              onClick={handleUpdate}
+            >
+              Bilgileri Güncelle
+            </Button>
           </div>
         </Box>
       </Modal>
