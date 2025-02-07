@@ -63,7 +63,7 @@ public class TransferManager extends BaseManager<TransferInfo, TransferRepo, Tra
         receiverTransfer.setReceiptInfo(newUser.getReceiptInfo());
         receiverTransfer.setReceiver(true);
         receiverTransfer.setTransferTime(transferInfo.getTransferTime());
-        receiverTransfer.setMessage(transferInfo.getMessage());
+        receiverTransfer.setMessage(transferInfo.getMessage() + ":" + user.getName() + " " + user.getSurname() + " tarafından gönderildi.");
         receiverTransfer.setBankName(transferInfo.getBankName());
         return receiverTransfer;
     }
