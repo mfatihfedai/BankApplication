@@ -5,13 +5,12 @@ import "./ReceiptTable.css";
 
 function ReceiptTable() {
   const [logs, setLogs] = useState([]);
-  const [loading, setLoading] = useState(true); // Loading default olarak true
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchLogs = async () => {
       try {
         const response = await getReceipts();
-
         const { items } = response.data;
 
         const formattedLogs = items.flatMap((item) => {
@@ -35,11 +34,11 @@ function ReceiptTable() {
 
           return [...invoices, ...transfers];
         });
-        console.log(formattedLogs);
-        let sortFormattedLogs = formattedLogs.sort(
+
+        let sortedLogs = formattedLogs.sort(
           (a, b) => new Date(b.rawDate) - new Date(a.rawDate)
         );
-        setLogs(sortFormattedLogs.slice(0, 5)); // Sadece 5 log
+        setLogs(sortedLogs.slice(0, 5));
       } catch (error) {
         console.error("Error fetching logs:", error);
       } finally {
@@ -51,31 +50,43 @@ function ReceiptTable() {
   }, []); // Komponent ilk render edildiğinde çalışacak
 
   const columns = [
-    { field: "payDate", headerName: "Tarih", flex: 0.5 },
-    { field: "description", headerName: "Açıklama", flex: 0.7 },
+    { field: "payDate", headerName: "Tarih", flex: 1, minWidth: 100 },
+    { field: "description", headerName: "Açıklama", flex: 2, minWidth: 150 },
     {
       field: "amount",
       headerName: "Tutar",
-      flex: 0.5,
-      renderCell: (params) => (
-        <span style={{ fontWeight: "bold", color: "red" }}>
-          {`-${params.value} ₺`}
-        </span>
-      ),
+      flex: 1,
+      sortable: false,
+      minWidth: 100,
+      renderCell: (params) => {
+        const { type, receiver, amount } = params.row;
+        const isTransfer = type === "transfer";
+        const fontWeight = "bold";
+        let displayAmount = `-${amount}`;
+        let color = "red";
+
+        if (isTransfer && receiver) {
+          color = "green";
+          displayAmount = `+${amount}`;
+        }
+        return <span style={{ fontWeight, color }}>{displayAmount} ₺</span>;
+      },
     },
   ];
 
   return (
     <div className="receipt-table-container">
       <h2 id="title">Son 5 Hareket</h2>
-      <DataGrid
-        rows={logs}
-        columns={columns}
-        autoHeight
-        loading={loading} // Loading durumu burada kullanılıyor
-        disableColumnMenu
-        hideFooter
-      />
+      <div style={{ width: "100%" }}>
+        <DataGrid
+          rows={logs}
+          columns={columns}
+          autoHeight
+          loading={loading}
+          disableColumnMenu
+          hideFooter
+        />
+      </div>
     </div>
   );
 }

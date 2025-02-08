@@ -138,7 +138,7 @@ function PersonalInfo() {
               <Typography variant="body2" color="textSecondary">
                 Email:
               </Typography>
-              <Typography variant="body1">{user.email}</Typography>
+              <Typography variant="body1" style={{wordBreak:"break-word"}}>{user.email}</Typography>
             </Grid>
             <Grid item xs={6}>
               <Typography variant="body2" color="textSecondary">
