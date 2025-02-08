@@ -1,14 +1,18 @@
 .receipt-table-container {
-    
- 
-  
+  background-color: white;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 600px; /* Maksimum genişlik belirleyerek taşmayı önler */
+  overflow-x: auto; /* Küçük ekranlarda yatay kaydırma sağlar */
+}
 
-    background-color: white;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  #title {
-    text-align: center;
-  }
+#title {
+  text-align: center;
+}
+
+.MuiDataGrid-root {
+  width: 100% !important; /* Grid'in tüm alanı kaplamasını sağlar */
+  max-width: 100%; /* Taşmayı önler */
+}
