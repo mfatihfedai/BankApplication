@@ -16,20 +16,22 @@ function ReceiptTable() {
         const formattedLogs = items.flatMap((item) => {
           const invoices = item.invoiceInfoList.map((invoice) => ({
             id: `invoice-${invoice.id}`,
-            payDate: new Date(invoice.payDate).toLocaleDateString("tr-TR"), // Sadece tarih
+            payDate: new Date(invoice.payDate).toLocaleDateString("tr-TR"),
             description: invoice.invoiceType,
             amount: invoice.invoiceAmount,
             rawDate: invoice.payDate,
+            type: "invoice", // Fatura işlemleri için tür eklendi
+            receiver: null,  // Faturalar için alıcı bilgisi yok
           }));
 
           const transfers = item.transferList.map((transfer) => ({
             id: `transfer-${transfer.id}`,
-            payDate: new Date(transfer.transferTime).toLocaleDateString(
-              "tr-TR"
-            ), // Sadece tarih
+            payDate: new Date(transfer.transferTime).toLocaleDateString("tr-TR"),
             description: transfer.message,
             amount: transfer.transferAmount,
             rawDate: transfer.transferTime,
+            type: "transfer", // Transfer işlemleri için tür eklendi
+            receiver: transfer.receiver, // Havale işlemlerinde alıcı bilgisi var
           }));
 
           return [...invoices, ...transfers];
@@ -42,12 +44,12 @@ function ReceiptTable() {
       } catch (error) {
         console.error("Error fetching logs:", error);
       } finally {
-        setLoading(false); // Veri yüklendikten sonra loading false yapılır
+        setLoading(false);
       }
     };
 
     fetchLogs();
-  }, []); // Komponent ilk render edildiğinde çalışacak
+  }, []);
 
   const columns = [
     { field: "payDate", headerName: "Tarih", flex: 1, minWidth: 100 },
@@ -66,9 +68,10 @@ function ReceiptTable() {
         let color = "red";
 
         if (isTransfer && receiver) {
-          color = "green";
+          color = "green"; // Gelen transferleri yeşil yap
           displayAmount = `+${amount}`;
         }
+
         return <span style={{ fontWeight, color }}>{displayAmount} ₺</span>;
       },
     },
