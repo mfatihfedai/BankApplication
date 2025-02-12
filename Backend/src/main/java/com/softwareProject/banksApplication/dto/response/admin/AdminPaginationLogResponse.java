@@ -12,12 +12,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AdminPaginationLogResponse {
-    private List<LogResponse> logResponse; // Tablo verileri
-    private AdminLogResponse adminLogResponseChart; // Grafik verileri
-    private int currentPage; // Mevcut sayfa
-    private int totalPages; // Toplam sayfa sayısı
-    private long totalElements; // Toplam öğe sayısı
-    private int pageSize; // Sayfa boyutu
+    private List<LogResponse> logResponse;
+    private AdminLogResponse adminLogResponseChart;
+    private int currentPage;
+    private int totalPages;
+    private long totalElements;
+    private int pageSize;
     private boolean hasNext;
 
     // Page nesnesinden otomatik olarak bilgileri alan bir constructor
