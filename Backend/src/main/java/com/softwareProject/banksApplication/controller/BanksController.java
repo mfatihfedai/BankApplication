@@ -6,7 +6,6 @@ import com.softwareProject.banksApplication.dto.request.banks.BanksUpdateRequest
 import com.softwareProject.banksApplication.dto.response.banks.BanksResponse;
 import com.softwareProject.banksApplication.entity.BanksInfo;
 import com.softwareProject.banksApplication.service.abstracts.BanksService;
-import com.softwareProject.banksApplication.service.abstracts.IBaseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
