@@ -6,7 +6,6 @@ import com.softwareProject.banksApplication.dto.request.transfer.TransferSaveReq
 import com.softwareProject.banksApplication.dto.request.transfer.TransferUpdateRequest;
 import com.softwareProject.banksApplication.dto.response.transfer.TransferResponse;
 import com.softwareProject.banksApplication.entity.TransferInfo;
-import com.softwareProject.banksApplication.entity.UserInfo;
 import com.softwareProject.banksApplication.service.abstracts.TransferService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
