@@ -5,7 +5,6 @@ import com.softwareProject.banksApplication.dto.request.transfer.TransferUpdateR
 import com.softwareProject.banksApplication.dto.response.transfer.TransferResponse;
 import com.softwareProject.banksApplication.entity.TransferInfo;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface TransferMapper extends BaseMapper<TransferInfo, TransferSaveRequest, TransferUpdateRequest, TransferResponse>{
