@@ -1,6 +1,5 @@
 package com.softwareProject.banksApplication.repo;
 
-import com.softwareProject.banksApplication.dto.response.invoice.InvoiceResponse;
 import com.softwareProject.banksApplication.entity.InvoiceInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
