@@ -6,7 +6,7 @@ import com.softwareProject.banksApplication.dto.request.user.UserUpdateRequest;
 import com.softwareProject.banksApplication.dto.response.user.UserResponse;
 import com.softwareProject.banksApplication.entity.UserInfo;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+
 
 import java.util.Optional;
 
