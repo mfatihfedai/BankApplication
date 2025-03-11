@@ -1,7 +1,6 @@
 package com.softwareProject.banksApplication.dto.response.invoice;
 
 import com.softwareProject.banksApplication.entity.InvoiceInfo;
-import com.softwareProject.banksApplication.entity.ReceiptInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
