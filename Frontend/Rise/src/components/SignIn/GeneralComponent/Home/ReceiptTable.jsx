@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { getReceipts } from "../../../../service/ReceiptApi";
 import "./ReceiptTable.css";
+import { useTheme } from "../../../../context/ThemeContext";
+import { useTranslation } from "react-i18next";
 
 function ReceiptTable() {
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { theme } = useTheme();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchLogs = async () => {
@@ -21,12 +25,14 @@ function ReceiptTable() {
             amount: invoice.invoiceAmount,
             rawDate: invoice.payDate,
             type: "invoice", // Fatura işlemleri için tür eklendi
-            receiver: null,  // Faturalar için alıcı bilgisi yok
+            receiver: null, // Faturalar için alıcı bilgisi yok
           }));
 
           const transfers = item.transferList.map((transfer) => ({
             id: `transfer-${transfer.id}`,
-            payDate: new Date(transfer.transferTime).toLocaleDateString("tr-TR"),
+            payDate: new Date(transfer.transferTime).toLocaleDateString(
+              "tr-TR"
+            ),
             description: transfer.message,
             amount: transfer.transferAmount,
             rawDate: transfer.transferTime,
@@ -52,11 +58,11 @@ function ReceiptTable() {
   }, []);
 
   const columns = [
-    { field: "payDate", headerName: "Tarih", flex: 1, minWidth: 100 },
-    { field: "description", headerName: "Açıklama", flex: 2, minWidth: 150 },
+    { field: "payDate", headerName: t("Tarih"), flex: 1, minWidth: 100 },
+    { field: "description", headerName: t("Aciklama"), flex: 2, minWidth: 150 },
     {
       field: "amount",
-      headerName: "Tutar",
+      headerName: t("Tutar"),
       flex: 1,
       sortable: false,
       minWidth: 100,
@@ -78,9 +84,15 @@ function ReceiptTable() {
   ];
 
   return (
-    <div className="receipt-table-container">
-      <h2 id="title">Son 5 Hareket</h2>
-      <div style={{ width: "100%" }}>
+    <div
+      className={`receipt-table-container${theme === "dark" ? "-dark" : ""}`}
+    >
+      <h2 id="title">{t("SonBesHareket")}</h2>
+      <div
+        style={{
+          width: "100%",
+        }}
+      >
         <DataGrid
           rows={logs}
           columns={columns}
@@ -88,6 +100,10 @@ function ReceiptTable() {
           loading={loading}
           disableColumnMenu
           hideFooter
+          style={{
+            color:
+              theme === "dark" ? "var(--color-white)" : "var(--color-blue)",
+          }}
         />
       </div>
     </div>

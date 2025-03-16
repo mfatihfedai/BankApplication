@@ -1,27 +1,44 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Button, Box, Typography, Modal, Alert, IconButton } from "@mui/material";
+import {
+  Button,
+  Box,
+  Typography,
+  Modal,
+  Alert,
+  IconButton,
+} from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-import { getBanks, updateBank, deleteBank, createBank } from "../../../../service/BankApi.jsx";
+import {
+  getBanks,
+  updateBank,
+  deleteBank,
+  createBank,
+} from "../../../../service/BankApi.jsx";
 import Logo from "../../../../assets/LogoNonBackground.png";
 import "../../../Core/logo.css";
 import DeleteModal from "./DeleteModal";
 import UpdateModal from "./UpdateModal";
 import CreateModal from "./CreateModal";
+import { useTranslation } from "react-i18next";
 
 function Banks() {
   const [banks, setBanks] = useState([]);
   const [rowCount, setRowCount] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [selectedBank, setSelectedBank] = useState({ bankName: "", transferFee: "" });
+  const [selectedBank, setSelectedBank] = useState({
+    bankName: "",
+    transferFee: "",
+  });
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [formErrors, setFormErrors] = useState({});
+  const { t } = useTranslation();
 
   const fetchBanks = async () => {
     setLoading(true);
@@ -42,8 +59,8 @@ function Banks() {
 
   const validateForm = (data) => {
     const errors = {};
-    if (!data.bankName) errors.bankName = "Banka adı zorunludur.";
-    if (!data.transferFee) errors.transferFee = "Transfer ücreti zorunludur.";
+    if (!data.bankName) errors.bankName = t("BankaAdİZorunlu");
+    if (!data.transferFee) errors.transferFee = t("TransferUcretiZorunlu");
     return errors;
   };
 
@@ -57,12 +74,12 @@ function Banks() {
     try {
       const response = await updateBank(updatedData.id, updatedData);
       if (response) {
-        setSuccessMessage("Banka başarıyla güncellendi.");
+        setSuccessMessage(t("BankaBasariylaGüncellendi"));
         fetchBanks();
         setIsUpdateModalOpen(false);
       }
     } catch (error) {
-      setErrorMessage("Banka güncellenirken bir hata oluştu.");
+      setErrorMessage(t("BankaGuncellenirkenHata"));
     }
   };
 
@@ -76,12 +93,12 @@ function Banks() {
     try {
       const response = await createBank(newData);
       if (response) {
-        setSuccessMessage("Banka başarıyla eklendi.");
+        setSuccessMessage(t("BankaBasariylaEklendi"));
         fetchBanks();
         setIsCreateModalOpen(false);
       }
     } catch (error) {
-      setErrorMessage("Banka eklenirken bir hata oluştu.");
+      setErrorMessage(t("BankaEklenirkenHata"));
     }
   };
 
@@ -89,20 +106,20 @@ function Banks() {
     try {
       const response = await deleteBank(id);
       if (response.status === 200) {
-        setSuccessMessage("Banka başarıyla silindi.");
+        setSuccessMessage(t("BankaBasariylaSilindi"));
         fetchBanks();
       }
     } catch (error) {
-      setErrorMessage("Banka silinirken bir hata oluştu.");
+      setErrorMessage(t("BankaSilinirkenHata"));
     }
   };
 
   const columns = [
-    { field: "bankName", headerName: "Banka Adı", flex: 1 },
-    { field: "transferFee", headerName: "Transfer Ücreti", flex: 1 },
+    { field: "bankName", headerName: t("BankaAdi"), flex: 1 },
+    { field: "transferFee", headerName: t("TransferUcreti"), flex: 1 },
     {
       field: "actions",
-      headerName: "Düzenle",
+      headerName: t("Duzenle"),
       flex: 1,
       sortable: false,
       renderCell: (params) => (
@@ -141,19 +158,22 @@ function Banks() {
 
   return (
     <div style={{ height: "31rem", width: "95%", padding: "20px" }}>
-    <h1>BANKA YÖNETİMİ</h1>
+      <h1>{t("BankaYonetimi")}</h1>
       <Box sx={{ display: "flex", justifyContent: "", alignItems: "", mb: 2 }}>
         <Button
           variant="contained"
           startIcon={<AddIcon />}
-          sx={{ backgroundColor: "#00333D", "&:hover": { backgroundColor: "#E1722F" } }}
+          sx={{
+            backgroundColor: "#00333D",
+            "&:hover": { backgroundColor: "#E1722F" },
+          }}
           onClick={() => {
             setSelectedBank({ bankName: "", transferFee: "" });
             setIsCreateModalOpen(true);
             setFormErrors({});
           }}
         >
-          Yeni Banka
+          {t("YeniBanka")}
         </Button>
       </Box>
 
@@ -209,7 +229,9 @@ function Banks() {
         open={isUpdateModalOpen}
         onClose={() => setIsUpdateModalOpen(false)}
         selectedBank={selectedBank}
-        onChange={(field, value) => setSelectedBank({ ...selectedBank, [field]: value })}
+        onChange={(field, value) =>
+          setSelectedBank({ ...selectedBank, [field]: value })
+        }
         onSubmit={() => handleUpdate(selectedBank)}
         formErrors={formErrors}
       />
@@ -218,7 +240,9 @@ function Banks() {
         open={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}
         selectedBank={selectedBank}
-        onChange={(field, value) => setSelectedBank({ ...selectedBank, [field]: value })}
+        onChange={(field, value) =>
+          setSelectedBank({ ...selectedBank, [field]: value })
+        }
         onSubmit={() => handleCreate(selectedBank)}
         formErrors={formErrors}
       />

@@ -11,8 +11,10 @@ import Logo from "../../../../assets/LogoNonBackground.png";
 import NewUserModal from "./NewUserModal";
 import UpdateUserModal from "./UpdateUserModal";
 import { useNavigate } from "react-router";
+import { useTranslation } from "react-i18next";
 
 function UserList() {
+  const { t } = useTranslation();
   const [logs, setLogs] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [page, setPage] = useState(0);
@@ -36,7 +38,6 @@ function UserList() {
       setHasPrevious(page > 0);
     } catch (error) {
       console.error(error);
-      setErrorMessage("Tablo yüklenirken bir hata oluştu.");
     } finally {
       setLoading(false);
     }
@@ -49,7 +50,7 @@ function UserList() {
         navigate("/");
       }
     } catch (error) {
-      setErrorMessage("Kullanıcı silinirken bir hata oluştu.");
+      console.error("Kullanıcı silinirken bir hata oluştu.");
     }
   };
 
@@ -67,7 +68,7 @@ function UserList() {
 
   return (
     <div style={{ padding: "20px" }}>
-      <h1>EMİR ASAF'LA KULLANICI LİSTESİ</h1>
+      <h1>Emir Asaf'la {t("KullaniciListesi")}</h1>
       <div className="addAndSearch">
         <Box sx={{ display: "flex", justifyContent: "", alignItems: "" }}>
           <Button
@@ -79,7 +80,7 @@ function UserList() {
               "&:hover": { backgroundColor: "var(--color-orange)" },
             }}
           >
-            Yeni Kullanıcı
+            {t("YeniKullanici")}
           </Button>
         </Box>
 
@@ -93,7 +94,7 @@ function UserList() {
         >
           <TextField
             variant="outlined"
-            placeholder="Kullanıcı Ara..."
+            placeholder={t("KullaniciAra")}
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
             sx={{
@@ -116,7 +117,7 @@ function UserList() {
               "&:hover": { backgroundColor: "#E1722F" },
             }}
           >
-            Ara
+            {t("Ara")}
           </Button>
         </Box>
       </div>
@@ -124,24 +125,24 @@ function UserList() {
         <table>
           <thead className="tableInf">
             <tr>
-              <th>TC Kimlik Numarası</th>
-              <th>İsim Soyisim</th>
-              <th>Hesap Numarası</th>
-              <th>E-Mail</th>
-              <th>Rol</th>
-              <th>İşlemler</th>
+              <th>{t("TcKimlik")}</th>
+              <th>{t("IsimSoyisim")}</th>
+              <th>{t("HesapNumarasi")}</th>
+              <th>{t("Email")}</th>
+              <th>{t("Rol")}</th>
+              <th>{t("Islemler")}</th>
             </tr>
           </thead>
           <tbody className="userListTable">
             {logs?.map((log) => (
               <tr key={log.id}>
-                <td>{log.identityNumber || "Bilinmiyor"}</td>
+                <td>{log.identityNumber || t("Bilinmiyor")}</td>
                 <td>
                   {log.name || ""} {log.surname || ""}
                 </td>
-                <td>{log.accountNumber || "Bilinmiyor"}</td>
-                <td>{log.email || "Bilinmiyor"}</td>
-                <td>{log.role || "Bilinmiyor"}</td>
+                <td>{log.accountNumber || t("Bilinmiyor")}</td>
+                <td>{log.email || t("Bilinmiyor")}</td>
+                <td>{log.role || t("Bilinmiyor")}</td>
                 <td>
                   <IconButton aria-label="edit">
                     <EditIcon
@@ -180,13 +181,13 @@ function UserList() {
             onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
             disabled={!hasPrevious}
           >
-            Geri
+            {t("Geri")}
           </button>
           <button
             onClick={() => setPage((prev) => prev + 1)}
             disabled={!hasNext}
           >
-            İleri
+            {t("Ileri")}
           </button>
         </div>
       </div>
@@ -223,7 +224,7 @@ function UserList() {
             textAlign: "center",
           }}
         >
-          <p>Bu kullanıcıyı silmek istediğinizden emin misiniz?</p>
+          <p>{t("SilmeOnayi")}</p>
           <Box
             sx={{
               display: "flex",
@@ -242,7 +243,7 @@ function UserList() {
                 backgroundColor: "var(--color-blue)",
               }}
             >
-              Sil
+              {t("Sil")}
             </Button>
             <Button
               variant="contained"
@@ -251,7 +252,7 @@ function UserList() {
                 backgroundColor: "var(--color-blue)",
               }}
             >
-              İptal
+              {t("Iptal")}
             </Button>
           </Box>
         </Box>

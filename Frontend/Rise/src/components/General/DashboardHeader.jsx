@@ -9,6 +9,9 @@ import Button from "@mui/material/Button";
 import { format } from "date-fns";
 import { tr } from "date-fns/locale";
 import { decryptData } from "../Core/CryptoJS";
+import Theme from "./Theme";
+import Lang from "./Lang";
+import { useTranslation } from "react-i18next";
 
 const modalStyle = {
   position: "absolute",
@@ -33,6 +36,7 @@ function DashboardHeader() {
   const navigate = useNavigate();
   const [time, setTime] = useState(10000); // çalışmak için arttırıldı
   const [showModal, setShowModal] = useState(false);
+  const { t } = useTranslation();
 
   // Sayaç sıfırlama fonksiyonu
   const resetTimer = useCallback(() => {
@@ -95,29 +99,24 @@ function DashboardHeader() {
     <div className="dashboard-header">
       <div className="dashboard-header-role">{`${user?.role}`}</div>
       <div className="dashboard-header-welcome">
-        <p>Sayın {`${user?.name} ${user?.surname}`}</p>
+        <p>
+          {t("Sayin")} {`${user?.name} ${user?.surname}`}
+        </p>
         {rawDate?.getFullYear() === 1970 ? (
           <p>Son Giriş: İlk Giriş</p>
         ) : (
-          <p>Son Giriş: {formattedDate}</p>
+          <p>
+            {t("SonGiris")}: {formattedDate}
+          </p>
         )}
       </div>
+
       <div className="dashboard-header-logout-button">
-        {/* <div style={{ marginBottom: "5px" }}>
-          <LinearProgressBar initialSecond={300} />
-        </div> */}
-        {/* <div
-        className="logout-counter"
-          style={{
-            marginBottom: "5px",
-            color: "var(--color-white)",
-            textAlign: "center",
-          }}
-        >
-          {formatTime(time)}
-        </div> */}
+        <Lang />
+        <Theme />
         <LogoutButton />
       </div>
+
       <Modal
         open={showModal}
         onClose={handleLogout}

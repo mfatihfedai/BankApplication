@@ -1,7 +1,7 @@
 import DashboardHeader from "../../General/DashboardHeader";
-import { userList } from "../../Core/MenuLists";
+import { useMenuItems } from "../../Core/useMenuItems";
 import MenuItems from "../../General/MenuItems";
-import "./user.style.css"
+import "./user.style.css";
 import { useAdminMenu } from "../../../context/AdminMenuContext";
 import Invoice from "../GeneralComponent/Invoice/Invoice";
 import AutomaticPayment from "../GeneralComponent/AutomaticPayment/AutomaticPayment";
@@ -11,15 +11,14 @@ import Transfer from "../GeneralComponent/Transfer/Transfer";
 import LogsInfo from "../GeneralComponent/LogsInfo/LogsInfo";
 import Home from "../GeneralComponent/Home/Home";
 
-
 function User() {
-
   const { componentName } = useAdminMenu();
+  const { userList } = useMenuItems();
 
   return (
     <>
       <DashboardHeader />
-      <div className = "user-parent">
+      <div className="user-parent">
         <div className="list-item">
           <MenuItems list={userList} />
         </div>

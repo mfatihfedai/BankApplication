@@ -4,6 +4,7 @@ import { format } from "date-fns";
 import { tr } from "date-fns/locale";
 import "./LogsInfo.css";
 import Logo from "../../../../assets/LogoNonBackground.png";
+import { useTranslation } from "react-i18next";
 
 function LogsInfo() {
   const [logs, setLogs] = useState([]);
@@ -11,6 +12,7 @@ function LogsInfo() {
   const [hasNext, setHasNext] = useState(false);
   const [hasPrevious, setHasPrevious] = useState(false);
   const [loading, setLoading] = useState(true);
+  const { t } = useTranslation();
 
   const fetchLogs = async (currentPage) => {
     try {
@@ -47,12 +49,12 @@ function LogsInfo() {
 
   return (
     <div style={{ padding: "20px" }}>
-      <h1>GİRİŞ KAYITLARIM</h1>
+      <h1>{t("GirisKayitlarim")}</h1>
       <table>
         <thead>
           <tr>
-            <th>Giriş Tarihi</th>
-            <th>Çıkış Tarihi</th>
+            <th>{t("GirisTarihi")}</th>
+            <th>{t("CikisTarihi")}</th>
           </tr>
         </thead>
         <tbody>
@@ -77,13 +79,13 @@ function LogsInfo() {
           onClick={() => setPage((prevPage) => Math.max(prevPage - 1, 0))}
           disabled={!hasPrevious}
         >
-          Geri
+          {t("Geri")}
         </button>
         <button
           onClick={() => setPage((prevPage) => prevPage + 1)}
           disabled={!hasNext}
         >
-          İleri
+          {t("İleri")}
         </button>
       </div>
     </div>

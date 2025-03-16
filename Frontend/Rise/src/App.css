@@ -24,9 +24,9 @@ html{
   --color-gray: #f4f4f4;
   --color-light-blue: #e3f2fd;
 }
-
-.nihan {
-  color: var(--color-black);
+body.dark {
+  background-color: black;
+  color: var(--color-gray)
 }
 
 .main {
@@ -39,7 +39,6 @@ html{
   color: var(--color-white);
   padding : 10px;
 }
-
 
 @media (max-width: 1044px) {
   * {

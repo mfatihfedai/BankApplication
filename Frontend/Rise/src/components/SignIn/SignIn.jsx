@@ -7,6 +7,7 @@ import { signInUser } from "../../service/SignInApi";
 import { useState } from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useUser } from "../../context/UserContext";
+import { useTranslation } from "react-i18next";
 
 const SignIn = () => {
   const [identityNo, setIdentityNo] = useState("");
@@ -16,6 +17,7 @@ const SignIn = () => {
   const [colour, setColour] = useState("");
   const [loading, setLoading] = useState(false);
   const { newUser, saveLastLoginTime } = useUser();
+  const { t, i18n } = useTranslation();
 
   const handleSignIn = () => {
     navigate("/newUser");
@@ -48,7 +50,7 @@ const SignIn = () => {
 
   return (
     <>
-      <h1 className="sign-in-header">Giriş Yap</h1>
+      <h1 className="sign-in-header">{t("GirisYap")}</h1>
       <Container className="signIn" component="main" maxWidth="xs">
         <Box
           sx={{
@@ -66,7 +68,7 @@ const SignIn = () => {
             }}
           >
             <b style={{ fontSize: "1.1rem", fontWeight: "800" }}>
-              İnternet Şubemize Hoş Geldiniz
+              {t("İnternet Şubemize Hoş Geldiniz")}
             </b>
           </Typography>
 

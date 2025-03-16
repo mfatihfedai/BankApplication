@@ -4,8 +4,10 @@ import { useFormik } from "formik";
 import TransferModal from "./TransferModal";
 import { createTransfer } from "../../../../service/TransferApi";
 import { receiverFormSchemas } from "../../../Schemas/ReceiverFormSchemas";
+import { useTranslation } from "react-i18next";
 
 function Receiver() {
+  const { t } = useTranslation(); // i18next hook
   const [showModal, setShowModal] = useState(false);
   const [transferMessage, setTransferMessage] = useState("");
   const [success, setSuccess] = useState(false);
@@ -27,22 +29,20 @@ function Receiver() {
       await createTransfer(transfer);
       setShowModal(true);
       setSuccess(true);
-      setTransferMessage("Para gönderme işlemi başarıyla gerçekleştirildi");
+      setTransferMessage(t("ParaGöndermeBasari"));
     } catch (err) {
       setShowModal(true);
-      if (err.response?.data?.data == "There is no receiver account number") {
-        setTransferMessage(
-          "Lütfen hesap numarasını doğru girdiğinizden emin olun."
-        );
+      if (err.response?.data?.data === "There is no receiver account number") {
+        setTransferMessage(t("LütfenHesapNumarasiniDogruGirin"));
       }
-      if (err.response?.data?.data == "There is no balance") {
-        setTransferMessage("Yetersiz bakiye");
+      if (err.response?.data?.data === "There is no balance") {
+        setTransferMessage(t("YetersizBakiye"));
       }
       if (
-        err.response?.data?.data ==
+        err.response?.data?.data ===
         "Can not send transfer your own account number"
       ) {
-        setTransferMessage("Kendi hesap numaranıza havale yapamazsınız.");
+        setTransferMessage(t("KendiHesapNumarasinaHavale"));
       }
     }
   }
@@ -77,7 +77,7 @@ function Receiver() {
         }}
       >
         <TextField
-          label="Alıcı Hesap No"
+          label={t("AliciHesapNo")}
           name="receiverAccountNo"
           value={values.receiverAccountNo}
           onChange={handleChange}
@@ -85,7 +85,7 @@ function Receiver() {
         />
 
         <TextField
-          label="Tutar"
+          label={t("Tutar")}
           name="transferAmount"
           value={values.transferAmount}
           onChange={handleChange}
@@ -93,7 +93,7 @@ function Receiver() {
         />
 
         <TextField
-          label="Açıklama"
+          label={t("Aciklama")}
           name="transferMessage"
           value={values.transferMessage}
           onChange={handleChange}
@@ -102,7 +102,7 @@ function Receiver() {
 
         <TextField
           disabled
-          label="Banka Adı"
+          label={t("BankaAdi")}
           name="bankName"
           value={values.bankName}
           type="text"
@@ -110,7 +110,7 @@ function Receiver() {
 
         <TextField
           disabled
-          label="Transfer Ücreti"
+          label={t("TransferUcreti")}
           name="transferFee"
           value={values.transferFee}
           type="number"
@@ -124,7 +124,7 @@ function Receiver() {
           fullWidth
           style={{ backgroundColor: "var(--color-blue)" }}
         >
-          Gönder
+          {t("Gonder")}
         </Button>
       </Box>
 

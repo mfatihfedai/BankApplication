@@ -4,6 +4,7 @@ import ReactApexChart from "react-apexcharts";
 import Logo from "../../../../assets/LogoNonBackground.png";
 import { TextField, Button, Box } from "@mui/material"; // MUI bileşenlerini içe aktar
 import "./UserActivities.css"; // CSS dosyasını import edin
+import { useTranslation } from "react-i18next";
 
 function UserActivities() {
   const [logs, setLogs] = useState([]); // Tablo verileri
@@ -16,6 +17,7 @@ function UserActivities() {
   const [hasPrevious, setHasPrevious] = useState(false); // Geri butonu için durum
   const [loading, setLoading] = useState(true);
   const [showTable, setShowTable] = useState(true); // Tablo veya grafik gösterimini kontrol eder
+  const { t } = useTranslation();
 
   // Tarih formatlama fonksiyonu
   const formatDateTime = (dateTime) => {
@@ -131,7 +133,7 @@ function UserActivities() {
 
   return (
     <>
-      <h1 style={{ marginTop: "20px" }}>KULLANICI HAREKETLERİ</h1>
+      <h1 style={{ marginTop: "20px" }}>{t("KullaniciHareketleri")}</h1>
       {/* Switch Butonu */}
       <Box
         sx={{
@@ -150,7 +152,7 @@ function UserActivities() {
               fontWeight: "800", // showTable true ise kalın, değilse normal
             }}
           >
-            Giriş Kayıtları Tablosu
+            {t("GirisKayitlariTablosu")}
           </span>
 
           {/* Switch Butonu */}
@@ -170,7 +172,7 @@ function UserActivities() {
               fontWeight: "800", // showTable false ise kalın, değilse normal
             }}
           >
-            Giriş Kayıtları Grafiği
+            {t("GirisKayitlariGrafigi")}
           </span>
         </div>
 
@@ -187,7 +189,7 @@ function UserActivities() {
         >
           <TextField
             variant="outlined"
-            placeholder="Kullanıcı Ara..."
+            placeholder={t("KullaniciAra")}
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)} // Input değeri değiştiğinde state'i güncelle
             sx={{
@@ -210,7 +212,7 @@ function UserActivities() {
               },
             }}
           >
-            Ara
+            {t("Ara")}
           </Button>
         </Box>
       </Box>
@@ -223,16 +225,16 @@ function UserActivities() {
             <thead>
               <tr>
                 <th style={{ border: "1px solid #ddd", padding: "8px" }}>
-                  İsim Soyisim
+                  {t("İsimSoyisim")}
                 </th>
                 <th style={{ border: "1px solid #ddd", padding: "8px" }}>
-                  Hesap Numarası
+                  {t("HesapNumarasi")}
                 </th>
                 <th style={{ border: "1px solid #ddd", padding: "8px" }}>
-                  Giriş Tarihi
+                  {t("GirisTarihi")}
                 </th>
                 <th style={{ border: "1px solid #ddd", padding: "8px" }}>
-                  Çıkış Tarihi
+                  {t("CikisTarihi")}
                 </th>
               </tr>
             </thead>
@@ -269,13 +271,13 @@ function UserActivities() {
               onClick={() => setPage((prevPage) => Math.max(prevPage - 1, 0))}
               disabled={!hasPrevious}
             >
-              Geri
+              {t("Geri")}
             </button>
             <button
               onClick={() => setPage((prevPage) => prevPage + 1)}
               disabled={!hasNext}
             >
-              İleri
+              {t("Ileri")}
             </button>
           </div>
         </div>
