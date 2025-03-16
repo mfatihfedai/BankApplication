@@ -17,6 +17,8 @@ import { getUserById, updateUser } from "../../../../service/UserApi";
 import "../../../Core/logo.css";
 import { useUser } from "../../../../context/UserContext";
 import { useAdminMenu } from "../../../../context/AdminMenuContext";
+import { useTheme } from "../../../../context/ThemeContext";
+import { useTranslation } from "react-i18next";
 
 function PersonalInfo() {
   const { user, newUser } = useUser();
@@ -31,6 +33,8 @@ function PersonalInfo() {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const { componentName } = useAdminMenu();
+  const { theme } = useTheme();
+  const { t } = useTranslation();
 
   useEffect(() => {
     setFormData({
@@ -103,6 +107,9 @@ function PersonalInfo() {
           width: "100%",
           boxShadow: 3,
           borderRadius: 2,
+          backgroundColor:
+            theme === "dark" ? "var(--color-black)" : "var(--color-white)",
+          color: theme === "dark" ? "var(--color-white)" : "var(--color-blue)",
         }}
       >
         <CardContent>
@@ -124,7 +131,13 @@ function PersonalInfo() {
               {user.role}
             </Typography>
           </Box>
-          <Divider sx={{ mb: 3 }} />
+          <Divider
+            sx={{
+              mb: 3,
+              backgroundColor:
+                theme === "dark" ? "var(--color-white)" : "var(--color-blue)",
+            }}
+          />
 
           <Grid
             container
@@ -138,23 +151,25 @@ function PersonalInfo() {
               <Typography variant="body2" color="textSecondary">
                 Email:
               </Typography>
-              <Typography variant="body1" style={{wordBreak:"break-word"}}>{user.email}</Typography>
+              <Typography variant="body1" style={{ wordBreak: "break-word" }}>
+                {user.email}
+              </Typography>
             </Grid>
             <Grid item xs={6}>
               <Typography variant="body2" color="textSecondary">
-                TC Kimlik Numarası:
+                {t("TC")}:
               </Typography>
               <Typography variant="body1">{user.identityNumber}</Typography>
             </Grid>
             <Grid item xs={6}>
               <Typography variant="body2" color="textSecondary">
-                Hesap Numarası:
+                {t("HesapNumarasi")}:
               </Typography>
               <Typography variant="body1">{user.accountNumber}</Typography>
             </Grid>
             <Grid item xs={6}>
               <Typography variant="body2" color="textSecondary">
-                Bakiye:
+                {t("Bakiye")}:
               </Typography>
               <Typography variant="body1">{user.balance} ₺</Typography>
             </Grid>
@@ -168,7 +183,7 @@ function PersonalInfo() {
                 }}
                 onClick={() => setModalOpen(true)}
               >
-                Bilgileri Güncelle
+                {t("BilgileriGuncelle")}
               </Button>
             </Grid>
           </Grid>

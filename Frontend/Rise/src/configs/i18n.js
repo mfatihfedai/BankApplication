@@ -1,0 +1,232 @@
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+
+const resources = {
+    tr: {
+        translation: {
+           Cikis:"ÇIKIŞ",
+           SonBesHareket:"Son 5 Hareket",
+           Tarih:"Tarih",
+           Aciklama:"Açıklama", 
+           Tutar:"Tutar",
+           Anasayfa:"Anasayfa",
+           KullaniciListesi: "Kullanıcı Listesi",
+           Bankalar: "Bankalar",
+           KullaniciHareketleri: "Kullanıcı Hareketleri",
+           Eft: "EFT / Havale",
+           FaturaOde: "Fatura Öde",
+           HesapHareketleri: "Hesap Hereketleri",
+           KisiselBilgilerim: "Kişisel Bilgilerim",
+           GirisKayitlarim: "Giriş Kayıtlarım",
+           OtomatikOdemeTalimatlarim: "Otomatik Ödeme Talimatlarım",
+           BilgileriGuncelle:"BİLGİLERİ GÜNCELLE",
+           Sayin: "Sayın",
+           SonGiris: "Son Giriş",
+           //KİŞİSEL BİLGİLERİM
+           TC: "TC Kimlik Numarası",
+           Bakiye: "Bakiye",
+           HesapNumarasi: "Hesap Numarası",
+           SonIslemTarihi: "Son İşlem Tarihi",
+           //OTOMATİK ÖDEME TALİMATLARIM
+           FaturaTipi: "Fatura Tipi",
+           FaturaNumarasi: "Fatura Numarası",
+           SonOdenenTutar :"Son Ödenen Tutar(₺)",
+           OtomatikOdeme:"Otomatik Ödeme",
+           Duzenle:"Düzenle",
+           //GİRİŞ KAYITLARIM
+           GirisTarihi:"Giriş Tarihi",
+           CikisTarihi:"Çıkış Tarihi",
+           //HESAP HAREKETLERİM
+           IslemTarihi: "İşlem Tarihi",
+           Kanal: "Kanal",
+           Aciklama: "Açıklama",
+           IslemTutari: "İşlem Tutarı",
+           Detaylar: "Detaylar",
+           HesapDetaylari: "Hesap Detayları",
+           IslemTarihi: "İşlem Tarihi",
+           GonderenHesapNo: "Gönderen Hesap No",
+           GonderilenMiktar: "Gönderilen Miktar",
+           Aciklama: "Açıklama",
+           //FATURA ÖDE
+          
+           FaturaOde: "Fatura Öde",
+           FaturaNumarasi: "Fatura Numarası",
+           FaturaTipi: "Fatura Tipi",
+           FaturaTutari: "Fatura Tutarı (₺)",
+           OtomatikOdeme: "Otomatik Ödeme Talimatı",
+           FaturayiOde: "Faturayı Öde",
+           FaturaOdeme: "Fatura Ödeme",
+           Basarili: "Başarılı",
+           Basarisiz: "Başarısız",
+           //KULLANICI LİSTESİ
+           KullaniciListesi: "Kullanıcı Listesi",
+           YeniKullanici: "Yeni Kullanıcı",
+           KullaniciAra: "Kullanıcı Ara...",
+           Ara: "Ara",
+           TcKimlik: "TC Kimlik Numarası",
+           IsimSoyisim: "İsim Soyisim",
+           HesapNumarasi: "Hesap Numarası",
+           Rol: "Rol",
+           Islemler: "İşlemler",
+           Bilinmiyor: "Bilinmiyor",
+           Geri: "Geri",
+           Ileri: "İleri",
+           SilmeOnayi: "Bu kullanıcıyı silmek istediğinizden emin misiniz?",
+           Sil: "Sil",
+           Iptal: "İptal",      
+          //BANKALAR
+          BankaYonetimi: "Banka Yönetimi",
+          YeniBanka: "Yeni Banka",
+          BankaAdi: "Banka Adı",
+          TransferUcreti: "Transfer Ücreti",
+          Duzenle: "Düzenle",
+          BankaAdiZorunlu: "Banka adı zorunludur.",
+          TransferUcretiZorunlu: "Transfer ücreti zorunludur.",
+          BankaBasariylaGuncellendi: "Banka başarıyla güncellendi.",
+          BankaGuncellenirkenHata: "Banka güncellenirken bir hata oluştu.",
+          BankaBasariylaEklendi: "Banka başarıyla eklendi.",
+          BankaEklenirkenHata: "Banka eklenirken bir hata oluştu.",
+          BankaBasariylaSilindi: "Banka başarıyla silindi.",  
+          //Kullanıcı hareketleri
+          GirisKayitlariTablosu: "Giriş Kayıtları Tablosu",
+          GirisKayitlariGrafigi: "Giriş Kayıtları Grafiği",
+          İsimSoyisim: "İsim Soyisim",   
+          //EFT
+          AliciHesapNo: "Alıcı Hesap No",
+          Gonder: "Gönder",
+          LutfenHesapNumarasiniDogruGirin: "Lütfen hesap numarasını doğru girdiğinizden emin olun.",
+          YetersizBakiye: "Yetersiz bakiye",
+          KendiHesapNumarasinaHavale: "Kendi hesap numaranıza havale yapamazsınız.",
+          ParaGondermeBasari: "Para gönderme işlemi başarıyla gerçekleştirildi",
+          HesapTuru: "Hesap Türü",
+          
+          GuncelBakiye: "Güncel Bakiye",
+          VadesizTL: "Vadesiz TL",
+          ParaninCekilecegiHesap: "Paranın Çekileceği Hesap",
+          AliciBilgileri: "Alıcı Bilgileri"
+            
+          
+              
+        }
+    },
+    en: {
+        translation: {
+            Cikis:"EXIT",
+            SonBesHareket:"Recent 5 Transactions",
+            Tarih:"Date",
+            Aciklama:"Explanation", 
+            Tutar:"Amount",
+            Anasayfa: "Home",
+            KullaniciListesi: "User List",
+            Bankalar: "Banks",
+            KullaniciHareketleri: "User Transactions",
+            Eft: "EFT / Money Transfer",
+            FaturaOde: "Pay Bill",
+            HesapHareketleri: "Account Transactions",
+            KisiselBilgilerim: "My Personal Informatıon",
+            GirisKayitlarim: "My Login Records",
+            OtomatikOdemeTalimatlarim: "My Automatic Payment Orders",
+            BilgileriGuncelle: "UPDATE INFORMATION",
+            Sayin: "Dear",
+            SonGiris: "Last Login",
+            TC: "Turkish Identity Number",
+            Bakiye: "Balance",
+            HesapNumarasi: "Account Number",
+            SonIslemTarihi: "Last Transaction Date",
+            FaturaTipi: "Invoice Type",
+            FaturaNumarasi: "Invoice Number",
+            SonOdenenTutar: "Last Paid Amount (₺)",
+            OtomatikOdeme:"Auto Payment",
+            Duzenle: "Edit",
+            GirisTarihi:"Login Date",
+            CikisTarihi:"Logout Date",
+            IslemTarihi: "Transaction Date",
+            Kanal: "Channel",
+            Aciklama: "Description",
+            IslemTutari: "Transaction Amount",
+            Detaylar: "Details",
+            HesapDetaylari: "Account Details",
+            IslemTarihi: "Transaction Date",
+            GonderenHesapNo: "Sender Account No",
+            GonderilenMiktar: "Transferred Amount",
+            Aciklama: "Description",
+            FaturaOde: "Pay Invoice",
+            FaturaNumarasi: "Invoice Number",
+            FaturaTipi: "Invoice Type",
+            FaturaTutari: "Invoice Amount (₺)",
+            OtomatikOdeme: "Auto Payment Instruction",
+            FaturayiOde: "Pay Invoice",
+            FaturaOdeme: "Invoice Payment",
+            Basarili: "Successful",
+            Basarisiz: "Failed",
+            KullaniciListesi: "User List",
+            YeniKullanici: "New User",
+            KullaniciAra: "Search User...",
+            Ara: "Search",
+            TcKimlik: "ID Number",
+            IsimSoyisim: "Full Name",
+            HesapNumarasi: "Account Number",
+            Rol: "Role",
+            Islemler: "Actions",
+            Bilinmiyor: "Unknown",
+            Geri: "Back",
+            Ileri: "Next",
+            SilmeOnayi: "Are you sure you want to delete this user?",
+            Sil: "Delete",
+            Iptal: "Cancel",
+            BankaYonetimi: "Bank Management",
+            YeniBanka: "New Bank",
+            BankaAdi: "Bank Name",
+            TransferUcreti: "Transfer Fee",
+            Duzenle: "Edit",
+            BankaAdiZorunlu: "Bank name is required.",
+            TransferUcretiZorunlu: "Transfer fee is required.",
+            BankaBasariylaGuncellendi: "Bank updated successfully.",
+            BankaGuncellenirkenHata: "An error occurred while updating the bank.",
+            BankaBasariylaEklendi: "Bank added successfully.",
+            BankaEklenirkenHata: "An error occurred while adding the bank.",
+            BankaBasariylaSilindi: "Bank deleted successfully." ,
+            GirisKayitlariTablosu: "Login Records Table",
+            GirisKayitlariGrafigi: "Login Records Chart",
+            İsimSoyisim: "Full Name",
+        
+            AliciHesapNo: "Receiver Account No",
+           
+            Gonder: "Send",
+            LutfenHesapNumarasiniDogruGirin: "Please make sure the account number is entered correctly.",
+            YetersizBakiye: "Insufficient balance",
+            KendiHesapNumarasinaHavale: "You cannot send money to your own account.",
+            ParaGondermeBasari: "Transfer successfully completed",
+            HesapTuru: "Account Type",
+            GuncelBakiye: "Current Balance",
+            VadesizTL: "Current TL",
+            ParaninCekilecegiHesap: "Account for Withdrawal",
+            AliciBilgileri: "Receiver Information"
+            
+                
+              
+                
+              
+              
+              
+                
+            
+              
+
+              
+              
+             
+              
+            
+
+        }
+    }
+}
+
+i18n
+  .use(initReactI18next) //burada middleware olarak kullanmamız bizim context oluşturmamızla aynı işlevi yapıyor. i18n contextimiz var gibi davranacak. React dışından konfigüre edilip react içine enjekte edilme sebebi bazı alert gibi fonks. ihtiyaç duyabiliyor. React dışı tüketebilmek için.
+  .init({
+    resources,
+    lng: "tr", 
+   
+});

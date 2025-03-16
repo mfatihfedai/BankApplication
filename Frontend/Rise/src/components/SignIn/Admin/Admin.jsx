@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import DashboardHeader from "../../General/DashboardHeader";
 import MenuItems from "../../General/MenuItems";
-import { adminList } from "../../Core/MenuLists";
 import { useAdminMenu } from "../../../context/AdminMenuContext";
 import "./admin.style.css";
 import Home from "../GeneralComponent/Home/Home";
@@ -14,16 +13,21 @@ import LogsInfo from "../GeneralComponent/LogsInfo/LogsInfo";
 import UserList from "../AdminComponent/UserList/UserList";
 import UserActivities from "../AdminComponent/UserActivities/UserActivities";
 import Banks from "../AdminComponent/Banks/Banks";
+import { useMenuItems } from "../../Core/useMenuItems";
 
 function Admin() {
   const { componentName } = useAdminMenu();
+  const { adminList } = useMenuItems();
   const [menuOpen, setMenuOpen] = useState(false); // Menü aç/kapat
 
   return (
     <>
-     <DashboardHeader />
+      <DashboardHeader />
       <div className="admin-parent">
-        <button className="hamburger-menu" onClick={() => setMenuOpen(!menuOpen)}>
+        <button
+          className="hamburger-menu"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
           ☰
         </button>
 

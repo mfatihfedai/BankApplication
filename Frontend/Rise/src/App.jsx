@@ -12,15 +12,17 @@ import CreateUserForm from "./components/SignIn/CreateUserForm/CreateUserForm";
 import ForgetPassword from "./components/SignIn/ForgetPass/ForgetPassword";
 import { AdminContextProvider } from "./context/AdminMenuContext";
 import { BankContextProvider } from "./context/BankContext";
+import { ThemeContextProvider } from "./context/ThemeContext";
 
 // App.js
 
 function App() {
   return (
     <>
-      <BankContextProvider>
-        <UserContextProvider>
-          <AdminContextProvider>
+      <ThemeContextProvider>
+        <BankContextProvider>
+          <UserContextProvider>
+            <AdminContextProvider>
               <div>
                 <a href="/" style={{ textDecoration: "none" }}>
                   <Logo />
@@ -50,9 +52,10 @@ function App() {
                   }
                 />
               </Routes>
-          </AdminContextProvider>
-        </UserContextProvider>
-      </BankContextProvider>
+            </AdminContextProvider>
+          </UserContextProvider>
+        </BankContextProvider>
+      </ThemeContextProvider>
     </>
   );
 }

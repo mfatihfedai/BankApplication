@@ -21,6 +21,7 @@ import { GridCheckCircleIcon } from "@mui/x-data-grid";
 import { useAdminMenu } from "../../../../context/AdminMenuContext";
 import { invoiceFormSchemas } from "../../../Schemas/InvoiceFormSchemas";
 import "./invoice.css";
+import { useTranslation } from "react-i18next";
 
 function Invoice() {
   const [loading, setLoading] = useState(false);
@@ -29,6 +30,7 @@ function Invoice() {
   const [modalInfo, setModalInfo] = useState();
   const [success, setSuccess] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const { t } = useTranslation();
 
   const iconStyle = (color) => ({
     fontSize: 60,
@@ -37,13 +39,12 @@ function Invoice() {
   });
 
   const handleClose = () => {
-    setShowModal(false); // Modal'ı kapat
+    setShowModal(false);
   };
 
   useEffect(() => {
     let timer;
     if (showModal && success) {
-      // Geri sayım başlat
       timer = setInterval(() => {
         setCountdown((prev) => {
           if (prev > 1) return prev - 1;
@@ -86,7 +87,7 @@ function Invoice() {
       } catch (error) {
         console.error("Fatura ödeme hatası:", error.message);
         setShowModal(true);
-        setModalInfo("Fatura ödemesi yapılamadı. Lütfen tekrar deneyiniz.");
+        setModalInfo(t("faturaOdemeHatasi"));
       } finally {
         setLoading(false);
       }
@@ -135,14 +136,14 @@ function Invoice() {
               )}
             </div>
             <Typography id="transition-modal-title" variant="h6" component="h2">
-              Fatura Ödeme {success ? "Başarılı" : "Başarısız"}
+              {t("faturaOdeme")} {success ? t("Basarili") : t("Basarisiz")}
             </Typography>
             <Typography id="transition-modal-description" sx={{ mt: 2 }}>
               {modalInfo}
             </Typography>
             {success && (
               <Typography id="transition-modal-countdown" sx={{ mt: 2 }}>
-                {countdown} saniye içinde anasayfaya yönlendiriliyorsunuz...
+                {countdown} {t("saniyeIcerisindeYonlendirileceksiniz")}
               </Typography>
             )}
           </Box>
@@ -170,16 +171,15 @@ function Invoice() {
             fontWeight="bold"
             gutterBottom
           >
-            Fatura Öde
+            {t("FaturaOde")}
           </Typography>
 
-          {/* Fatura Numarası */}
           <TextField
             margin="normal"
             fullWidth
             id="invoiceNo"
             name="invoiceNo"
-            label="Fatura Numarası"
+            label={t("FaturaNumarasi")}
             value={formik.values.invoiceNo}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -187,8 +187,7 @@ function Invoice() {
             helperText={formik.touched.invoiceNo && formik.errors.invoiceNo}
           />
 
-          {/* Fatura Tipi */}
-          <InputLabel id="invoiceType-label">Fatura Tipi</InputLabel>
+          <InputLabel id="invoiceType-label">{t("FaturaTipi")}</InputLabel>
           <Select
             labelId="invoiceType-label"
             id="invoiceType"
@@ -206,17 +205,13 @@ function Invoice() {
             <MenuItem value="Su">Su</MenuItem>
             <MenuItem value="Telefon">Telefon</MenuItem>
           </Select>
-          {formik.touched.invoiceType && formik.errors.invoiceType && (
-            <Typography color="error">{formik.errors.invoiceType}</Typography>
-          )}
 
-          {/* Fatura Tutarı */}
           <TextField
             margin="normal"
             fullWidth
             id="invoiceAmount"
             name="invoiceAmount"
-            label="Fatura Tutarı (₺)"
+            label={t("FaturaTutari")}
             type="number"
             value={formik.values.invoiceAmount}
             onChange={formik.handleChange}
@@ -230,7 +225,6 @@ function Invoice() {
             }
           />
 
-          {/* Otomatik Ödeme */}
           <FormControlLabel
             control={
               <Switch
@@ -240,19 +234,9 @@ function Invoice() {
                 onChange={formik.handleChange}
               />
             }
-            label="Otomatik Ödeme Talimatı"
+            label={t("OtomatikOdeme")}
           />
-          {/* Otomatik Ödeme Bilgilendirme */}
-          {formik.values.autobill && (
-            <Typography
-              sx={{ fontSize: "14px", color: "gray", marginTop: "-10px" }}
-            >
-              Ödemeleriniz her ayın 1. günü ilk ödeme miktarınıza bağlı bir
-              miktarda yapılacaktır.
-            </Typography>
-          )}
 
-          {/* Gönder Butonu */}
           <LoadingButton
             type="submit"
             fullWidth
@@ -260,17 +244,8 @@ function Invoice() {
             endIcon={<SendIcon />}
             loading={loading}
             loadingPosition="end"
-            sx={{
-              backgroundColor: "var(--color-blue)",
-              color: "#ffffff",
-              fontFamily: "Montserrat",
-              "&:hover": {
-                backgroundColor: "#ffffff",
-                color: "var(--color-blue)",
-              },
-            }}
           >
-            Faturayı Öde
+            {t("FaturayiOde")}
           </LoadingButton>
         </Box>
       </form>

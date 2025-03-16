@@ -5,11 +5,13 @@ import { logoutUser } from "../../service/LogoutApi";
 import Button from "@mui/material/Button";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import { useAdminMenu } from "../../context/AdminMenuContext";
+import { useTranslation } from "react-i18next";
 
 function LogoutButton() {
   const { user, setUser } = useUser(); // Eğer user'ı context'ten temizlemeniz gerekirse
   const navigate = useNavigate();
   const { setComponentName } = useAdminMenu();
+  const { t } = useTranslation();
 
   // Logout işlemi
   const handleLogout = async () => {
@@ -40,7 +42,7 @@ function LogoutButton() {
         variant="contained"
         startIcon={<PowerSettingsNewIcon />}
       >
-        Çıkış
+        {t("Cikis")}
       </Button>
     </div>
   );

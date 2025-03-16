@@ -9,6 +9,7 @@ import { getReceipts } from "../../../../service/ReceiptApi";
 import Logo from "../../../../assets/LogoNonBackground.png";
 import "../../../Core/logo.css";
 import { useUser } from "../../../../context/UserContext";
+import { useTranslation } from "react-i18next";
 
 function Receipt() {
   const { user } = useUser();
@@ -17,6 +18,7 @@ function Receipt() {
   const [rowCount, setRowCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [selectedDetails, setSelectedDetails] = useState(null);
+  const { t } = useTranslation();
 
   const formatPayDate = (dateString) => {
     const date = new Date(dateString);
@@ -111,12 +113,12 @@ function Receipt() {
   };
 
   const columns = [
-    { field: "payDate", headerName: "İşlem Tarihi", sortable: false },
-    { field: "channel", headerName: "Kanal", sortable: true },
-    { field: "description", headerName: "Açıklama", sortable: false },
+    { field: "payDate", headerName: t("IslemTarihi"), sortable: false },
+    { field: "channel", headerName: t("Kanal"), sortable: true },
+    { field: "description", headerName: t("Aciklama"), sortable: false },
     {
       field: "amount",
-      headerName: "İşlem Tutarı",
+      headerName: t("IslemTutari"),
       sortable: false,
       renderCell: (params) => {
         const { type, receiver, amount } = params.row;
@@ -134,7 +136,7 @@ function Receipt() {
     },
     {
       field: "receipt",
-      headerName: "Detaylar",
+      headerName: t("Detaylar"),
       width: 150,
       sortable: false,
       renderCell: (params) => {
@@ -182,7 +184,7 @@ function Receipt() {
 
   return (
     <div style={{ height: "31rem", width: "95%", padding: "20px" }}>
-      <h1>HESAP HAREKETLERİM</h1>
+      <h1>{t("HesapHareketleri")}</h1>
       <DataGrid
         rows={logs}
         columns={columns.map((col) => ({
@@ -270,7 +272,7 @@ function Receipt() {
                 gutterBottom
                 sx={{ textAlign: "center", fontWeight: "800" }}
               >
-                Hesap Detayları
+                {t("HesapDetaylari")}
               </Typography>
               <Box
                 sx={{
@@ -284,24 +286,24 @@ function Receipt() {
                   lineHeight: "1",
                 }}
               >
-                <Typography>İşlem Tarihi:</Typography>{" "}
+                <Typography>{t("IslemTarihi")}:</Typography>
                 <Typography sx={{ textAlign: "right", fontWeight: "600" }}>
-                  {" "}
                   {selectedDetails.payDate}
                 </Typography>
-                <Typography>Gönderen Hesap No:</Typography>{" "}
+
+                <Typography>{t("GonderenHesapNo")}:</Typography>
                 <Typography sx={{ textAlign: "right", fontWeight: "600" }}>
-                  {" "}
                   {selectedDetails.receiver}
                 </Typography>
-                <Typography>Gönderilen Miktar:</Typography>{" "}
+
+                <Typography>{t("GonderilenMiktar")}:</Typography>
                 <Typography
                   sx={{ textAlign: "right", color: "green", fontWeight: "600" }}
                 >
-                  {" "}
                   +{selectedDetails.amount} ₺
                 </Typography>
-                <Typography>Açıklama:</Typography>{" "}
+
+                <Typography>{t("Aciklama")}:</Typography>
                 <Typography
                   sx={{
                     textAlign: "right",
@@ -309,7 +311,6 @@ function Receipt() {
                     fontWeight: "600",
                   }}
                 >
-                  {" "}
                   {selectedDetails.messages}
                 </Typography>
               </Box>
