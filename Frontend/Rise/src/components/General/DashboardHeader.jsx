@@ -9,8 +9,6 @@ import Button from "@mui/material/Button";
 import { format } from "date-fns";
 import { tr } from "date-fns/locale";
 import { decryptData } from "../Core/CryptoJS";
-import Theme from "./Theme";
-import Lang from "./Lang";
 import { useTranslation } from "react-i18next";
 
 const modalStyle = {
@@ -112,8 +110,6 @@ function DashboardHeader() {
       </div>
 
       <div className="dashboard-header-logout-button">
-        <Lang />
-        <Theme />
         <LogoutButton />
       </div>
 
@@ -126,7 +122,7 @@ function DashboardHeader() {
         <Box sx={{ ...modalStyle }}>
           <h2 id="timeout-modal-title">Oturum Sonlanıyor</h2>
           <p id="timeout-modal-description">
-            5 dakikadır işlem yapmadınız. Güvenlik nedeniyle oturumunuz
+            5 dakika boyunca işlem yapmadınız. Güvenlik nedeniyle oturumunuz
             kapatılıyor. Lütfen tekrar giriş yapınız.
           </p>
           <Button

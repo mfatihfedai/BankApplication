@@ -13,6 +13,7 @@ html{
   background-size: cover;
   background-position: center;
   overflow-x: hidden !important;
+  height: 100vh;
 }
 
 :root {
@@ -23,10 +24,33 @@ html{
   --color-red: #ce2d26;
   --color-gray: #f4f4f4;
   --color-light-blue: #e3f2fd;
+
+   /* Yeni eklenen renkler */
+   --color-green: #4CAF50;
+   --color-dark-green: #2E7D32;
+   --color-purple: #8E44AD;
+   --color-dark-purple: #5E3370; 
+   --color-yellow: #FFD700;
+   --color-dark-yellow: #B8860B;
 }
 body.dark {
-  background-color: black;
-  color: var(--color-gray)
+  background-color: #121212; /* Daha koyu bir arka plan */
+  color: var(--color-gray);
+
+  --color-black: #1E1E1E;
+  --color-blue: #1A5276;
+  --color-orange: #D35400;
+  --color-white: #BFC9CA;
+  --color-red: #C0392B;
+  --color-gray: #B0BEC5;
+  --color-light-blue: #5DADE2;
+
+  --color-green: #388E3C;
+  --color-dark-green: #1B5E20;
+  --color-purple: #7D3C98;
+  --color-dark-purple: #4A235A;
+  --color-yellow: #F1C40F;
+  --color-dark-yellow: #9A7D0A;
 }
 
 .main {
