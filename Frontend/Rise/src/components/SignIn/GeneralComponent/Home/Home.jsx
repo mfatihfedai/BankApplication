@@ -9,13 +9,13 @@ function Home() {
   return (
     
     <div className="persorece">
-    <div id="personal" >
-      <PersonalInfo />
-    </div>
+      <div id="personal" >
+        <PersonalInfo />
+      </div>
 
-    <div id="receipt"> 
-    <ReceiptTable />
-    </div>
+      <div id="receipt"> 
+        <ReceiptTable />
+      </div>
     </div>
    
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
+import NightsStayIcon from '@mui/icons-material/NightsStay';
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import { useTheme } from "../../context/ThemeContext";
 
@@ -7,8 +7,11 @@ function Theme() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <div onClick={toggleTheme} style={{ cursor: "pointer" }}>
-      {theme === "light" ? <DarkModeIcon /> : <WbSunnyIcon />}
+    <div onClick={toggleTheme} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+      {theme === "light" ? 
+        <WbSunnyIcon sx={{ color:"var(--color-purple)"}} /> : 
+        <NightsStayIcon sx={{ color: "var(--color-dark-white)"}} />
+      }
     </div>
   );
 }

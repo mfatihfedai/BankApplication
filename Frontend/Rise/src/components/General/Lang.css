@@ -1,0 +1,47 @@
+.language-dropdown {
+    position: relative;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 130px;
+  }
+  
+  .selected-language {
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .flag-icon {
+    width: 20px;
+    height: 15px;
+    margin-right: 8px;
+    object-fit: cover; /* Bayrakların boyutunu korur */
+  }
+  
+  .language-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    background-color: white;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    z-index: 10; /* Diğer elementlerin üzerinde görünmesi için */
+  }
+  
+  .language-list li {
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .language-list li:hover {
+    background-color: #f0f0f0;
+  }

@@ -23,11 +23,7 @@ function App() {
         <BankContextProvider>
           <UserContextProvider>
             <AdminContextProvider>
-              <div>
-                <a href="/" style={{ textDecoration: "none" }}>
-                  <Logo />
-                </a>
-              </div>
+              <Logo />
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/verify" element={<Verify />} />

@@ -136,7 +136,7 @@ function Receipt() {
     },
     {
       field: "receipt",
-      headerName: t("Detaylar"),
+      headerName: t("Dekont"),
       width: 150,
       sortable: false,
       renderCell: (params) => {
