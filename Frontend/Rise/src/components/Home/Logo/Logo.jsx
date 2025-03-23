@@ -3,7 +3,6 @@ import Logos from "../../../assets/LogoNonBackground.png";
 import { useTheme } from "../../../context/ThemeContext";
 import Theme from "../../General/Theme.jsx";
 import Lang from "../../General/Lang.jsx";
-import { he } from "date-fns/locale";
 
 function Logo() {
   const { theme } = useTheme();
