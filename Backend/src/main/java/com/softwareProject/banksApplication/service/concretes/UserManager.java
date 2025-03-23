@@ -2,6 +2,7 @@ package com.softwareProject.banksApplication.service.concretes;
 
 import com.softwareProject.banksApplication.core.auth.MailMessageService;
 import com.softwareProject.banksApplication.core.exception.DataAlreadyExistException;
+import com.softwareProject.banksApplication.core.exception.NotFoundException;
 import com.softwareProject.banksApplication.core.exception.NotValidException;
 import com.softwareProject.banksApplication.core.mapper.UserMapper;
 import com.softwareProject.banksApplication.core.utilies.Msg;
@@ -104,7 +105,7 @@ public class UserManager extends BaseManager<UserInfo, UserRepo, UserSaveRequest
     public UserResponse forgetEmail(String email) {
         UserInfo user = this.repository.findByEmail(email);
         if (user == null) {
-            throw new NotValidException("User not found.");
+            throw new NotFoundException("User not found.");
         }
         String password = this.generatePassayPassword();
         user.setPassword(BCrypt.hashpw(password, BCrypt.gensalt()));
