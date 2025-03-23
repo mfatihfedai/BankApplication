@@ -9,7 +9,7 @@ export const forgetPass = async (email) => {
         });
         return response;
     } catch (error) {
-        console.error("Could not send email ", error.message);
-        throw error;
+        console.error("Could not send email ", error);
+        return error;
     }
 }

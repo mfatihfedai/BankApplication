@@ -34,7 +34,7 @@ html{
    --color-dark-yellow: #B8860B;
 }
 body.dark {
-  background-color: #121212; /* Daha koyu bir arka plan */
+  background-color: #0f1214; /* Daha koyu bir arka plan */
   color: var(--color-gray);
 
   --color-black: #1E1E1E;

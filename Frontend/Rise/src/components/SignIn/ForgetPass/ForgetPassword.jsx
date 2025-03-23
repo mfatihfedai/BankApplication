@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import {
   Box,
@@ -9,15 +10,20 @@ import {
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import LoadingButton from "@mui/lab/LoadingButton";
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { forgetPass } from "../../../service/ForgetPassApi";
-import "./forgetPassword.style.css"
+import "./forgetPassword.css"
+import { useTheme } from "../../../context/ThemeContext";
 
 const ForgetPassword = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [userNotFound, setUserNotFound] = useState(false);
   const navigate = useNavigate();
+  const { theme } = useTheme();
+  const { t } = useTranslation();
 
   const validationSchema = Yup.object({
     email: Yup.string()
@@ -31,10 +37,16 @@ const ForgetPassword = () => {
     onSubmit: async (values) => {
       try {
         setLoading(true);
+        setUserNotFound(false);
+        setSuccess(false);
         const response = await forgetPass(values.email);
+        console.log(response);
         if (response.status === 200) {
           setSuccess(true);
-        } else {
+        } else if(response.status === 404) {
+          setUserNotFound(true);
+        }
+        else {
           setSuccess(false);
         }
       } catch (error) {
@@ -50,36 +62,53 @@ const ForgetPassword = () => {
   }
 
   return (
-    <div className= "forget-password">
+    <div className= {`forget-password ${theme === "dark" ? "dark" : ""}`}>
       <form onSubmit={formik.handleSubmit}>
         <Box
-          // className= "forget-password"
           sx={{
             display: "flex",
             flexDirection: "column",
             gap: 2,
-            maxWidth: 500,
-            margin: "50px auto",
+            maxWidth: 600,
+            height: 530,
+            margin: "auto",
             padding: 4,
             borderRadius: 4,
             boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-            background: "linear-gradient(to right, #ece9e6, #ffffff)",
-            
+            background: theme === "dark" ? "#333333" : "linear-gradient(to right, #ece9e6, #ffffff)",
+            color: theme === "dark" ? "#ffffff" : "#000000",
           }}
         >
+          <Link href="/" style={{ marginBottom:"-25px", paddingTop:"10px"}}>
+          <ArrowBackIosNewIcon
+            style={{
+              color: theme === "dark" ? "#ffffff" : "var(--color-blue)",
+              transition: "transform 0.3s ease-in-out",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.5)")}
+            onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+          />
+          </Link>
           <Typography
             variant="h5"
             textAlign="center"
             fontWeight="bold"
             gutterBottom
+            sx={{ color: theme === "dark" ? "var(--color-white)" : "var(--color-blue)" }}
           >
-            <br />
-            Şifrenizi mi unuttunuz?
+            {t("SifreniziMiUnuttunuz")}
           </Typography>
           <Typography
             variant="body1"
             textAlign="center"
-            sx={{ color: "gray", marginBottom: 2 }}
+            className="forget-password-subtitle"
+            sx={{ color: theme === "dark" ? "#ffffff" : "var(--color-black)" }}
+          >
+            {t("LütfenKayitliEmailAdresiniziGirin")}
+          </Typography>
+          <Typography
+            variant="body1"
+            textAlign="center"
           >
                 {/* {<p>Sayın müşterimiz, biz ki <strong>RISE BANK</strong> olarak müşterilerimizin sağlığına oldukça önem veririz.
                 Sanıyoruz ki son zamanlardaki yorgunluklarınızdan dolayı bir miktar
@@ -93,26 +122,42 @@ const ForgetPassword = () => {
             fullWidth
             id="email"
             name="email"
-            label="Email Adresi"
+            label={t("EmailAdresi")}
             value={formik.values.email}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
             InputLabelProps={{
-              style: { color: "var(--color-blue)", fontFamily: "Montserrat" },
+              style: { 
+                color: theme === "dark" ? "#ffffff" : "var(--color-black)", 
+                fontFamily: "Montserrat" },
             }}
             sx={{
               "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: theme === "dark" ? "#ffffff" : "#3f51b5",
+                },
                 "&:hover fieldset": {
-                  borderColor: "#3f51b5", // Hover
+                  borderColor: theme === "dark" ? "#ffffff" : "#3f51b5",
                 },
                 "&.Mui-focused fieldset": {
-                  borderColor: "#3f51b5", // Focus
+                  borderColor: theme === "dark" ? "#ffffff" : "#3f51b5",
                 },
               },
+              "& .MuiInputBase-input": {
+                color: theme === "dark" ? "#ffffff" : "#000000",
+              },
             }}
-          />
+          />{userNotFound && (
+            (<Typography
+              variant="body2"
+              textAlign="center"
+              sx={{ color: "var(--color-red)" }}
+            >
+              {t("KullaniciBulunamadi")}
+            </Typography>)
+          )}
           <LoadingButton
             type="submit"
             fullWidth
@@ -122,27 +167,41 @@ const ForgetPassword = () => {
             loadingPosition="end"
             sx={{
               fontFamily: "Montserrat",
-              backgroundColor: "var(--color-blue)",
+              backgroundColor: theme === "dark" ? "#555555" : "var(--color-blue)",
               color: "#ffffff",
               "&:hover": {
-                backgroundColor: "#ffffff",
-                color: "#3f51b5",
+                backgroundColor: theme === "dark" ? "#777777" : "#ffffff",
+                color: theme === "dark" ? "#ffffff" : "#3f51b5",
               },
             }}
           >
-            Gönder
+            {t("Gonder")}
           </LoadingButton>
           {success && (
             (<Typography
               variant="body2"
               textAlign="center"
-              sx={{ color: "green", marginTop: 1 }}
+              sx={{ color: "var(--color-green)", marginTop: 1 }}
             >
-              Başarılı! Lütfen emailinizi kontrol edin.
+              {t("BaşariliLütfenEmailiniziKontrolEdin")}
             </Typography>)
           )}
           {success && (
-            (<Button variant="outlined" onClick={handleMainPage} >Anasayfaya Dön</Button>)
+            (<Button 
+              variant="outlined" 
+              onClick={handleMainPage} 
+              sx={{
+                marginTop: 2,
+                borderColor: theme === "dark" ? "#ffffff" : "var(--color-blue)",
+                color: theme === "dark" ? "#ffffff" : "var(--color-blue)",
+                "&:hover": {
+                  backgroundColor: theme === "dark" ? "#555555" : "var(--color-blue)",
+                  color: theme === "dark" ? "#ffffff" : "#ffffff",
+                },
+              }}
+              >
+                 {t("AnasayfayaDon")}
+            </Button>)
           )}
         </Box>
       </form>
