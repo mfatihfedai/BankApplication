@@ -4,6 +4,29 @@ import { initReactI18next } from "react-i18next";
 const resources = {
     tr: {
         translation: {
+            //Create User Form
+            PrismaBank: "PRISMA BANK",
+            HosGeldiniz: "Hoş Geldiniz",
+            Ad: "Ad",
+            Soyad: "Soyad",
+            Email: "Email",
+            TCKimlik: "T.C Kimlik",
+            Sifre: "Şifre",
+            SifreTekrari: "Şifre Tekrarı",
+            AydinlatmaMetni: "Aydınlatma Metnini okudum ve kabul ediyorum.",
+            KVKKMetni: "KVKK Metnini okudum ve kabul ediyorum.",
+            Basvur: "Başvur",
+            AydinlatmaMetniBaslik: "Aydınlatma Metni",
+            AydinlatmaMetniIcerik: "Bu metinde kişisel verilerinizin işlenme amacı, hukuki sebebi ve haklarınız hakkında bilgi verilmektedir.",
+            KVKKMetniBaslik: "KVKK Metni",
+            KVKKMetniIcerik: "6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında kişisel verilerinizin işlenmesine dair bilgilendirme metni.",
+            Uyari: "Uyarı",
+            UyariIcerik: "Lütfen koşulları kabul edin.",
+            Basarili: "Başarılı",
+            BasariliIcerik: "Kayıt İşleminiz Başarılı Şekilde Gerçekleşti",
+            Kapat: "Kapat",
+            KabulEdiyorum: "Kabul Ediyorum",
+            KabulEtmiyorum: "Kabul Etmiyorum",
             // ForgetPassword bileşeni için çeviriler
             SifreniziMiUnuttunuz: "Şifrenizi mi unuttunuz?",
             LütfenKayitliEmailAdresiniziGirin: "Lütfen kayıtlı email adresinizi girin. Size şifre sıfırlama talimatları göndereceğiz.",
@@ -116,6 +139,29 @@ const resources = {
     
     en: {
         translation: {
+            // Create User Form 
+            PrismaBank: "PRISMA BANK",
+            HosGeldiniz: "Welcome",
+            Ad: "Name",
+            Soyad: "Surname",
+            Email: "Email",
+            TCKimlik: "ID Number",
+            Sifre: "Password",
+            SifreTekrari: "Confirm Password",
+            AydinlatmaMetni: "I have read and accept the Disclosure Text.",
+            KVKKMetni: "I have read and accept the KVKK Text.",
+            Basvur: "Apply",
+            AydinlatmaMetniBaslik: "Disclosure Text",
+            AydinlatmaMetniIcerik: "This text provides information about the purpose and legal basis of processing your personal data and your rights.",
+            KVKKMetniBaslik: "KVKK Text",
+            KVKKMetniIcerik: "This is the information text regarding the processing of your personal data within the scope of the Personal Data Protection Law No. 6698.",
+            Uyari: "Warning",
+            UyariIcerik: "Please accept the terms.",
+            Basarili: "Success",
+            BasariliIcerik: "Your registration has been successfully completed.",
+            Kapat: "Close",
+            KabulEdiyorum: "I Accept",
+            KabulEtmiyorum: "I Declıne",
             // ForgetPassword bileşeni için çeviriler
             SifreniziMiUnuttunuz: "Forgot Password?",
             LütfenKayitliEmailAdresiniziGirin: "Please enter your registered email address. We will send you password reset instructions.",

@@ -1,5 +1,4 @@
 import "./App.css";
-import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Logo from "./components/Home/Logo/Logo";
@@ -13,6 +12,7 @@ import ForgetPassword from "./components/SignIn/ForgetPass/ForgetPassword";
 import { AdminContextProvider } from "./context/AdminMenuContext";
 import { BankContextProvider } from "./context/BankContext";
 import { ThemeContextProvider } from "./context/ThemeContext";
+import "./components/Core/Materialstyle.css"
 
 // App.js
 

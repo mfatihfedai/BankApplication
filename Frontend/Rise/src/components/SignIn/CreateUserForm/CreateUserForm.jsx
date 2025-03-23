@@ -1,3 +1,4 @@
+// CreateUserForm.jsx
 import React, { useEffect, useState } from "react";
 import {
   TextField,
@@ -9,10 +10,11 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import { registerFormSchemas } from "../../Schemas/RegisterFormSchemas";
-import "./createUserForm.style.css";
 import { createUser } from "../../../service/UserApi";
 import { useNavigate } from "react-router-dom";
 import InfoModal from "./InfoModal";
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import { useTranslation } from "react-i18next";
 
 const CreateUserForm = () => {
   const navigate = useNavigate();
@@ -21,6 +23,7 @@ const CreateUserForm = () => {
   const [isInfoChecked, setIsInfoChecked] = useState(false);
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const { t } = useTranslation();
 
   const handleModalResult = (type, result) => {
     if (type === "info") {
@@ -56,6 +59,10 @@ const CreateUserForm = () => {
     }
   }
 
+  const handleMainPage = () => {
+    navigate("/")
+  }
+
   const { values, errors, handleChange, handleSubmit } = useFormik({
     initialValues: {
       registerName: "",
@@ -64,59 +71,44 @@ const CreateUserForm = () => {
       registerIdentityNo: "",
       registerPassword: "",
       registerPasswordConfirm: "",
-      // isInfoChecked: false,
-      // isKvkkChecked: false,
     },
     validationSchema: registerFormSchemas,
-    validateOnBlur: false, // Odak kaybında doğrulamayı devre dışı bırak  Nihan did it!
-    validateOnChange: false, // Değişikliklerde doğrulamayı devre dışı bırak   Nihan did it!
+    validateOnBlur: false,
+    validateOnChange: false,
     onSubmit: submit,
   });
 
   return (
     <>
       <Box
-        className="create-user-form"
+        className="MuiBox-root"
         component="form"
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          gap: 2,
           maxWidth: 600,
-          margin: "0 auto",
-          padding: 2,
-          border: "1px solid #ccc",
-          borderRadius: 2,
-          fontFamily: "Montserrat",
-          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-          background: "linear-gradient(to right, #ece9e6, #ffffff)",
         }}
       >
+        <ArrowBackIosNewIcon
+          onClick={handleMainPage}
+          className="MuiIconButton-root"
+        />
         <Typography
           variant="h5"
           textAlign="center"
           fontWeight="bold"
           gutterBottom
+          className="MuiTypography-root"
         >
-          <h1
-            style={{
-              fontSize: "35px",
-              color: "--color-orange",
-              paddingTop: "1rem",
-              textDecoration: "underline",
-            }}
-          >
-            PRISMA BANK
+          <h1 className="MuiTypography-h1">
+            {t("PrismaBank")}
           </h1>
-          Hoş Geldiniz
+          {t("HosGeldiniz")}
         </Typography>
         <TextField
-          label="Ad"
+          label={t("Ad")}
           name="registerName"
           value={values.registerName.toLocaleUpperCase()}
           onChange={handleChange}
           type="text"
-          className="custom-textfield"
         />
         {errors.registerName && (
           <Typography className="register-error">
@@ -124,12 +116,11 @@ const CreateUserForm = () => {
           </Typography>
         )}
         <TextField
-          label="Soyad"
+          label={t("Soyad")}
           name="registerSurname"
           value={values.registerSurname.toLocaleUpperCase()}
           onChange={handleChange}
           type="text"
-          className="custom-textfield"
         />
         {errors.registerSurname && (
           <Typography className="register-error">
@@ -137,12 +128,11 @@ const CreateUserForm = () => {
           </Typography>
         )}
         <TextField
-          label="Email"
+          label={t("Email")}
           name="registerEmail"
           value={values.registerEmail}
           onChange={handleChange}
           type="text"
-          className="custom-textfield"
         />
         {errors.registerEmail && (
           <Typography className="register-error">
@@ -150,12 +140,11 @@ const CreateUserForm = () => {
           </Typography>
         )}
         <TextField
-          label="T.C Kimlik"
+          label={t("TCKimlik")}
           name="registerIdentityNo"
           value={values.registerIdentityNo}
           onChange={handleChange}
           type="text"
-          className="custom-textfield"
         />
         {errors.registerIdentityNo && (
           <Typography className="register-error">
@@ -163,12 +152,11 @@ const CreateUserForm = () => {
           </Typography>
         )}
         <TextField
-          label="Şifre"
+          label={t("Sifre")}
           name="registerPassword"
           value={values.registerPassword}
           onChange={handleChange}
           type="password"
-          className="custom-textfield"
         />
         {errors.registerPassword && (
           <Typography className="register-error">
@@ -176,35 +164,19 @@ const CreateUserForm = () => {
           </Typography>
         )}
         <TextField
-          label="Şifre Tekrarı"
+          label={t("SifreTekrari")}
           name="registerPasswordConfirm"
           value={values.registerPasswordConfirm}
           onChange={handleChange}
           type="password"
-          className="custom-textfield"
         />
         {errors.registerPasswordConfirm && (
           <Typography className="register-error">
             {errors.registerPasswordConfirm}
           </Typography>
         )}
-        {/* <FormControlLabel
-        label="Bu başvuru ile İnternet Bankacılığı´na tanımlı olan hesap ve ürünlerimin tanımlanacağını kabul ediyorum."
-        control={
-          <Checkbox
-            value={values.registerTerm}
-            name="registerTerm"
-            onChange={handleChange}
-          />
-        }
-      />
-      {errors.registerTerm && (
-        <Typography className="register-error">
-          {errors.registerTerm}
-        </Typography>
-      )} */}
         <FormControlLabel
-          label="Aydınlatma Metnini okudum ve kabul ediyorum."
+          label={t("AydinlatmaMetni")}
           control={
             <Checkbox
               value={isInfoChecked}
@@ -214,14 +186,13 @@ const CreateUserForm = () => {
             />
           }
         />
-        {/* <a href="">Aydınlatma Metni</a> */}
         {errors.isInfoChecked && (
           <Typography className="register-error">
             {errors.isInfoChecked}
           </Typography>
         )}
         <FormControlLabel
-          label="KVKK Metnini okudum ve kabul ediyorum."
+          label={t("KVKKMetni")}
           control={
             <Checkbox
               value={isKvkkChecked}
@@ -240,35 +211,36 @@ const CreateUserForm = () => {
           type="submit"
           onClick={handleSubmit}
           variant="contained"
-          color="primary"
+          sx={{ 
+            backgroundColor: "var(--color-primary)" 
+          }}
           fullWidth
-          style={{ backgroundColor: "var(--color-blue)", marginBottom: "1rem" }}
         >
-          Başvur
+          {t("Basvur")}
         </Button>
         <InfoModal
           open={openModal === "info"}
           onClose={(result) => handleModalResult("info", result)}
-          title="Aydınlatma Metni"
-          content="Bu metinde kişisel verilerinizin işlenme amacı, hukuki sebebi ve haklarınız hakkında bilgi verilmektedir."
+          title={t("AydinlatmaMetniBaslik")}
+          content={t("AydinlatmaMetniIcerik")}
         />
         <InfoModal
           open={openModal === "kvkk"}
           onClose={(result) => handleModalResult("kvkk", result)}
-          title="KVKK Metni"
-          content="6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında kişisel verilerinizin işlenmesine dair bilgilendirme metni."
+          title={t("KVKKMetniBaslik")}
+          content={t("KVKKMetniIcerik")}
         />
         <InfoModal
           open={showWarningModal}
           onClose={() => setShowWarningModal(false)}
-          title="Uyarı"
-          content="Lütfen koşulları kabul edin."
+          title={t("Uyari")}
+          content={t("UyariIcerik")}
         />
         <InfoModal
           open={showSuccessModal}
           onClose={() => navigate("/")}
-          title="Başarılı"
-          content="Kayıt İşleminiz Başarılı Şekilde Gerçekleşti"
+          title={t("Basarili")}
+          content={t("BasariliIcerik")}
         />
       </Box>
     </>

@@ -17,34 +17,52 @@ html{
 }
 
 :root {
+  --color-primary: #00333D;
+  --color-secondary: #E1722F;
+  --color-background: #DEE6EB;
+  --color-text: #333333;
+  --color-button: #00333D;
+  --color-button-text: #FFFFFF;
+  --color-box-background: linear-gradient(to right, #ece9e6, #ffffff);
+  --color-box-border: #ccc;
+  --color-red: #ce2d26;
+
+  --color-purple: #8E44AD;
   --color-black: #333333;
   --color-blue: #00333D;
   --color-orange: #E1722F;
   --color-white: #DEE6EB;
-  --color-red: #ce2d26;
   --color-gray: #f4f4f4;
   --color-light-blue: #e3f2fd;
-
    /* Yeni eklenen renkler */
    --color-green: #4CAF50;
    --color-dark-green: #2E7D32;
    --color-purple: #8E44AD;
-   --color-dark-purple: #5E3370; 
+   --color-dark-purple: #5E3370;
    --color-yellow: #FFD700;
    --color-dark-yellow: #B8860B;
 }
 body.dark {
-  background-color: #0f1214; /* Daha koyu bir arka plan */
-  color: var(--color-gray);
+  --color-primary: #1A5276;
+  --color-secondary: #D35400;
+  --color-background: #0f1214;
+  --color-text: #BFC9CA;
+  --color-button: #1A5276;
+  --color-button-text: #BFC9CA;
+  --color-box-background: #333333;
+  --color-box-border: #696969;
+  --color-red: #C0392B;
 
+  background-color: #0f1214; 
+  color: var(--color-gray);
   --color-black: #1E1E1E;
   --color-blue: #1A5276;
   --color-orange: #D35400;
   --color-white: #BFC9CA;
-  --color-red: #C0392B;
   --color-gray: #B0BEC5;
   --color-light-blue: #5DADE2;
-
+  --color-green-blue: #00333D;
+  --color-box-background: #333333;
   --color-green: #388E3C;
   --color-dark-green: #1B5E20;
   --color-purple: #7D3C98;
@@ -54,15 +72,17 @@ body.dark {
 }
 
 .main {
-  background-color: var(--color-orange);
-  padding : 10px;
+  background-color: var(--color-secondary);
+  padding: 10px;
 }
 
 .second {
-  background-color: var(--color-blue);
-  color: var(--color-white);
-  padding : 10px;
+  background-color: var(--color-primary);
+  color: var(--color-button-text);
+  padding: 10px;
 }
+
+
 
 @media (max-width: 1044px) {
   * {

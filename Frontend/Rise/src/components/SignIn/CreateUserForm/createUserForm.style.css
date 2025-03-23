@@ -2,20 +2,6 @@
     font-size: 0.8rem !important;
     color: var(--color-orange);
 }
-/* Focusta label rengi */
-.custom-textfield .MuiInputLabel-root.Mui-focused {
-    color: var(--color-blue); /* Label rengi */
-}
-  
-/* Hoverda kenarlık rengi */
-.custom-textfield .MuiOutlinedInput-root:hover fieldset {
-    border-color: var(--color-blue);
-}
-  
-/* Focusta kenarlık rengi */
-.custom-textfield .MuiOutlinedInput-root.Mui-focused fieldset {
-    border-color: var(--color-blue);
-}
 
 @media (max-width: 714px) {
 

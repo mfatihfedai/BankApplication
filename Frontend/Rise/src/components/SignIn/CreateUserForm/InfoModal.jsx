@@ -1,10 +1,12 @@
 import React from "react";
 import { Modal, Box, Typography, Button, Stack } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 const InfoModal = ({ open, onClose, title, content }) => {
   const handleAccept = () => onClose(true);
   const handleDecline = () => onClose(false);
-
+  const { t } = useTranslation();
+  
   return (
     <Modal open={open} onClose={() => onClose(false)}>
       <Box
@@ -20,7 +22,7 @@ const InfoModal = ({ open, onClose, title, content }) => {
           borderRadius: 2,
         }}
       >
-        <Typography variant="h6" component="h2" gutterBottom>
+        <Typography variant="h6" component="h2" margin="auto" gutterBottom>
           {title}
         </Typography>
         <Typography variant="body1" gutterBottom>
@@ -34,7 +36,7 @@ const InfoModal = ({ open, onClose, title, content }) => {
               onClick={handleAccept}
               fullWidth
             >
-              Kapat
+              {t("Kapat")}
             </Button>
           </Stack>
         ) : (
@@ -44,16 +46,25 @@ const InfoModal = ({ open, onClose, title, content }) => {
               color="primary"
               onClick={handleAccept}
               fullWidth
+              sx={{
+                backgroundColor: "var(--color-primary)",
+                ":hover": {
+                  backgroundColor: "var(--color-green-blue)",
+                },
+              }}
             >
-              Kabul Ediyorum
+              {t("KabulEdiyorum")}
             </Button>
             <Button
-              variant="outlined"
+              variant="contained"
               color="secondary"
               onClick={handleDecline}
               fullWidth
+              sx={{
+                backgroundColor: "var(--color-red)",
+              }}
             >
-              Kabul Etmiyorum
+              {t("KabulEtmiyorum")}
             </Button>
           </Stack>
         )}
