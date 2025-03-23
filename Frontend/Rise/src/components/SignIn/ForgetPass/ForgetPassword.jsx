@@ -79,17 +79,16 @@ const ForgetPassword = () => {
             color: theme === "dark" ? "#ffffff" : "#000000",
           }}
         >
-          <Link href="/" style={{ marginBottom:"-25px", paddingTop:"10px"}}>
           <ArrowBackIosNewIcon
+            onClick={handleMainPage}
             style={{
               color: theme === "dark" ? "#ffffff" : "var(--color-blue)",
               transition: "transform 0.3s ease-in-out",
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.5)")}
+            onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.4)")}
             onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
           />
-          </Link>
-          <Typography
+        <Typography
             variant="h5"
             textAlign="center"
             fontWeight="bold"
@@ -170,7 +169,7 @@ const ForgetPassword = () => {
               backgroundColor: theme === "dark" ? "#555555" : "var(--color-blue)",
               color: "#ffffff",
               "&:hover": {
-                backgroundColor: theme === "dark" ? "#777777" : "#ffffff",
+                backgroundColor: "var(--color-blue)",
                 color: theme === "dark" ? "#ffffff" : "#3f51b5",
               },
             }}

@@ -27,7 +27,7 @@
     border: 1px solid #ccc;
     border-top: none;
     border-radius: 0 0 4px 4px;
-    background-color: white;
+    background-color: var(--color-background);
     list-style: none;
     padding: 0;
     margin: 0;
