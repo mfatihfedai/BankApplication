@@ -1,5 +1,5 @@
 /* Ana Sayfa Düzeni */
-.content-container {
+/* .content-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -7,10 +7,10 @@
   height: 90%;
   position: relative;
   transition: all 0.5s ease-in-out;
-}
+} */
 
 /* Tablo ve Grafik Geçiş Animasyonu */
-.table-container,
+/* .table-container,
 .chart-container {
   display: block;
   position: absolute;
@@ -32,10 +32,10 @@
   opacity: 0;
   transform: translate(100%, -50%) scale(0.8);
   pointer-events: none;
-}
+} */
 
 /* Switch Butonu Stili */
-.switch-container {
+/* .switch-container {
   display: flex;
   align-items: center;
   margin: 10px 0;
@@ -90,10 +90,10 @@ input:checked + .slider {
 
 input:checked + .slider:before {
   transform: translateX(26px);
-}
+} */
 
 /* Arama Çubuğu Stili */
-.search-container {
+/* .search-container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -112,7 +112,7 @@ input:checked + .slider:before {
 .search-input:focus {
   border-color: #00333D;
   box-shadow: 0 0 5px rgba(0, 51, 61, 0.5);
-}
+} */
 
 
 @media (max-width: 1044px) {

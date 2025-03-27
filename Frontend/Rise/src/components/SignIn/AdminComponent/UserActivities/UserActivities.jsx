@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { getUsersLogs } from "../../../../service/AdminApi";
 import ReactApexChart from "react-apexcharts";
 import Logo from "../../../../assets/LogoNonBackground.png";
-import { TextField, Button, Box } from "@mui/material"; // MUI bileşenlerini içe aktar
+import { TextField, Button, Box, Slide, Paper, FormControlLabel, Switch } from "@mui/material"; // MUI bileşenlerini içe aktar
 import "./UserActivities.css"; // CSS dosyasını import edin
 import { useTranslation } from "react-i18next";
+import GeneralTable from "../../../General/GeneralTable";
+import ChartComponent from "./ChartComponent";
 
 function UserActivities() {
   const [logs, setLogs] = useState([]); // Tablo verileri
@@ -12,6 +14,7 @@ function UserActivities() {
   const [keyword, setKeyword] = useState(""); // Arama çubuğu için keyword
   const [page, setPage] = useState(0); // Mevcut sayfa
   const [pageSize, setPageSize] = useState(10); // Sayfa boyutu
+  const [showChart, setShowChart] = useState(true); // Grafik gösterimini kontrol eder
   const [totalPages, setTotalPages] = useState(0); // Toplam sayfa sayısı
   const [hasNext, setHasNext] = useState(false); // İleri butonu için durum
   const [hasPrevious, setHasPrevious] = useState(false); // Geri butonu için durum
@@ -134,8 +137,40 @@ function UserActivities() {
   return (
     <>
       <h1 style={{ marginTop: "20px" }}>{t("KullaniciHareketleri")}</h1>
-      {/* Switch Butonu */}
-      <Box
+    <div style={{ padding: "20px" }}>
+      {/* Toggle Button İLK DENEME css'siz */}
+      <FormControlLabel
+        control={
+          <Switch
+            checked={showChart}
+            onChange={() => setShowChart(!showChart)}
+            color="primary"
+          />
+        }
+        label={showChart ? t("Grafik Görünümü") : "Tablo Görünümü"}
+      />
+
+      <Box sx={{position: "relative",
+          minHeight: "350px",
+          overflow: "hidden",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",}} >
+        <Slide direction="left" in={showChart} mountOnEnter unmountOnExit>
+          <Box>
+            <ChartComponent chartData={chartData} />
+          </Box>
+        </Slide>
+        <Slide direction="right" in={!showChart} mountOnEnter unmountOnExit>
+          <Box sx={{ width: "100%" }} >
+           <GeneralTable data={logs}/>
+          </Box>
+        </Slide>
+      </Box>
+
+
+
+      {/* <Box
         sx={{
           display: "flex",
           justifyContent: "space-between",
@@ -145,17 +180,15 @@ function UserActivities() {
         }}
       >
         <div className="switch-container">
-          {/* Sol Taraftaki Yazı */}
+          
           <span
             style={{
-              color: showTable ? "#E1722F" : "#00333D", // showTable true ise turuncu, değilse varsayılan renk
-              fontWeight: "800", // showTable true ise kalın, değilse normal
+              color: showTable ? "#E1722F" : "#00333D", 
+              fontWeight: "800", 
             }}
           >
             {t("GirisKayitlariTablosu")}
-          </span>
-
-          {/* Switch Butonu */}
+          </span>         
           <label className="switch">
             <input
               type="checkbox"
@@ -165,18 +198,18 @@ function UserActivities() {
             <span className="slider round"></span>
           </label>
 
-          {/* Sağ Taraftaki Yazı */}
+         
           <span
             style={{
-              color: !showTable ? "#E1722F" : "#00333D", // showTable false ise turuncu, değilse varsayılan renk
-              fontWeight: "800", // showTable false ise kalın, değilse normal
+              color: !showTable ? "#E1722F" : "#00333D",
+              fontWeight: "800", 
             }}
           >
             {t("GirisKayitlariGrafigi")}
           </span>
         </div>
 
-        {/* Arama Çubuğu */}
+        
         <Box
           sx={{
             display: "flex",
@@ -191,7 +224,7 @@ function UserActivities() {
             variant="outlined"
             placeholder={t("KullaniciAra")}
             value={keyword}
-            onChange={(e) => setKeyword(e.target.value)} // Input değeri değiştiğinde state'i güncelle
+            onChange={(e) => setKeyword(e.target.value)} 
             sx={{
               "& .MuiOutlinedInput-root": {
                 borderRadius: "8px",
@@ -201,7 +234,7 @@ function UserActivities() {
 
           <Button
             variant="contained"
-            onClick={() => fetchDatas(keyword, page, pageSize)} // Butona tıklandığında arama yap
+            onClick={() => fetchDatas(keyword, page, pageSize)} 
             sx={{
               backgroundColor: "#00333D",
               color: "#fff",
@@ -215,13 +248,11 @@ function UserActivities() {
             {t("Ara")}
           </Button>
         </Box>
-      </Box>
+      </Box> */}
 
-      <div className="content-container">
-        {/* Sol Taraf: Tablo */}
-        <div className={`table-container ${showTable ? "visible" : "hidden"}`}>
-          {/* Tablo */}
-          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+      <div>
+        <div>
+          {/* <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
               <tr>
                 <th style={{ border: "1px solid #ddd", padding: "8px" }}>
@@ -256,8 +287,8 @@ function UserActivities() {
                 </tr>
               ))}
             </tbody>
-          </table>
-
+          </table> */}
+          {/* <GeneralTable data={logs}/>  Tablo bileşenini kullanarak tabloyu oluşturun */}
           {/* Sayfalama Butonları */}
           <div
             style={{
@@ -281,19 +312,7 @@ function UserActivities() {
             </button>
           </div>
         </div>
-
-        {/* Sağ Taraf: Grafik */}
-        <div className={`chart-container ${!showTable ? "visible" : "hidden"}`}>
-          {chartData.series && (
-            <ReactApexChart
-              options={chartData.options}
-              series={chartData.series}
-              type="area"
-              height={500}
-              width={"100%"}
-            />
-          )}
-        </div>
+      </div>
       </div>
     </>
   );
