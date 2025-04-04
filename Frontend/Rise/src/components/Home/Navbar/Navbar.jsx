@@ -22,13 +22,18 @@ const Navbar = () => {
         className={`navbar ${isOpen ? "open" : ""}`}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-       
       >
-        <ul className="navbar-links">
-          <li className="navbar-item">Anasayfa</li>
-          <li className="navbar-item">Hakkımızda</li>
-          <li className="navbar-item">İletişim</li>
-        </ul>
+        <div className="navbar-links">
+          <a href="/">
+            <div className="navbar-item">Anasayfa</div>
+          </a>
+          <a href="/about-us">
+            <div className="navbar-item">Hakkımızda</div>
+          </a>
+          <a href="/contact">
+            <div className="navbar-item">İletişim</div>
+          </a>
+        </div>
       </div>
     </>
   );

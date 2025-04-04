@@ -1,11 +1,9 @@
 import React from "react";
 import Logos from "../../../assets/LogoNonBackground.png";
-import { useTheme } from "../../../context/ThemeContext";
 import Theme from "../../General/Theme.jsx";
 import Lang from "../../General/Lang.jsx";
 
 function Logo() {
-  const { theme } = useTheme();
   return (
     <div className="navbar-container">
 
@@ -17,9 +15,10 @@ function Logo() {
             alignItems: "center",
             gap: "5px",
             justifyContent: "center",
-            color: theme === "dark" ? "var(--color-white)" : "var(--color-blue)",
+            color: "var(--color-logo)",
             letterSpacing: "5px",
             fontSize: "30px",
+            fontWeight: "500",
             marginBottom: "0px",
           }}
         >

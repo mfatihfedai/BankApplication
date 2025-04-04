@@ -1,10 +1,36 @@
+import { Euro } from "@mui/icons-material";
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
 const resources = {
     tr: {
         translation: {
-            //Create User Form
+            // Rates
+            GuncelKurlar: "Güncel Kurlar",
+            BankaSatis: "Banka Satış",
+            BankaAlis: "Banka Alış",
+            CHF: "İsviçre Frangı",
+            EUR: "Avrupa Birliği Eurosu",
+            GBP: "İngiliz Sterlini",
+            USD: "Amerikan Doları",
+            // SignIn
+            GirisYap: "Giriş Yap",
+            InternetSubemizeHosGeldiniz: "İnternet Şubemize Hoş Geldiniz",
+            TcKimlikMusteriNo: "T.C. Kimlik/Müşteri Numarası",
+            Sifre: "Şifre",
+            GirisYapButon: "Giriş Yap",
+            SifremiUnuttum: "Şifremi Unuttum",
+            MusteriOlmakIster:"Müşteri Olmak İster Misiniz?",
+            // Credit
+            KrediHesaplama: "Kredi Hesaplama",
+            TuketiciKredisi: "Tüketici Kredisi",
+            TasitKredisi: "Taşıt Kredisi",
+            KonutKredisi: "Konut Kredisi",
+            Tutar: "Tutar",
+            FaizOrani: "Faiz Oranı",
+            Ay: "Ay",
+            AylikOdenecekTutar: "Aylık Ödenecek Tutar",
+            // Create User Form
             PrismaBank: "PRISMA BANK",
             HosGeldiniz: "Hoş Geldiniz",
             Ad: "Ad",
@@ -139,6 +165,31 @@ const resources = {
     
     en: {
         translation: {
+            // Rates
+            GuncelKurlar: "Current Rates",
+            BankaSatis: "Bank Sales",
+            BankaAlis: "Bank Purchase",
+            CHF: "Swiss Franc",
+            EUR: "European Union Euro",
+            GBP: "British Pound",
+            USD: "American Dollar",
+            // Login
+            GirisYap: "Sıgn In",
+            InternetSubemizeHosGeldiniz: "Welcome to our Internet Website",
+            TcKimlikMusteriNo: "ID Number/Customer Number",
+            Sifre: "Password",
+            GirisYapButon: "SIGN IN",
+            SifremiUnuttum: "Forgot My Password",
+            MusteriOlmakIster:"Want to be a customer?",
+            // Credit
+            KrediHesaplama: "Credit Calculation",
+            TuketiciKredisi: "Consumer Credit",
+            TasitKredisi: "Vehicle Credit",
+            KonutKredisi: "Housing Credit",
+            Tutar: "Amount",
+            FaizOrani: "Interest Rate",
+            Ay: "Month",
+            AylikOdenecekTutar: "Monthly Payment Amount",
             // Create User Form 
             PrismaBank: "PRISMA BANK",
             HosGeldiniz: "Welcome",

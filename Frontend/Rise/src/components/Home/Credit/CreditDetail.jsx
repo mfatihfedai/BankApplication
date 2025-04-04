@@ -11,6 +11,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Button from "@mui/material/Button";
 import { Box } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 function CreditDetail() {
   const [amount, setAmount] = useState(""); 
@@ -18,6 +19,7 @@ function CreditDetail() {
   const [months, setMonths] = useState(30); 
   const [creditType, setCreditType] = useState("Tüketici Kredisi"); 
   const [openModal, setOpenModal] = useState(false); 
+  const { t } = useTranslation();
 
   const interestRates = {
     "Tüketici Kredisi": 3.99,
@@ -82,16 +84,20 @@ function CreditDetail() {
           labelId="credit-type-label"
           value={creditType}
           onChange={handleCreditTypeChange}
+          sx={{
+            color: "var(--color-text)",
+            background: "var(--color-box-background)",
+            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+          }}
         >
-          <MenuItem value="Tüketici Kredisi">Tüketici Kredisi</MenuItem>
-          <MenuItem value="Taşıt Kredisi">Taşıt Kredisi</MenuItem>
-          <MenuItem value="Konut Kredisi">Konut Kredisi</MenuItem>
+          <MenuItem value="Tüketici Kredisi">{t("TuketiciKredisi")}</MenuItem>
+          <MenuItem value="Taşıt Kredisi">{t("TasitKredisi")}</MenuItem>
+          <MenuItem value="Konut Kredisi">{t("KonutKredisi")}</MenuItem>
         </Select>
       </FormControl>
 
       {/* Tutar Input */}
       <TextField
-        // style={{ width: "300px", borderRadius: "6px", color: "black"}}
         type="text"
         id="standard-basic"
         variant="outlined"
@@ -100,17 +106,19 @@ function CreditDetail() {
         onBlur={() => setFormattedAmount(formatAmount(amount))}
         InputProps={{
           startAdornment: (
-            <div style={{width:"100%", fontSize: "18px", color: "black", marginRight:"4rem" }}>Tutar:</div>
+            <div style={{width:"100%", fontSize: "18px", color: "var(--color-text)", marginRight:"4rem" }}>{t("Tutar")}:</div>
           ),
           endAdornment: (
             <InputAdornment
               position="right"
-            ><span style={{color:"black", fontWeight:"500"}}>TL</span></InputAdornment>
+            ><span style={{color:"var(--color-text)", fontWeight:"500"}}>TL</span></InputAdornment>
             
           ),
         }}
         fullWidth
         sx={{
+          background: "var(--color-box-background)",
+          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
           marginBottom: -1,
           "& .MuiInputBase-root": {
             fontFamily: "Montserrat, sans-serif",
@@ -122,27 +130,27 @@ function CreditDetail() {
 
       {/* Faiz Oranı */}
       <TextField
-        style={{ width: "300px", borderRadius: "6px", color: "black" }}
+        style={{ 
+          width: "300px", 
+          borderRadius: "6px", 
+          color: "var(--color-text)", 
+          background: "var(--color-box-background)",
+          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", 
+        }}
         id="standard-basic"
         disabled
         sx={{
           marginBottom: -1,
           "& .MuiOutlinedInput-root": {
             fontWeight:"500",
-            "&:hover fieldset": {
-              borderColor: "var(--color-blue)",
-            },
-            "&.Mui-focused fieldset": {
-              borderColor: "var(--color-blue)",
-            },
           },
         }}
         InputProps={{
           startAdornment: (
-            <span style={{width:"100%", fontSize: "18px", color: "black" }}>Faiz Oranı:</span>
+            <span style={{width:"100%", fontSize: "18px", color: "var(--color-text)" }}>{t("FaizOrani")}:</span>
           ),
           endAdornment: (
-            <span style={{ fontSize: "20px",fontWeight:"500", color: "black" }}>
+            <span style={{ fontSize: "20px",fontWeight:"500", color: "var(--color-text)" }}>
               {interestRate.toFixed(2)}%
             </span>
           ),
@@ -150,23 +158,27 @@ function CreditDetail() {
       />
 
       {/* Kredi Vadesi */}
-      <div className="credit-slider-box" style={{ marginBottom: -1 }}>
+      <Box className="credit-slider-box" style={{ marginBottom: -1 }}
+        sx={{
+          background: "var(--color-box-background)",
+          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+        }}>
         <div className="credit-slider">
           <Slider
             aria-label="Months"
             value={months}
             onChange={handleSliderChange}
             valueLabelDisplay="off"
-            color="var(--color-blue)"
+            color="var(--color-text)"
             step={1}
             min={1}
             max={maxMonthsValue}
           />
-          <div style={{ display: 'inline-block', transition: 'none', width: '97px', color: "black" }}>
-            {months} <span>Ay</span>
+          <div style={{ display: 'inline-block', textAlign: "right" , transition: 'none', width: '191px', color: "var(--color-text)" }}>
+            {months} <span>{t("Ay")}</span>
           </div>
         </div>
-      </div>
+      </Box>
 
       {/* Aylık Ödeme */}     
       <Box
@@ -175,9 +187,10 @@ function CreditDetail() {
           width: "300px",
           borderRadius: "6px",
           border: "2px solid", 
-          borderColor: "var(--color-blue)",
           padding: "8px",
           marginBottom: -1,
+          background: "var(--color-box-background)",
+          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
         }}
       >
         <p
@@ -187,7 +200,7 @@ function CreditDetail() {
             textAlign: "center",
           }}
         >
-          Aylık Ödenecek Tutar:
+          {t("AylikOdenecekTutar")}
         </p>
         <p
           style={{
@@ -200,13 +213,23 @@ function CreditDetail() {
       </Box>
 
       {/* Hata Modalı */}
-      <Dialog open={openModal} onClose={handleCloseModal}>
-        <DialogTitle>Hata</DialogTitle>
-        <DialogContent>
+      <Dialog open={openModal} onClose={handleCloseModal}
+        sx={{
+          ".MuiPaper-root": {
+            backgroundColor: "var(--color-background)",
+          },
+        }}
+      >
+        <DialogTitle color="var(--color-text)">Hata</DialogTitle>
+        <DialogContent
+          sx={{
+            color: "var(--color-text)",
+          }}
+        >
           <p>400.000 fazla tutar için şubemize geliniz</p>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseModal} color="primary">
+          <Button onClick={handleCloseModal}>
             Tamam
           </Button>
         </DialogActions>

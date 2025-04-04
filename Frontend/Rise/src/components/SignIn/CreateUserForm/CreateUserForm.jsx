@@ -1,4 +1,3 @@
-// CreateUserForm.jsx
 import React, { useEffect, useState } from "react";
 import {
   TextField,
@@ -81,15 +80,21 @@ const CreateUserForm = () => {
   return (
     <>
       <Box
-        className="MuiBox-root"
         component="form"
         sx={{
           maxWidth: 600,
+          gap: 2,
+          display: "flex",
+          flexDirection: "column",
+          margin: "0 auto",
+          border: "1px solid var(--color-box-border)",
+          background: "var(--color-box-background)",
+          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
         }}
       >
         <ArrowBackIosNewIcon
           onClick={handleMainPage}
-          className="MuiIconButton-root"
+          className="back-icon"
         />
         <Typography
           variant="h5"
@@ -211,9 +216,6 @@ const CreateUserForm = () => {
           type="submit"
           onClick={handleSubmit}
           variant="contained"
-          sx={{ 
-            backgroundColor: "var(--color-primary)" 
-          }}
           fullWidth
         >
           {t("Basvur")}

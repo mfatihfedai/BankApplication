@@ -13,6 +13,8 @@ import { AdminContextProvider } from "./context/AdminMenuContext";
 import { BankContextProvider } from "./context/BankContext";
 import { ThemeContextProvider } from "./context/ThemeContext";
 import "./components/Core/Materialstyle.css"
+import AboutUs from "./components/Home/About-us/AboutUs";
+import Contact from "./components/Home/Contact/Contact";
 
 // App.js
 
@@ -28,6 +30,8 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/verify" element={<Verify />} />
                 <Route path="/newUser" element={<CreateUserForm />} />
+                <Route path="/about-us" element={<AboutUs />} />
+                <Route path="/contact" element={<Contact />} />
                 <Route path="/forget-password" element={<ForgetPassword />} />
                 {/* User için korumalı rota */}
                 <Route

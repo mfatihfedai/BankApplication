@@ -1,5 +1,3 @@
-/* MaterialStyle.css */
-
 /* Genel Stiller */
 .Mui-root {
     font-family: "Montserrat", sans-serif;
@@ -7,16 +5,9 @@
   
   /* Box Stilleri */
   .MuiBox-root {
-    background: var(--color-box-background);
     color: var(--color-text);
-    border-radius: 8px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    gap: 16px;
     padding: 16px;
-    margin: 0 auto;
-    border: 1px solid var(--color-box-border);
-    display: flex;
-    flex-direction: column;
+    border-radius: 8px;
   }
   
   /* TextField Stilleri */
@@ -51,14 +42,15 @@
   
   /* Button Stilleri */
   .MuiButton-root {
-    background-color: var(--color-primary) ;
-    color: var(--color-button-text);
+    background-color: var(--color-button-background) !important ;
+    color: var(--color-button-text) !important;
     border-radius: 8px;
     transition: background-color 0.3s ease;
   }
   
   .MuiButton-root:hover {
-    background-color: var(--color-secondary);
+    background-color: var(--color-button-background-hover) !important;
+    color: var(--color-button) !important;
   }
   
   /* Checkbox Stilleri */
@@ -82,12 +74,14 @@
   }
   
   /* IconButton Stilleri */
-  .MuiIconButton-root {
+  .back-icon {
     color: var(--color-text);
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out !important;
+    cursor: pointer;
+    transform: scale(1);
   }
   
-  .MuiIconButton-root:hover {
+  .back-icon:hover {
     transform: scale(1.4);
   }
   
