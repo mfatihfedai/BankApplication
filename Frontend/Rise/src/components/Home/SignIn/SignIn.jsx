@@ -3,10 +3,10 @@ import { useNavigate } from "react-router";
 import { Box, Container, TextField, Typography, Link } from "@mui/material";
 
 import "./signIn.style.css";
-import { signInUser } from "../../service/SignInApi";
+import { signInUser } from "../../../service/SignInApi";
 import { useState } from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { useUser } from "../../context/UserContext";
+import { useUser } from "../../../context/UserContext";
 import { useTranslation } from "react-i18next";
 
 const SignIn = () => {
@@ -54,24 +54,22 @@ const SignIn = () => {
       <Container className="signIn" component="main" maxWidth="xs">
         <Box
           sx={{
-            fontFamily: "Montserrat",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
+            background: "var(--color-box-background)",
           }}
         >
           <Typography
             sx={{
-              fontFamily: "Montserrat",
               marginBottom: "2rem",
             }}
           >
             <b style={{ fontSize: "1.1rem", fontWeight: "800" }}>
-              {t("İnternet Şubemize Hoş Geldiniz")}
+              {t("InternetSubemizeHosGeldiniz")}
             </b>
           </Typography>
-
           <Box
             component="form"
             noValidate
@@ -92,48 +90,22 @@ const SignIn = () => {
               value={identityNo}
               onChange={(e) => setIdentityNo(e.target.value)}
               id="customerNumber"
-              label="T.C. Kimlik/Müşteri Numarası"
+              label={t("TcKimlikMusteriNo")}
               name="customerNumber"
               autoComplete="customer-number"
               autoFocus
-              InputLabelProps={{
-                style: { color: "var(--color-blue)", fontFamily: "Montserrat" },
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "&:hover fieldset": {
-                    borderColor: "var(--color-blue)",
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "var(--color-blue)",
-                  },
-                },
-              }}
             />
             <TextField
               margin="normal"
               required
               fullWidth
               name="password"
-              label="Şifre"
+              label={t("Sifre")}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               type="password"
               id="password"
               autoComplete="current-password"
-              InputLabelProps={{
-                style: { color: "var(--color-blue)", fontFamily: "Montserrat" },
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "&:hover fieldset": {
-                    borderColor: "var(--color-blue)",
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "var(--color-blue)",
-                  },
-                },
-              }}
             />
             <LoadingButton
               onClick={handleSubmit}
@@ -153,7 +125,7 @@ const SignIn = () => {
                 },
               }}
             >
-              GİRİŞ YAP
+              {t("GirisYapButon")}
             </LoadingButton>
 
             {error && <p style={{ color: colour }}>{error}</p>}
@@ -165,7 +137,7 @@ const SignIn = () => {
                 variant="body2"
                 className="linkButton"
               >
-                Şifremi Unuttum
+                {t("SifremiUnuttum")}
               </Link>
               <Link
                 onClick={handleSignIn}
@@ -173,7 +145,7 @@ const SignIn = () => {
                 variant="body2"
                 className="linkButton"
               >
-                Müşteri Olmak İster Misiniz?
+                {t("MusteriOlmakIster")}
               </Link>
             </Box>
           </Box>

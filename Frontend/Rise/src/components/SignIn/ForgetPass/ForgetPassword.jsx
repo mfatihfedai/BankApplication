@@ -14,7 +14,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { forgetPass } from "../../../service/ForgetPassApi";
-import "./forgetPassword.css"
+import "./forgetPassword.css";
 import { useTheme } from "../../../context/ThemeContext";
 
 const ForgetPassword = () => {
@@ -34,6 +34,8 @@ const ForgetPassword = () => {
   const formik = useFormik({
     initialValues: { email: "" },
     validationSchema,
+    validateOnChange: false,
+    validateOnBlur: false,
     onSubmit: async (values) => {
       try {
         setLoading(true);
@@ -62,7 +64,7 @@ const ForgetPassword = () => {
   }
 
   return (
-    <div className= {`forget-password ${theme === "dark" ? "dark" : ""}`}>
+    <div>
       <form onSubmit={formik.handleSubmit}>
         <Box
           sx={{
@@ -74,26 +76,19 @@ const ForgetPassword = () => {
             margin: "auto",
             padding: 4,
             borderRadius: 4,
-            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-            background: theme === "dark" ? "#333333" : "linear-gradient(to right, #ece9e6, #ffffff)",
-            color: theme === "dark" ? "#ffffff" : "#000000",
+            boxShadow: "0px 4px 10px var(--color-box-border)",
+            background: "var(--color-box-background)",
           }}
         >
           <ArrowBackIosNewIcon
             onClick={handleMainPage}
-            style={{
-              color: theme === "dark" ? "#ffffff" : "var(--color-blue)",
-              transition: "transform 0.3s ease-in-out",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.4)")}
-            onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+            className="back-icon"
           />
-        <Typography
+          <Typography
             variant="h5"
             textAlign="center"
             fontWeight="bold"
             gutterBottom
-            sx={{ color: theme === "dark" ? "var(--color-white)" : "var(--color-blue)" }}
           >
             {t("SifreniziMiUnuttunuz")}
           </Typography>
@@ -101,7 +96,6 @@ const ForgetPassword = () => {
             variant="body1"
             textAlign="center"
             className="forget-password-subtitle"
-            sx={{ color: theme === "dark" ? "#ffffff" : "var(--color-black)" }}
           >
             {t("LütfenKayitliEmailAdresiniziGirin")}
           </Typography>
@@ -127,27 +121,6 @@ const ForgetPassword = () => {
             onBlur={formik.handleBlur}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
-            InputLabelProps={{
-              style: { 
-                color: theme === "dark" ? "#ffffff" : "var(--color-black)", 
-                fontFamily: "Montserrat" },
-            }}
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderColor: theme === "dark" ? "#ffffff" : "#3f51b5",
-                },
-                "&:hover fieldset": {
-                  borderColor: theme === "dark" ? "#ffffff" : "#3f51b5",
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: theme === "dark" ? "#ffffff" : "#3f51b5",
-                },
-              },
-              "& .MuiInputBase-input": {
-                color: theme === "dark" ? "#ffffff" : "#000000",
-              },
-            }}
           />{userNotFound && (
             (<Typography
               variant="body2"
@@ -164,15 +137,6 @@ const ForgetPassword = () => {
             endIcon={<SendIcon />}
             loading={loading}
             loadingPosition="end"
-            sx={{
-              fontFamily: "Montserrat",
-              backgroundColor: theme === "dark" ? "#555555" : "var(--color-blue)",
-              color: "#ffffff",
-              "&:hover": {
-                backgroundColor: "var(--color-blue)",
-                color: theme === "dark" ? "#ffffff" : "#3f51b5",
-              },
-            }}
           >
             {t("Gonder")}
           </LoadingButton>
@@ -182,25 +146,10 @@ const ForgetPassword = () => {
               textAlign="center"
               sx={{ color: "var(--color-green)", marginTop: 1 }}
             >
-              {t("BaşariliLütfenEmailiniziKontrolEdin")}
+              {t("BaşariliLütfenEmailiniziKontrolEdin")} 
+              {<br />}
+              {t("AnasayfayaDon")}
             </Typography>)
-          )}
-          {success && (
-            (<Button 
-              variant="outlined" 
-              onClick={handleMainPage} 
-              sx={{
-                marginTop: 2,
-                borderColor: theme === "dark" ? "#ffffff" : "var(--color-blue)",
-                color: theme === "dark" ? "#ffffff" : "var(--color-blue)",
-                "&:hover": {
-                  backgroundColor: theme === "dark" ? "#555555" : "var(--color-blue)",
-                  color: theme === "dark" ? "#ffffff" : "#ffffff",
-                },
-              }}
-              >
-                 {t("AnasayfayaDon")}
-            </Button>)
           )}
         </Box>
       </form>

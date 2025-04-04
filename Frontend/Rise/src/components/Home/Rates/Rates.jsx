@@ -2,10 +2,13 @@ import {useState, useEffect} from 'react'
 import { getRates } from '../../../service/RateApi';
 import Rate from './Rate';
 import "./rates.style.css"
+import { Box } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 
 function Rates() {
   const [allRates, setAllRates] = useState([]);
+  const { t } = useTranslation();
 
   useEffect(() => {
     async function fetchData() {
@@ -32,15 +35,15 @@ function Rates() {
 
   return (
     <div className='rates'>
-      <h1 className="rates-header">Güncel Kurlar</h1>
+      <h1 className="rates-header">{t("GuncelKurlar")}</h1>
       {/* <h1>Fiyatlar ve Oranlar</h1> */} 
-      <ul className='currency-list'>
-        {filteredRates?.map(([currency, rate]) => (
-          <li className='currency-list-item' key={currency}>
-            <Rate currency={currency} rate = {rate} />
-          </li>
-        ))}
-      </ul>
+        <ul className='currency-list'>
+          {filteredRates?.map(([currency, rate]) => (
+            <li className='currency-list-item' key={currency}>
+              <Rate currency={currency} rate = {rate} />
+            </li>
+          ))}
+        </ul>
     </div>
   );
 }

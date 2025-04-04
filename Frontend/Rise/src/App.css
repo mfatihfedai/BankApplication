@@ -1,8 +1,13 @@
+@import "tailwindcss";
 * {
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
   font-size: 20px;
   margin: 0;
+}
+
+html, body {
+  transition: background-color 0.5s ease, background-image 0.5s ease;
 }
 
 html{
@@ -19,13 +24,16 @@ html{
 :root {
   --color-primary: #00333D;
   --color-secondary: #E1722F;
-  --color-background: #DEE6EB;
+  --color-background: var(--color-white);
   --color-text: #333333;
   --color-button: #00333D;
   --color-button-text: #FFFFFF;
+  --color-button-background: var(--color-primary);
+  --color-button-background-hover: var(--color-light-blue);
   --color-box-background: linear-gradient(to right, #ece9e6, #ffffff);
-  --color-box-border: #ccc;
+  --color-box-border: rgba(0, 0, 0, 0.1);
   --color-red: #ce2d26;
+  --color-logo: var(--color-primary);
 
   --color-purple: #8E44AD;
   --color-black: #333333;
@@ -46,12 +54,15 @@ body.dark {
   --color-primary: #1A5276;
   --color-secondary: #D35400;
   --color-background: #0f1214;
-  --color-text: #BFC9CA;
+  --color-text: var(--color-white);
   --color-button: #1A5276;
-  --color-button-text: #BFC9CA;
+  --color-button-text: var(--color-white);
+  --color-button-background: var(--color-primary);
+  --color-button-background-hover: var(--color-secondary);
   --color-box-background: #333333;
   --color-box-border: #696969;
   --color-red: #C0392B;
+  --color-logo: var(--color-white);
 
   background-color: #0f1214; 
   color: var(--color-gray);

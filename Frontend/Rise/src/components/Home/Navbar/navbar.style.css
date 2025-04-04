@@ -4,7 +4,7 @@
   left: 0;
   width: 60px;
   height: 100vh;
-  background-color: var(--color-blue);
+  background-color: var(--color-primary);
   transition: width 0.5s ease;
   overflow: hidden;
   z-index: 1000;
@@ -12,31 +12,34 @@
 
 .navbar.open {
   width: 15%;
-  background-color: var(--color-blue);
+  background-color: var(--color-primary);
 }
 
 .navbar-links {
-  list-style-type: none;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
   justify-content: center;
+  gap: 11rem;
+  height: 100%;
+}
+
+.navbar-links > a {
+  text-decoration: none;
 }
 
 .navbar-item {
   font-size: 1.5rem;
-  color: white;
+  color: var(--color-button-text);
   transform: rotate(-90deg);
   transition: transform 0.5s ease, color 0.3s ease;
-  margin: 90px 0;
 }
 
 .navbar.open .navbar-item {
   transform: rotate(0);
-  color: lightgrey;
+  color: var(--color-button-text);
 }
 
 .navbar.open .navbar-item:nth-child(1) {
@@ -50,7 +53,6 @@
 .navbar.open .navbar-item:nth-child(3) {
   transition-delay: 0.3s;
 }
-
 
 .blur-overlay {
   position: fixed;

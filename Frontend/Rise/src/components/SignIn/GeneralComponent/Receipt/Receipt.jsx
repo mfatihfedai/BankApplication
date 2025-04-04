@@ -68,6 +68,7 @@ function Receipt() {
       formattedLogs.sort((a, b) => new Date(b.rawDate) - new Date(a.rawDate));
 
       setLogs(formattedLogs);
+      console.log(logs);
       setRowCount(totalElements);
     } catch (error) {
       console.error("Error fetching logs:", error);
