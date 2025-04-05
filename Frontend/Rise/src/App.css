@@ -34,6 +34,8 @@ html{
   --color-box-border: rgba(0, 0, 0, 0.1);
   --color-red: #ce2d26;
   --color-logo: var(--color-primary);
+  --color-sign-in-background: #ece9e6cc;
+  --color-textfield-border: #00000042;
 
   --color-purple: #8E44AD;
   --color-black: #333333;
@@ -63,6 +65,8 @@ body.dark {
   --color-box-border: #696969;
   --color-red: #C0392B;
   --color-logo: var(--color-white);
+  --color-sign-in-background: #424242;
+  --color-textfield-border: #696969;
 
   background-color: #0f1214; 
   color: var(--color-gray);

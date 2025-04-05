@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   /* background: linear-gradient(to right, rgba(236, 233, 230, 0.8), rgba(255, 255, 255, 0.8)); */
-  background: rgba(236, 233, 230, 0.8);
+  background: var(--color-sign-in-background);
   border-right: 1px dashed var(--color-blue);
   border-left: 1px dashed var(--color-blue);
   max-width: 100% !important;
