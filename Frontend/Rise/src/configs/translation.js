@@ -1,10 +1,16 @@
-import { Euro } from "@mui/icons-material";
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
 const resources = {
     tr: {
         translation: {
+            // Verify
+            Sayin: "Sayın",
+            AdreseGonderilenKod: "adresinize gönderilen kodu doğrulamak için",
+            SaniyeVar: "saniye var.",
+            SureDoldu: "Süre doldu!",
+            DogrulamaKodu: "Doğrulama Kodu",
+            Dogrula: "Doğrula",
             // Rates
             GuncelKurlar: "Güncel Kurlar",
             BankaSatis: "Banka Satış",
@@ -165,6 +171,13 @@ const resources = {
     
     en: {
         translation: {
+            // Verify
+            Sayin: "Dear",
+            AdreseGonderilenKod: "the code sent to your address to verify",
+            SaniyeVar: "seconds remaining.",
+            SureDoldu: "Time is up!",
+            DogrulamaKodu: "Verification Code",
+            Dogrula: "Verıfy",
             // Rates
             GuncelKurlar: "Current Rates",
             BankaSatis: "Bank Sales",
@@ -174,7 +187,7 @@ const resources = {
             GBP: "British Pound",
             USD: "American Dollar",
             // Login
-            GirisYap: "Sıgn In",
+            GirisYap: "Sign In",
             InternetSubemizeHosGeldiniz: "Welcome to our Internet Website",
             TcKimlikMusteriNo: "ID Number/Customer Number",
             Sifre: "Password",

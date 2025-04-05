@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../../context/UserContext";
 import { TextField, Button, Box, Typography } from "@mui/material";
-import Logo from "../../Home/Logo/Logo";
 import LinearProgressBar from "../../General/LinearProgressBar";
 import { verifyUser } from "../../../service/VerifyApi";
 import "./verify.style.css"
+import { useTranslation } from "react-i18next";
 
 const Verify = () => {
   const [otp, setOtp] = useState("");
@@ -16,6 +15,7 @@ const Verify = () => {
   const { user } = useUser();
   const email = user?.email;
   const maskedEmail = maskEmail(email);
+  const { t } = useTranslation();
 
   // Sayaç için useEffect
   useEffect(() => {
@@ -71,18 +71,15 @@ const Verify = () => {
         <Box
         className = "verify"
           sx={{
-            color: "var(--color-black)",
             display: "flex",
             flexDirection: "column",
             gap: 2,
             maxWidth: 600,
             margin: "0 auto",
             padding: 2,
-            border: "1px solid #ccc",
             borderRadius: 2,
-            fontFamily: "Montserrat",
             boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-            background: "linear-gradient(to right, #ece9e6, #ffffff)",
+            background: "var(--color-box-background)",
           }}
         >
           <Typography
@@ -91,55 +88,47 @@ const Verify = () => {
             fontWeight="bold"
             gutterBottom
           >
-            <h1 style={{fontSize:"35px",color:"--color-orange", paddingTop:"1rem", textDecoration:"underline"}}>PRISMA BANK</h1>
-            {`Sayın ${user?.name} ${user?.surname} `}
+            <h1 style={{fontSize:"35px", paddingTop:"1rem", textDecoration:"underline"}}>PRISMA BANK</h1>
+            {t("Sayin")} {`${user?.name} ${user?.surname} `}
           </Typography>
           <Typography
             sx={{ color: "gray", margin: 1, textAlign: "center" }}
             variant="h6"
           >
-            {`${maskedEmail} adresinize gönderilen kodu doğrulamak için`}
+            {`${maskedEmail} `}{t("AdreseGonderilenKod")}
             {counter > 0 ? (
               <>
                 {" "}
                 <Typography
                   component="span"
                   sx={{ 
-                    color: counter <= 10 ? "red" : "var(--color-black)",
+                    color: counter <= 10 ? "red" : "var(--color-text)",
                     animation: counter <= 10 ? "pulse 0.5s infinite" : "none", 
                     fontWeight: "bold",
                     display: "inline-block", }}
                 >
                   {counter}
                 </Typography>{" "}
-                saniye var.
+                {t("SaniyeVar")}
               </>
             ) : (
               " süre doldu."
             )}
           </Typography>
           <TextField
-            label="Doğrulama Kodu"
+            label={t("DogrulamaKodu")}
             name="verifyCode"
             value={otp}
             onChange={(e) => setOtp(e.target.value)}
             type="text"
             InputLabelProps={{
-              style: { color: "var(--color-blue)", fontFamily: "Montserrat" }, // Label rengi ve fontu
+              style: {fontFamily: "Montserrat" }, // Label rengi ve fontu
             }}
             sx={{
               marginBottom: 3,
-              "& .MuiOutlinedInput-root": {
-                "&:hover fieldset": {
-                  borderColor: "var(--color-blue)", // Hover
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "var(--color-blue)", // Focus
-                },
-              },
             }}
           />
-          {error && <p style={{ color: "red" }}>{error}</p>}
+          {error && <p style={{ color: "var(--color-red)" }}>{error}</p>}
 
           <LinearProgressBar initialSecond={60} />
 
@@ -147,24 +136,16 @@ const Verify = () => {
             type="submit"
             onClick={handleSubmit}
             variant="contained"
-            color="primary"
             fullWidth
             disabled={counter === 0} // Sayaç 0 olunca butonu devre dışı bırak
             sx={{
               marginBottom: 3,
-              backgroundColor: "var(--color-blue)",
-              color: "var(--color-white)",
-              "&:hover": {
-                backgroundColor: "var(--color-white)",
-                color: "var(--color-blue)",
-              },
             }}
           >
-            Doğrula
+            {t("Dogrula")}
           </Button>
         </Box>
       </form>
-      
     </div>
   );
 };

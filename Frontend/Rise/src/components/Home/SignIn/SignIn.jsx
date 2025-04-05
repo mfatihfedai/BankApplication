@@ -58,7 +58,7 @@ const SignIn = () => {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            background: "var(--color-box-background)",
+            
           }}
         >
           <Typography

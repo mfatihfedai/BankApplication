@@ -20,8 +20,8 @@
     color: var(--color-text) !important;
   }
   
-  .MuiTextField-root .MuiOutlinedInput-root {
-    border-color: var(--color-box-border);
+  .MuiTextField-root .MuiOutlinedInput-root fieldset{
+    border-color: var(--color-textfield-border);
   }
   
   .MuiTextField-root .MuiInputLabel-root {

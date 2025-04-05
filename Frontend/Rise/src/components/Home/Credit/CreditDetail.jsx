@@ -79,7 +79,20 @@ function CreditDetail() {
   return (
     <div className="credit-detail" style={{ marginTop: "50px", marginBottom: "50px" }}>
       {/* Kredi Türü Combobox */}
-      <FormControl style={{ width: "300px", borderRadius: '6px' }} sx={{ marginBottom: -1 }}>
+      <FormControl
+      sx={{ 
+        width: "300px",
+        borderRadius: "6px",
+        marginBottom: -1, 
+        "& .MuiOutlinedInput-root": {
+            "& fieldset": {
+              borderColor: "var(--color-textfield-border)",
+            },
+            "&:hover fieldset": {
+              borderColor: "var(--color-text)",
+            },
+          }
+        }}>
         <Select
           labelId="credit-type-label"
           value={creditType}
@@ -100,7 +113,6 @@ function CreditDetail() {
       <TextField
         type="text"
         id="standard-basic"
-        variant="outlined"
         value={formattedAmount}
         onChange={handleAmountChange}
         onBlur={() => setFormattedAmount(formatAmount(amount))}
@@ -118,12 +130,11 @@ function CreditDetail() {
         fullWidth
         sx={{
           background: "var(--color-box-background)",
+          borderRadius: "6px",
           boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
           marginBottom: -1,
           "& .MuiInputBase-root": {
-            fontFamily: "Montserrat, sans-serif",
             fontWeight:"500",
-            borderRadius: "5px",
           },
         }}
       />
@@ -138,7 +149,6 @@ function CreditDetail() {
           boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", 
         }}
         id="standard-basic"
-        disabled
         sx={{
           marginBottom: -1,
           "& .MuiOutlinedInput-root": {
@@ -162,6 +172,8 @@ function CreditDetail() {
         sx={{
           background: "var(--color-box-background)",
           boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+          border: "1px solid",
+          borderColor: "var(--color-textfield-border)" 
         }}>
         <div className="credit-slider">
           <Slider
@@ -186,7 +198,7 @@ function CreditDetail() {
           textAlign: "center",
           width: "300px",
           borderRadius: "6px",
-          border: "2px solid", 
+          border: "1px solid", 
           padding: "8px",
           marginBottom: -1,
           background: "var(--color-box-background)",
