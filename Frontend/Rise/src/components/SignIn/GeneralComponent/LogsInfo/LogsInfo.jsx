@@ -72,12 +72,9 @@ function LogsInfo() {
   return (
     <div style={{ padding: "20px" }}>
       <h1>{t("GirisKayitlarim")}</h1>
+      <GeneralTable data={infos}/>
 
-
-      <GeneralTable data={infos}  />
-
-
-      <table>
+      {/* <table> // silinebilir eski tablo
         <thead>
           <tr>
             <th>{t("GirisTarihi")}</th>
@@ -92,7 +89,7 @@ function LogsInfo() {
             </tr>
           ))}
         </tbody>
-      </table>
+      </table> */}
 
       <div
         style={{

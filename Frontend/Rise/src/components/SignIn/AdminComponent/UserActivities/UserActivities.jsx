@@ -13,13 +13,14 @@ function UserActivities() {
   const [chartData, setChartData] = useState({}); // Grafik verileri
   const [keyword, setKeyword] = useState(""); // Arama çubuğu için keyword
   const [page, setPage] = useState(0); // Mevcut sayfa
+  const [tableData, setTableData] = useState([]); // Tablo verileri
   const [pageSize, setPageSize] = useState(10); // Sayfa boyutu
   const [showChart, setShowChart] = useState(true); // Grafik gösterimini kontrol eder
   const [totalPages, setTotalPages] = useState(0); // Toplam sayfa sayısı
   const [hasNext, setHasNext] = useState(false); // İleri butonu için durum
   const [hasPrevious, setHasPrevious] = useState(false); // Geri butonu için durum
   const [loading, setLoading] = useState(true);
-  const [showTable, setShowTable] = useState(true); // Tablo veya grafik gösterimini kontrol eder
+  // const [showTable, setShowTable] = useState(true); // Tablo veya grafik gösterimini kontrol eder
   const { t } = useTranslation();
 
   // Tarih formatlama fonksiyonu
@@ -36,6 +37,15 @@ function UserActivities() {
 
       // Tablo verilerini güncelle
       setLogs(response.logResponse);
+
+      const result = logs.map(({ loginTime, logoutTime,userInfo }) => ({ loginTime, logoutTime,userInfo }));
+      const formattedResult = result.map((log) => ({
+        "İsim Soyisim": log.userInfo.name + " " + log.userInfo.surname,
+        "Hesap Numarası": log.userInfo.accountNumber,
+        "Giris Tarihi": formatDateTime(log.loginTime),
+        "Cikis Tarihi": log.logoutTime ? formatDateTime(log.logoutTime) : "-",
+      }));
+      setTableData(formattedResult);
 
       // Grafik verilerini güncelle
       const dates = response.adminLogResponseChart.loginDate.map((date) =>
@@ -124,7 +134,7 @@ function UserActivities() {
   // Sayfa değiştiğinde verileri yeniden çek
   useEffect(() => {
     fetchDatas(keyword, page);
-  }, [page]);
+  }, [page,showChart]);
 
   if (loading) {
     return (
@@ -147,7 +157,7 @@ function UserActivities() {
             color="primary"
           />
         }
-        label={showChart ? t("Grafik Görünümü") : "Tablo Görünümü"}
+        label={showChart ? "Grafik Görünümü" : "Tablo Görünümü"}
       />
 
       <Box sx={{position: "relative",
@@ -163,7 +173,7 @@ function UserActivities() {
         </Slide>
         <Slide direction="right" in={!showChart} mountOnEnter unmountOnExit>
           <Box sx={{ width: "100%" }} >
-           <GeneralTable data={logs}/>
+           <GeneralTable data={tableData}/>
           </Box>
         </Slide>
       </Box>
