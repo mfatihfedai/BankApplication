@@ -273,7 +273,6 @@ function Banks() {
         <Box
           sx={{
             width: 400,
-            bgcolor: "white",
             borderRadius: "8px",
             boxShadow: 24,
             p: 4,

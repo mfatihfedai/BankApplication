@@ -1,7 +1,10 @@
 import React from "react";
 import { Modal, Box, Typography, Button } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 const DeleteModal = ({ open, onClose, onConfirm, bankName }) => {
+  const { t } = useTranslation();
+
   return (
     <Modal
       open={open}
@@ -15,7 +18,6 @@ const DeleteModal = ({ open, onClose, onConfirm, bankName }) => {
       <Box
         sx={{
           width: 400,
-          bgcolor: "white",
           borderRadius: "8px",
           boxShadow: 24,
           p: 4,
@@ -23,25 +25,21 @@ const DeleteModal = ({ open, onClose, onConfirm, bankName }) => {
         }}
       >
         <Typography variant="h6" gutterBottom sx={{ textAlign: "center", fontWeight: "800" }}>
-          Bankayı Sil
+          {t("BankayiSil")}
         </Typography>
         <Typography>
-          {bankName} isimli bankayı silmek istediğinize emin misiniz?
+          {bankName} {t("İsimliBankayiSil")}
         </Typography>
-        <Box sx={{ display: "flex", justifyContent: "space-between", mt: 3 }}>
+        <Box sx={{ display: "flex", justifyContent: "space-between", mt: 3, boxShadow: "0 0 0 0 !important" }}>
           <Button
-            variant="contained"
-            sx={{ backgroundColor: "#E1722F" }}
             onClick={onConfirm}
           >
-            Evet
+            {t("Evet")}
           </Button>
           <Button
-            variant="contained"
-            sx={{ backgroundColor: "#00333D" }}
             onClick={onClose}
           >
-            Hayır
+            {t("Hayir")}
           </Button>
         </Box>
       </Box>

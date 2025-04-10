@@ -1,48 +1,55 @@
 import React from "react";
 import { Box, Typography, Container } from "@mui/material";
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import { useNavigate } from "react-router";
+import { useTranslation } from "react-i18next";
+import "./AboutUs.css";
 
 const AboutUs = () => {
+  const navigate = useNavigate();
+  const { t } = useTranslation();
+
+  const handleMainPage = () => {
+    navigate("/");
+  };
 
   return (
-    <Container>
-      <Typography variant="h2" className="MuiTypography-h1">
-        Hakkımızda
+    <Container maxWidth="md" className="about-container">
+      <ArrowBackIosNewIcon onClick={handleMainPage} className="back-icon" />
+      <Typography variant="h3" className="about-title">
+        {t("Hakkimizda")}
       </Typography>
-      <Box className="MuiBox-root">
-        <Typography variant="h5" className="MuiTypography-heading">
-          Tarihçemiz
+      <Box className="about-section">
+        <Typography variant="h5" className="section-heading">
+          {t("Tarihcemiz")}
         </Typography>
-        <Typography variant="body1" className="MuiTypography-body">
-          1990 yılında kurulan PrismaBank, müşteri memnuniyeti ve finansal çözümlerde
-          yenilikçi yaklaşımıyla sektörde öncü bir konuma gelmiştir. Bugün, Türkiye'nin
-          dört bir yanında şubelerimiz ve dijital bankacılık hizmetlerimizle müşterilerimize
-          hizmet vermekteyiz.
+        <Typography variant="body1" className="section-text">
+          {t("TarihceMetni")}
         </Typography>
-        <Typography variant="h5" className="MuiTypography-heading">
-          Misyonumuz
+
+        <Typography variant="h5" className="section-heading">
+          {t("Misyonumuz")}
         </Typography>
-        <Typography variant="body1" className="MuiTypography-body">
-          Müşterilerimize güvenilir, hızlı ve yenilikçi finansal çözümler sunarak, onların
-          hayallerini gerçekleştirmelerine yardımcı olmak.
+        <Typography variant="body1" className="section-text">
+          {t("MisyonMetni")}
         </Typography>
-        <Typography variant="h5" className="MuiTypography-heading">
-          Vizyonumuz
+
+        <Typography variant="h5" className="section-heading">
+          {t("Vizyonumuz")}
         </Typography>
-        <Typography variant="body1" className="MuiTypography-body">
-          Türkiye'nin lider dijital bankası olmak ve küresel ölçekte tanınan bir marka haline
-          gelmek.
+        <Typography variant="body1" className="section-text">
+          {t("VizyonMetni")}
         </Typography>
-        <Typography variant="h5" className="MuiTypography-heading">
-          Değerlerimiz
+
+        <Typography variant="h5" className="section-heading">
+          {t("Degerlerimiz")}
         </Typography>
-        <Typography variant="body1" className="MuiTypography-body">
-          <ul>
-            <li>Müşteri Odaklılık</li>
-            <li>Şeffaflık</li>
-            <li>Yenilikçilik</li>
-            <li>Sosyal Sorumluluk</li>
-          </ul>
-        </Typography>
+        <ul className="values-list">
+          <li>{t("MusteriOdaklilik")}</li>
+          <li>{t("Seffaflik")}</li>
+          <li>{t("Yenilikcilik")}</li>
+          <li>{t("SosyalSorumluluk")}</li>
+        </ul>
       </Box>
     </Container>
   );
