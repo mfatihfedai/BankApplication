@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router";
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import {
   Box,
   Container,
@@ -8,56 +10,75 @@ import {
   Button,
   Paper,
 } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 const Contact = () => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const handleMainPage = () => {
+    navigate("/")
+  }
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
   return (
     <Box
       sx={{
-        backgroundColor: "background.default",
-        py: 10,
-        px: 4,
+        py: 4,
+        px: 2,
         minHeight: "92vh",
       }}
     >
       <Container maxWidth="lg">
-        <Grid container spacing={4} justifyContent="space-between">
+      <ArrowBackIosNewIcon
+        onClick={handleMainPage}
+        className="back-icon"
+      />
+        <Grid
+          container
+          spacing={4}
+          justifyContent="center"
+          borderRadius={2}
+          padding={4}
+        >
+          
           <Grid item xs={12} md={6}>
-            <Box mb={4}>
-              <Typography
-                variant="h6"
-                color="primary"
-                gutterBottom
-                fontWeight="bold"
-              >
-                Contact Us
+            <Typography variant="h4" fontWeight="bold" gutterBottom>
+              {t("Iletisim")}
+            </Typography>
+            <Typography variant="body1">{t("IletisimAltBaslik")}</Typography>
+            <Box mt={4}>
+              <Typography variant="h6" fontWeight="bold">
+                {t("LokasyonBaslik")}
               </Typography>
-              <Typography
-                variant="h4"
-                color="text.primary"
-                gutterBottom
-                fontWeight="bold"
-              >
-                GET IN TOUCH WITH US
+              <Typography variant="body2">
+                {t("LokasyonDetay")}
               </Typography>
-              <Typography variant="body1" color="text.secondary" paragraph>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eius tempor incididunt ut labore e dolore magna aliqua. Ut enim
-                adiqua minim veniam quis nostrud exercitation ullamco.
-              </Typography>
-            </Box>
 
-            <ContactInfo
-              title="Our Location"
-              description="99 S.t Jomblo Park Pekanbaru 28292. Indonesia"
-            />
-            <ContactInfo
-              title="Phone Number"
-              description="(+62)81 414 257 9980"
-            />
-            <ContactInfo
-              title="Email Address"
-              description="info@yourdomain.com"
-            />
+              <Typography variant="h6" fontWeight="bold" mt={3}>
+                {t("TelefonBaslik")}
+              </Typography>
+              <Typography variant="body2">
+                {t("TelefonNumarasi")}
+              </Typography>
+
+              <Typography variant="h6" fontWeight="bold" mt={3}>
+                {t("EmailBaslik")}
+              </Typography>
+              <Typography variant="body2">{t("EmailAdresi")}</Typography>
+            </Box>
           </Grid>
 
           <Grid item xs={12} md={6}>
@@ -66,38 +87,54 @@ const Contact = () => {
               sx={{
                 p: 4,
                 borderRadius: 2,
-                backgroundColor: "background.paper",
+                border: "1px solid var(--color-box-border)",
+                background: "var(--color-box-background)",
               }}
             >
               <form>
-                <ContactInputBox
-                  type="text"
+                <TextField
+                  label={t("FormAd")}
                   name="name"
-                  placeholder="Your Name"
-                />
-                <ContactInputBox
-                  type="email"
-                  name="email"
-                  placeholder="Your Email"
-                />
-                <ContactInputBox
-                  type="text"
-                  name="phone"
-                  placeholder="Your Phone"
-                />
-                <ContactTextArea
-                  rows={6}
-                  placeholder="Your Message"
-                  name="details"
-                />
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
                   fullWidth
-                  sx={{ mt: 2 }}
-                >
-                  Send Message
+                  variant="outlined"
+                  margin="normal"
+                  value={formData.name}
+                  onChange={handleChange}
+                />
+                <TextField
+                  label={t("FormEmail")}
+                  name="email"
+                  type="email"
+                  fullWidth
+                  variant="outlined"
+                  margin="normal"
+                  value={formData.email}
+                  onChange={handleChange}
+                />
+                <TextField
+                  label={t("FormTelefon")}
+                  name="phone"
+                  fullWidth
+                  variant="outlined"
+                  margin="normal"
+                  value={formData.phone}
+                  onChange={handleChange}
+                />
+                <TextField
+                  label={t("FormMesaj")}
+                  name="message"
+                  multiline
+                  rows={5}
+                  fullWidth
+                  variant="outlined"
+                  margin="normal"
+                  value={formData.message}
+                  onChange={handleChange}
+                />
+                <Button type="submit" 
+                href={`mailto:info@yourdomain.com?subject=Contact&body=Name: ${formData.name}%0AEmail: ${formData.email}%0APhone: ${formData.phone}%0AMessage: ${formData.message}`}
+                variant="contained" fullWidth sx={{ mt: 2 }}>
+                  {t("FormGonder")}
                 </Button>
               </form>
             </Paper>
@@ -107,39 +144,5 @@ const Contact = () => {
     </Box>
   );
 };
-
-const ContactInfo = ({ title, description }) => (
-  <Box mb={4}>
-    <Typography variant="h6" color="text.primary" fontWeight="bold">
-      {title}
-    </Typography>
-    <Typography variant="body1" color="text.secondary">
-      {description}
-    </Typography>
-  </Box>
-);
-
-const ContactInputBox = ({ type, placeholder, name }) => (
-  <TextField
-    type={type}
-    placeholder={placeholder}
-    name={name}
-    fullWidth
-    variant="outlined"
-    margin="normal"
-  />
-);
-
-const ContactTextArea = ({ rows, placeholder, name }) => (
-  <TextField
-    placeholder={placeholder}
-    name={name}
-    fullWidth
-    variant="outlined"
-    margin="normal"
-    multiline
-    rows={rows}
-  />
-);
 
 export default Contact;

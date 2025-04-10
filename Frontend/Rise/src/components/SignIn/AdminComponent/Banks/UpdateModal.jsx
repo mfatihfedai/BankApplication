@@ -1,7 +1,10 @@
 import React from "react";
 import { Modal, Box, Typography, TextField, Button } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 const UpdateModal = ({ open, onClose, selectedBank, onChange, onSubmit, formErrors }) => {
+  const { t } = useTranslation();
+
   return (
     <Modal
       open={open}
@@ -23,11 +26,11 @@ const UpdateModal = ({ open, onClose, selectedBank, onChange, onSubmit, formErro
         }}
       >
         <Typography variant="h6" gutterBottom sx={{ textAlign: "center", fontWeight: "800" }}>
-          Banka Bilgilerini Güncelle
+          {t("BankaBilgileriGuncelle")}
         </Typography>
         <Box>
           <TextField
-            label="Banka Adı"
+            label={t("BankaAdi")}
             fullWidth
             margin="normal"
             value={selectedBank.bankName}
@@ -36,7 +39,7 @@ const UpdateModal = ({ open, onClose, selectedBank, onChange, onSubmit, formErro
             helperText={formErrors.bankName}
           />
           <TextField
-            label="Transfer Ücreti"
+            label={t("TransferUcreti")}
             fullWidth
             margin="normal"
             value={selectedBank.transferFee}
@@ -50,7 +53,7 @@ const UpdateModal = ({ open, onClose, selectedBank, onChange, onSubmit, formErro
             sx={{ mt: 2, backgroundColor: "#00333D" }}
             onClick={onSubmit}
           >
-            Kaydet
+            {t("Kaydet")}
           </Button>
         </Box>
       </Box>

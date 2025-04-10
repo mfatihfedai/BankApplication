@@ -37,7 +37,7 @@ function LogoutButton() {
   return (
     <div>
       <Button
-        style={{ backgroundColor: "var(--color-red)" }}
+        style={{ backgroundColor: "var(--color-red) !important" }}
         onClick={handleLogout}
         variant="contained"
         startIcon={<PowerSettingsNewIcon />}
