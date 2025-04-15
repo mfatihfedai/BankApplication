@@ -50,7 +50,7 @@ const CreateModal = ({ open, onClose, selectedBank, onChange, onSubmit, formErro
           <Button
             variant="contained"
             fullWidth
-            sx={{ mt: 2, backgroundColor: "#00333D" }}
+            sx={{ mt: 2 }}
             onClick={onSubmit}
           >
             {t("Kaydet")}

@@ -1,28 +1,25 @@
 import * as yup from "yup";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
-export const registerFormSchemas = yup.object().shape({
-  registerName: yup.string().required("İsim alanı zorunludur."),
-  registerSurname: yup.string().required("Soyisim zorunludur."),
-  registerEmail: yup
-    .string()
-    .email("Geçerli bir email adresi giriniz.")
-    .required("Email adresi zorunludur."),
-  registerIdentityNo: yup
-    .string()
-    .required("TC No zorunludur.")
-    .matches(
-      /^[1-9]{1}[0-9]{9}[02468]{1}$/,
-      "Geçerli bir T.C Kimlik Numarası giriniz."
-    ), //^[1-9]{1}[0-9]{9}[02468]{1}$
-  registerPassword: yup.string().required("Şifre zorunludur."), // 1 2 3 4 5 6 7 8 9 0 0
-  registerPasswordConfirm: yup
-    .string()
-    .required("Şifre tekrarı zorunludur.")
-    .oneOf(
-      [yup.ref("registerPassword", yup.registerPassword)],
-      "Şifreler eşleşmiyor."
-    ),
-  // registerTerm: yup.boolean().required("Lütfen kullanım şartlarını onaylayınız.*").oneOf([true], "Lütfen kullanım şartlarını onaylayınız.*")
-  // isInfoChecked: yup.boolean().required("Lütfen kullanım şartlarını onaylayınız.").oneOf([true], "Lütfen kullanım şartlarını onaylayınız.*"),
-  // isKvkkChecked: yup.boolean().required("Lütfen kvkk şartlarını onaylayınız.").oneOf([true], "Lütfen kvkk şartlarını onaylayınız.*")
-});
+export const useRegisterFormSchema = () => {
+  const { t } = useTranslation();
+  
+  return useMemo(() => yup.object().shape({
+    registerName: yup.string().required(t("validation.nameRequired")),
+    registerSurname: yup.string().required(t("validation.surnameRequired")),
+    registerEmail: yup
+      .string()
+      .email(t("validation.validEmail"))
+      .required(t("validation.emailRequired")),
+    registerIdentityNo: yup
+      .string()
+      .required(t("validation.idNumberRequired"))
+      .matches(/^[1-9]{1}[0-9]{9}[02468]{1}$/, t("validation.validIdNumber")),
+    registerPassword: yup.string().required(t("validation.passwordRequired")),
+    registerPasswordConfirm: yup
+      .string()
+      .required(t("validation.passwordConfirmRequired"))
+      .oneOf([yup.ref("registerPassword")], t("validation.passwordsMustMatch"))
+  }), [t]);
+};

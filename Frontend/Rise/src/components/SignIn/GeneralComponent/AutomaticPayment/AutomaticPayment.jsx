@@ -11,7 +11,7 @@ function AutomaticPayment() {
   const [loading, setLoading] = useState(false);
   const [selectedInvoice, setSelectedInvoice] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
-  const { t, i18 } = useTranslation();
+  const { t } = useTranslation();
 
   const fetchData = async () => {
     setLoading(true);
@@ -59,11 +59,6 @@ function AutomaticPayment() {
           variant="contained"
           size="medium"
           onClick={() => handleSetInvoice(params.row)}
-          sx={{
-            backgroundColor: "#E1722A",
-            color: "#ffffff",
-            "&:hover": { backgroundColor: "#D1611C" },
-          }}
         >
           {t("Duzenle")}
         </Button>

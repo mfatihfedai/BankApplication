@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useUser } from "../../context/UserContext";
+import { decryptData } from "../Core/CryptoJS";
 
 const ProtectedRoute = ({ role, children }) => {
   const { user } = useUser();
@@ -10,10 +11,10 @@ const ProtectedRoute = ({ role, children }) => {
 
   console.log(user);
   // LocalStorage'dan veri al
+  // IF PROJECT COMPLETE, REMOVE THIS PART
   // useEffect(() => {
   //   const savedUser = localStorage.getItem("user");
   //   console.log("Protected Router Çalışıyor");
-  //   console.log(user);
   //   if (savedUser) {
   //     const parsedUser = decryptData(savedUser);
   //     setLogUser(parsedUser); // LocalStorage'dan alınan kullanıcıyı logUser'a set et

@@ -19,7 +19,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import { createInvoice } from "../../../../service/InvoiceApi";
 import { GridCheckCircleIcon } from "@mui/x-data-grid";
 import { useAdminMenu } from "../../../../context/AdminMenuContext";
-import { invoiceFormSchemas } from "../../../Schemas/InvoiceFormSchemas";
+import { InvoiceFormSchemas } from "../../../Schemas/InvoiceFormSchemas";
 import "./invoice.css";
 import { useTranslation } from "react-i18next";
 
@@ -31,6 +31,7 @@ function Invoice() {
   const [success, setSuccess] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const { t } = useTranslation();
+  const invoiceFormSchemas = InvoiceFormSchemas();
 
   const iconStyle = (color) => ({
     fontSize: 60,
@@ -87,7 +88,7 @@ function Invoice() {
       } catch (error) {
         console.error("Fatura ödeme hatası:", error.message);
         setShowModal(true);
-        setModalInfo(t("faturaOdemeHatasi"));
+        setModalInfo(t("FaturaOdemeBasarisiz"));
       } finally {
         setLoading(false);
       }
@@ -125,7 +126,7 @@ function Invoice() {
           >
             <img
               style={{ maxHeight: "100px" }}
-              src="../../../../../../src/assets/LogoWithName.png"
+              src="../../../../../../src/assets/LogoNonBackground.png"
               alt="bank_image"
             />
             <div>
@@ -136,14 +137,11 @@ function Invoice() {
               )}
             </div>
             <Typography id="transition-modal-title" variant="h6" component="h2">
-              {t("faturaOdeme")} {success ? t("Basarili") : t("Basarisiz")}
-            </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-              {modalInfo}
+              {t("FaturaOdeme")} {success ? t("Basarili") : t("Basarisiz")}
             </Typography>
             {success && (
               <Typography id="transition-modal-countdown" sx={{ mt: 2 }}>
-                {countdown} {t("saniyeIcerisindeYonlendirileceksiniz")}
+                {countdown} {t("SaniyeIcerisindeYonlendirileceksiniz")}
               </Typography>
             )}
           </Box>
@@ -162,7 +160,7 @@ function Invoice() {
             padding: 4,
             borderRadius: 4,
             boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-            background: "linear-gradient(to right, #ece9e6, #ffffff)",
+            background: "var(--color-box-background)",
           }}
         >
           <Typography
@@ -200,10 +198,10 @@ function Invoice() {
             }
             fullWidth
           >
-            <MenuItem value="Doğalgaz">Doğalgaz</MenuItem>
-            <MenuItem value="Elektrik">Elektrik</MenuItem>
-            <MenuItem value="Su">Su</MenuItem>
-            <MenuItem value="Telefon">Telefon</MenuItem>
+            <MenuItem value="Doğalgaz">{t("Dogalgaz")}</MenuItem>
+            <MenuItem value="Elektrik">{t("Elektrik")}</MenuItem>
+            <MenuItem value="Su">{t("Su")}</MenuItem>
+            <MenuItem value="Telefon">{t("Telefon")}</MenuItem>
           </Select>
 
           <TextField
@@ -232,11 +230,18 @@ function Invoice() {
                 name="autobill"
                 checked={formik.values.autobill}
                 onChange={formik.handleChange}
+                
               />
             }
             label={t("OtomatikOdeme")}
           />
-
+          {formik.values.autobill && (
+            <Typography
+              sx={{ fontSize: "14px", color: "gray", marginTop: "-10px" }}
+            >
+              {t("OdemelerAyinBirinde")}
+            </Typography>
+          )}
           <LoadingButton
             type="submit"
             fullWidth
@@ -245,7 +250,7 @@ function Invoice() {
             loading={loading}
             loadingPosition="end"
           >
-            {t("FaturayiOde")}
+            {t("Ode")}
           </LoadingButton>
         </Box>
       </form>

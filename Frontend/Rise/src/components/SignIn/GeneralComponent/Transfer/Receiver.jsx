@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useFormik } from "formik";
 import TransferModal from "./TransferModal";
 import { createTransfer } from "../../../../service/TransferApi";
-import { receiverFormSchemas } from "../../../Schemas/ReceiverFormSchemas";
+import { useReceiverFormSchema } from "../../../Schemas/ReceiverFormSchemas";
 import { useTranslation } from "react-i18next";
 
 function Receiver() {
@@ -11,6 +11,7 @@ function Receiver() {
   const [showModal, setShowModal] = useState(false);
   const [transferMessage, setTransferMessage] = useState("");
   const [success, setSuccess] = useState(false);
+  const receiverFormSchemas = useReceiverFormSchema();
 
   const handleClose = () => {
     setShowModal(false); // Modal'ı kapat
@@ -33,7 +34,7 @@ function Receiver() {
     } catch (err) {
       setShowModal(true);
       if (err.response?.data?.data === "There is no receiver account number") {
-        setTransferMessage(t("LütfenHesapNumarasiniDogruGirin"));
+        setTransferMessage(t("LutfenHesapNumarasiniDogruGirin"));
       }
       if (err.response?.data?.data === "There is no balance") {
         setTransferMessage(t("YetersizBakiye"));
@@ -73,7 +74,7 @@ function Receiver() {
           padding: "1rem 3rem",
           borderRadius: 4,
           boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-          background: "linear-gradient(to right, #ece9e6, #ffffff)",
+          background: "var(--color-box-background)",
         }}
       >
         <TextField
@@ -120,9 +121,7 @@ function Receiver() {
           type="submit"
           onClick={handleSubmit}
           variant="contained"
-          color="primary"
           fullWidth
-          style={{ backgroundColor: "var(--color-blue)" }}
         >
           {t("Gonder")}
         </Button>

@@ -3,12 +3,15 @@ import { TextField, Button, Box, Typography, Modal } from "@mui/material";
 import { useFormik } from "formik";
 import { createUser } from "../../../../service/UserApi";
 import { Select, MenuItem, Alert } from "@mui/material";
-import { newUserFormSchemas } from "../../../Schemas/NewUserFormSchemas";
+import { useNewUserFormSchema } from "../../../Schemas/NewUserFormSchemas";
+import { useTranslation } from "react-i18next";
 
 const NewUserModal = ({ open, onClose }) => {
   const [successModalOpen, setSuccessModalOpen] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
+  const newUserFormSchemas = useNewUserFormSchema();
+  const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues: {
@@ -41,24 +44,22 @@ const NewUserModal = ({ open, onClose }) => {
         const response = await createUser(newUser);
         console.log(response);
         if (response.status === 200) {
-          setSuccessMessage("Kullanıcı başarıyla eklendi.");
+          setSuccess(true);
           setSuccessModalOpen(true);
           setTimeout(() => {
             // 2 saniye sonra otomatik kapattım
-            setSuccessMessage("");
             setSuccessModalOpen(false);
             onClose(); // Modalı kapat
-          }, 2000);
+          }, 3000);
         }
       } catch (error) {
         console.error("Kullanıcı ekleme hatası:", error.message);
-        setErrorMessage("Kayıt sırasında bir hata oluştu.");
+        setError(true);
         setSuccessModalOpen(true);
         setTimeout(() => {
           // 2 saniye sonra otomatik kapattım
-          setErrorMessage("");
           setSuccessModalOpen(false);
-        }, 2000);
+        }, 3000);
       }
     },
   });
@@ -84,7 +85,6 @@ const NewUserModal = ({ open, onClose }) => {
             borderRadius: 2,
             fontFamily: "Montserrat",
             boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-            background: "linear-gradient(to right, #ece9e6, #ffffff)",
           }}
         >
           <Typography
@@ -116,7 +116,7 @@ const NewUserModal = ({ open, onClose }) => {
               <div>
                 <TextField
                   className="formUser"
-                  label="Ad"
+                  label={t("Ad")}
                   id="registerName"
                   name="registerName"
                   value={formik.values.registerName || ""}
@@ -124,7 +124,7 @@ const NewUserModal = ({ open, onClose }) => {
                   type="text"
                 />
                 {formik.errors.registerName && (
-                  <Typography className="register-error">
+                  <Typography className="error">
                     {formik.errors.registerName}
                   </Typography>
                 )}
@@ -132,7 +132,7 @@ const NewUserModal = ({ open, onClose }) => {
               <div>
                 <TextField
                   className="formUser"
-                  label="Soyad"
+                  label={t("Soyad")}
                   id="registerSurname"
                   name="registerSurname"
                   value={formik.values.registerSurname}
@@ -140,7 +140,7 @@ const NewUserModal = ({ open, onClose }) => {
                   type="text"
                 />
                 {formik.errors.registerSurname && (
-                  <Typography className="register-error">
+                  <Typography className="error">
                     {formik.errors.registerSurname}
                   </Typography>
                 )}
@@ -158,7 +158,7 @@ const NewUserModal = ({ open, onClose }) => {
               <div>
                 <TextField
                   className="formUser"
-                  label="T.C Kimlik Numarası"
+                  label={t("TCKimlik")}
                   id="registerIdentityNo"
                   name="registerIdentityNo"
                   value={formik.values.registerIdentityNo}
@@ -166,7 +166,7 @@ const NewUserModal = ({ open, onClose }) => {
                   type="text"
                 />
                 {formik.errors.registerIdentityNo && (
-                  <Typography className="register-error">
+                  <Typography className="error">
                     {formik.errors.registerIdentityNo}
                   </Typography>
                 )}
@@ -176,15 +176,6 @@ const NewUserModal = ({ open, onClose }) => {
                   className="formUser"
                   id="registerRole"
                   name="registerRole"
-                  sx={{
-                    width: "100%",
-                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                      borderColor: "var(--color-blue)",
-                    },
-                    "&:hover .MuiOutlinedInput-notchedOutline": {
-                      borderColor: "var(--color-blue)",
-                    },
-                  }}
                   value={formik.values.registerRole || ""}
                   onChange={formik.handleChange}
                 >
@@ -192,7 +183,7 @@ const NewUserModal = ({ open, onClose }) => {
                   <MenuItem value="ADMIN">ADMIN</MenuItem>
                 </Select>
                 {formik.errors.registerRole && (
-                  <Typography className="register-error">
+                  <Typography className="error">
                     {formik.errors.registerRole}
                   </Typography>
                 )}
@@ -209,7 +200,7 @@ const NewUserModal = ({ open, onClose }) => {
               <div>
                 <TextField
                   className="formUser"
-                  label="Mail"
+                  label={t("Email")}
                   id="registerEmail"
                   name="registerEmail"
                   value={formik.values.registerEmail}
@@ -217,7 +208,7 @@ const NewUserModal = ({ open, onClose }) => {
                   type="mail"
                 />
                 {formik.errors.registerEmail && (
-                  <Typography className="register-error">
+                  <Typography className="error">
                     {formik.errors.registerEmail}
                   </Typography>
                 )}
@@ -226,14 +217,14 @@ const NewUserModal = ({ open, onClose }) => {
                 <TextField
                   className="formUser"
                   id="registerBalance"
-                  label="Bakiye"
+                  label={t("Bakiye")}
                   name="registerBalance"
                   value={formik.values.registerBalance}
                   onChange={formik.handleChange}
                   type="text"
                 />
                 {formik.errors.registerBalance && (
-                  <Typography className="register-error">
+                  <Typography className="error">
                     {formik.errors.registerBalance}
                   </Typography>
                 )}
@@ -250,7 +241,7 @@ const NewUserModal = ({ open, onClose }) => {
               <div>
                 <TextField
                   className="formUser"
-                  label="Şifre"
+                  label={t("Sifre")}
                   id="registerPassword"
                   name="registerPassword"
                   value={formik.values.registerPassword}
@@ -258,7 +249,7 @@ const NewUserModal = ({ open, onClose }) => {
                   type="password"
                 />
                 {formik.errors.registerPassword && (
-                  <Typography className="register-error">
+                  <Typography className="error">
                     {formik.errors.registerPassword}
                   </Typography>
                 )}
@@ -266,14 +257,14 @@ const NewUserModal = ({ open, onClose }) => {
               <div>
                 <TextField
                   className="formUser"
-                  label="Şifre Tekrarı"
+                  label={t("SifreTekrari")}
                   name="registerPasswordConfirm"
                   value={formik.values.registerPasswordConfirm}
                   onChange={formik.handleChange}
                   type="password"
                 />
                 {formik.errors.registerPasswordConfirm && (
-                  <Typography className="register-error">
+                  <Typography className="error">
                     {formik.errors.registerPasswordConfirm}
                   </Typography>
                 )}
@@ -284,14 +275,13 @@ const NewUserModal = ({ open, onClose }) => {
               variant="contained"
               color="primary"
               style={{
-                backgroundColor: "var(--color-blue)",
                 marginLeft: "2rem",
                 marginRight: "2rem",
                 marginBottom: "2rem",
               }}
               onClick={formik.handleSubmit}
             >
-              Kullanıcı Ekle
+              {t("KullaniciEkle")}
             </Button>
           </div>
         </Box>
@@ -299,8 +289,8 @@ const NewUserModal = ({ open, onClose }) => {
       <Modal
         open={successModalOpen}
         onClose={() => {
-          setSuccessMessage("");
-          setErrorMessage("");
+          setSuccess(false);
+          setError(false);
           setSuccessModalOpen(false);
         }}
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
@@ -308,16 +298,14 @@ const NewUserModal = ({ open, onClose }) => {
         <Box
           sx={{
             width: 400,
-            bgcolor: "white",
             borderRadius: "8px",
             boxShadow: 24,
-            p: 4,
             position: "relative",
             textAlign: "center",
           }}
         >
-          {successMessage && <Alert severity="success">{successMessage}</Alert>}
-          {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
+          {success && <Alert severity="success">{t("KullaniciBasarili")}</Alert>}
+          {error && <Alert severity="error">{t("KayitSirasindaHata")}</Alert>}
         </Box>
       </Modal>
     </>

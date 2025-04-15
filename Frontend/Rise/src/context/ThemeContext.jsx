@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import darkPhoto from "../assets/dark-page-background.jpg";
 
 const ThemeContext = createContext();
 
@@ -12,15 +13,21 @@ export const ThemeContextProvider = ({ children }) => {
     const htmlElement = document.documentElement;
 
     if (theme === "dark") {
-      htmlElement.style.background = "#0f1214"; // Dark mode'da arka plan rengi
-      htmlElement.style.backgroundImage = "none"; // Arka plan resmini kaldır
-    } else {
       htmlElement.style.background = 
-        "linear-gradient(rgb(255, 255, 255), rgba(255, 255, 255, 0.678)), url('https://t3.ftcdn.net/jpg/05/31/74/50/360_F_531745035_JqfSNBmPT7gu1DPqQZ9YEiYt175oYczd.webp')";
+      `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url(${darkPhoto})`;
+      //htmlElement.style.backgroundImage = "none"; // Arka plan resmini kaldır
       htmlElement.style.backgroundRepeat = "no-repeat";
       htmlElement.style.backgroundSize = "cover";
       htmlElement.style.backgroundPosition = "center";
-    }
+      htmlElement.style.backgroundAttachment = "fixed";
+    } else {
+      htmlElement.style.background = 
+        "linear-gradient(rgb(255, 255, 255), rgba(255, 255, 255, 0.2)), url('https://t3.ftcdn.net/jpg/05/31/74/50/360_F_531745035_JqfSNBmPT7gu1DPqQZ9YEiYt175oYczd.webp')";
+        htmlElement.style.backgroundRepeat = "no-repeat";
+        htmlElement.style.backgroundSize = "cover";
+        htmlElement.style.backgroundPosition = "center";
+        htmlElement.style.backgroundAttachment = "fixed";
+      }
     localStorage.setItem("theme", theme);
   }, [theme]);
 

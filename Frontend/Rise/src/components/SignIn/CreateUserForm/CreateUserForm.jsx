@@ -8,7 +8,7 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import { useFormik } from "formik";
-import { registerFormSchemas } from "../../Schemas/RegisterFormSchemas";
+import { useRegisterFormSchema } from "../../Schemas/RegisterFormSchemas";
 import { createUser } from "../../../service/UserApi";
 import { useNavigate } from "react-router-dom";
 import InfoModal from "./InfoModal";
@@ -23,6 +23,7 @@ const CreateUserForm = () => {
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const { t } = useTranslation();
+  const registerFormSchemas = useRegisterFormSchema();
 
   const handleModalResult = (type, result) => {
     if (type === "info") {
@@ -87,6 +88,7 @@ const CreateUserForm = () => {
           display: "flex",
           flexDirection: "column",
           margin: "0 auto",
+          padding: "16px",
           border: "1px solid var(--color-box-border)",
           background: "var(--color-box-background)",
           boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
@@ -108,110 +110,126 @@ const CreateUserForm = () => {
           </h1>
           {t("HosGeldiniz")}
         </Typography>
-        <TextField
-          label={t("Ad")}
-          name="registerName"
-          value={values.registerName.toLocaleUpperCase()}
-          onChange={handleChange}
-          type="text"
-        />
-        {errors.registerName && (
-          <Typography className="register-error">
-            {errors.registerName}
-          </Typography>
-        )}
-        <TextField
-          label={t("Soyad")}
-          name="registerSurname"
-          value={values.registerSurname.toLocaleUpperCase()}
-          onChange={handleChange}
-          type="text"
-        />
-        {errors.registerSurname && (
-          <Typography className="register-error">
-            {errors.registerSurname}
-          </Typography>
-        )}
-        <TextField
+        <div>
+          <TextField
+            label={t("Ad")}
+            name="registerName"
+            value={values.registerName.toLocaleUpperCase()}
+            onChange={handleChange}
+            type="text"
+          />
+          {errors.registerName && (
+            <Typography className="error">
+              {errors.registerName}
+            </Typography>
+          )}
+        </div>
+        <div>
+          <TextField
+            label={t("Soyad")}
+            name="registerSurname"
+            value={values.registerSurname.toLocaleUpperCase()}
+            onChange={handleChange}
+            type="text"
+          />
+          {errors.registerSurname && (
+            <Typography className="error">
+              {errors.registerSurname}
+            </Typography>
+          )}
+        </div>
+        <div>
+          <TextField
           label={t("Email")}
           name="registerEmail"
           value={values.registerEmail}
           onChange={handleChange}
           type="text"
-        />
-        {errors.registerEmail && (
-          <Typography className="register-error">
-            {errors.registerEmail}
-          </Typography>
-        )}
-        <TextField
-          label={t("TCKimlik")}
-          name="registerIdentityNo"
-          value={values.registerIdentityNo}
-          onChange={handleChange}
-          type="text"
-        />
-        {errors.registerIdentityNo && (
-          <Typography className="register-error">
-            {errors.registerIdentityNo}
-          </Typography>
-        )}
-        <TextField
-          label={t("Sifre")}
-          name="registerPassword"
-          value={values.registerPassword}
-          onChange={handleChange}
-          type="password"
-        />
-        {errors.registerPassword && (
-          <Typography className="register-error">
-            {errors.registerPassword}
-          </Typography>
-        )}
-        <TextField
-          label={t("SifreTekrari")}
-          name="registerPasswordConfirm"
-          value={values.registerPasswordConfirm}
-          onChange={handleChange}
-          type="password"
-        />
-        {errors.registerPasswordConfirm && (
-          <Typography className="register-error">
-            {errors.registerPasswordConfirm}
-          </Typography>
-        )}
-        <FormControlLabel
-          label={t("AydinlatmaMetni")}
-          control={
-            <Checkbox
-              value={isInfoChecked}
-              name="registerInfo"
-              checked={isInfoChecked}
-              onClick={() => setOpenModal("info")}
-            />
-          }
-        />
-        {errors.isInfoChecked && (
-          <Typography className="register-error">
-            {errors.isInfoChecked}
-          </Typography>
-        )}
-        <FormControlLabel
-          label={t("KVKKMetni")}
-          control={
-            <Checkbox
-              value={isKvkkChecked}
-              name="registerKVKK"
-              checked={isKvkkChecked}
-              onClick={() => setOpenModal("kvkk")}
-            />
-          }
-        />
-        {errors.isKvkkChecked && (
-          <Typography className="register-error">
-            {errors.isKvkkChecked}
-          </Typography>
-        )}
+          />
+          {errors.registerEmail && (
+            <Typography className="error">
+              {errors.registerEmail}
+            </Typography>
+          )}
+        </div>
+        <div>
+          <TextField
+            label={t("TCKimlik")}
+            name="registerIdentityNo"
+            value={values.registerIdentityNo}
+            onChange={handleChange}
+            type="text"
+          />
+          {errors.registerIdentityNo && (
+            <Typography className="error">
+              {errors.registerIdentityNo}
+            </Typography>
+          )}
+        </div>
+        <div>
+          <TextField
+            label={t("Sifre")}
+            name="registerPassword"
+            value={values.registerPassword}
+            onChange={handleChange}
+            type="password"
+          />
+          {errors.registerPassword && (
+            <Typography className="error">
+              {errors.registerPassword}
+            </Typography>
+          )}
+        </div>
+        <div>
+          <TextField
+            label={t("SifreTekrari")}
+            name="registerPasswordConfirm"
+            value={values.registerPasswordConfirm}
+            onChange={handleChange}
+            type="password"
+          />
+          {errors.registerPasswordConfirm && (
+            <Typography className="error">
+              {errors.registerPasswordConfirm}
+            </Typography>
+          )}
+        </div>
+        <div>
+          <FormControlLabel
+            label={t("AydinlatmaMetni")}
+            control={
+              <Checkbox
+                value={isInfoChecked}
+                name="registerInfo"
+                checked={isInfoChecked}
+                onClick={() => setOpenModal("info")}
+              />
+            }
+          />
+          {errors.isInfoChecked && (
+            <Typography className="error">
+              {errors.isInfoChecked}
+            </Typography>
+          )}
+        </div>
+        <div>
+          <FormControlLabel
+            label={t("KVKKMetni")}
+            control={
+              <Checkbox
+                value={isKvkkChecked}
+                name="registerKVKK"
+                checked={isKvkkChecked}
+                onClick={() => setOpenModal("kvkk")}
+              />
+            }
+          />
+          {errors.isKvkkChecked && (
+            <Typography className="error">
+              {errors.isKvkkChecked}
+            </Typography>
+          )}
+        </div>
         <Button
           type="submit"
           onClick={handleSubmit}
