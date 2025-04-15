@@ -45,7 +45,8 @@ function UserList() {
 
   const handleDelete = async (id) => {
     try {
-      const response = await deleteUser(id);
+      await deleteUser(id);
+      fetchDatas(keyword, page);
       if (id === user.id) {
         navigate("/");
       }
@@ -75,10 +76,6 @@ function UserList() {
             variant="contained"
             startIcon={<AddIcon />}
             onClick={() => setNewUserModal(true)}
-            sx={{
-              backgroundColor: "var(--color-blue)",
-              "&:hover": { backgroundColor: "var(--color-orange)" },
-            }}
           >
             {t("YeniKullanici")}
           </Button>
@@ -98,24 +95,12 @@ function UserList() {
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
             sx={{
-              "& .MuiOutlinedInput-root": { borderRadius: "8px" },
-              "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                borderColor: "var(--color-blue)",
-              },
-              "&:hover .MuiOutlinedInput-notchedOutline": {
-                borderColor: "var(--color-blue)",
-              },
+              "& .MuiOutlinedInput-root": { borderRadius: "8px" }
             }}
           />
           <Button
             variant="contained"
             onClick={() => fetchDatas(keyword, page)}
-            sx={{
-              backgroundColor: "#00333D",
-              color: "#fff",
-              borderRadius: "8px",
-              "&:hover": { backgroundColor: "#E1722F" },
-            }}
           >
             {t("Ara")}
           </Button>
@@ -239,18 +224,12 @@ function UserList() {
                 handleDelete(selectedUserId);
                 setIsDeleteModalOpen(false);
               }}
-              sx={{
-                backgroundColor: "var(--color-blue)",
-              }}
             >
               {t("Sil")}
             </Button>
             <Button
               variant="contained"
               onClick={() => setIsDeleteModalOpen(false)}
-              sx={{
-                backgroundColor: "var(--color-blue)",
-              }}
             >
               {t("Iptal")}
             </Button>

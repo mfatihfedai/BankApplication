@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { useAdminMenu } from "../../../../context/AdminMenuContext";
+import { useTranslation } from "react-i18next";
 
 const style = {
   position: "absolute",
@@ -30,6 +31,7 @@ const iconStyle = (color) => ({
 export default function TransferModal({ open, handleClose, message, success }) {
   const { setComponentName } = useAdminMenu();
   const [countdown, setCountdown] = useState(3); 
+  const { t } = useTranslation();
 
   useEffect(() => {
     let timer;
@@ -66,7 +68,7 @@ export default function TransferModal({ open, handleClose, message, success }) {
     >
       <Fade in={open}>
         <Box sx={style}>
-        <img style={{maxHeight: "100px"}} src="../../../../../../src/assets/LogoWithName.png" alt="bank_image" />
+        <img style={{maxHeight: "100px"}} src="../../../../../../src/assets/LogoNonBackground.png" alt="bank_image" />
           <div>
             {success ? (
               <CheckCircleIcon sx={iconStyle("green")} />
@@ -75,14 +77,14 @@ export default function TransferModal({ open, handleClose, message, success }) {
             )}
           </div>
           <Typography id="transition-modal-title" variant="h6" component="h2">
-            Transfer Durumu {success ? "Başarılı" : "Başarısız"}
+            {success ? t("TransferBasarili") : t("TransferBasarisiz")}
           </Typography>
           <Typography id="transition-modal-description" sx={{ mt: 2 }}>
             {message}
           </Typography>
           {success && (
             <Typography id="transition-modal-countdown" sx={{ mt: 2 }}>
-              {countdown} saniye içinde anasayfaya yönlendiriliyorsunuz...
+              {countdown} {t("SaniyeIcerisindeYonlendirileceksiniz")}
             </Typography>
           )}
         </Box>

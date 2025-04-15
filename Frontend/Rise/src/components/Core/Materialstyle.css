@@ -2,6 +2,19 @@
 .Mui-root {
   font-family: "Montserrat", sans-serif;
 }
+
+/* Modal Stilleri */
+.MuiModal-root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.MuiModal-root .MuiBox-root {
+  background: var(--color-box-background);
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
   
 /* Box Stilleri */
 .MuiBox-root {
@@ -19,24 +32,33 @@
   color: var(--color-text) !important;
 }
 
-.MuiTextField-root .MuiOutlinedInput-root fieldset{
+.MuiOutlinedInput-root {
+  color: var(--color-text);
+  border-radius: 8px;
+}
+
+.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
   border-color: var(--color-textfield-border);
 }
 
-.MuiTextField-root .MuiInputLabel-root {
-  color: var(--color-text);
+.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: var(--color-text) !important;
 }
 
-.MuiTextField-root .MuiOutlinedInput-root:hover fieldset {
-  border-color: var(--color-text);
+.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: var(--color-text) !important;
 }
 
-.MuiTextField-root .MuiOutlinedInput-root.Mui-focused fieldset {
-  border-color: var(--color-text);
+.MuiInputLabel-root {
+  color: var(--color-text) !important;
 }
 
-.MuiTextField-root .MuiInputBase-input {
-  color: var(--color-text);
+.MuiInputLabel-root.Mui-focused {
+  color: var(--color-text) !important;
+}
+
+.MuiInputBase-input {
+  color: var(--color-text) !important;
 }
 
 /* Button Stilleri */
@@ -72,6 +94,13 @@
   text-decoration: underline;
 }
 
+.MuiTypography-root.error {
+  color: var(--color-red);
+  font-size: 15px;
+  margin-top: 2px;
+  text-align: left;
+}
+
 /* IconButton Stilleri */
 .back-icon {
   color: var(--color-text);
@@ -82,17 +111,4 @@
 
 .back-icon:hover {
   transform: scale(1.4);
-}
-
-/* Modal Stilleri */
-.MuiModal-root {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.MuiModal-root .MuiBox-root {
-  background: var(--color-box-background);
-  border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }

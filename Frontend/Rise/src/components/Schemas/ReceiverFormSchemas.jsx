@@ -1,12 +1,18 @@
 import * as yup from "yup";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
-export const receiverFormSchemas = yup.object().shape({
-  receiverAccountNo: yup.number().required("Lütfen bir hesap numarası giriniz"),
-  transferAmount: yup
-    .number()
-    .positive("Geçerli bir değer giriniz")
-    .required("Geçerli bir değer giriniz"),
-  transferMessage: yup.string(),
-  bankName: yup.string(),
-  transferFee: yup.number().positive(),
-});
+export const useReceiverFormSchema = () => {
+  const { t } = useTranslation();
+  
+  return useMemo(() => yup.object().shape({
+    receiverAccountNo: yup.number().required(t("validation.accountNumberRequired")),
+    transferAmount: yup
+      .number()
+      .positive(t("validation.positiveValue"))
+      .required(t("validation.amountRequired")),
+    transferMessage: yup.string(),
+    bankName: yup.string(),
+    transferFee: yup.number().positive(t("validation.positiveValue"))
+  }), [t]);
+};

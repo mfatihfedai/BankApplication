@@ -74,7 +74,7 @@ function Banks() {
     try {
       const response = await updateBank(updatedData.id, updatedData);
       if (response) {
-        setSuccessMessage(t("BankaBasariylaGüncellendi"));
+        setSuccessMessage(t("BankaBasariylaGuncellendi"));
         fetchBanks();
         setIsUpdateModalOpen(false);
       }
@@ -275,7 +275,6 @@ function Banks() {
             width: 400,
             borderRadius: "8px",
             boxShadow: 24,
-            p: 4,
             position: "relative",
           }}
         >

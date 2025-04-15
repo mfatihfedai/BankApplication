@@ -10,12 +10,15 @@ import {
 import { useFormik } from "formik";
 import { Select, MenuItem } from "@mui/material";
 import { updateUser } from "../../../../service/UserApi";
-import { updateUserFormSchemas } from "../../../Schemas/UpdateUserFormSchemas";
+import { useUpdateUserFormSchema } from "../../../Schemas/UpdateUserFormSchemas";
+import { useTranslation } from "react-i18next";
 
 const UpdateUserModal = ({ open, onClose, userData }) => {
   const [successModalOpen, setSuccessModalOpen] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const { t } = useTranslation();
+  const updateUserFormSchemas = useUpdateUserFormSchema();
 
   const handleUpdate = async () => {
     try {
@@ -37,7 +40,7 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
       console.log(user);
 
       if (response.status === 200) {
-        setSuccessMessage("Bilgiler başarıyla güncellendi.");
+        setSuccessMessage(t("KullaniciGuncelleBasarili"));
         setSuccessModalOpen(true);
         setTimeout(() => {
           // 2 saniye sonra otomatik kapattım
@@ -48,7 +51,7 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
       }
     } catch (err) {
       console.error("Hata oluştu:", err);
-      setErrorMessage("Güncelleme sırasında bir hata oluştu.");
+      setErrorMessage(t("GuncellemeHatasi"));
       setSuccessModalOpen(true);
       setTimeout(() => {
         // 2 saniye sonra otomatik kapattım
@@ -121,7 +124,7 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
             >
               <div>
                 <TextField
-                  label="Ad"
+                  label={t("Ad")}
                   id="registerName"
                   name="registerName"
                   value={formik.values.registerName || ""}
@@ -137,7 +140,7 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
               </div>
               <div>
                 <TextField
-                  label="Soyad"
+                  label={t("Soyad")}
                   id="registerSurname"
                   name="registerSurname"
                   value={formik.values.registerSurname}
@@ -163,7 +166,7 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
             >
               <div>
                 <TextField
-                  label="T.C Kimlik"
+                  label={t("TCKimlik")}
                   id="registerIdentityNo"
                   name="registerIdentityNo"
                   value={formik.values.registerIdentityNo}
@@ -182,15 +185,6 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
                   className="formUser"
                   id="registerRole"
                   name="registerRole"
-                  sx={{
-                    width: "100%",
-                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                      borderColor: "var(--color-blue)",
-                    },
-                    "&:hover .MuiOutlinedInput-notchedOutline": {
-                      borderColor: "var(--color-blue)",
-                    },
-                  }}
                   value={formik.values.registerRole || ""}
                   onChange={formik.handleChange}
                 >
@@ -214,7 +208,7 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
             >
               <div>
                 <TextField
-                  label="Mail"
+                  label={t("Email")}
                   id="registerEmail"
                   name="registerEmail"
                   value={formik.values.registerEmail}
@@ -232,7 +226,7 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
               <div>
                 <TextField
                   id="registerBalance"
-                  label="Bakiye"
+                  label={t("Bakiye")}
                   name="registerBalance"
                   value={formik.values.registerBalance}
                   onChange={formik.handleChange}
@@ -249,16 +243,14 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
             <Button
               type="submit"
               variant="contained"
-              color="primary"
               style={{
-                backgroundColor: "var(--color-blue)",
                 marginLeft: "2rem",
                 marginRight: "2rem",
                 marginBottom: "2rem",
               }}
               onClick={handleUpdate}
             >
-              Bilgileri Güncelle
+              {t("KullaniciGuncelle")}
             </Button>
           </div>
         </Box>
@@ -275,10 +267,8 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
         <Box
           sx={{
             width: 400,
-            bgcolor: "white",
             borderRadius: "8px",
             boxShadow: 24,
-            p: 4,
             position: "relative",
             textAlign: "center",
           }}
