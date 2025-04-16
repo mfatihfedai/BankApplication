@@ -12,6 +12,7 @@ import NewUserModal from "./NewUserModal";
 import UpdateUserModal from "./UpdateUserModal";
 import { useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
+import Loading from "../../../Core/Loading";
 
 function UserList() {
   const { t } = useTranslation();
@@ -60,11 +61,7 @@ function UserList() {
   }, [page, isDeleteModalOpen, newUserModal, updateUserModal]);
 
   if (loading) {
-    return (
-      <div className="logo-container">
-        <img src={Logo} alt="Logo" className="logo" />
-      </div>
-    );
+    return (<Loading />);
   }
 
   return (

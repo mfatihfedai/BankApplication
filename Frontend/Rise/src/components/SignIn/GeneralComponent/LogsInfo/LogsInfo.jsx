@@ -6,6 +6,7 @@ import "./LogsInfo.css";
 import Logo from "../../../../assets/LogoNonBackground.png";
 import { useTranslation } from "react-i18next";
 import GeneralTable from "../../../General/GeneralTable";
+import Loading from "../../../Core/Loading";
 
 function LogsInfo() {
   const [headers, setHeaders] = useState([]);
@@ -62,11 +63,7 @@ function LogsInfo() {
   };
 
   if (loading) {
-    return (
-      <div className="logo-container">
-        <img src={Logo} alt="Logo" className="logo" />
-      </div>
-    );
+    return <Loading/>;
   }
 
   return (

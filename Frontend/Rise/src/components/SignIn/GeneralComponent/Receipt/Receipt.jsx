@@ -10,6 +10,7 @@ import Logo from "../../../../assets/LogoNonBackground.png";
 import "../../../Core/logo.css";
 import { useUser } from "../../../../context/UserContext";
 import { useTranslation } from "react-i18next";
+import Loading from "../../../Core/Loading";
 
 function Receipt() {
   const { user } = useUser();
@@ -176,11 +177,7 @@ function Receipt() {
   ];
 
   if (loading) {
-    return (
-      <div className="logo-container">
-        <img src={Logo} alt="Logo" className="logo" />
-      </div>
-    );
+    return <Loading />;
   }
 
   return (

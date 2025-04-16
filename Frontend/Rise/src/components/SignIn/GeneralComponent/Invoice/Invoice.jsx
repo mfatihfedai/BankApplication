@@ -22,6 +22,7 @@ import { useAdminMenu } from "../../../../context/AdminMenuContext";
 import { InvoiceFormSchemas } from "../../../Schemas/InvoiceFormSchemas";
 import "./invoice.css";
 import { useTranslation } from "react-i18next";
+import Loading from "../../../Core/Loading";
 
 function Invoice() {
   const [loading, setLoading] = useState(false);
@@ -94,6 +95,10 @@ function Invoice() {
       }
     },
   });
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div>

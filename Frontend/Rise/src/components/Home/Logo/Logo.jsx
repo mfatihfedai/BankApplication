@@ -8,7 +8,7 @@ function Logo() {
     <div className="navbar-container">
 
       {/* Logo */}
-      <div className="logo-container">
+      <div className="logo-containers">
         <h1
           style={{
             display: "flex",
