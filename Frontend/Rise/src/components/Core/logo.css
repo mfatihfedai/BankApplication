@@ -1,11 +1,4 @@
-.logo {
-  width: 120px; 
-  height: 120px;
-  animation: rotate 2.8s linear infinite;
-  transform-origin: center;
-}
-
-.logo-container::before {
+.logo-containers::before {
   content: "";
   position: absolute;
   top: -500px;
@@ -30,16 +23,6 @@
   height: 75px; 
 }
 
-.logo-container {
-  left: 50%;
-  transform: translateX(-50%);
-  top: 50%;
-  transform: translate(-50%, -50%);
-  position: relative;
-  overflow: hidden;
-  height: 75px;
-}
-
 .lang-theme-container {
   position: absolute;
   top: 50%;
@@ -49,6 +32,43 @@
   gap: 30px;
 }
 
+.logo-container {
+  left: 50%;
+  transform: translateX(-50%);
+  top: 50%;
+  transform: translate(-50%, -50%);
+  position: relative;
+  overflow: hidden;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction : column;
+  
+}
+
+.logo {
+  width: 120px; 
+  height: 120px;
+  animation: rotate 2.8s linear infinite;
+  transform-origin: center;
+}
+
+.prisma-container {
+  display: flex;
+  gap: 25px; /* Harfler arasındaki boşluk */
+  color: var(--color-primary);
+}
+
+.prisma-letter {
+  display: inline-block;
+  font-size: 30px;
+  font-weight: 800;
+  animation: scale-in-out 7s ease-in-out infinite;
+  animation-fill-mode: forwards;
+  transform-origin: top center; /* Harflerin büyüme noktasını üst merkez yap */
+}
+
 @keyframes rotate {
   from {
     transform: rotateY(0deg);
@@ -56,4 +76,46 @@
   to {
     transform: rotateY(360deg);
   }
+}
+
+@keyframes scale-in-out {
+  0% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(1.5);
+  }
+  55% {
+    transform: scale(1.5);
+  }
+  65% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.prisma-letter:nth-child(1) {
+  animation-delay: 0s; /* İlk harf hemen başlar */
+}
+
+.prisma-letter:nth-child(2) {
+  animation-delay: 0.5s; /* İkinci harf 0.5 saniye sonra başlar */
+}
+
+.prisma-letter:nth-child(3) {
+  animation-delay: 1s; /* Üçüncü harf 1 saniye sonra başlar */
+}
+
+.prisma-letter:nth-child(4) {
+  animation-delay: 1.5s; /* Dördüncü harf 1.5 saniye sonra başlar */
+}
+
+.prisma-letter:nth-child(5) {
+  animation-delay: 2s; /* Beşinci harf 2 saniye sonra başlar */
+}
+
+.prisma-letter:nth-child(6) {
+  animation-delay: 2.5s; /* Altıncı harf 2.5 saniye sonra başlar */
 }

@@ -3,8 +3,8 @@ import { getAllAutobill } from "../../../../service/InvoiceApi";
 import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
 import InvoiceDetailsModal from "./InvoiceDetailsModal";
-import Logo from "../../../../assets/LogoNonBackground.png";
 import { useTranslation } from "react-i18next";
+import Loading from "../../../Core/Loading";
 
 function AutomaticPayment() {
   const [datas, setDatas] = useState([]);
@@ -67,11 +67,7 @@ function AutomaticPayment() {
   ];
 
   if (loading) {
-    return (
-      <div className="logo-container">
-        <img src={Logo} alt="Logo" className="logo" />
-      </div>
-    );
+    return <Loading />;
   }
 
   return (

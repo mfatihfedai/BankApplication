@@ -7,6 +7,7 @@ import "./UserActivities.css"; // CSS dosyasını import edin
 import { useTranslation } from "react-i18next";
 import GeneralTable from "../../../General/GeneralTable";
 import ChartComponent from "./ChartComponent";
+import Loading from "../../../Core/Loading";
 
 function UserActivities() {
   const [logs, setLogs] = useState([]); // Tablo verileri
@@ -137,11 +138,7 @@ function UserActivities() {
   }, [page,showChart]);
 
   if (loading) {
-    return (
-      <div className="logo-container">
-        <img src={Logo} alt="Logo" className="logo" />
-      </div>
-    );
+    return <Loading />;
   }
 
   return (

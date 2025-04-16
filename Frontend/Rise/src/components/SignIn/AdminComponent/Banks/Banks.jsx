@@ -23,6 +23,7 @@ import DeleteModal from "./DeleteModal";
 import UpdateModal from "./UpdateModal";
 import CreateModal from "./CreateModal";
 import { useTranslation } from "react-i18next";
+import Loading from "../../../Core/Loading.jsx";
 
 function Banks() {
   const [banks, setBanks] = useState([]);
@@ -149,11 +150,7 @@ function Banks() {
   ];
 
   if (loading) {
-    return (
-      <div className="logo-container">
-        <img src={Logo} alt="Logo" className="logo" />
-      </div>
-    );
+    return <Loading />;
   }
 
   return (
