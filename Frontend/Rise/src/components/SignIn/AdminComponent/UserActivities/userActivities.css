@@ -115,7 +115,7 @@ input:checked + .slider:before {
 } */
 
 
-@media (max-width: 1044px) {
+@media (max-width: 1200px) {
 
 .table-container {
   display: inherit;

@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -58,7 +59,7 @@ public class LogManager extends BaseManager<LogInfo, LogRepo, LogSaveRequest, Lo
 
     @Override
     public CursorResponse<LogResponse> cursorResponse(int page, int pageSize, Long id) {
-        Pageable pageable = PageRequest.of(page, pageSize);
+        Pageable pageable = PageRequest.of(page, pageSize, Sort.by("loginTime").descending());
         Page<LogInfo> logs = repository.findByUserId(id, pageable);
         Page<LogResponse> entityToResponse = logs.map(mapper::entityToResponse);
         return ResultHelper.cursor(entityToResponse);

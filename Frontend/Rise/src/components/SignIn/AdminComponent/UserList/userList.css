@@ -53,8 +53,6 @@
     color: var(--color-orange);
 }
 
-@media (max-width: 1044px) {
-    .identity-role-area {
-        width: 26%;
-    }
+@media (max-width: 1200px) {
+    
 }

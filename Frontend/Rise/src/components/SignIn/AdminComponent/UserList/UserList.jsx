@@ -126,9 +126,7 @@ function UserList() {
         <Box
           sx={{
             display: "flex",
-            justifyContent: "right",
             gap: "10px",
-            marginRight: "1rem",
           }}
         >
           <TextField
@@ -140,6 +138,7 @@ function UserList() {
               width: "200px",
               "& .MuiInputBase-input": {
                 padding: "0.5rem",
+                fontSize: "16px",
               }
             }}
           />

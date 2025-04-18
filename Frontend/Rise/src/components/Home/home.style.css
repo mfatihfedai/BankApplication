@@ -26,7 +26,7 @@
     border-left: 1px solid #333;
 } */
 
-@media (max-width: 1044px) {
+@media (max-width: 1200px) {
 
     .parent {
         grid-template-columns: 1fr; /* Tek sütun yap */

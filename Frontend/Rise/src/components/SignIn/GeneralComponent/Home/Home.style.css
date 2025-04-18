@@ -1,20 +1,25 @@
 .persorece{
   padding: 20px;
- display: flex;
- align-items: center;
- justify-content: center;
- flex-direction: row;
- width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  width: 100%;
+  height: max-content;
+  padding-left: 0px;
 }
 
 #personal{
-  flex-wrap: wrap;
-  display: flex; 
-  width: 90%;
+  min-width: 450px;
+  width: 800px;
 }
 
 #receipt{
-width: 90%;
+  min-width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 20px;
 }
 
 .react-calendar__month-view__weekdays {
@@ -31,8 +36,18 @@ width: 90%;
   padding: 6px 0;
 }
 
-@media (max-width: 1044px) {
+@media (max-width: 1200px) {
   .persorece{
     flex-direction: column;
-  }  
+  }
+  #personal{
+    min-width: 300px;
+  }
+  #receipt{
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 20px;
+    min-width: 300px;
+    width: 100%;
+  }
 }

@@ -23,7 +23,7 @@ const resources = {
                 accountNumberRequired: "Lütfen bir hesap numarası giriniz",
                 amountRequired: "Geçerli bir tutar giriniz"
               },
-            FaturaZorlunlu: "Fatura numarası zorunludur.",
+            FaturaZorunlu: "Fatura numarası zorunludur.",
             FaturaSadeceRakam: "Fatura numarası yalnızca rakamlardan oluşmalıdır.",
             FaturaTipiZorunlu: "Fatura tipi zorunludur.",
             FaturaTutariZorunlu: "Fatura tutarı zorunludur.",
@@ -145,6 +145,7 @@ const resources = {
                 Doğalgaz: "Doğalgaz",
                 Telefon: "Telefon"
               },
+            Odemeler: "Ödemeler",
             // GİRİŞ KAYITLARIM
             GirisTarihi:"Giriş Tarihi",
             CikisTarihi:"Çıkış Tarihi",
@@ -276,6 +277,7 @@ const resources = {
             Hakkimizda: "Hakkımızda",
             Iletisim: "İletişim",
             VeriBulunamadi: "Veri Bulunamadı.",
+            SonGirisler: "Son 3 Giriş",
         }
     },
     
@@ -424,6 +426,7 @@ const resources = {
                 Doğalgaz: "Gas",
                 Telefon: "Phone"
               },
+            Odemeler: "Payments",
             // LOGIN RECORDS
             GirisTarihi:"Login Date",
             CikisTarihi:"Logout Date",
@@ -555,6 +558,7 @@ const resources = {
             Iletisim: "Contact Us",
             VeriBulunamadi: "Data not found",
             tr: "en",
+            SonGirisler: "Last 3 Transactions",
         }
     }
 }
