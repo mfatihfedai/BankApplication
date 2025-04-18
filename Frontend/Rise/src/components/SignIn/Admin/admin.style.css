@@ -24,7 +24,7 @@
     cursor: pointer;
 }
 
-@media (max-width: 1044px) {
+@media (max-width: 1200px) {
 
     .list-item {
         display: none;

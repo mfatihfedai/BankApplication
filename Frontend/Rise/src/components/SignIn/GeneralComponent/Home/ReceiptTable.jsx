@@ -4,6 +4,7 @@ import { getReceipts } from "../../../../service/ReceiptApi";
 import "./ReceiptTable.css";
 import { useTheme } from "../../../../context/ThemeContext";
 import { useTranslation } from "react-i18next";
+import { Box } from "@mui/material";
 
 function ReceiptTable() {
   const [logs, setLogs] = useState([]);
@@ -58,14 +59,14 @@ function ReceiptTable() {
   }, []);
 
   const columns = [
-    { field: "payDate", headerName: t("Tarih"), flex: 1, minWidth: 100 },
-    { field: "description", headerName: t("Aciklama"), flex: 2, minWidth: 150 },
+    { field: "payDate", headerName: t("Tarih"), flex: 1, minWidth: 100, sortable: false },
+    { field: "description", headerName: t("Aciklama"), flex: 2, minWidth: 150, sortable: false },
     {
       field: "amount",
       headerName: t("Tutar"),
       flex: 1,
       sortable: false,
-      minWidth: 100,
+      minWidth: 110,
       renderCell: (params) => {
         const { type, receiver, amount } = params.row;
         const isTransfer = type === "transfer";
@@ -84,29 +85,16 @@ function ReceiptTable() {
   ];
 
   return (
-    <div
-      className={`receipt-table-container${theme === "dark" ? "-dark" : ""}`}
-    >
+    <Box>
       <h2 id="title">{t("SonBesHareket")}</h2>
-      <div
-        style={{
-          width: "100%",
-        }}
-      >
-        <DataGrid
-          rows={logs}
-          columns={columns}
-          autoHeight
-          loading={loading}
-          disableColumnMenu
-          hideFooter
-          style={{
-            color:
-              theme === "dark" ? "var(--color-white)" : "var(--color-blue)",
-          }}
-        />
-      </div>
-    </div>
+      <DataGrid
+        rows={logs}
+        columns={columns}
+        loading={loading}
+        disableColumnMenu
+        hideFooter
+      />
+    </Box>
   );
 }
 

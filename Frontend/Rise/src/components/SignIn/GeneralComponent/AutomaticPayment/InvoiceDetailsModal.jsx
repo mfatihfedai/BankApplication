@@ -33,7 +33,7 @@ function InvoiceDetailsModal({ open, onClose, invoice }) {
       const formattedDatas = response.data.map((item) => ({
         id: item.id,
         month: new Date(item.payDate).toLocaleString('tr-TR', { dateStyle: 'medium' }),
-        ödeme: item.invoiceAmount,
+        [t("Odemeler")]: item.invoiceAmount,
       }));
       setDatas(formattedDatas);
     } catch (error) {
@@ -77,7 +77,7 @@ function InvoiceDetailsModal({ open, onClose, invoice }) {
 
   return (
     <Modal open={open} onClose={() => onClose()}>
-      <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 600, bgcolor: 'background.paper', boxShadow: 24, p: 4 }}>
+      <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 600, boxShadow: 24, p: 4 }}>
         <Typography variant="h6" gutterBottom sx={{ textAlign: 'center', fontWeight: '800' }}>
           {t("FaturaDetaylari")}
         </Typography>
@@ -119,7 +119,7 @@ function InvoiceDetailsModal({ open, onClose, invoice }) {
             <XAxis dataKey="month" />
             <YAxis />
             <Legend />
-            <Bar dataKey="ödeme" fill="var(--color-primary)" />
+            <Bar dataKey={t("Odemeler")} fill="var(--color-primary)" />
           </BarChart>
         </Box>
 

@@ -109,11 +109,11 @@ body.dark {
 }
 
 
-@media (max-width: 1044px) {
+@media (max-width: 1200px) {
   * {
     box-sizing: border-box;
     font-family: "Montserrat", sans-serif;
-    font-size: 12px !important;
+    font-size: 18px;
     margin: 0;
   }
 }
