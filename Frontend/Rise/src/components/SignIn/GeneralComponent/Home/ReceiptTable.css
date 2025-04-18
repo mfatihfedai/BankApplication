@@ -1,5 +1,4 @@
 .receipt-table-container {
-  background-color: var(--color-white);
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -8,8 +7,6 @@
   overflow-x: auto; /* Küçük ekranlarda yatay kaydırma sağlar */
 }
 .receipt-table-container-dark {
-  background-color: var(--color-black);
-  color: var(--color-white);
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);

@@ -17,7 +17,6 @@ import {
   deleteBank,
   createBank,
 } from "../../../../service/BankApi.jsx";
-import Logo from "../../../../assets/LogoNonBackground.png";
 import "../../../Core/logo.css";
 import DeleteModal from "./DeleteModal";
 import UpdateModal from "./UpdateModal";
@@ -131,7 +130,7 @@ function Banks() {
               setIsUpdateModalOpen(true);
               setFormErrors({});
             }}
-            sx={{ color: "#00333D" }}
+            sx={{ color: "var(--color-primary)" }}
           >
             <EditIcon />
           </IconButton>
@@ -140,7 +139,7 @@ function Banks() {
               setSelectedBank(params.row);
               setIsDeleteModalOpen(true);
             }}
-            sx={{ color: "#E1722F" }}
+            sx={{ color: "var(--color-red)" }}
           >
             <DeleteIcon />
           </IconButton>
@@ -154,16 +153,12 @@ function Banks() {
   }
 
   return (
-    <div style={{ height: "31rem", width: "95%", padding: "20px" }}>
+    <div style={{ height: "31rem", padding: "20px" }}>
       <h1>{t("BankaYonetimi")}</h1>
       <Box sx={{ display: "flex", justifyContent: "", alignItems: "", mb: 2 }}>
         <Button
           variant="contained"
           startIcon={<AddIcon />}
-          sx={{
-            backgroundColor: "#00333D",
-            "&:hover": { backgroundColor: "#E1722F" },
-          }}
           onClick={() => {
             setSelectedBank({ bankName: "", transferFee: "" });
             setIsCreateModalOpen(true);
@@ -185,40 +180,6 @@ function Banks() {
         disableSelectionOnClick
         disableRowSelectionOnClick
         disableVirtualization
-        sx={{
-          height: "100%",
-          "& .MuiDataGrid-root": {
-            border: "none",
-          },
-          "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: "#00333D !important",
-            color: "#ffffff",
-            fontSize: "16px",
-            fontWeight: "bold",
-            textAlign: "center",
-            "& .MuiDataGrid-columnHeaderTitleContainer": {
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            },
-          },
-          "& .MuiDataGrid-cell": {
-            textAlign: "center",
-            fontSize: "18px",
-          },
-          "& .MuiDataGrid-row:nth-of-type(odd)": {
-            backgroundColor: "#f1f9ff",
-          },
-          "& .MuiDataGrid-row:nth-of-type(even)": {
-            backgroundColor: "#ffffff",
-          },
-          "& .MuiDataGrid-footerContainer": {
-            display: "none",
-          },
-          "& .MuiDataGrid-sortIcon": {
-            color: "#ffffff",
-          },
-        }}
       />
 
       {/* Modallar */}

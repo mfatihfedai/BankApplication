@@ -1,49 +1,50 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useUser } from "../../../../context/UserContext";
 import "./transfer.style.css";
 import Receiver from "./Receiver";
 import { useTranslation } from "react-i18next";
+import GeneralTable from "../../../General/GeneralTable";
 
 function Transfer() {
-  const { user, newUser } = useUser();
-  // const [balance, setBalance] = useState(user.balance);
+  const { user } = useUser();
   const { t } = useTranslation();
 
+  // Tablo verileri
+  const data = [
+    {
+      hesapTuru: t("VadesizTL"),
+      hesapNumarasi: user.accountNumber,
+      guncelBakiye: new Intl.NumberFormat("tr-TR", {
+        style: "currency",
+        currency: "TRY",
+      }).format(user.balance),
+    },
+  ];
+
+  // Tablo sütunları
+  const columns = [
+    { field: "hesapTuru", headerName: t("HesapTuru"), flex: 1 },
+    { field: "hesapNumarasi", headerName: t("HesapNumarasi"), flex: 1 },
+    { field: "guncelBakiye", headerName: t("GuncelBakiye"), flex: 1 },
+  ];
+
   return (
-    <div className="transfer">
-      <div className="header">
-        <h1>{t("ParaninCekilecegiHesap")}</h1>
+    <>
+      <div className="transfer">
+        <div>
+          <h1>{t("ParaninCekilecegiHesap")}</h1>
+        </div>
+        <div className="table">
+          <GeneralTable data={data} columns={columns} />
+        </div>
+        <div>
+          <h1>{t("AliciBilgileri")}</h1>
+        </div>
+        <div className="receivers">
+          <Receiver />
+        </div>
       </div>
-      <div className="table">
-        <table>
-          <thead>
-            <tr>
-              <th>{t("HesapTuru")}</th>
-              <th>{t("HesapNumarasi")}</th>
-              <th>{t("GuncelBakiye")}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th>{t("VadesizTL")}</th>
-              <th>{user.accountNumber}</th>
-              <th>
-                {new Intl.NumberFormat("tr-TR", {
-                  style: "currency",
-                  currency: "TRY",
-                }).format(user.balance)}
-              </th>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div className="header">
-        <h1>{t("AliciBilgileri")}</h1>
-      </div>
-      <div className="receivers">
-        <Receiver />
-      </div>
-    </div>
+    </>
   );
 }
 

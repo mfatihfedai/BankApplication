@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { getUsersLogs } from "../../../../service/AdminApi";
-import ReactApexChart from "react-apexcharts";
-import Logo from "../../../../assets/LogoNonBackground.png";
 import { TextField, Button, Box, Slide, Paper, FormControlLabel, Switch } from "@mui/material"; // MUI bileşenlerini içe aktar
 import "./UserActivities.css"; // CSS dosyasını import edin
 import { useTranslation } from "react-i18next";
 import GeneralTable from "../../../General/GeneralTable";
 import ChartComponent from "./ChartComponent";
 import Loading from "../../../Core/Loading";
+import PreviousNextButton from "../../../General/PreviousNextButton";
+import i18n from "i18next";
 
 function UserActivities() {
-  const [logs, setLogs] = useState([]); // Tablo verileri
   const [chartData, setChartData] = useState({}); // Grafik verileri
   const [keyword, setKeyword] = useState(""); // Arama çubuğu için keyword
   const [page, setPage] = useState(0); // Mevcut sayfa
@@ -34,19 +33,14 @@ function UserActivities() {
     setLoading(true);
     try {
       const response = await getUsersLogs(keyword, page);
-      console.log(response);
 
-      // Tablo verilerini güncelle
-      setLogs(response.logResponse);
-
-      const result = logs.map(({ loginTime, logoutTime,userInfo }) => ({ loginTime, logoutTime,userInfo }));
-      const formattedResult = result.map((log) => ({
-        "İsim Soyisim": log.userInfo.name + " " + log.userInfo.surname,
-        "Hesap Numarası": log.userInfo.accountNumber,
-        "Giris Tarihi": formatDateTime(log.loginTime),
-        "Cikis Tarihi": log.logoutTime ? formatDateTime(log.logoutTime) : "-",
+      const result = response.logResponse.map(({ loginTime, logoutTime, userInfo }) => ({
+        [t("İsimSoyisim")]: `${userInfo.name} ${userInfo.surname}`,
+        [t("HesapNumarasi")]: userInfo.accountNumber,
+        [t("GirisTarihi")]: formatDateTime(loginTime),
+        [t("CikisTarihi")]: logoutTime ? formatDateTime(logoutTime) : "-",
       }));
-      setTableData(formattedResult);
+      setTableData(result);
 
       // Grafik verilerini güncelle
       const dates = response.adminLogResponseChart.loginDate.map((date) =>
@@ -57,8 +51,11 @@ function UserActivities() {
       setChartData({
         series: [
           {
-            name: "Toplam Girişler",
+            name: t("ToplamGirisler"),
             data: totalLogins,
+            style: {
+              color: "var(--color-text)",
+            },
           },
         ],
         options: {
@@ -82,8 +79,13 @@ function UserActivities() {
             size: 5,
           },
           title: {
-            text: "Günlük Girişler",
+            text: t("GunlukGirisler"),
             align: "left",
+            style: {
+              color: "var(--color-text)",
+              fontSize: "18px",
+              fontWeight: "bold", 
+            },
           },
           fill: {
             type: "gradient",
@@ -100,24 +102,37 @@ function UserActivities() {
               formatter: function (val) {
                 return val.toFixed(0);
               },
+              style: {
+                colors: "var(--color-text)",
+                fontSize: "10px", 
+              },
             },
             title: {
-              text: "Toplam Giriş Sayısı",
+              text: t("ToplamGirisSayisi"),
+              style: {
+                color: "var(--color-text)", 
+                fontSize: "16px",
+              }
             },
           },
           xaxis: {
             type: "datetime",
             categories: dates,
+            labels: {
+              style: {
+                colors: "var(--color-text)", 
+              }
+            }
           },
           tooltip: {
             shared: false,
             y: {
               formatter: function (val) {
                 return val.toFixed(0);
-              },
+              }
             },
           },
-          colors: ["#00333D"], // Çizgi rengini #00333D olarak ayarla
+          colors: ["var(--color-primary)"],
         },
       });
 
@@ -132,10 +147,17 @@ function UserActivities() {
     }
   };
 
-  // Sayfa değiştiğinde verileri yeniden çek
+  const columns = [
+    { field: t("İsimSoyisim"), headerName: t("İsimSoyisim"), flex: 1 },
+    { field: t("HesapNumarasi"), headerName: t("HesapNumarasi"), flex: 1 },
+    { field: t("GirisTarihi"), headerName: t("GirisTarihi"), flex: 1 },
+    { field: t("CikisTarihi"), headerName: t("CikisTarihi"), flex: 1 },
+  ];
+
+  // Sayfa değiştiğinde ve dil değiştiğinde verileri yeniden çek
   useEffect(() => {
     fetchDatas(keyword, page);
-  }, [page,showChart]);
+  }, [page, showChart, i18n.language]);
 
   if (loading) {
     return <Loading />;
@@ -143,183 +165,128 @@ function UserActivities() {
 
   return (
     <>
-      <h1 style={{ marginTop: "20px" }}>{t("KullaniciHareketleri")}</h1>
-    <div style={{ padding: "20px" }}>
-      {/* Toggle Button İLK DENEME css'siz */}
-      <FormControlLabel
-        control={
-          <Switch
-            checked={showChart}
-            onChange={() => setShowChart(!showChart)}
-            color="primary"
-          />
-        }
-        label={showChart ? "Grafik Görünümü" : "Tablo Görünümü"}
-      />
-
-      <Box sx={{position: "relative",
-          minHeight: "350px",
-          overflow: "hidden",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",}} >
-        <Slide direction="left" in={showChart} mountOnEnter unmountOnExit>
-          <Box>
-            <ChartComponent chartData={chartData} />
-          </Box>
-        </Slide>
-        <Slide direction="right" in={!showChart} mountOnEnter unmountOnExit>
-          <Box sx={{ width: "100%" }} >
-           <GeneralTable data={tableData}/>
-          </Box>
-        </Slide>
-      </Box>
-
-
-
-      {/* <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          width: "90%",
-          margin: "auto",
-        }}
-      >
-        <div className="switch-container">
-          
-          <span
-            style={{
-              color: showTable ? "#E1722F" : "#00333D", 
-              fontWeight: "800", 
-            }}
-          >
-            {t("GirisKayitlariTablosu")}
-          </span>         
-          <label className="switch">
-            <input
-              type="checkbox"
-              checked={!showTable}
-              onChange={() => setShowTable(!showTable)}
-            />
-            <span className="slider round"></span>
-          </label>
-
-         
-          <span
-            style={{
-              color: !showTable ? "#E1722F" : "#00333D",
-              fontWeight: "800", 
-            }}
-          >
-            {t("GirisKayitlariGrafigi")}
-          </span>
-        </div>
-
-        
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            margin: "auto",
-            justifyContent: "right",
-            gap: "10px",
-            marginRight: "1rem",
-          }}
-        >
-          <TextField
-            variant="outlined"
-            placeholder={t("KullaniciAra")}
-            value={keyword}
-            onChange={(e) => setKeyword(e.target.value)} 
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                borderRadius: "8px",
-              },
-            }}
-          />
-
-          <Button
-            variant="contained"
-            onClick={() => fetchDatas(keyword, page, pageSize)} 
-            sx={{
-              backgroundColor: "#00333D",
-              color: "#fff",
-              borderRadius: "8px",
-              padding: "10px 20px",
-              "&:hover": {
-                backgroundColor: "#E1722F",
-              },
-            }}
-          >
-            {t("Ara")}
-          </Button>
-        </Box>
-      </Box> */}
-
-      <div>
-        <div>
-          {/* <table style={{ width: "100%", borderCollapse: "collapse" }}>
-            <thead>
-              <tr>
-                <th style={{ border: "1px solid #ddd", padding: "8px" }}>
-                  {t("İsimSoyisim")}
-                </th>
-                <th style={{ border: "1px solid #ddd", padding: "8px" }}>
-                  {t("HesapNumarasi")}
-                </th>
-                <th style={{ border: "1px solid #ddd", padding: "8px" }}>
-                  {t("GirisTarihi")}
-                </th>
-                <th style={{ border: "1px solid #ddd", padding: "8px" }}>
-                  {t("CikisTarihi")}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {logs?.map((log) => (
-                <tr key={log.id}>
-                  <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-                    {log.userInfo.name} {log.userInfo.surname}
-                  </td>
-                  <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-                    {log.userInfo.accountNumber}
-                  </td>
-                  <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-                    {formatDateTime(log.loginTime)}
-                  </td>
-                  <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-                    {log.logoutTime ? formatDateTime(log.logoutTime) : "-"}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table> */}
-          {/* <GeneralTable data={logs}/>  Tablo bileşenini kullanarak tabloyu oluşturun */}
-          {/* Sayfalama Butonları */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginTop: "20px",
-              width: "100%",
-            }}
-          >
-            <button
-              onClick={() => setPage((prevPage) => Math.max(prevPage - 1, 0))}
-              disabled={!hasPrevious}
+      <div style={{ padding: "20px" }}>
+        <h1>{t("KullaniciHareketleri")}</h1>
+          {/* Toggle Button İLK DENEME css'siz */}
+          <div className="addAndSearch">
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "10px",
+              }}
             >
-              {t("Geri")}
-            </button>
-            <button
-              onClick={() => setPage((prevPage) => prevPage + 1)}
-              disabled={!hasNext}
+              {/* Tablo Görünümü Metni */}
+              <span
+                style={{
+                  color: !showChart ? "var(--color-secondary)" : "var(--color-primary)",
+                  fontWeight: "bold",
+                  fontSize: "16px",
+                }}
+              >
+                {t("TabloGorunumu")}
+              </span>
+
+              {/* Switch Butonu */}
+              <Switch
+                checked={showChart}
+                onChange={() => setShowChart(!showChart)}
+                sx={{
+                  "& .MuiSwitch-thumb": {
+                    backgroundColor: "var(--color-secondary)", // Yuvarlak topun rengi
+                  },
+                  "& .MuiSwitch-switchBase.Mui-checked .MuiSwitch-thumb": {
+                    backgroundColor: "var(--color-secondary)", // Aktifken de aynı renk
+                  },
+                  "& .MuiSwitch-track": {
+                    backgroundColor: "var(--color-text)", // Track'in rengi
+                  },
+                  "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
+                    backgroundColor: "var(--color-text)", // Aktifken track'in rengi
+                  },
+                }}
+              />
+              {/* Grafik Görünümü Metni */}
+              <span
+                style={{
+                  color: showChart ? "var(--color-secondary)" : "var(--color-primary)",
+                  fontWeight: "bold",
+                  fontSize: "16px",
+                }}
+              >
+                {t("GrafikGorunumu")}
+              </span>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "right",
+                gap: "10px",
+                marginRight: "1rem",
+              }}
             >
-              {t("Ileri")}
-            </button>
+              <TextField
+                variant="outlined"
+                placeholder={t("KullaniciAra")}
+                value={keyword}
+                onChange={(e) => setKeyword(e.target.value)}
+                sx={{
+                  width: "200px",
+                  "& .MuiInputBase-input": {
+                    padding: "0.5rem",
+                    fontSize: "16px",
+                  }
+                }}
+              />
+              <Button
+                variant="contained"
+                onClick={() => fetchDatas(keyword, page, pageSize)}
+                sx={{
+                  fontSize: "16px",
+                }}
+              >
+                {t("Ara")}
+              </Button>
+            </Box>
           </div>
-        </div>
-      </div>
+          <Box sx={{
+            position: "relative",
+            minHeight: "350px",
+            overflow: "hidden",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }} >
+
+            <Slide direction="left" in={showChart} mountOnEnter unmountOnExit>
+              <Box
+                sx={{
+                  width: "100%",
+                  backgroundColor: "var(--color-chart-background)",
+                  padding: "10px",
+                  borderRadius: "8px",
+                  boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                }}
+              >
+                <ChartComponent 
+                sx={{ width: "100%" }}
+                chartData={chartData} 
+                />
+              </Box>
+            </Slide>
+            <Slide direction="right" in={!showChart} mountOnEnter unmountOnExit>
+              <Box sx={{ width: "100%" }} >
+                <GeneralTable data={tableData} columns={columns} />
+                <PreviousNextButton
+                  hasPrevious={hasPrevious}
+                  hasNext={hasNext}
+                  onPrevious={() => setPage((prev) => Math.max(prev - 1, 0))}
+                  onNext={() => setPage((prev) => prev + 1)}
+                />
+              </Box>
+            </Slide>
+          </Box>
       </div>
     </>
   );

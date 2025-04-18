@@ -5,6 +5,8 @@ import TransferModal from "./TransferModal";
 import { createTransfer } from "../../../../service/TransferApi";
 import { useReceiverFormSchema } from "../../../Schemas/ReceiverFormSchemas";
 import { useTranslation } from "react-i18next";
+import LoadingButton from "@mui/lab/LoadingButton";
+import SendIcon from "@mui/icons-material/Send";
 
 function Receiver() {
   const { t } = useTranslation(); // i18next hook
@@ -30,7 +32,7 @@ function Receiver() {
       await createTransfer(transfer);
       setShowModal(true);
       setSuccess(true);
-      setTransferMessage(t("ParaGöndermeBasari"));
+      setTransferMessage(t("ParaGondermeBasari"));
     } catch (err) {
       setShowModal(true);
       if (err.response?.data?.data === "There is no receiver account number") {
@@ -117,14 +119,16 @@ function Receiver() {
           type="number"
         />
 
-        <Button
+        <LoadingButton
           type="submit"
           onClick={handleSubmit}
           variant="contained"
+          endIcon={ <SendIcon />}
+          loadingPosition="end"
           fullWidth
         >
           {t("Gonder")}
-        </Button>
+        </LoadingButton>
       </Box>
 
       {/* Transfer Modal */}

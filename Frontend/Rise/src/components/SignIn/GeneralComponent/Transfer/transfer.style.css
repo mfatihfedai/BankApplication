@@ -1,10 +1,37 @@
-
-
-.table{
-    display: flex;
-    justify-content: center;
+.transfer {
+    padding: 20px
 }
 
-.header{
-    margin-top: 1rem;
+.table {
+    margin-bottom: 1rem;
 }
+
+.modal {
+    position: absolute;
+    top: "50%";
+    left: "50%";
+    transform: "translate(-50%, -50%)";
+    width: 400px;
+    box-shadow: 24;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.icon {
+    font-size: 50px;
+    animation: pop-in 1s ease;
+}
+
+@keyframes pop-in {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+    }
+  }

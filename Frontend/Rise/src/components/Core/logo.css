@@ -10,6 +10,12 @@
   z-index: -1;
 }
 
+.logo-containers {
+  position: relative;
+  overflow: hidden;
+  height: 75px;
+}
+
 .logos {
   width: 75px; 
   height: 75px;

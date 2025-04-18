@@ -6,7 +6,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import "./Receipt.css";
 import ReceiptGenerator from "./ReceiptGenerator";
 import { getReceipts } from "../../../../service/ReceiptApi";
-import Logo from "../../../../assets/LogoNonBackground.png";
 import "../../../Core/logo.css";
 import { useUser } from "../../../../context/UserContext";
 import { useTranslation } from "react-i18next";
@@ -14,7 +13,6 @@ import Loading from "../../../Core/Loading";
 
 function Receipt() {
   const { user } = useUser();
-
   const [logs, setLogs] = useState([]);
   const [rowCount, setRowCount] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -147,16 +145,7 @@ function Receipt() {
         if (!receiver) {
           return (
             <Button
-              variant="contained"
-              size="medium"
               onClick={() => handleReceiptDownload(params.row)}
-              sx={{
-                backgroundColor: "#E1722A",
-                color: "#ffffff",
-                "&:hover": {
-                  backgroundColor: "#D1611C",
-                },
-              }}
             >
               PDF
             </Button>
@@ -165,11 +154,9 @@ function Receipt() {
 
         return (
           <IconButton
-            size="small"
             onClick={() => handleOpenDetails(details)}
-            sx={{ color: "#00333D" }}
           >
-            <AddIcon />
+            <AddIcon sx={{color: "var(--color-text)"}}/>
           </IconButton>
         );
       },
@@ -201,40 +188,6 @@ function Receipt() {
         initialState={{
           sorting: {
             sortModel: [{ field: { logs }, sort: "desc" }],
-          },
-        }}
-        sx={{
-          height: "100%",
-          "& .MuiDataGrid-root": {
-            border: "none",
-          },
-          "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: "#00333D !important",
-            color: "#ffffff",
-            fontSize: "16px",
-            fontWeight: "bold",
-            textAlign: "center",
-            "& .MuiDataGrid-columnHeaderTitleContainer": {
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            },
-          },
-          "& .MuiDataGrid-cell": {
-            textAlign: "center",
-            fontSize: "18px",
-          },
-          "& .MuiDataGrid-row:nth-of-type(odd)": {
-            backgroundColor: "#f1f9ff",
-          },
-          "& .MuiDataGrid-row:nth-of-type(even)": {
-            backgroundColor: "#ffffff",
-          },
-          "& .MuiDataGrid-footerContainer": {
-            display: "none",
-          },
-          "& .MuiDataGrid-sortIcon": {
-            color: "#ffffff",
           },
         }}
       />

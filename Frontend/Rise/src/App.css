@@ -1,4 +1,3 @@
-/* @import "tailwindcss"; */
 * {
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
@@ -22,11 +21,11 @@ html{
 }
 
 :root {
-  --color-primary: #00333D;
+  --color-primary: var(--color-blue);
   --color-secondary: #E1722F;
   --color-background: var(--color-white);
   --color-text: #333333;
-  --color-button: #00333D;
+  --color-button: var(--color-blue);
   --color-button-text: #FFFFFF;
   --color-button-background: var(--color-primary);
   --color-button-background-hover: var(--color-light-blue);
@@ -36,6 +35,12 @@ html{
   --color-logo: var(--color-primary);
   --color-sign-in-background: #ece9e6cc;
   --color-textfield-border: #00000042;
+  --color-table-header-background: var(--color-blue);
+  --color-table-header-text: #ffffff;
+  --color-table-cell-text: #333333;
+  --color-table-row-odd: #f1f9ff;
+  --color-table-row-even: #ffffff;
+  --color-chart-background: #ffffff;
 
   --color-purple: #8E44AD;
   --color-black: #333333;
@@ -67,6 +72,12 @@ body.dark {
   --color-logo: var(--color-white);
   --color-sign-in-background: #424242a4;
   --color-textfield-border: #696969;
+  --color-table-header-background: var(--color-green-blue);
+  --color-table-header-text: #BFC9CA;
+  --color-table-cell-text: #DEE6EB;
+  --color-table-row-odd: #1E272E;
+  --color-table-row-even: #2A3A42;
+  --color-chart-background: #333333;
 
   /* background-color: #0f1214;  */
   color: var(--color-gray);

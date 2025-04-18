@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import './transferModal.style.css'
+import './transfer.style.css'
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
@@ -10,25 +10,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import { useAdminMenu } from "../../../../context/AdminMenuContext";
 import { useTranslation } from "react-i18next";
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  p: 4,
-  textAlign: "center", 
-};
-
-const iconStyle = (color) => ({
-  fontSize: 60,
-  color: color,
-  animation: "pop-in 1s ease",
-});
-
-export default function TransferModal({ open, handleClose, message, success }) {
+export default function TransferModal({ open , handleClose, message, success }) {
   const { setComponentName } = useAdminMenu();
   const [countdown, setCountdown] = useState(3); 
   const { t } = useTranslation();
@@ -67,13 +49,13 @@ export default function TransferModal({ open, handleClose, message, success }) {
       }}
     >
       <Fade in={open}>
-        <Box sx={style}>
+        <Box className="modal">
         <img style={{maxHeight: "100px"}} src="../../../../../../src/assets/LogoNonBackground.png" alt="bank_image" />
           <div>
             {success ? (
-              <CheckCircleIcon sx={iconStyle("green")} />
+              <CheckCircleIcon className="icon" sx={{color: "green"}} />
             ) : (
-              <CancelIcon sx={iconStyle("red")} />
+              <CancelIcon className="icon" sx={{color: "red"}} />
             )}
           </div>
           <Typography id="transition-modal-title" variant="h6" component="h2">
