@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { getSearchUsers, deleteUser } from "../../../../service/UserApi";
-import { TextField, Button, Box, Modal } from "@mui/material";
+import { Button, Box, Modal, IconButton, TextField } from "@mui/material";
 import "./userList.css";
 import { useUser } from "../../../../context/UserContext";
-import IconButton from "@mui/material/IconButton";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import AddIcon from "@mui/icons-material/Add";
-import Logo from "../../../../assets/LogoNonBackground.png";
 import NewUserModal from "./NewUserModal";
+import AddIcon from "@mui/icons-material/Add";
 import UpdateUserModal from "./UpdateUserModal";
 import { useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
 import Loading from "../../../Core/Loading";
+import GeneralTable from "../../../General/GeneralTable";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import i18n from "i18next";
+import PreviousNextButton from "../../../General/PreviousNextButton";
 
 function UserList() {
   const { t } = useTranslation();
@@ -34,7 +35,17 @@ function UserList() {
     setLoading(true);
     try {
       const response = await getSearchUsers(keyword, page);
-      setLogs(response.items);
+      setLogs(
+        response.items.map((log) => ({
+          id: log.id,
+          [t("TcKimlik")]: log.identityNumber || t("Bilinmiyor"),
+          [t("IsimSoyisim")]: `${log.name || ""} ${log.surname || ""}`,
+          [t("HesapNumarasi")]: log.accountNumber || t("Bilinmiyor"),
+          [t("Email")]: log.email || t("Bilinmiyor"),
+          [t("Rol")]: log.role || t("Bilinmiyor"),
+          actions: log, // İşlemler için ham veri
+        }))
+      );
       setHasNext(response.hasNext);
       setHasPrevious(page > 0);
     } catch (error) {
@@ -47,7 +58,7 @@ function UserList() {
   const handleDelete = async (id) => {
     try {
       await deleteUser(id);
-      fetchDatas(keyword, page);
+      fetchDatas("", page);
       if (id === user.id) {
         navigate("/");
       }
@@ -57,18 +68,52 @@ function UserList() {
   };
 
   useEffect(() => {
-    fetchDatas(keyword, page);
-  }, [page, isDeleteModalOpen, newUserModal, updateUserModal]);
+    fetchDatas("", page);
+  }, [page, isDeleteModalOpen, newUserModal, updateUserModal, i18n.language]);
 
   if (loading) {
-    return (<Loading />);
+    return <Loading />;
   }
+
+  const columns = [
+    { field: t("TcKimlik"), headerName: t("TcKimlik"), flex: 1 },
+    { field: t("IsimSoyisim"), headerName: t("IsimSoyisim"), flex: 1 },
+    { field: t("HesapNumarasi"), headerName: t("HesapNumarasi"), flex: 1 },
+    { field: t("Email"), headerName: t("Email"), flex: 1 },
+    { field: t("Rol"), headerName: t("Rol"), flex: 1 },
+    {
+      field: "actions",
+      headerName: t("Islemler"),
+      flex: 1,
+      renderCell: (params) => (
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "10px" }}>
+          <IconButton
+            onClick={() => {
+              setSelectedUser(params.row.actions);
+              setUpdateUserModal(true);
+            }}
+          >
+            <EditIcon style={{color: "var(--color-text)"}}/>
+          </IconButton>
+          <IconButton
+            color="error"
+            onClick={() => {
+              setSelectedUserId(params.row.actions.id);
+              setIsDeleteModalOpen(true);
+            }}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </div>
+      ),
+    },
+  ];
 
   return (
     <div style={{ padding: "20px" }}>
-      <h1>Emir Asaf'la {t("KullaniciListesi")}</h1>
+      <h1>{t("KullaniciListesi")}</h1>
       <div className="addAndSearch">
-        <Box sx={{ display: "flex", justifyContent: "", alignItems: "" }}>
+        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <Button
             variant="contained"
             startIcon={<AddIcon />}
@@ -92,7 +137,10 @@ function UserList() {
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
             sx={{
-              "& .MuiOutlinedInput-root": { borderRadius: "8px" }
+              width: "200px",
+              "& .MuiInputBase-input": {
+                padding: "0.5rem",
+              }
             }}
           />
           <Button
@@ -103,76 +151,13 @@ function UserList() {
           </Button>
         </Box>
       </div>
-      <div className="content-container">
-        <table>
-          <thead className="tableInf">
-            <tr>
-              <th>{t("TcKimlik")}</th>
-              <th>{t("IsimSoyisim")}</th>
-              <th>{t("HesapNumarasi")}</th>
-              <th>{t("Email")}</th>
-              <th>{t("Rol")}</th>
-              <th>{t("Islemler")}</th>
-            </tr>
-          </thead>
-          <tbody className="userListTable">
-            {logs?.map((log) => (
-              <tr key={log.id}>
-                <td>{log.identityNumber || t("Bilinmiyor")}</td>
-                <td>
-                  {log.name || ""} {log.surname || ""}
-                </td>
-                <td>{log.accountNumber || t("Bilinmiyor")}</td>
-                <td>{log.email || t("Bilinmiyor")}</td>
-                <td>{log.role || t("Bilinmiyor")}</td>
-                <td>
-                  <IconButton aria-label="edit">
-                    <EditIcon
-                      className="icon"
-                      variant="contained"
-                      onClick={() => {
-                        setSelectedUser(log);
-                        setUpdateUserModal(true);
-                      }}
-                    />
-                  </IconButton>
-                  <IconButton aria-label="delete">
-                    <DeleteIcon
-                      className="icon"
-                      onClick={() => {
-                        setSelectedUserId(log.id);
-                        setIsDeleteModalOpen(true);
-                      }}
-                    />
-                  </IconButton>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginTop: "20px",
-            width: "100%",
-          }}
-        >
-          <button
-            onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
-            disabled={!hasPrevious}
-          >
-            {t("Geri")}
-          </button>
-          <button
-            onClick={() => setPage((prev) => prev + 1)}
-            disabled={!hasNext}
-          >
-            {t("Ileri")}
-          </button>
-        </div>
-      </div>
+      <GeneralTable data={logs} columns={columns} />
+      <PreviousNextButton
+        hasPrevious={hasPrevious}
+        hasNext={hasNext}
+        onPrevious={() => setPage((prev) => Math.max(prev - 1, 0))}
+        onNext={() => setPage((prev) => prev + 1)}
+      />
       {newUserModal && (
         <NewUserModal
           open={newUserModal}

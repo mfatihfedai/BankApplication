@@ -61,6 +61,11 @@
   color: var(--color-text) !important;
 }
 
+.MuiInputBase-input.Mui-disabled {
+  color: var(--color-text) !important;
+  -webkit-text-fill-color: unset !important;
+}
+
 /* Button Stilleri */
 .MuiButton-root {
   background-color: var(--color-button-background) !important ;
@@ -72,6 +77,17 @@
 .MuiButton-root:hover {
   background-color: var(--color-button-background-hover) !important;
   color: var(--color-button) !important;
+}
+
+.MuiButton-root:disabled {
+  background-color: var(--color-button-background) !important;
+  color: var(--color-button-text) !important;
+  opacity: 0.5;
+}
+
+.MuiButton-root:disabled:hover {
+  background-color: var(--color-button-background) !important;
+  color: var(--color-button-text) !important;
 }
 
 /* Checkbox Stilleri */
@@ -111,4 +127,71 @@
 
 .back-icon:hover {
   transform: scale(1.4);
+}
+/* Tablo Stilleri */
+.table-container {
+  width: 100%;
+  height: 100%;
+}
+
+.MuiDataGrid-root {
+  border: none;
+}
+
+.MuiDataGrid-columnHeaders {
+  background-color: var(--color-table-header-background);
+  color: var(--color-table-header-text);
+}
+
+.MuiDataGrid-columnHeaderTitleContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.MuiDataGrid-columnHeaderTitle {
+  color: var(--color-table-header-text) !important;
+  font-size: 17px !important;
+  font-weight: bold !important;
+  text-align: center !important;
+  text-wrap: wrap !important;
+  word-wrap: break-word !important;
+}
+
+.MuiDataGrid-cell {
+  text-align: center !important;
+  font-size: 15px !important;
+  color: var(--color-table-cell-text);
+  text-wrap: wrap !important;
+  word-wrap: break-word !important;
+}
+
+.MuiDataGrid-row:nth-of-type(odd):hover {
+  background-color: var(--color-table-row-odd) !important;
+}
+
+.MuiDataGrid-row:nth-of-type(even):hover {
+  background-color: var(--color-table-row-even) !important;
+}
+
+.MuiDataGrid-row:nth-of-type(odd) {
+  background-color: var(--color-table-row-odd);
+}
+
+.MuiDataGrid-row:nth-of-type(even) {
+  background-color: var(--color-table-row-even);
+}
+
+.MuiDataGrid-footerContainer {
+  display: none !important;
+}
+
+.MuiDataGrid-sortIcon {
+  color: var(--color-table-header-text);
+}
+
+.MuiDialog-paper {
+  background-color: var(--color-box-background) !important;
+  color: var(--color-text) !important;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1) !important;
 }

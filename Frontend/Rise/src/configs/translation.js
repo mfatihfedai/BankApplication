@@ -4,6 +4,7 @@ import { initReactI18next } from "react-i18next";
 const resources = {
     tr: {
         translation: {
+            tr: "tr",
             // Schemas
             validation: {
                 nameRequired: "İsim alanı zorunludur",
@@ -115,6 +116,7 @@ const resources = {
             Bakiye: "Bakiye",
             HesapNumarasi: "Hesap Numarası",
             SonIslemTarihi: "Son İşlem Tarihi",
+            ParolaniziGirmelisiniz: "Parolanızı girmelisiniz.",
             // OTOMATİK ÖDEME TALİMATLARIM
             FaturaTipi: "Fatura Tipi",
             FaturaNumarasi: "Fatura Numarası",
@@ -137,6 +139,12 @@ const resources = {
             Evet: "Evet",
             Hayir: "Hayır",
             Tamam: "Tamam",
+            InvoiceTypes: {
+                Elektrik: "Elektrik",
+                Su: "Su",
+                Doğalgaz: "Doğalgaz",
+                Telefon: "Telefon"
+              },
             // GİRİŞ KAYITLARIM
             GirisTarihi:"Giriş Tarihi",
             CikisTarihi:"Çıkış Tarihi",
@@ -215,7 +223,13 @@ const resources = {
             // Kullanıcı hareketleri
             GirisKayitlariTablosu: "Giriş Kayıtları Tablosu",
             GirisKayitlariGrafigi: "Giriş Kayıtları Grafiği",
-            İsimSoyisim: "İsim Soyisim",   
+            İsimSoyisim: "İsim Soyisim",
+            GrafikGorunumu: "Grafik Görünümü",
+            TabloGorunumu: "Tablo Görünümü",
+            ToplamGirisler: "Toplam Girişler",
+            GunlukGirisler: "Günlük Girişler",
+            ToplamGirisSayisi: "Toplam Giriş Sayısı",
+
             // EFT
             AliciHesapNo: "Alıcı Hesap No",
             Gonder: "Gönder",
@@ -261,6 +275,7 @@ const resources = {
             Anasayfa: "Anasayfa",
             Hakkimizda: "Hakkımızda",
             Iletisim: "İletişim",
+            VeriBulunamadi: "Veri Bulunamadı.",
         }
     },
     
@@ -376,6 +391,7 @@ const resources = {
             Bakiye: "Balance",
             HesapNumarasi: "Account Number",
             SonIslemTarihi: "Last Transaction Date",
+            ParolaniziGirmelisiniz: "You must enter your password.",
             // AUTOMATIC PAYMENT ORDERS
             FaturaTipi: "Invoice Type",
             FaturaNumarasi: "Invoice Number",
@@ -402,6 +418,12 @@ const resources = {
             Hayir: "No",
             Tamam: "OK",
             ParaBirimi: "$",
+            InvoiceTypes: {
+                Elektrik: "Electricity",
+                Su: "Water",
+                Doğalgaz: "Gas",
+                Telefon: "Phone"
+              },
             // LOGIN RECORDS
             GirisTarihi:"Login Date",
             CikisTarihi:"Logout Date",
@@ -481,6 +503,11 @@ const resources = {
             GirisKayitlariTablosu: "Login Records Table",
             GirisKayitlariGrafigi: "Login Records Chart",
             İsimSoyisim: "Full Name",
+            GrafikGorunumu: "Chart View",
+            TabloGorunumu: "Table View",
+            ToplamGirisler: "Total Logins",
+            GunlukGirisler: "Daily Logins",
+            ToplamGirisSayisi: "Total Login Count",
             // TRANSFER
             AliciHesapNo: "Receiver Account No",
             Gonder: "Send",
@@ -526,6 +553,8 @@ const resources = {
             Anasayfa: "Home",
             Hakkimizda: "About Us",
             Iletisim: "Contact Us",
+            VeriBulunamadi: "Data not found",
+            tr: "en",
         }
     }
 }

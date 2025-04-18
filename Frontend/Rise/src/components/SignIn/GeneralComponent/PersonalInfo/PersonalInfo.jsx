@@ -17,7 +17,6 @@ import { getUserById, updateUser } from "../../../../service/UserApi";
 import "../../../Core/logo.css";
 import { useUser } from "../../../../context/UserContext";
 import { useAdminMenu } from "../../../../context/AdminMenuContext";
-import { useTheme } from "../../../../context/ThemeContext";
 import { useTranslation } from "react-i18next";
 
 function PersonalInfo() {
@@ -33,7 +32,6 @@ function PersonalInfo() {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const { componentName } = useAdminMenu();
-  const { theme } = useTheme();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -55,7 +53,7 @@ function PersonalInfo() {
     setErrorMessage("");
     setSuccessMessage("");
     if (!formData.password) {
-      setErrorMessage("Parolanızı girmelisiniz.");
+      setErrorMessage(t("ParolaniziGirmelisiniz"));
       return;
     }
 
@@ -107,9 +105,8 @@ function PersonalInfo() {
           width: "100%",
           boxShadow: 3,
           borderRadius: 2,
-          backgroundColor:
-            theme === "dark" ? "var(--color-black)" : "var(--color-white)",
-          color: theme === "dark" ? "var(--color-white)" : "var(--color-blue)",
+          background:" var(--color-box-background)",
+          color: "var(--color-text)",
         }}
       >
         <CardContent>
@@ -121,24 +118,22 @@ function PersonalInfo() {
               marginBottom: 3,
             }}
           >
-            <Avatar sx={{ bgcolor: "#00333D", width: 80, height: 80, mb: 2 }}>
+            <Avatar sx={{ bgcolor: "var(--color-primary)", width: 80, height: 80, mb: 2 }}>
               <AccountCircleIcon sx={{ fontSize: 50 }} />
             </Avatar>
             <Typography variant="h5" fontWeight="bold">
               {user.name} {user.surname}
             </Typography>
-            <Typography variant="body1" color="textSecondary">
+            <Typography variant="body1">
               {user.role}
             </Typography>
           </Box>
           <Divider
             sx={{
               mb: 3,
-              backgroundColor:
-                theme === "dark" ? "var(--color-white)" : "var(--color-blue)",
+              backgroundColor: "var(--color-text)",
             }}
           />
-
           <Grid
             container
             spacing={2}
@@ -148,7 +143,7 @@ function PersonalInfo() {
             }}
           >
             <Grid item xs={6}>
-              <Typography variant="body2" color="textSecondary">
+              <Typography variant="body2">
                 Email:
               </Typography>
               <Typography variant="body1" style={{ wordBreak: "break-word" }}>
@@ -156,19 +151,19 @@ function PersonalInfo() {
               </Typography>
             </Grid>
             <Grid item xs={6}>
-              <Typography variant="body2" color="textSecondary">
+              <Typography variant="body2">
                 {t("TC")}:
               </Typography>
               <Typography variant="body1">{user.identityNumber}</Typography>
             </Grid>
             <Grid item xs={6}>
-              <Typography variant="body2" color="textSecondary">
+              <Typography variant="body2">
                 {t("HesapNumarasi")}:
               </Typography>
               <Typography variant="body1">{user.accountNumber}</Typography>
             </Grid>
             <Grid item xs={6}>
-              <Typography variant="body2" color="textSecondary">
+              <Typography variant="body2">
                 {t("Bakiye")}:
               </Typography>
               <Typography variant="body1">{user.balance} ₺</Typography>
@@ -178,7 +173,6 @@ function PersonalInfo() {
                 fullWidth
                 variant="contained"
                 sx={{
-                  backgroundColor: "#00333D",
                   display: componentName == "Home" ? "none" : "block",
                 }}
                 onClick={() => setModalOpen(true)}
@@ -208,7 +202,6 @@ function PersonalInfo() {
             left: "50%",
             transform: "translate(-50%, -50%)",
             width: 400,
-            bgcolor: "white",
             boxShadow: 24,
             p: 4,
             borderRadius: 2,
@@ -221,12 +214,12 @@ function PersonalInfo() {
             textAlign="center"
             gutterBottom
           >
-            Bilgileri Güncelle
+            {t("BilgileriGuncelle")}
           </Typography>
           {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
           {successMessage && <Alert severity="success">{successMessage}</Alert>}
           <TextField
-            label="Ad"
+            label={t("Ad")}
             name="name"
             fullWidth
             margin="normal"
@@ -234,7 +227,7 @@ function PersonalInfo() {
             onChange={handleInputChange}
           />
           <TextField
-            label="Soyad"
+            label={t("Soyad")}
             name="surname"
             fullWidth
             margin="normal"
@@ -242,7 +235,7 @@ function PersonalInfo() {
             onChange={handleInputChange}
           />
           <TextField
-            label="Email"
+            label={t("Email")}
             name="email"
             type="email"
             fullWidth
@@ -251,7 +244,7 @@ function PersonalInfo() {
             onChange={handleInputChange}
           />
           <TextField
-            label="Şifre"
+            label={t("Sifre")}
             name="password"
             type="password"
             fullWidth
@@ -262,10 +255,10 @@ function PersonalInfo() {
           <Button
             variant="contained"
             fullWidth
-            sx={{ mt: 2, backgroundColor: "#00333D" }}
+            sx={{ mt: 2 }}
             onClick={handleUpdate}
           >
-            Güncelle
+            {t("KullaniciGuncelle")}
           </Button>
         </Box>
       </Modal>

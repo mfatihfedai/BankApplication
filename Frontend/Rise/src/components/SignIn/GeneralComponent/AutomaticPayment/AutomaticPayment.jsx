@@ -5,6 +5,7 @@ import { Button } from "@mui/material";
 import InvoiceDetailsModal from "./InvoiceDetailsModal";
 import { useTranslation } from "react-i18next";
 import Loading from "../../../Core/Loading";
+import i18next from "i18next";
 
 function AutomaticPayment() {
   const [datas, setDatas] = useState([]);
@@ -23,7 +24,7 @@ function AutomaticPayment() {
           dateStyle: "medium",
           timeStyle: "short",
         }),
-        invoiceType: item.invoiceType,
+        invoiceType: t(`InvoiceTypes.${item.invoiceType}`),
         invoiceNo: item.invoiceNo,
         amount: item.invoiceAmount,
         autobill: item.autobill,
@@ -38,7 +39,7 @@ function AutomaticPayment() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [i18next.language]);
 
   const handleSetInvoice = (invoice) => {
     setSelectedInvoice(invoice);
@@ -56,8 +57,6 @@ function AutomaticPayment() {
       headerName: t("OtomatikOdeme"),
       renderCell: (params) => (
         <Button
-          variant="contained"
-          size="medium"
           onClick={() => handleSetInvoice(params.row)}
         >
           {t("Duzenle")}
@@ -77,40 +76,6 @@ function AutomaticPayment() {
         rows={datas}
         columns={columns.map((col) => ({ ...col, flex: 1 }))}
         disableColumnMenu
-        sx={{
-          height: "100%",
-          "& .MuiDataGrid-root": {
-            border: "none",
-          },
-          "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: "#00333D !important",
-            color: "#ffffff",
-            fontSize: "16px",
-            fontWeight: "bold",
-            textAlign: "center",
-            "& .MuiDataGrid-columnHeaderTitleContainer": {
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            },
-          },
-          "& .MuiDataGrid-cell": {
-            textAlign: "center",
-            fontSize: "18px",
-          },
-          "& .MuiDataGrid-row:nth-of-type(odd)": {
-            backgroundColor: "#f1f9ff",
-          },
-          "& .MuiDataGrid-row:nth-of-type(even)": {
-            backgroundColor: "#ffffff",
-          },
-          "& .MuiDataGrid-footerContainer": {
-            display: "none",
-          },
-          "& .MuiDataGrid-sortIcon": {
-            color: "#ffffff",
-          },
-        }}
       />
       {modalOpen && (
         <InvoiceDetailsModal

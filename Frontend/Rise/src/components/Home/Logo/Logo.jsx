@@ -18,7 +18,7 @@ function Logo() {
             color: "var(--color-logo)",
             letterSpacing: "5px",
             fontSize: "30px",
-            fontWeight: "500",
+            fontWeight: "600",
             marginBottom: "0px",
           }}
         >

@@ -12,6 +12,7 @@ import {
   DialogActions,
   Tooltip,
 } from '@mui/material';
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { Bar, BarChart, CartesianGrid, Legend, XAxis, YAxis } from 'recharts';
 import { getLastFourInvoice, updateAutobill } from '../../../../service/InvoiceApi';
 import { useTranslation } from 'react-i18next';
@@ -22,7 +23,6 @@ function InvoiceDetailsModal({ open, onClose, invoice }) {
   const [saveConfirmationOpen, setSaveConfirmationOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [datas, setDatas] = useState([]);
-  const [modalTitle, setModalTitle] = useState();
   const [modalInfo, setModalInfo] = useState();
   const { t } = useTranslation();
 
@@ -65,14 +65,12 @@ function InvoiceDetailsModal({ open, onClose, invoice }) {
     try {
       const response = await updateAutobill(invoice.id, localAutobill);
       if(response.status === 200) {
-        setModalTitle("Başarılı");
-        setModalInfo("Ödeme başarılı bir şekilde kaydedildi.");
+        setModalInfo(t("OdemeTalimatiGuncellendi"));
         setSaveConfirmationOpen(true);
       }
     } catch(error) {
       console.error('Error updating autobill:', error);
-      setModalTitle("Hata");
-      setModalInfo("Bir hata oluştu. Lütfen yeniden deneyiniz.");
+      setModalInfo(t("GuncellemeHatasi"));
       setSaveConfirmationOpen(true);
     }
   };
@@ -110,7 +108,6 @@ function InvoiceDetailsModal({ open, onClose, invoice }) {
             height={300}
             data={datas}
             loading={loading}
-            color={"var(--color-yellow)"}
             margin={{
               top: 20,
               right: 20,
@@ -135,22 +132,33 @@ function InvoiceDetailsModal({ open, onClose, invoice }) {
         <Dialog open={confirmationOpen} onClose={() => setConfirmationOpen(false)}>
           <DialogTitle variant="h6" gutterBottom sx={{ textAlign: 'center', fontWeight: '600' }}>{t("OtomatikOdemeIptali")}</DialogTitle>
           <DialogContent>
-            <DialogContentText sx={{ color: 'black' }}>{t("OtomatikOdemeIptalOnay")}</DialogContentText>
+            <Typography>{t("OtomatikOdemeIptalOnay")}</Typography>
           </DialogContent>
           <DialogActions>
-            <Button variant='contained' color='success' onClick={confirmCancel}>{t("Evet")}</Button>
-            <Button variant='contained' color='error' onClick={() => setConfirmationOpen(false)}>{t("Hayir")}</Button>
+            <Button onClick={confirmCancel}>{t("Evet")}</Button>
+            <Button onClick={() => setConfirmationOpen(false)}>{t("Hayir")}</Button>
           </DialogActions>
         </Dialog>
 
-        <Dialog open={saveConfirmationOpen} onClose={() => { setSaveConfirmationOpen(false), onClose() }}>
-          <DialogTitle>{modalTitle}</DialogTitle>
-          <DialogContent>
-            <DialogContentText>{modalInfo}</DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => { setSaveConfirmationOpen(false), onClose() }}>{t("Tamam")}</Button>
-          </DialogActions>
+        <Dialog open={saveConfirmationOpen}
+        onClose={() => { setSaveConfirmationOpen(false), onClose() }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "20px",
+          }}>
+          <img style={{height: "100px", width: "100px"}} src="../../../../../../src/assets/LogoNonBackground.png" alt="bank_image" />
+            <CheckCircleIcon sx={{color: "green", fontSize:"50px"}} />
+            <DialogContent>
+              <Typography>{modalInfo}</Typography>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={() => { setSaveConfirmationOpen(false), onClose() }}>{t("Tamam")}</Button>
+            </DialogActions>
+        </div>
         </Dialog>
       </Box>
     </Modal>

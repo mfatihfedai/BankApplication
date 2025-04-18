@@ -38,7 +38,6 @@ const Verify = () => {
       const response = await verifyUser(otp, id)
 
       if (response.status == 200) {
-        console.log(user);
         if (user.role === "ADMIN") {
           navigate(`/admin-dashboard`);
         }
