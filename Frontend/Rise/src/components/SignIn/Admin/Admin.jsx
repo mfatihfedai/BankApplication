@@ -14,6 +14,7 @@ import UserList from "../AdminComponent/UserList/UserList";
 import UserActivities from "../AdminComponent/UserActivities/UserActivities";
 import Banks from "../AdminComponent/Banks/Banks";
 import { useMenuItems } from "../../Core/useMenuItems";
+import CircularMenu from "../../Home/MenuBar/CircularMenu";
 
 function Admin() {
   const { componentName } = useAdminMenu();
@@ -48,6 +49,10 @@ function Admin() {
           {componentName === "Transfer" && <Transfer />}
           {componentName === "LogsInfo" && <LogsInfo />}
         </div>
+      </div>
+
+      <div className="circular-menu">
+        <CircularMenu userType="admin" />
       </div>
 
       {/* <DashboardHeader />

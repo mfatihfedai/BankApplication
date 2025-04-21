@@ -24,6 +24,10 @@
     cursor: pointer;
 }
 
+.circular-menu {
+    visibility: hidden;
+}
+
 @media (max-width: 1200px) {
 
     .list-item {
@@ -64,6 +68,9 @@
         min-width: 80%;
     }
 
+    .circular-menu {
+        visibility: visible;
+    }
     
 
 }

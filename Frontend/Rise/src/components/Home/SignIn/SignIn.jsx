@@ -64,6 +64,7 @@ const SignIn = () => {
           <Typography
             sx={{
               marginBottom: "2rem",
+              marginTop: "2rem",
             }}
           >
             <b style={{ fontSize: "1.1rem", fontWeight: "800" }}>

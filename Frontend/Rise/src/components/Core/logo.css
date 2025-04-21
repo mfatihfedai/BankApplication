@@ -125,3 +125,9 @@
 .prisma-letter:nth-child(6) {
   animation-delay: 2.5s; /* Altıncı harf 2.5 saniye sonra başlar */
 }
+
+@media (max-width: 1200px) {
+  .lang-theme-container {
+    right: 2rem;
+  }
+}

@@ -10,5 +10,14 @@
 .component-item { 
     grid-area: 1 / 2 / 6 / 6; 
     margin-left: 1rem;
-    
+}
+
+.circular-menu {
+    visibility: hidden;
+}
+
+@media (max-width: 1200px) {
+    .circular-menu {
+        visibility: visible;
+    }
 }

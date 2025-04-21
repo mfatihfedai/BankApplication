@@ -107,7 +107,7 @@ const resources = {
             HesapHareketleri: "Hesap Hareketleri",
             KisiselBilgilerim: "Kişisel Bilgilerim",
             GirisKayitlarim: "Giriş Kayıtlarım",
-            OtomatikOdemeTalimatlarim: "Otomatik Ödeme Talimatlarım",
+            OtomatikOdemeTalimatlarim: "Otomatik Ödemelerim",
             BilgileriGuncelle:"BİLGİLERİ GÜNCELLE",
             Sayin: "Sayın",
             SonGiris: "Son Giriş",
@@ -278,6 +278,7 @@ const resources = {
             Iletisim: "İletişim",
             VeriBulunamadi: "Veri Bulunamadı.",
             SonGirisler: "Son 3 Giriş",
+            GirisIcinKaydirin: "Giriş yapmak için kaydırın",
         }
     },
     
@@ -384,7 +385,7 @@ const resources = {
             HesapHareketleri: "Account Transactions",
             KisiselBilgilerim: "My Personal Informatıon",
             GirisKayitlarim: "My Login Records",
-            OtomatikOdemeTalimatlarim: "My Automatic Payment Orders",
+            OtomatikOdemeTalimatlarim: "My Automatic Payments",
             BilgileriGuncelle: "UPDATE INFORMATION",
             Sayin: "Dear",
             SonGiris: "Last Login",
@@ -559,6 +560,7 @@ const resources = {
             VeriBulunamadi: "Data not found",
             tr: "en",
             SonGirisler: "Last 3 Transactions",
+            GirisIcinKaydirin: "Swipe to login",
         }
     }
 }
