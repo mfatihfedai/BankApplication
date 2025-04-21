@@ -19,7 +19,7 @@ const Navbar = () => {
     <>
       {/* Blur overlay */}
       <div className={`blur-overlay ${isOpen ? "active" : ""}`}></div>
-<br/>
+      <div></div>
       {/* Navbar */}
       <div
         className={`navbar ${isOpen ? "open" : ""}`}

@@ -2,8 +2,6 @@
     display: flex;
     justify-content: center; /* Yatay eksende ortala */
     align-items: center; /* Dikey eksende ortala */
-    margin-top: 30px;
-    margin-bottom: 30px;
 }
 
 .credit-header{
@@ -75,9 +73,11 @@
 
     .credit {
         display: flex;
-        justify-content: center; /* Yatay eksende ortala */
+        justify-content: space-between; /* Yatay eksende ortala */
         align-items: center; /* Dikey eksende ortala */
+        gap: 2.5rem;
         flex-direction: column;
+        margin-top: 0px;
     }
     .credit-header{
         display: flex;

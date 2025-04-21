@@ -65,6 +65,11 @@
 
 @media (max-width: 1200px) {
 
+    .rates{
+        width: 100%;
+        gap: 7rem;
+    }
+
     .rates-header{
         display: flex;
         width: 100%;

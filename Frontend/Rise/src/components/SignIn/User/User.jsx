@@ -10,6 +10,7 @@ import Receipt from "../GeneralComponent/Receipt/Receipt";
 import Transfer from "../GeneralComponent/Transfer/Transfer";
 import LogsInfo from "../GeneralComponent/LogsInfo/LogsInfo";
 import Home from "../GeneralComponent/Home/Home";
+import CircularMenu from "../../Home/MenuBar/CircularMenu";
 
 function User() {
   const { componentName } = useAdminMenu();
@@ -31,6 +32,9 @@ function User() {
           {componentName == "Invoice" && <Invoice />}
           {componentName == "Transfer" && <Transfer />}
         </div>
+      </div>
+      <div className="circular-menu">
+        <CircularMenu userType="user" />
       </div>
     </>
   );

@@ -1,0 +1,110 @@
+  ul {
+    list-style: none;
+  }
+  
+  .nav {
+    position: fixed; /* Menü sabitlenir */
+    bottom: 20px; /* Sayfanın altından 20px yukarıda */
+    left: 50%; /* Yatayda ortalanır */
+    transform: translateX(-50%); /* Ortalamayı tamamlar */
+    display: flex;
+    justify-content: center;
+    z-index: 1000; /* Menü diğer içeriklerin üstünde görünür */
+    transition: bottom 0.5s ease-out; /* Menü diğer içeriklerin üstünde görünür */
+  }
+
+  .nav.open {
+    bottom: 150px; /* Menü açıkken konum */
+  }
+  
+  .nav [type="checkbox"] {
+    position: absolute;
+    left: -9999px; /* Görünmez hale getirilir */
+  }
+  
+  .nav [type="checkbox"] + button {
+    position: relative;
+    width: 75px;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 1;
+    background: var(--color-primary);
+    border-radius: 50%;
+    transition: all 0.2s;
+  }
+  
+  .nav [type="checkbox"] + button:hover {
+    background: var(--color-primary);
+  }
+  
+  .menu {
+    position: relative;
+    padding-inline-start: 0px;
+  }
+  
+  .menu li {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(-133%) translateY(38%);
+    transition: all 0.4s ease; /* Daha yumuşak geçiş */
+  }
+  
+  .menu li a {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary);
+    color: var(--color-button-text);
+    transition: all 0.4s ease;
+  }
+  
+  .menu li a:hover {
+    transform: scale(1.1); /* Hover durumunda büyür */
+  }
+  
+  .menu li a span {
+    position: absolute;
+    top: -18px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease; /* Daha yumuşak geçiş */
+    color: var(--color-button-text);
+    font-weight: 500;
+  }
+  
+  .nav input:checked ~ .menu li {
+    top: var(--menu-top); /* Menü açıkken öğelerin konumu */
+    left: var(--menu-left);
+  }
+  
+  .nav input:checked ~ .menu li a span {
+    opacity: 1; /* Menü açıkken etiketler görünür */
+    transition-delay: 0.9s;
+  }
+
+  .blur-overlayy {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Hafif karartma efekti */
+    backdrop-filter: blur(5px); /* Blur efekti */
+    z-index: 999; 
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+  }
