@@ -35,7 +35,7 @@
     align-items: center;
     column-gap: 1rem;
     padding: 0 1rem;
-    border-left: 2px solid #ffffff;
+    z-index: 1;
 }
 
 @media (max-width: 1200px) {
@@ -47,7 +47,6 @@
 
     .dashboard-header-logout-button{
         border: none;
-        margin-top: 1rem;
     }
 
     .logout-counter{

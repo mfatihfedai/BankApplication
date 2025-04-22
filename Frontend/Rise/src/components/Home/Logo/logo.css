@@ -36,6 +36,7 @@
   transform: translateY(-50%);
   display: flex;
   gap: 30px;
+  z-index: 1000;
 }
 
 .logo-container {
@@ -129,5 +130,6 @@
 @media (max-width: 1200px) {
   .lang-theme-container {
     right: 2rem;
+    gap: 20px;
   }
 }

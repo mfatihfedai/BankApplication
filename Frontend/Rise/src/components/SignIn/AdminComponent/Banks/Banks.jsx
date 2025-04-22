@@ -17,7 +17,6 @@ import {
   deleteBank,
   createBank,
 } from "../../../../service/BankApi.jsx";
-import "../../../Core/logo.css";
 import DeleteModal from "./DeleteModal";
 import UpdateModal from "./UpdateModal";
 import CreateModal from "./CreateModal";

@@ -21,18 +21,16 @@
   }
   
   .language-list {
-    position: absolute;
+    position: fixed;
     top: 100%;
     left: 0;
-    border: 1px solid #ccc;
     border-top: none;
     border-radius: 0 0 4px 4px;
     background-color: var(--color-background);
     list-style: none;
     padding: 0;
-    margin: 0;
-    width: 100%;
-    z-index: 10; /* Diğer elementlerin üzerinde görünmesi için */
+    width: 130px;
+    z-index: 1000; /* Increased z-index to ensure it appears in front */
   }
   
   .language-list li {
@@ -43,5 +41,23 @@
   }
   
   .language-list li:hover {
-    background-color: #f0f0f0;
+    background-color: var(--color-sign-in-background);
+  }
+
+  @media (max-width: 1200px) {
+    .selected-language {
+      font-size: medium;
+      padding: 8px 6px;
+    }
+
+    .language-dropdown {
+      width: 100px; 
+    }
+    .language-list li {
+      padding: 8px 6px;
+      font-size: medium;
+    }
+    .language-list {
+      width: 100px; 
+    }
   }

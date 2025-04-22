@@ -76,15 +76,16 @@ function UserList() {
   }
 
   const columns = [
-    { field: t("TcKimlik"), headerName: t("TcKimlik"), flex: 1 },
-    { field: t("IsimSoyisim"), headerName: t("IsimSoyisim"), flex: 1 },
-    { field: t("HesapNumarasi"), headerName: t("HesapNumarasi"), flex: 1 },
+    { field: t("TcKimlik"), headerName: t("TcKimlik"), flex: 1, sortable: false },
+    { field: t("IsimSoyisim"), headerName: t("IsimSoyisim"), flex: 1, sortable: false },
+    { field: t("HesapNumarasi"), headerName: t("HesapNumarasi"), flex: 1, sortable: false },
     { field: t("Email"), headerName: t("Email"), flex: 1 },
     { field: t("Rol"), headerName: t("Rol"), flex: 1 },
     {
       field: "actions",
       headerName: t("Islemler"),
       flex: 1,
+      sortable: false,
       renderCell: (params) => (
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "10px" }}>
           <IconButton

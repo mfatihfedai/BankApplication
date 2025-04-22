@@ -101,7 +101,7 @@ function DashboardHeader() {
           {t("Sayin")} {`${user?.name} ${user?.surname}`}
         </p>
         {rawDate?.getFullYear() === 1970 ? (
-          <p>Son Giriş: İlk Giriş</p>
+          <p>{t("SonGiris")}: {t("IlkGiris")}</p>
         ) : (
           <p>
             {t("SonGiris")}: {formattedDate}
@@ -120,10 +120,9 @@ function DashboardHeader() {
         aria-describedby="timeout-modal-description"
       >
         <Box sx={{ ...modalStyle }}>
-          <h2 id="timeout-modal-title">Oturum Sonlanıyor</h2>
+          <h2 id="timeout-modal-title">{t("OturumSonlaniyor")}</h2>
           <p id="timeout-modal-description">
-            5 dakika boyunca işlem yapmadınız. Güvenlik nedeniyle oturumunuz
-            kapatılıyor. Lütfen tekrar giriş yapınız.
+            {t("IslemYapmadinizGuvenlik")}
           </p>
           <Button
             onClick={handleLogout}
@@ -134,7 +133,7 @@ function DashboardHeader() {
               backgroundColor: "var(--color-blue)",
             }}
           >
-            Tamam
+            {t("Tamam")}
           </Button>
         </Box>
       </Modal>

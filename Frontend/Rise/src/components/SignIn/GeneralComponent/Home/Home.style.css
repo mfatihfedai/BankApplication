@@ -20,34 +20,41 @@
   flex-direction: column;
   justify-content: space-around;
   gap: 20px;
-}
-
-.react-calendar__month-view__weekdays {
-  display: flex;
-  justify-content: space-between;  
-  font-size: 10px;
-  font-weight: bold;
-  text-align: center;
-}
-
-.react-calendar__month-view__weekdays__weekday {
-  width: 14%;  
-  color: #5c6bc0;
-  padding: 6px 0;
+  flex: 1;
 }
 
 @media (max-width: 1200px) {
   .persorece{
     flex-direction: column;
+    padding-right: 0px;
   }
   #personal{
     min-width: 300px;
+    width: 100%;
   }
   #receipt{
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
     gap: 20px;
+    width: 800px;
+  }
+  #receipt > .MuiBox-root{
     min-width: 300px;
+    max-width: 400px;
     width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  #receipt {
+    flex-direction: column;
+    min-width: 250px;
+    max-width: 100%;
+    width: 100%;
+  }
+  #receipt > .MuiBox-root{
+    padding: 0 20px;
+    width: 100%;
+    min-width: 100%;
   }
 }

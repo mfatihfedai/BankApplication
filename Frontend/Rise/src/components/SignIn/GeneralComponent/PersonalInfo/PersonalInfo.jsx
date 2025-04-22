@@ -14,7 +14,6 @@ import {
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { getUserById, updateUser } from "../../../../service/UserApi";
-import "../../../Core/logo.css";
 import { useUser } from "../../../../context/UserContext";
 import { useAdminMenu } from "../../../../context/AdminMenuContext";
 import { useTranslation } from "react-i18next";
