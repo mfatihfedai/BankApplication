@@ -46,8 +46,8 @@ function LogsInfoTable() {
   }
 
   const columns = [
-    { field: t("GirisTarihi"), headerName: t("GirisTarihi"), flex: 1, minWidth: 150, sortable: false },    
-    { field: t("CikisTarihi"), headerName: t("CikisTarihi"), flex: 1, minWidth: 150, sortable: false},
+    { field: t("GirisTarihi"), headerName: t("GirisTarihi"), flex: 1, width: 150, sortable: false },    
+    { field: t("CikisTarihi"), headerName: t("CikisTarihi"), flex: 1, width: 150, sortable: false},
   ];
 
   return (

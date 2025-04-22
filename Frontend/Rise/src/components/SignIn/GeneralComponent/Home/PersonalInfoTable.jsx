@@ -30,6 +30,7 @@ function PersonalInfoTable() {
       <Card
         sx={{
           maxWidth: 800,
+          minWidth: 300,
           width: "100%",
           boxShadow: 3,
           borderRadius: 2,

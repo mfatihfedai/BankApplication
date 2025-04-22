@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { getReceipts } from "../../../../service/ReceiptApi";
-import "./ReceiptTable.css";
 import { useTheme } from "../../../../context/ThemeContext";
 import { useTranslation } from "react-i18next";
 import { Box } from "@mui/material";
@@ -86,14 +85,16 @@ function ReceiptTable() {
 
   return (
     <Box>
-      <h2 id="title">{t("SonBesHareket")}</h2>
-      <DataGrid
-        rows={logs}
-        columns={columns}
-        loading={loading}
-        disableColumnMenu
-        hideFooter
-      />
+      <h2 style={{textAlign:"center"}}>{t("SonBesHareket")}</h2>
+      <div style={{ height: 318}}>
+        <DataGrid
+          rows={logs}
+          columns={columns}
+          loading={loading}
+          disableColumnMenu
+          hideFooter
+        />
+      </div>
     </Box>
   );
 }

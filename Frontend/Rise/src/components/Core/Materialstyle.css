@@ -191,7 +191,7 @@
 }
 
 .MuiDialog-paper {
-  background-color: var(--color-box-background) !important;
+  background: var(--color-box-background) !important;
   color: var(--color-text) !important;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1) !important;
 }

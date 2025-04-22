@@ -89,7 +89,6 @@ function InvoiceDetailsModal({ open, onClose, invoice }) {
             display: 'grid',
             gridTemplateColumns: 'repeat(2, 1fr)',
             gridTemplateRows: 'repeat(5, 1fr)',
-
           }}
         >
           <Typography>{t("SonIslemTarihi")}:</Typography> <Typography sx={{ textAlign: 'right' }}> {invoice.payDate}</Typography>

@@ -148,8 +148,8 @@ function UserActivities() {
   };
 
   const columns = [
-    { field: t("İsimSoyisim"), headerName: t("İsimSoyisim"), flex: 1 },
-    { field: t("HesapNumarasi"), headerName: t("HesapNumarasi"), flex: 1 },
+    { field: t("İsimSoyisim"), headerName: t("İsimSoyisim"), flex: 1, sortable: false },
+    { field: t("HesapNumarasi"), headerName: t("HesapNumarasi"), flex: 1, sortable: false },
     { field: t("GirisTarihi"), headerName: t("GirisTarihi"), flex: 1 },
     { field: t("CikisTarihi"), headerName: t("CikisTarihi"), flex: 1 },
   ];

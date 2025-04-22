@@ -6,7 +6,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import "./Receipt.css";
 import ReceiptGenerator from "./ReceiptGenerator";
 import { getReceipts } from "../../../../service/ReceiptApi";
-import "../../../Core/logo.css";
 import { useUser } from "../../../../context/UserContext";
 import { useTranslation } from "react-i18next";
 import Loading from "../../../Core/Loading";

@@ -47,9 +47,9 @@ function AutomaticPayment() {
   };
 
   const columns = [
-    { field: "payDate", headerName: t("SonIslemTarihi"), sortable: true },
-    { field: "invoiceType", headerName: t("FaturaTipi"), sortable: true },
-    { field: "invoiceNo", headerName: t("FaturaNumarasi"), sortable: true },
+    { field: "payDate", headerName: t("SonIslemTarihi"), sortable: false },
+    { field: "invoiceType", headerName: t("FaturaTipi"), sortable: false },
+    { field: "invoiceNo", headerName: t("FaturaNumarasi"), sortable: false },
     { field: "amount", headerName: t("SonOdenenTutar"), sortable: true },
     {
       field: "autobill",
@@ -70,7 +70,7 @@ function AutomaticPayment() {
   }
 
   return (
-    <div style={{ height: "31rem", width: "95%", padding: "20px" }}>
+    <div style={{ height: "31rem", padding: "20px" }}>
       <h1>{t("OtomatikOdemeTalimatlarim")}</h1>
       <DataGrid
         rows={datas}

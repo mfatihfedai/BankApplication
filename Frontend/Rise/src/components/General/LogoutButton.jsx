@@ -35,7 +35,7 @@ function LogoutButton() {
   };
 
   return (
-    <div>
+    <>
       <Button
         style={{ backgroundColor: "var(--color-red) !important" }}
         onClick={handleLogout}
@@ -44,7 +44,7 @@ function LogoutButton() {
       >
         {t("Cikis")}
       </Button>
-    </div>
+    </>
   );
 }
 

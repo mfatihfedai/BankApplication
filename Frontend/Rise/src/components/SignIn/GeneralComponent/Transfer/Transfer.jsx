@@ -23,9 +23,9 @@ function Transfer() {
 
   // Tablo sütunları
   const columns = [
-    { field: "hesapTuru", headerName: t("HesapTuru"), flex: 1 },
-    { field: "hesapNumarasi", headerName: t("HesapNumarasi"), flex: 1 },
-    { field: "guncelBakiye", headerName: t("GuncelBakiye"), flex: 1 },
+    { field: "hesapTuru", headerName: t("HesapTuru"), flex: 1, sortable: false },
+    { field: "hesapNumarasi", headerName: t("HesapNumarasi"), flex: 1, sortable: false },
+    { field: "guncelBakiye", headerName: t("GuncelBakiye"), flex: 1, sortable: false },
   ];
 
   return (

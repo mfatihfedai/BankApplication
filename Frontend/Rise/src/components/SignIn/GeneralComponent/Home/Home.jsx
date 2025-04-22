@@ -1,7 +1,6 @@
 import React from "react";
 import "react-calendar/dist/Calendar.css";  
 import "./Home.style.css"
-import PersonalInfo from "../PersonalInfo/PersonalInfo";
 import ReceiptTable from "./ReceiptTable";
 import LogsInfoTable from "./LogsInfoTable";
 import PersonalInfoTable from "./PersonalInfoTable";
