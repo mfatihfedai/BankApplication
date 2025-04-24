@@ -3,3 +3,18 @@
   background: none !important;
   text-align: center;
 }
+
+/* Kaldırılabilir kullanılmıyor */
+.content {
+  height: 31rem;
+  width: 95%;
+  padding: 20px;
+}
+
+@media (max-width: 768px) {
+  .content {
+    height: max-content;
+    width: 100%;
+    padding: 10px;
+  }
+}

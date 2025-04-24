@@ -1,4 +1,4 @@
-.admin-parent {
+.parents {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: 1fr;
@@ -40,10 +40,9 @@
         padding: 10px;
         transform: translateX(-100%);
         opacity: 0;
-        
     }
     
-    .admin-parent {
+    .parents {
         display: flex;
         justify-content: center;
     }
@@ -66,6 +65,7 @@
 
     .component-item {
         min-width: 95%;
+        margin-left: 0;
     }
 
     .circular-menu {

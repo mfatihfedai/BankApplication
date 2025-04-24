@@ -87,7 +87,7 @@ function UserList() {
       flex: 1,
       sortable: false,
       renderCell: (params) => (
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "10px" }}>
+        <div className="edit-list">
           <IconButton
             onClick={() => {
               setSelectedUser(params.row.actions);
@@ -111,7 +111,7 @@ function UserList() {
   ];
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div className="contents">
       <h1>{t("KullaniciListesi")}</h1>
       <div className="addAndSearch">
         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -135,13 +135,7 @@ function UserList() {
             placeholder={t("KullaniciAra")}
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
-            sx={{
-              width: "200px",
-              "& .MuiInputBase-input": {
-                padding: "0.5rem",
-                fontSize: "16px",
-              }
-            }}
+            className="search-input"
           />
           <Button
             variant="contained"

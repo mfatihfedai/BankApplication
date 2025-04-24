@@ -57,11 +57,11 @@
 }
 
 .credit-info {
-    width: 300px; /* credit-info için de genişlik sabit */
+    width: 300px;
 }
 
 .credit-slider-box {
-    width: 300px;        /* Same width as other inputs */
+    width: 300px;        
     padding: 0.75rem;       /* Add some padding */
     border: 1px solid rgb(0, 0, 0, 0.38);
     border-radius: 4px; 
@@ -88,5 +88,16 @@
         color: var(--color-white);
     }
 
+}
+
+@media (max-width: 768px) {
+    .credit {
+        width: 100%;
+        gap: 0;
+    }
+    .credit-info {
+        min-width: 200px;
+        max-width: 100%;
+    }
 }
   

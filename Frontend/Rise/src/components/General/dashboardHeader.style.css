@@ -16,8 +16,8 @@
     font-size: 1.6rem;
     font-weight: 600;
     padding:0 2rem;
-    border-right: 2px solid #ffffff;
-    border-left: 2px solid #ffffff;
+    border-right: 2px solid var(--color-text);
+    border-left: 2px solid var(--color-text);
 
 }
 
@@ -26,7 +26,7 @@
     font-size: 1.6rem;
     font-weight: 600;
     padding:0 2rem;
-    border-right: 2px solid #ffffff;
+    border-right: 2px solid var(--color-text);
 }
 
 .dashboard-header-logout-button{
@@ -36,6 +36,22 @@
     column-gap: 1rem;
     padding: 0 1rem;
     z-index: 1;
+}
+
+.hamburger-menus {
+    display: none;
+    width: 86px;
+    background: var(--color-blue);
+    color: var(--color-white);
+    font-size: 1.5rem;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+.list-items {
+    display: none;
+    grid-area: 1 / 1 / 6 / 2;
+    
 }
 
 @media (max-width: 1200px) {
@@ -60,4 +76,116 @@
         justify-content: center;
     }
    
+}
+
+@media (max-width: 768px) {
+  .dashboard-header {
+    align-items: center;
+    text-align: center;
+    padding-left: 2rem;
+  }
+  .dashboard-header-role {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    padding: 0;
+  }
+  .dashboard-header-welcome {
+    font-size: 1rem;
+    padding: 0;
+    border: none;
+  }
+  .dashboard-header-logout-button {
+    display: none;
+   }
+   .dashboard-header-empty {
+    width: 46px;
+   }
+ /* Hamburger Menüsü */
+.hamburger-menus {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 75px;
+    right: 0px;
+    width: 46px;
+    height: 46px;
+    margin: 0 5px 0 0 ;
+    background: var(--color-blue);
+    cursor: pointer;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+}
+
+.hamburger-menus span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--color-white);
+    margin: 2px 0;
+    border-radius: 2px;
+    transition: all 0.5s ease;
+}
+
+/* Çarpı Haline Dönüşüm */
+.hamburger-menus.open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 3.5px) }
+
+.hamburger-menus.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-menus.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -3.5px)
+}
+
+/* Çeyrek Daire Menü */
+.list-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    position: absolute;
+    top: 75px;
+    right: 0;
+    width: 250px;
+    height: 250px;
+    background: var(--color-primary);
+    clip-path: circle(0% at 100% 0%);
+    transition: clip-path 1.0s ease, opacity 0.5s ease;
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    overflow: hidden;
+    border-bottom-left-radius: 100%;
+    padding-inline-start: 80px;
+    
+  }
+
+.list-items.open {
+    clip-path: circle(150% at 100% 0%);
+    opacity: 1;
+    pointer-events: auto;
+    
+}
+
+.list-items > li {
+    opacity: 0;
+    transform: translateX(60px);
+    animation: slideIn 0.5s forwards;
+    animation-delay: calc(0.2s * var(--i));
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(60px); /* Sağdan sola hareket */
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0); /* Normal pozisyona gelir */
+    }
+}
 }

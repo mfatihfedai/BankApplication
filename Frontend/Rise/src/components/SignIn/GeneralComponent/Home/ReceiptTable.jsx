@@ -58,14 +58,14 @@ function ReceiptTable() {
   }, []);
 
   const columns = [
-    { field: "payDate", headerName: t("Tarih"), flex: 1, minWidth: 100, sortable: false },
-    { field: "description", headerName: t("Aciklama"), flex: 2, minWidth: 150, sortable: false },
+    { field: "payDate", headerName: t("Tarih"), flex: 1, minWidth: {sm:50,  lg: 100}, sortable: false },
+    { field: "description", headerName: t("Aciklama"), flex: 2, minWidth: {sm:75,  lg: 100}, sortable: false },
     {
       field: "amount",
       headerName: t("Tutar"),
       flex: 1,
       sortable: false,
-      minWidth: 110,
+      minWidth: {sm:50,  lg: 110},
       renderCell: (params) => {
         const { type, receiver, amount } = params.row;
         const isTransfer = type === "transfer";

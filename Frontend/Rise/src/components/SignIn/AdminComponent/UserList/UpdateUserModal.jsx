@@ -83,29 +83,20 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
           component="form"
           onSubmit={formik.handleSubmit}
           sx={{
-            display: "flex",
             flexWrap: "wrap",
             flexDirection: "column",
             textAlign: "center",
             gap: 3,
-            width: 700,
-            padding: "10",
+            padding: "10px",
             position: "absolute",
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            border: "1px solid #ccc",
-            borderRadius: 2,
-            fontFamily: "Montserrat",
-            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-            background: "linear-gradient(to right, #ece9e6, #ffffff)",
           }}
         >
           <Typography variant="h5" textAlign="center" fontWeight="bold">
             <h1
               style={{
-                fontSize: "35px",
-                color: "--color-orange",
                 paddingTop: "1rem",
                 textDecoration: "underline",
               }}

@@ -8,14 +8,15 @@ import PersonalInfoTable from "./PersonalInfoTable";
 function Home() {
 
   return (
-    
-    <div className="persorece">
-      <div id="personal" >
-        <PersonalInfoTable />
-      </div>
-      <div id="receipt"> 
-        <LogsInfoTable />
-        <ReceiptTable />
+    <div className="contents">
+      <div className="persorece">
+        <div id="personal" >
+          <PersonalInfoTable />
+        </div>
+        <div id="receipt">
+          <LogsInfoTable />
+          <ReceiptTable />
+        </div>
       </div>
     </div>
    

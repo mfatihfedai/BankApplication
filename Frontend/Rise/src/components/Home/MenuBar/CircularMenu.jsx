@@ -11,7 +11,7 @@ const CircularMenu = ({ userType = "user" }) => {
   const menuItems = userType === "admin" ? adminList : userList;
   const { user } = useUser();
 
-  const radius = 140; // Çemberin yarıçapı (px)
+  const radius = window.innerWidth < 768 ? 120 : 160; // Çemberin yarıçapı (px)
 
   const handleNavigation = (component) => {
     // Kullanıcı yoksa veya rol eşleşmiyorsa ana sayfaya yönlendir

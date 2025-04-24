@@ -65,7 +65,7 @@ const Verify = () => {
   }
 
   return (
-    <div>
+    <div className="contents">
       <form onSubmit={handleSubmit}>
         <Box
         className = "verify"
@@ -87,7 +87,7 @@ const Verify = () => {
             fontWeight="bold"
             gutterBottom
           >
-            <h1 style={{fontSize:"35px", paddingTop:"1rem", textDecoration:"underline"}}>PRISMA BANK</h1>
+            <h1 style={{fontSize:{sm: 16, lg:35}, paddingTop:"1rem", textDecoration:"underline"}}>PRISMA BANK</h1>
             {t("Sayin")} {`${user?.name} ${user?.surname} `}
           </Typography>
           <Typography

@@ -70,7 +70,7 @@ function AutomaticPayment() {
   }
 
   return (
-    <div style={{ height: "31rem", padding: "20px" }}>
+    <div className="contents">
       <h1>{t("OtomatikOdemeTalimatlarim")}</h1>
       <DataGrid
         rows={datas}

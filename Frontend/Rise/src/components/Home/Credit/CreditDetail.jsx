@@ -81,17 +81,8 @@ function CreditDetail() {
       {/* Kredi Türü Combobox */}
       <FormControl
       sx={{ 
-        width: "300px",
-        borderRadius: "6px",
         marginBottom: -1, 
-        "& .MuiOutlinedInput-root": {
-            "& fieldset": {
-              borderColor: "var(--color-textfield-border)",
-            },
-            "&:hover fieldset": {
-              borderColor: "var(--color-text)",
-            },
-          }
+        width: "100%",
         }}>
         <Select
           labelId="credit-type-label"
@@ -118,7 +109,7 @@ function CreditDetail() {
         onBlur={() => setFormattedAmount(formatAmount(amount))}
         InputProps={{
           startAdornment: (
-            <div style={{width:"100%", fontSize: "18px", color: "var(--color-text)", marginRight:"4rem" }}>{t("Tutar")}:</div>
+            <div style={{ color: "var(--color-text)", marginRight:"4rem" }}>{t("Tutar")}:</div>
           ),
           endAdornment: (
             <InputAdornment
@@ -142,9 +133,6 @@ function CreditDetail() {
       {/* Faiz Oranı */}
       <TextField
         style={{ 
-          width: "300px", 
-          borderRadius: "6px", 
-          color: "var(--color-text)", 
           background: "var(--color-box-background)",
           boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", 
         }}
@@ -157,10 +145,10 @@ function CreditDetail() {
         }}
         InputProps={{
           startAdornment: (
-            <span style={{width:"100%", fontSize: "18px", color: "var(--color-text)" }}>{t("FaizOrani")}:</span>
+            <span style={{width:"100%", textWrap:"nowrap", color: "var(--color-text)" }}>{t("FaizOrani")}:</span>
           ),
           endAdornment: (
-            <span style={{ fontSize: "20px",fontWeight:"500", color: "var(--color-text)" }}>
+            <span style={{ fontWeight:"500", color: "var(--color-text)" }}>
               {interestRate.toFixed(2)}%
             </span>
           ),
@@ -186,7 +174,17 @@ function CreditDetail() {
             min={1}
             max={maxMonthsValue}
           />
-          <div style={{ display: 'inline-block', textAlign: "right" , transition: 'none', width: '191px', color: "var(--color-text)" }}>
+          <div 
+          style={{ 
+            display: 'inline-block',
+            marginLeft:"5px", 
+            textAlign: "right", 
+            textWrap:"nowrap" , 
+            transition: 'none', 
+            color: "var(--color-text)",
+            display: "flex",
+            alignItems: "center",
+            }}>
             {months} <span>{t("Ay")}</span>
           </div>
         </div>
@@ -195,9 +193,8 @@ function CreditDetail() {
       {/* Aylık Ödeme */}     
       <Box
         sx={{
+          width: "100%",
           textAlign: "center",
-          width: "300px",
-          borderRadius: "6px",
           border: "1px solid", 
           padding: "8px",
           marginBottom: -1,
@@ -207,7 +204,6 @@ function CreditDetail() {
       >
         <p
           style={{
-            fontSize: "16px",
             fontWeight: "bold",
             textAlign: "center",
           }}
@@ -232,17 +228,17 @@ function CreditDetail() {
           },
         }}
       >
-        <DialogTitle color="var(--color-text)">Hata</DialogTitle>
+        <DialogTitle color="var(--color-text)">{t("IslemHatasi")}</DialogTitle>
         <DialogContent
           sx={{
             color: "var(--color-text)",
           }}
         >
-          <p>400.000 fazla tutar için şubemize geliniz</p>
+          <p>{t("FazlaTutarIcinSube")}</p>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseModal}>
-            Tamam
+            {t("Tamam")}
           </Button>
         </DialogActions>
       </Dialog>

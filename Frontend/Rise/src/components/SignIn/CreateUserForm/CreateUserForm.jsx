@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import InfoModal from "./InfoModal";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useTranslation } from "react-i18next";
+import "./createUserForm.style.css"
 
 const CreateUserForm = () => {
   const navigate = useNavigate();
@@ -81,6 +82,7 @@ const CreateUserForm = () => {
   return (
     <>
       <Box
+        className="create-user-form"
         component="form"
         sx={{
           maxWidth: 600,
@@ -103,9 +105,8 @@ const CreateUserForm = () => {
           textAlign="center"
           fontWeight="bold"
           gutterBottom
-          className="MuiTypography-root"
         >
-          <h1 className="MuiTypography-h1">
+          <h1 >
             {t("PrismaBank")}
           </h1>
           {t("HosGeldiniz")}

@@ -30,10 +30,8 @@ function Transfer() {
 
   return (
     <>
-      <div className="transfer">
-        <div>
-          <h1>{t("ParaninCekilecegiHesap")}</h1>
-        </div>
+      <div className="contents">
+        <h1>{t("ParaninCekilecegiHesap")}</h1>
         <div className="table">
           <GeneralTable data={data} columns={columns} />
         </div>

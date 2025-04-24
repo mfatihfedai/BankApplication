@@ -1,12 +1,11 @@
 .register-error{
-    font-size: 0.8rem !important;
     color: var(--color-orange);
 }
 
-@media (max-width: 714px) {
+@media (max-width: 1200px) {
 
     .create-user-form{
-        margin: 0 10% !important;
+        width: 95% !important;
     }
    
 }

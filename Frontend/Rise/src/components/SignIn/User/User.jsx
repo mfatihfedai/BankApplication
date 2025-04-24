@@ -1,7 +1,6 @@
 import DashboardHeader from "../../General/DashboardHeader";
 import { useMenuItems } from "../../Core/useMenuItems";
 import MenuItems from "../../General/MenuItems";
-import "./user.style.css";
 import { useAdminMenu } from "../../../context/AdminMenuContext";
 import Invoice from "../GeneralComponent/Invoice/Invoice";
 import AutomaticPayment from "../GeneralComponent/AutomaticPayment/AutomaticPayment";
@@ -19,7 +18,7 @@ function User() {
   return (
     <>
       <DashboardHeader />
-      <div className="user-parent">
+      <div className="parents">
         <div className="list-item">
           <MenuItems list={userList} />
         </div>
