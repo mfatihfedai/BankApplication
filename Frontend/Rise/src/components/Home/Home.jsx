@@ -74,6 +74,12 @@ function Home() {
     }
   };
 
+  const handleScrollIndicatorClicks = () => {
+    if (signInsRef.current) {
+      signInsRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <>
       <div className="parent-header">
@@ -91,7 +97,7 @@ function Home() {
       <div className="parentTablet"  onWheel={handleWheel} ref={creditRatesRef}>
         <div className="credit-rates-container">
           <Credit />
-          <button className="scroll-indicator" onClick={handleScrollIndicatorClick}>
+          <button className="scroll-indicator" onClick={handleScrollIndicatorClicks}>
             <span className="arrow">↓</span>
             {t("GirisIcinKaydirin")}
             <span className="arrow">↓</span>

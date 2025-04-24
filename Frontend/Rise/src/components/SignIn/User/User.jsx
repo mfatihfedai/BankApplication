@@ -33,7 +33,7 @@ function User() {
         </div>
       </div>
       <div className="circular-menu">
-        <CircularMenu userType="user" />
+        <CircularMenu list={userList} />
       </div>
     </>
   );

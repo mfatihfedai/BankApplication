@@ -1,25 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { useMenuItems } from "../../Core/useMenuItems";
-import { Navigate } from "react-router-dom";
-import { useUser } from "../../../context/UserContext";
 import "./CircularMenu.css";
+import { useAdminMenu } from "../../../context/AdminMenuContext";
 
-const CircularMenu = ({ userType = "user" }) => {
+const CircularMenu = ({ setMenuOpen, list }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [showItems, setShowItems] = useState(false);
-  const { adminList, userList } = useMenuItems();
-  const menuItems = userType === "admin" ? adminList : userList;
-  const { user } = useUser();
+  const { componentName, setComponentName } = useAdminMenu();
 
   const radius = window.innerWidth < 768 ? 120 : 160; // Çemberin yarıçapı (px)
 
-  const handleNavigation = (component) => {
-    // Kullanıcı yoksa veya rol eşleşmiyorsa ana sayfaya yönlendir
-    if (!user || (userType === "admin" && user.role !== "admin")) {
-      return <Navigate to="/" replace />;
-    }
-    // Yönlendirme korumalı bir şekilde yapılır
-    return <Navigate to={`/protected/${component}`} replace />;
+  const handleClick = (e) => {
+    setComponentName(e);
+    setIsOpen(false);
+    setShowItems(false);
   };
 
   const handleMenuToggle = () => {
@@ -60,8 +53,8 @@ const CircularMenu = ({ userType = "user" }) => {
           Menu
         </button>
         <ul className="menu">
-          {menuItems.map((item, index) => {
-            const angle = (2 * Math.PI * index) / menuItems.length; // Her öğe için açı hesaplama
+          {list.map((item, index) => {
+            const angle = (2 * Math.PI * index) / list.length; // Her öğe için açı hesaplama
             const top = showItems ? `${-radius * Math.cos(angle)}px` : "0px";
             const left = showItems ? `${radius * Math.sin(angle)}px` : "0px";
 
@@ -75,7 +68,7 @@ const CircularMenu = ({ userType = "user" }) => {
                 }}
               >
                 <a
-                  onClick={() => handleNavigation(item.returnComponent)}
+                  onClick={() => handleClick(item.returnComponent)} key={index}
                   style={{ cursor: "pointer" }}
                 >
                   <span style={{ opacity: showItems ? 1 : 0 }}>{item.header}</span>

@@ -163,6 +163,22 @@ const resources = {
             GonderenHesapNo: "Gönderen Hesap No",
             GonderilenMiktar: "Gönderilen Miktar",
             Aciklama: "Açıklama",
+            eDekont: "e-Dekont",
+            muhasebeDekont: "MUHASEBE İŞLEM DEKONTU",
+            subeKodu: "ŞUBE KODU",
+            musteriNo: "MÜŞTERİ NO",
+            vergiDairesi: "VERGİ DAİRESİ", 
+            islemRef: "İŞLEM REF",
+            islemTarihi: "İŞLEM TARİHİ",
+            dovizCinsi: "DÖVİZ CİNSİ",
+            islemTutari: "İŞLEM TUTARI",
+            islemYeri: "İŞLEM YERİ",
+            bilgi: "Bilgi",
+            detay: "Detay",
+            aciklama: "AÇIKLAMA:",
+            musteriAdi: "MÜŞTERİ ADI:", 
+            dipnot: "e-Dekont izni kapsamında elektronik ortamda üretilmiştir.",
+            merkez: "Prisma Bankası A.Ş. - Çankaya, Ankara",
             // FATURA ÖDE
             FaturaOde: "Fatura Öde",
             FaturaNumarasi: "Fatura Numarası",
@@ -284,6 +300,7 @@ const resources = {
             GirisIcinKaydirin: "Giriş yapmak için kaydırın",
             Dil: "Dil",
             FazlaTutarIcinSube: "400.000 fazla tutar için şubemize geliniz.",
+            KullaniciAdiVeyaSifreHatasi: "Kullanıcı adı veya şifre yanlış. Lütfen tekrar deneyiniz.",
         }
     },
     
@@ -439,17 +456,32 @@ const resources = {
             // LOGIN RECORDS
             GirisTarihi:"Login Date",
             CikisTarihi:"Logout Date",
-            // ACCOUNT TRANSACTIONS
+            // RECEIPTS
             IslemTarihi: "Transaction Date",
             Kanal: "Channel",
             Aciklama: "Description",
             IslemTutari: "Transaction Amount",
             Dekont: "Receipt",
             HesapDetaylari: "Account Details",
-            IslemTarihi: "Transaction Date",
             GonderenHesapNo: "Sender Account No",
             GonderilenMiktar: "Transferred Amount",
             Aciklama: "Description",
+            eDekont: "e-Receipt",
+            muhasebeDekont: "ACCOUNTING TRANSACTION RECEIPT",
+            subeKodu: "BRANCH CODE",
+            musteriNo: "CUSTOMER NO",
+            vergiDairesi: "TAX OFFICE",
+            islemRef: "TRANSACTION REF",
+            islemTarihii: "TRANSACTION DATE", 
+            dovizCinsi: "CURRENCY",
+            islemTutari: "TRANSACTION AMOUNT",
+            islemYeri: "TRANSACTION LOCATION",
+            bilgi: "Information",
+            detay: "Detail",
+            aciklama: "DESCRIPTION:",
+            musteriAdi: "CUSTOMER NAME:",
+            dipnot: "Generated electronically under e-Receipt permission.",
+            merkez: "Prisma Bank Inc. - Cankaya, Ankara",
             // INVOICE PAY
             FaturaOde: "Pay Invoice",
             FaturaNumarasi: "Invoice Number",
@@ -571,7 +603,8 @@ const resources = {
             GirisIcinKaydirin: "Swipe to login",
             Dil: "Language",
             FazlaTutarIcinSube: "For amounts over 400,000, please visit our bank.",
-        }
+            KullaniciAdiVeyaSifreHatasi: "Username or password is incorrect. Please try again.",
+          }
     }
 }
 

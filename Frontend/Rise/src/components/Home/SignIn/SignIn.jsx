@@ -8,6 +8,7 @@ import { useState } from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useUser } from "../../../context/UserContext";
 import { useTranslation } from "react-i18next";
+import Loading from "../../Core/Loading";
 
 const SignIn = () => {
   const [identityNo, setIdentityNo] = useState("");
@@ -37,16 +38,20 @@ const SignIn = () => {
         saveLastLoginTime(response.data.lastLoginTime);
         navigate("/verify");
       } else {
-        setError("Kullanıcı adı veya şifre yanlış. Lütfen tekrar deneyiniz.");
+        setError(t("KullaniciAdiVeyaSifreHatasi"));
         setColour("red");
       }
     } catch (error) {
       setLoading(false);
       console.error("Login failed:", error.message);
-      setError("Kullanıcı adı veya şifre yanlış. Lütfen tekrar deneyiniz.");
+      setError(t("KullaniciAdiVeyaSifreHatasi"));
       setColour("red");
     }
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <>

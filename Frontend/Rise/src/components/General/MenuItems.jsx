@@ -3,12 +3,11 @@ import { useAdminMenu } from "../../context/AdminMenuContext";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import "./menuItem.style.css";
 
-function MenuItems({ setMenuOpen, list }) {
+function MenuItems({ list }) {
   const { componentName, setComponentName } = useAdminMenu();
 
   const handleClick = (e) => {
     setComponentName(e);
-    setMenuOpen(false)
   };
 
 
