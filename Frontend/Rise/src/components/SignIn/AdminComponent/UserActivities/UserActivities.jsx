@@ -165,7 +165,7 @@ function UserActivities() {
 
   return (
     <>
-      <div style={{ padding: "20px" }}>
+      <div className="contents">
         <h1>{t("KullaniciHareketleri")}</h1>
           {/* Toggle Button İLK DENEME css'siz */}
           <div className="addAndSearch">
@@ -174,15 +174,15 @@ function UserActivities() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                gap: "10px",
+                gap: {xs: "0px", md: "10px"},
               }}
             >
               {/* Tablo Görünümü Metni */}
               <span
                 style={{
+                  textAlign: "center",
                   color: !showChart ? "var(--color-secondary)" : "var(--color-primary)",
                   fontWeight: "bold",
-                  fontSize: "16px",
                 }}
               >
                 {t("TabloGorunumu")}
@@ -212,7 +212,6 @@ function UserActivities() {
                 style={{
                   color: showChart ? "var(--color-secondary)" : "var(--color-primary)",
                   fontWeight: "bold",
-                  fontSize: "16px",
                 }}
               >
                 {t("GrafikGorunumu")}
@@ -223,6 +222,7 @@ function UserActivities() {
                 display: "flex",
                 justifyContent: "right",
                 gap: "10px",
+                alignItems: "center",
                 marginRight: "1rem",
               }}
             >
@@ -231,20 +231,11 @@ function UserActivities() {
                 placeholder={t("KullaniciAra")}
                 value={keyword}
                 onChange={(e) => setKeyword(e.target.value)}
-                sx={{
-                  width: "200px",
-                  "& .MuiInputBase-input": {
-                    padding: "0.5rem",
-                    fontSize: "16px",
-                  }
-                }}
+                className="search-input"
               />
               <Button
                 variant="contained"
                 onClick={() => fetchDatas(keyword, page, pageSize)}
-                sx={{
-                  fontSize: "16px",
-                }}
               >
                 {t("Ara")}
               </Button>

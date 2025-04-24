@@ -15,8 +15,8 @@
     list-style-type: none;
     display: flex;
     flex-direction: column;
-    padding: 0;
-    
+    align-items: center;
+    padding: 0; 
 }
 
 .currency-list-item{
@@ -64,7 +64,6 @@
 
 
 @media (max-width: 1200px) {
-
     .rates{
         width: 100%;
         gap: 7rem;
@@ -78,5 +77,18 @@
         background-color: var(--color-blue);
         color: var(--color-white);
     }
-
+}
+@media (max-width: 768px) {
+    .rates {
+        margin-bottom: 7rem;
+    }
+    .currency-list {
+        width: 100%;
+    }
+    .currency-bank p div {
+        font-size: 14px;
+    }
+    .currency-bank p {
+        font-size: 12px;
+    }
 }

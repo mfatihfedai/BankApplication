@@ -4,7 +4,7 @@
   
   .nav {
     position: fixed; /* Menü sabitlenir */
-    bottom: 20px; /* Sayfanın altından 20px yukarıda */
+    bottom: -35px; /* Sayfanın altından 20px yukarıda */
     left: 50%; /* Yatayda ortalanır */
     transform: translateX(-50%); /* Ortalamayı tamamlar */
     display: flex;
@@ -103,8 +103,14 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5); /* Hafif karartma efekti */
     backdrop-filter: blur(5px); /* Blur efekti */
-    z-index: 999; 
+    z-index: 1000; 
     visibility: visible;
     opacity: 1;
     transition: opacity 0.5s ease, visibility 0.5s ease;
+  }
+
+  @media (max-width: 768px) {
+    .menu li a span {
+      font-size: 10px;
+    }
   }

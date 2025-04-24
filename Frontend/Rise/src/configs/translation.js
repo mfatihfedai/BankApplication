@@ -282,6 +282,8 @@ const resources = {
             VeriBulunamadi: "Veri Bulunamadı.",
             SonGirisler: "Son 3 Giriş",
             GirisIcinKaydirin: "Giriş yapmak için kaydırın",
+            Dil: "Dil",
+            FazlaTutarIcinSube: "400.000 fazla tutar için şubemize geliniz.",
         }
     },
     
@@ -567,6 +569,8 @@ const resources = {
             tr: "en",
             SonGirisler: "Last 3 Transactions",
             GirisIcinKaydirin: "Swipe to login",
+            Dil: "Language",
+            FazlaTutarIcinSube: "For amounts over 400,000, please visit our bank.",
         }
     }
 }

@@ -167,7 +167,7 @@ function Receipt() {
   }
 
   return (
-    <div style={{ height: "31rem", width: "95%", padding: "20px" }}>
+    <div className="contents">
       <h1>{t("HesapHareketleri")}</h1>
       <DataGrid
         rows={logs}

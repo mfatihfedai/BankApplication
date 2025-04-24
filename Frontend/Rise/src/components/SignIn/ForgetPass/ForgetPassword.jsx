@@ -22,7 +22,6 @@ const ForgetPassword = () => {
   const [success, setSuccess] = useState(false);
   const [userNotFound, setUserNotFound] = useState(false);
   const navigate = useNavigate();
-  const { theme } = useTheme();
   const { t } = useTranslation();
 
   const validationSchema = Yup.object({
@@ -64,7 +63,7 @@ const ForgetPassword = () => {
   }
 
   return (
-    <div>
+    <div className="forget-password">
       <form onSubmit={formik.handleSubmit}>
         <Box
           sx={{
@@ -115,7 +114,7 @@ const ForgetPassword = () => {
             fullWidth
             id="email"
             name="email"
-            label={t("EmailAdresi")}
+            label={t("EmailBaslik")}
             value={formik.values.email}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}

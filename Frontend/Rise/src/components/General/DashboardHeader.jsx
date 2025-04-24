@@ -10,6 +10,8 @@ import { format } from "date-fns";
 import { tr } from "date-fns/locale";
 import { decryptData } from "../Core/CryptoJS";
 import { useTranslation } from "react-i18next";
+import Theme from "./Theme";
+import Lang from "./Lang";
 
 const modalStyle = {
   position: "absolute",
@@ -34,12 +36,26 @@ function DashboardHeader() {
   const navigate = useNavigate();
   const [time, setTime] = useState(10000); // çalışmak için arttırıldı
   const [showModal, setShowModal] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false); // Menü aç/kapat
+  const [menuVisible, setMenuVisible] = useState(false);
+  const [menusOpen, setMenusOpen] = useState(false);
   const { t } = useTranslation();
 
   // Sayaç sıfırlama fonksiyonu
   const resetTimer = useCallback(() => {
     setTime(10000); // burası da değişecek
   }, []);
+
+
+  const handleToggleMenu = () => {
+    if (!menuVisible) {
+      setMenuVisible(true);
+      setTimeout(() => setMenusOpen(true), 10); // DOM’a görünür olduktan sonra animasyonu başlat
+    } else {
+      setMenusOpen(false);
+      setTimeout(() => setMenuVisible(false), 500); // animasyon süresi kadar bekle, sonra DOM’dan kaldır
+    }
+  };
 
   // Kullanıcı etkinliklerini dinleme
   useEffect(() => {
@@ -109,10 +125,29 @@ function DashboardHeader() {
         )}
       </div>
 
+      <div className="dashboard-header-empty"></div>
+      <button
+        className={`hamburger-menus ${menuOpen ? "open" : ""}`}
+        onClick={() => {setMenuOpen(!menuOpen); handleToggleMenu()}}
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <div className={`blur-overlay ${menusOpen ? "active" : ""}`}></div>
+      {menuVisible && (
+        <ul className={`list-items ${menusOpen ? "open" : ""}`}>
+          <li style={{ "--i": 1 }}><Theme /></li>
+          <li style={{ "--i": 2 }}><Lang /></li>
+          <li style={{ "--i": 3 }}><LogoutButton /></li>
+        </ul>
+      )}
+
       <div className="dashboard-header-logout-button">
         <LogoutButton />
       </div>
-
+      
       <Modal
         open={showModal}
         onClose={handleLogout}

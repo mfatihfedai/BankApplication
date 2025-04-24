@@ -25,6 +25,7 @@ function PersonalInfoTable() {
         justifyContent: "center",
         height: "max-content",
         padding: 3,
+        paddingLeft: {md: 3, lg: 0},
       }}
     >
       <Card

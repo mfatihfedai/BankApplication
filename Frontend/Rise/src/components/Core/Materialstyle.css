@@ -14,6 +14,7 @@
   background: var(--color-box-background);
   border-radius: 8px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
 }
   
 /* Box Stilleri */
@@ -71,6 +72,7 @@
   background-color: var(--color-button-background) !important ;
   color: var(--color-button-text) !important;
   border-radius: 8px;
+  font-size: 16px !important;
   transition: background-color 0.3s ease;
 }
 
@@ -104,7 +106,7 @@
   color: var(--color-text);
 }
 
-.MuiTypography-h1 {
+.MuiTypography-root > h1 {
   font-size: 35px;
   color: var(--color-secondary);
   text-decoration: underline;
@@ -185,7 +187,6 @@
 .MuiDataGrid-footerContainer {
   display: none !important;
 }
-
 .MuiDataGrid-sortIcon {
   color: var(--color-table-header-text);
 }
@@ -194,6 +195,9 @@
   background: var(--color-box-background) !important;
   color: var(--color-text) !important;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1) !important;
+}
+.MuiTextField-root > .MuiInputBase-root > .MuiInputBase-input {
+  font-size: 16px;
 }
 
 @media (max-width: 1200px) {
@@ -205,5 +209,60 @@
   }
   .MuiSvgIcon-fontSizeMedium {
     font-size: 22px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .MuiButton-root{
+    font-size: 10px !important;
+  }
+  .MuiDataGrid-columnHeaderTitle {
+    font-size: 10px !important;
+    padding: 2px !important;
+  }
+  .MuiDataGrid-iconButtonContainer {
+    display: none !important;
+  }
+  .MuiDataGrid-columnHeader {
+    padding: 0 !important;
+  }
+  .MuiDataGrid-cell {
+    padding: 0 2px !important;
+    font-size: 10px !important;
+  }
+  .MuiDataGrid-cell > .MuiButton-root {
+    min-width: 40px !important;
+    padding: 4px !important;
+  }
+  .MuiSvgIcon-fontSizeMedium {
+    font-size: 14px !important;
+  }
+  .MuiTypography-root > h1 {
+    font-size: 20px;
+    color: var(--color-secondary);
+    text-decoration: underline;
+  }
+  .theme-icon > .MuiSvgIcon-fontSizeMedium {
+    font-size: 20px !important;
+  }
+  .MuiAvatar-root > .MuiSvgIcon-root {
+    width: 30px !important;
+    height: 30px !important;
+  }
+  .MuiIconButton-root {
+    padding: 0 !important;
+  }
+  .MuiModal-root .MuiBox-root {
+    max-width: 95% !important;
+    width: 400px !important;
+  }
+  .MuiTypography-root.error {
+    font-size: 10px !important;
+  }
+  .MuiTextField-root > .MuiInputBase-root > .MuiInputBase-input {
+    font-size: 12px;
+  }
+  .MuiButton-sizeMedium {
+    padding: 3px 8px !important;
   }
 }

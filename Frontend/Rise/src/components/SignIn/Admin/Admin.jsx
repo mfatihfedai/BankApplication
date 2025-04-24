@@ -24,7 +24,7 @@ function Admin() {
   return (
     <>
       <DashboardHeader />
-      <div className="admin-parent">
+      <div className="parents">
         <button
           className="hamburger-menu"
           onClick={() => setMenuOpen(!menuOpen)}

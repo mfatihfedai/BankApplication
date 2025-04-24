@@ -58,7 +58,7 @@ function Banks() {
 
   const validateForm = (data) => {
     const errors = {};
-    if (!data.bankName) errors.bankName = t("BankaAdİZorunlu");
+    if (!data.bankName) errors.bankName = t("BankaAdiZorunlu");
     if (!data.transferFee) errors.transferFee = t("TransferUcretiZorunlu");
     return errors;
   };
@@ -152,7 +152,7 @@ function Banks() {
   }
 
   return (
-    <div style={{ height: "31rem", padding: "20px" }}>
+    <div className="contents">
       <h1>{t("BankaYonetimi")}</h1>
       <Box sx={{ display: "flex", justifyContent: "", alignItems: "", mb: 2 }}>
         <Button

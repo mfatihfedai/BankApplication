@@ -33,29 +33,42 @@ function Lang() {
   }, [dropdownRef]);
 
   return (
-    <div className="language-dropdown" ref={dropdownRef}>
-      <div className="selected-language" onClick={toggleDropdown}>
+    <>
+      <div className="language-dropdown" ref={dropdownRef}>
+        <div className="selected-language" onClick={toggleDropdown}>
+          {i18n.language === "tr" ? (
+            <>
+              <img src={trFlag} alt="Türkçe" className="flag-icon" /> Türkçe
+            </>
+          ) : (
+            <>
+              <img src={enFlag} alt="English" className="flag-icon" /> English
+            </>
+          )}
+        </div>
+        {isOpen && (
+          <ul className="language-list">
+            <li onClick={() => changeLanguage("tr")}>
+              <img src={trFlag} alt="Türkçe" className="flag-icon" /> Türkçe
+            </li>
+            <li onClick={() => changeLanguage("en")}>
+              <img src={enFlag} alt="English" className="flag-icon" /> English
+            </li>
+          </ul>
+        )}
+      </div>
+      <div className="language-switch">
         {i18n.language === "tr" ? (
           <>
-            <img src={trFlag} alt="Türkçe" className="flag-icon" /> Türkçe
+            <div>{t("Dil")}</div>:<button onClick={() => changeLanguage("en")}> <img src={trFlag} alt="Türkçe" className="flag-icon" /></button>
           </>
-        ) : (
+        ): (
           <>
-            <img src={enFlag} alt="English" className="flag-icon" /> English
+            <div>{t("Dil")}</div>:<button onClick={() => changeLanguage("tr")}> <img src={enFlag} alt="English" className="flag-icon" /></button>
           </>
         )}
       </div>
-      {isOpen && (
-        <ul className="language-list">
-          <li onClick={() => changeLanguage("tr")}>
-            <img src={trFlag} alt="Türkçe" className="flag-icon" /> Türkçe
-          </li>
-          <li onClick={() => changeLanguage("en")}>
-            <img src={enFlag} alt="English" className="flag-icon" /> English
-          </li>
-        </ul>
-      )}
-    </div>
+    </>
   );
 }
 

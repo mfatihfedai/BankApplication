@@ -31,6 +31,7 @@
     flex-direction: row;
     justify-content: space-around;
     margin-bottom: 10px;
+    gap:10px
 }
 
 .tableInf th{
@@ -46,6 +47,14 @@
   color:var(--color-blue);
 }
 
+.edit-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    height: 100%;
+}
+
 .icon{
    color: var(--color-blue);
 }
@@ -53,6 +62,20 @@
     color: var(--color-orange);
 }
 
-@media (max-width: 1200px) {
-    
+.search-input {
+    width: 200px !important;
+}
+.search-input > .MuiInputBase-root > .MuiInputBase-input {
+    padding: 10px;
+    font-size: 16px;
+}
+
+@media (max-width: 768px) {
+    .search-input {
+        width: 100px !important;
+    }
+    .search-input > .MuiInputBase-root > .MuiInputBase-input {
+        padding: 3px;
+        font-size: 12px;
+    }
 }
