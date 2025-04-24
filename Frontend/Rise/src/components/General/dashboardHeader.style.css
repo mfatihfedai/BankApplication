@@ -53,6 +53,9 @@
     grid-area: 1 / 1 / 6 / 2;
     
 }
+.dashboard-header-empty {
+    display: none;
+   }
 
 @media (max-width: 1200px) {
 
@@ -87,7 +90,7 @@
   .dashboard-header-role {
     font-size: 1.2rem;
     margin-bottom: 0.5rem;
-    padding: 0;
+    padding: 0 1rem 0 0;
   }
   .dashboard-header-welcome {
     font-size: 1rem;
@@ -98,6 +101,7 @@
     display: none;
    }
    .dashboard-header-empty {
+    display: block;
     width: 46px;
    }
  /* Hamburger Menüsü */

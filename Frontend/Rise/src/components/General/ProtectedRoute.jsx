@@ -1,32 +1,59 @@
 import { Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useUser } from "../../context/UserContext";
-import { decryptData } from "../Core/CryptoJS";
+import { logoutUser } from "../../service/LogoutApi";
+import { Modal } from "antd";
+
 
 const ProtectedRoute = ({ role, children }) => {
-  const { user } = useUser();
+  const { user, setUser } = useUser();
   const [logUserRole, setLogUserRole] = useState(user.role);
   const [logUser, setLogUser] = useState(null); // Başlangıçta null olarak ayarlandı
+  const [isModalVisible, setIsModalVisible] = useState(false);
   // TANRİM BENİ BAŞTAN YARAT;
 
-  console.log(user);
-  // LocalStorage'dan veri al
-  // IF PROJECT COMPLETE, REMOVE THIS PART
-  // useEffect(() => {
-  //   const savedUser = localStorage.getItem("user");
-  //   console.log("Protected Router Çalışıyor");
-  //   if (savedUser) {
-  //     const parsedUser = decryptData(savedUser);
-  //     setLogUser(parsedUser); // LocalStorage'dan alınan kullanıcıyı logUser'a set et
-  //   }
-  // }, []);
+ // Logout işlemi
+  const handleLogout = async () => {
+    try {
+      const response = await logoutUser(user);
 
+      // Kullanıcıyı ve tokenı context'ten ve localStorage'dan temizleme
+      localStorage.removeItem("token");
+      localStorage.removeItem("lastLoginTime");
+      setUser(null); // Eğer kullanıyorsanız user context'ten de temizleme
+
+      return response;
+    } catch (error) {
+      console.error("Çıkış yapılamadı:", error.message);
+    }
+  };
 
   //Yükleme sırasında logUser'ın durumu null olduğu için bir kontrol yapalım. Bu olmazsa eğer null döner dönmez ana sayfaya yönlendirme yapıyor.
-  if (user == {}) {
-    // sayaç koyulabilir
-    return <div>Loading...</div>; // Kullanıcı bilgisi yükleniyor önemli*
-  }
+  // if (user.type == undefined) {
+  //   console.log(user)
+  //   // Modal'ı göster
+  //   setIsModalVisible(true);
+    
+  //   // 3 saniye sonra modal'ı kapat ve logout işlemini gerçekleştir
+  //   setTimeout(() => {
+  //     setIsModalVisible(false);
+  //     handleLogout();
+  //   }, 3000);
+
+  //   return (
+  //     <>
+  //       <Modal
+  //         title="Çıkış Yapılıyor"
+  //         open={isModalVisible}
+  //         footer={null}
+  //         closable={false}
+  //       >
+  //         <p>Hesabınızdan çıkış yapıldı, anasayfaya yönlendiriliyorsunuz...</p>
+  //       </Modal>
+  //       <Navigate to="/" replace />
+  //     </>
+  //   );
+  // }
 
   // Kullanıcı yoksa ana sayfaya yönlendir
   if (!user) {
@@ -35,17 +62,9 @@ const ProtectedRoute = ({ role, children }) => {
   }
 
   if (user === undefined) {
-    console.log("Undifined");
+    console.log("Undefined");
     return <Navigate to="/" replace />;
   }
-
-
-  // Rol eşleşmiyorsa ana sayfaya yönlendir
-  // if (!logUser) {
-  //   console.log("Rol uyuşmuyor. Yönlendiriliyor...");
-  //   // MODAL ÇIKIP GÜVENLİ ÇIKIŞ YAPILDI DİYECEK
-  //   return <Navigate to="/" replace />;
-  // }
 
   // Tüm kontrolleri geçtiyse children(App.jsx'te buluna Admin.jsx veya User.jsx) bileşenleri render et
   return children;

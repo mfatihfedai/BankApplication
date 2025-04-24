@@ -25,18 +25,9 @@ function Admin() {
     <>
       <DashboardHeader />
       <div className="parents">
-        <button
-          className="hamburger-menu"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          ☰
-        </button>
-
-        {/* Menü (Mobilde Açılır/Kapanır) */}
-        <div className={`list-item ${menuOpen ? "open" : ""}`}>
-          <MenuItems setMenuOpen={setMenuOpen} list={adminList} />
+        <div className="list-item">
+          <MenuItems list={adminList} />
         </div>
-
         <div className="component-item">
           {componentName === "Home" && <Home />}
           {componentName === "UserList" && <UserList />}
@@ -52,28 +43,8 @@ function Admin() {
       </div>
 
       <div className="circular-menu">
-        <CircularMenu userType="admin" />
+        <CircularMenu list={adminList} />
       </div>
-
-      {/* <DashboardHeader />
-      <div className="admin-parent">
-        <button onClick={} className="hamburger-menu">Hamburger</button>
-        <div className="list-item">
-          <MenuItems list={adminList} />
-        </div>
-        <div className="component-item">
-          {componentName == "Home" && <Home />}
-          {componentName == "UserList" && <UserList />}
-          {componentName == "Banks" && <Banks />}
-          {componentName == "UserActivities" && <UserActivities />}
-          {componentName == "Invoice" && <Invoice />}
-          {componentName == "AutomaticPayment" && <AutomaticPayment />}
-          {componentName == "PersonalInfo" && <PersonalInfo />}
-          {componentName == "Receipt" && <Receipt />}
-          {componentName == "Transfer" && <Transfer />}
-          {componentName == "LogsInfo" && <LogsInfo />}
-        </div>
-      </div> */}
     </>
   );
 }

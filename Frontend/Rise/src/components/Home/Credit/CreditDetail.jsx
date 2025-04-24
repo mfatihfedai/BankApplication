@@ -176,7 +176,6 @@ function CreditDetail() {
           />
           <div 
           style={{ 
-            display: 'inline-block',
             marginLeft:"5px", 
             textAlign: "right", 
             textWrap:"nowrap" , 

@@ -9,6 +9,9 @@ import { getReceipts } from "../../../../service/ReceiptApi";
 import { useUser } from "../../../../context/UserContext";
 import { useTranslation } from "react-i18next";
 import Loading from "../../../Core/Loading";
+import i18n from "i18next";
+import { tr } from "date-fns/locale";
+import { format } from "date-fns";
 
 function Receipt() {
   const { user } = useUser();
@@ -20,10 +23,8 @@ function Receipt() {
 
   const formatPayDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleString("tr-TR", {
-      dateStyle: "medium",
-      timeStyle: "short",
-    });
+    const locale = i18n.language === "tr" ? tr : undefined;
+    return format(date, "d MMMM yyyy HH:mm", { locale });
   };
 
   const fetchLogs = async () => {
@@ -66,7 +67,6 @@ function Receipt() {
       formattedLogs.sort((a, b) => new Date(b.rawDate) - new Date(a.rawDate));
 
       setLogs(formattedLogs);
-      console.log(logs);
       setRowCount(totalElements);
     } catch (error) {
       console.error("Error fetching logs:", error);
@@ -85,10 +85,10 @@ function Receipt() {
 
   const handleReceiptDownload = (log) => {
     const data = {
-      subeCode: "0285/MERKEZ/OSMANİYE ŞUBESİ",
+      subeCode: "0285/ÇANKAYA/ANKARA ÇAYYOLU ŞUBESİ",
       processBank: "PRISMA BANK",
       customerNo: user.accountNumber,
-      taxOffice: "OSMANİYE VERGİ DAİRESİ",
+      taxOffice: "BAŞKENT VERGİ DAİRESİ",
       processDate: formatPayDate(log.rawDate),
       processRef: generateRandomRef(),
       currency: "TL",
