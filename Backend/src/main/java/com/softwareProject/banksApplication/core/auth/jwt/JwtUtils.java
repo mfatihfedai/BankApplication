@@ -4,6 +4,7 @@ package com.softwareProject.banksApplication.core.auth.jwt;
 import com.softwareProject.banksApplication.core.auth.CustomUserDetails;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -13,8 +14,12 @@ import java.util.Date;
 
 @Component
 public class JwtUtils {
-    private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256); // HS256 ile bir güvenlik anahtarı oluşturulur.
-    private static final long EXPIRATION_TIME = 600000; // milisaniye 5 dk süre
+    private final Key key; // HS256 ile bir güvenlik anahtarı oluşturulur.
+    private static final long EXPIRATION_TIME = 600000; // milisaniye 10 dk süre
+
+    public JwtUtils(@Value("${jwt.secret}") String secretKey) {
+        this.key = Keys.hmacShaKeyFor(secretKey.getBytes());
+    }
 
     public String generateToken(CustomUserDetails userDetails) {
         return Jwts.builder()
