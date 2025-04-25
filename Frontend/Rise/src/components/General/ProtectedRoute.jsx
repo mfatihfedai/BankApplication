@@ -2,58 +2,77 @@ import { Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useUser } from "../../context/UserContext";
 import { logoutUser } from "../../service/LogoutApi";
-import { Modal } from "antd";
-
+import Backdrop from "@mui/material/Backdrop";
+import { Box, Fade, Modal, Typography } from "@mui/material";
+import CancelIcon from "@mui/icons-material/Cancel";
+import { useTranslation } from "react-i18next";
 
 const ProtectedRoute = ({ role, children }) => {
   const { user, setUser } = useUser();
-  const [logUserRole, setLogUserRole] = useState(user.role);
-  const [logUser, setLogUser] = useState(null); // Başlangıçta null olarak ayarlandı
   const [isModalVisible, setIsModalVisible] = useState(false);
-  // TANRİM BENİ BAŞTAN YARAT;
+  const [countdown, setCountdown] = useState(5); 
+  const { t } = useTranslation();
 
- // Logout işlemi
-  const handleLogout = async () => {
-    try {
-      const response = await logoutUser(user);
+  useEffect(() => {
+    if (!user || user === undefined || Object.keys(user).length === 0) {
+      setIsModalVisible(true);
+      const timer = setInterval(() => {
+        setCountdown((prev) => {
+          if (prev > 1) return prev - 1;
+          clearInterval(timer); // Geri sayım tamamlandığında interval'i temizle
+          return 0;
+        });
+      }, 1000);
 
-      // Kullanıcıyı ve tokenı context'ten ve localStorage'dan temizleme
-      localStorage.removeItem("token");
-      localStorage.removeItem("lastLoginTime");
-      setUser(null); // Eğer kullanıyorsanız user context'ten de temizleme
+      const timeout = setTimeout(async () => {
+        await logoutUser(user);
+        setUser(null);
+        localStorage.removeItem("token");
+        localStorage.removeItem("lastLoginTime");
+        setIsModalVisible(false);
+      }, 5000);
 
-      return response;
-    } catch (error) {
-      console.error("Çıkış yapılamadı:", error.message);
+      return () => {
+        clearInterval(timer); // Bileşen unmount olduğunda interval'i temizle
+        clearTimeout(timeout); // Timeout'u temizle
+      };
     }
-  };
+  }, [user, setUser]);
 
-  //Yükleme sırasında logUser'ın durumu null olduğu için bir kontrol yapalım. Bu olmazsa eğer null döner dönmez ana sayfaya yönlendirme yapıyor.
-  // if (user.type == undefined) {
-  //   console.log(user)
-  //   // Modal'ı göster
-  //   setIsModalVisible(true);
-    
-  //   // 3 saniye sonra modal'ı kapat ve logout işlemini gerçekleştir
-  //   setTimeout(() => {
-  //     setIsModalVisible(false);
-  //     handleLogout();
-  //   }, 3000);
-
-  //   return (
-  //     <>
-  //       <Modal
-  //         title="Çıkış Yapılıyor"
-  //         open={isModalVisible}
-  //         footer={null}
-  //         closable={false}
-  //       >
-  //         <p>Hesabınızdan çıkış yapıldı, anasayfaya yönlendiriliyorsunuz...</p>
-  //       </Modal>
-  //       <Navigate to="/" replace />
-  //     </>
-  //   );
-  // }
+  if (!user || user === undefined || Object.keys(user).length === 0) {
+    return (
+      <>
+        <Modal
+          open={isModalVisible}
+          onClose={() => setIsModalVisible(false)}
+          closeAfterTransition
+          slots={{ backdrop: Backdrop }}
+          slotProps={{
+            backdrop: {
+              timeout: 500,
+            },
+          }}
+        >
+          <Fade 
+          in={isModalVisible}>
+            <Box className="modal">
+              <img style={{maxHeight: "100px"}} src="../../../../../../src/assets/LogoNonBackground.png" alt="bank_image" />
+              <div>
+                {<CancelIcon className="icon" sx={{color: "red"}} />}
+              </div>
+              <Typography variant="h6" component="h2">
+                {t("GuvenlikNedeniyleOturum")}
+              </Typography>
+              <Typography sx={{ mt: 2 }}>
+                {countdown} {t("SaniyeIcerisindeYonlendirileceksiniz")}
+              </Typography>
+            </Box>
+          </Fade>
+        </Modal>
+        {countdown === 0 && <Navigate to="/" replace />}
+      </>
+    );
+  }
 
   // Kullanıcı yoksa ana sayfaya yönlendir
   if (!user) {

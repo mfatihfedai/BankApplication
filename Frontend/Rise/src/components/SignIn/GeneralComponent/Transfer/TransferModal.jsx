@@ -26,7 +26,7 @@ export default function TransferModal({ open , handleClose, message, success }) 
           setComponentName("Home"); 
           return 0;
         });
-      }, 1000); 
+      }, 3000); 
     }
 
     return () => {
@@ -58,14 +58,14 @@ export default function TransferModal({ open , handleClose, message, success }) 
               <CancelIcon className="icon" sx={{color: "red"}} />
             )}
           </div>
-          <Typography id="transition-modal-title" variant="h6" component="h2">
+          <Typography variant="h6" component="h2">
             {success ? t("TransferBasarili") : t("TransferBasarisiz")}
           </Typography>
-          <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+          <Typography sx={{ mt: 2 }}>
             {message}
           </Typography>
           {success && (
-            <Typography id="transition-modal-countdown" sx={{ mt: 2 }}>
+            <Typography sx={{ mt: 2 }}>
               {countdown} {t("SaniyeIcerisindeYonlendirileceksiniz")}
             </Typography>
           )}

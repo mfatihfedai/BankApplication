@@ -5,45 +5,33 @@ import LogoutButton from "./LogoutButton";
 import "./dashboardHeader.style.css";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
+import { logoutUser } from "../../service/LogoutApi";
 import { format } from "date-fns";
 import { tr } from "date-fns/locale";
 import { decryptData } from "../Core/CryptoJS";
 import { useTranslation } from "react-i18next";
 import Theme from "./Theme";
 import Lang from "./Lang";
-
-const modalStyle = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 600,
-  height: 250,
-  bgcolor: "background.paper",
-  border: "2px solid var(--color-blue)",
-  boxShadow: 24,
-  textAlign: "center",
-  pt: 2,
-  px: 4,
-  pb: 3,
-};
+import { Typography } from "@mui/material";
+import CancelIcon from "@mui/icons-material/Cancel";
+import "../SignIn/GeneralComponent/Transfer/transfer.style.css"
 
 function DashboardHeader() {
   const { user } = useUser();
   const [formattedDate, setFormattedDate] = useState("");
   const [rawDate, setRawDate] = useState();
   const navigate = useNavigate();
-  const [time, setTime] = useState(10000); // çalışmak için arttırıldı
+  const [time, setTime] = useState(10); // 300sn = 5dk
   const [showModal, setShowModal] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false); // Menü aç/kapat
   const [menuVisible, setMenuVisible] = useState(false);
   const [menusOpen, setMenusOpen] = useState(false);
+  const [countdown, setCountdown] = useState(1000);
   const { t } = useTranslation();
 
   // Sayaç sıfırlama fonksiyonu
   const resetTimer = useCallback(() => {
-    setTime(10000); // burası da değişecek
+    setTime(1000); // burası da değişecek
   }, []);
 
 
@@ -59,7 +47,7 @@ function DashboardHeader() {
 
   // Kullanıcı etkinliklerini dinleme
   useEffect(() => {
-    const resetEvents = ["keydown", "click", "scroll"];
+    const resetEvents = ["click"];
     const resetOnActivity = () => resetTimer();
 
     resetEvents.forEach((event) =>
@@ -85,9 +73,29 @@ function DashboardHeader() {
     }
   }, [time]);
 
+  useEffect(() => {
+    let interval;
+    if (showModal) {
+      setCountdown(10); // sayaç başlangıcı
+      interval = setInterval(() => {
+        setCountdown((prev) => prev - 1);
+      }, 1000);
+  
+      const timeout = setTimeout(async () => {
+        await logoutUser(user);
+        handleLogout();
+      }, 1000000); // 10 saniye sonunda çıkış
+  
+      return () => {
+        clearInterval(interval);
+        clearTimeout(timeout);
+      };
+    }
+  }, [showModal]);
+
   // Modal kapatma
   const handleLogout = () => {
-    localStorage.removeItem("user");
+    localStorage.removeItem("lastLoginTime");
     localStorage.removeItem("token");
     navigate("/");
   };
@@ -154,22 +162,17 @@ function DashboardHeader() {
         aria-labelledby="timeout-modal-title"
         aria-describedby="timeout-modal-description"
       >
-        <Box sx={{ ...modalStyle }}>
-          <h2 id="timeout-modal-title">{t("OturumSonlaniyor")}</h2>
-          <p id="timeout-modal-description">
+        <Box className="modal">
+          <img style={{maxHeight: "100px"}} src="../../../../../../src/assets/LogoNonBackground.png" alt="bank_image" />
+          <div>
+            {<CancelIcon className="icon" sx={{color: "red"}} />}
+          </div>
+          <Typography variant="h6" component="h2">
             {t("IslemYapmadinizGuvenlik")}
-          </p>
-          <Button
-            onClick={handleLogout}
-            variant="contained"
-            style={{
-              marginTop: "10px",
-              color: "var(--color-white)",
-              backgroundColor: "var(--color-blue)",
-            }}
-          >
-            {t("Tamam")}
-          </Button>
+          </Typography>
+          <Typography sx={{ mt: 2 }}>
+            {countdown} {t("SaniyeIcerisindeYonlendirileceksiniz")}
+          </Typography>
         </Box>
       </Modal>
     </div>
