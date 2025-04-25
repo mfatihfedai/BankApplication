@@ -141,11 +141,11 @@ function Invoice() {
                 <CancelIcon sx={iconStyle("red")} />
               )}
             </div>
-            <Typography id="transition-modal-title" variant="h6" component="h2">
+            <Typography variant="h6" component="h2">
               {t("FaturaOdeme")} {success ? t("Basarili") : t("Basarisiz")}
             </Typography>
             {success && (
-              <Typography id="transition-modal-countdown" sx={{ mt: 2 }}>
+              <Typography sx={{ mt: 2 }}>
                 {countdown} {t("SaniyeIcerisindeYonlendirileceksiniz")}
               </Typography>
             )}

@@ -114,6 +114,7 @@ const resources = {
             IlkGiris: "İlk Giriş",
             OturumSonlaniyor: "Oturumunuz sonlanıyor..",
             IslemYapmadinizGuvenlik: "5 dakika boyunca işlem yapmadınız. Güvenlik nedeniyle oturumunuz kapatılıyor. Lütfen tekrar giriş yapınız.",
+            GuvenlikNedeniyleOturum: "Güvenlik nedeniyle oturumunuz kapatılıyor. Lütfen tekrar giriş yapınız.",
             // KİŞİSEL BİLGİLERİM
             TC: "TC Kimlik Numarası",
             Bakiye: "Bakiye",
@@ -414,6 +415,7 @@ const resources = {
             IlkGiris: "First Login",
             OturumSonlaniyor: "Session is about to expire..",
             IslemYapmadinizGuvenlik: "You have not performed any transactions for 5 minutes. For security reasons, your session is being closed. Please log in again.",
+            GuvenlikNedeniyleOturum: "For security reasons, your session is being closed. Please log in again.",
             // USER INFORMATION
             TC: "Turkish Identity Number",
             Bakiye: "Balance",
@@ -501,6 +503,7 @@ const resources = {
             Telefon: "Phone",
             OdemelerAyinBirinde: "Your payments will be made on the 1st of each month in an amount dependent on the initial payment amount.",
             SaniyeIcerisindeYonlendirileceksiniz: " seconds that you will be redirected home page in..",
+            
             //USER LIST
             KullaniciListesi: "User List",
             YeniKullanici: "New User",

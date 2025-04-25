@@ -61,7 +61,6 @@ const Verify = () => {
         return `${maskedLocalPart}@${domain}`;
       }
       return email;
-    
   }
 
   return (
@@ -87,7 +86,7 @@ const Verify = () => {
             fontWeight="bold"
             gutterBottom
           >
-            <h1 style={{fontSize:{sm: 16, lg:35}, paddingTop:"1rem", textDecoration:"underline"}}>PRISMA BANK</h1>
+            <h1 style={{fontSize:{sm: 16, lg:35},color:"var(--color-text)" , paddingTop:"1rem", textDecoration:"underline"}}>PRISMA BANK</h1>
             {t("Sayin")} {`${user?.name} ${user?.surname} `}
           </Typography>
           <Typography
