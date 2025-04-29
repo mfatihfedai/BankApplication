@@ -26,7 +26,7 @@ export default function TransferModal({ open , handleClose, message, success }) 
           setComponentName("Home"); 
           return 0;
         });
-      }, 3000); 
+      }, 1000); 
     }
 
     return () => {

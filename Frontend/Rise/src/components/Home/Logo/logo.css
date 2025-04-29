@@ -138,4 +138,7 @@
   .lang-theme-container {
     display: none;
   }
+  .prisma-letter {
+    font-size: 20px;
+  }
 }
