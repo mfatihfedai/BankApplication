@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getUsersLogs } from "../../../../service/AdminApi";
 import { TextField, Button, Box, Slide, Paper, FormControlLabel, Switch } from "@mui/material"; // MUI bileşenlerini içe aktar
-import "./UserActivities.css"; // CSS dosyasını import edin
+import "./userActivities.css"; // CSS dosyasını import edin
 import { useTranslation } from "react-i18next";
 import GeneralTable from "../../../General/GeneralTable";
 import ChartComponent from "./ChartComponent";
