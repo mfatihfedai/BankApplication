@@ -15,7 +15,7 @@ function UserActivities() {
   const [page, setPage] = useState(0); // Mevcut sayfa
   const [tableData, setTableData] = useState([]); // Tablo verileri
   const [pageSize, setPageSize] = useState(10); // Sayfa boyutu
-  const [showChart, setShowChart] = useState(true); // Grafik gösterimini kontrol eder
+  const [showChart, setShowChart] = useState(false); // Grafik gösterimini kontrol eder
   const [totalPages, setTotalPages] = useState(0); // Toplam sayfa sayısı
   const [hasNext, setHasNext] = useState(false); // İleri butonu için durum
   const [hasPrevious, setHasPrevious] = useState(false); // Geri butonu için durum

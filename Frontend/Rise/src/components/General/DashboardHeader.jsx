@@ -26,12 +26,12 @@ function DashboardHeader() {
   const [menuOpen, setMenuOpen] = useState(false); // Menü aç/kapat
   const [menuVisible, setMenuVisible] = useState(false);
   const [menusOpen, setMenusOpen] = useState(false);
-  const [countdown, setCountdown] = useState(1000);
+  const [countdown, setCountdown] = useState(300);
   const { t } = useTranslation();
 
   // Sayaç sıfırlama fonksiyonu
   const resetTimer = useCallback(() => {
-    setTime(1000); // burası da değişecek
+    setTime(300);
   }, []);
 
 
@@ -84,7 +84,7 @@ function DashboardHeader() {
       const timeout = setTimeout(async () => {
         await logoutUser(user);
         handleLogout();
-      }, 1000000); // 10 saniye sonunda çıkış
+      }, 5000); // 5 dk sonunda çıkış
   
       return () => {
         clearInterval(interval);
