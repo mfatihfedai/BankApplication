@@ -15,13 +15,14 @@ import Lang from "./Lang";
 import { Typography } from "@mui/material";
 import CancelIcon from "@mui/icons-material/Cancel";
 import "../SignIn/GeneralComponent/Transfer/transfer.style.css"
+// import {LogoNonBackground} from "../../assets/LogoNonBackground.png";
 
 function DashboardHeader() {
   const { user } = useUser();
   const [formattedDate, setFormattedDate] = useState("");
   const [rawDate, setRawDate] = useState();
   const navigate = useNavigate();
-  const [time, setTime] = useState(10); // 300sn = 5dk
+  const [time, setTime] = useState(300); // 300sn = 5dk girince tıklayana kadar olan sayaç
   const [showModal, setShowModal] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false); // Menü aç/kapat
   const [menuVisible, setMenuVisible] = useState(false);
@@ -31,7 +32,7 @@ function DashboardHeader() {
 
   // Sayaç sıfırlama fonksiyonu
   const resetTimer = useCallback(() => {
-    setTime(300);
+    setTime(300); // burada ki saniye tıklandıktan sonra tetikelnen sayaç
   }, []);
 
 
@@ -84,7 +85,7 @@ function DashboardHeader() {
       const timeout = setTimeout(async () => {
         await logoutUser(user);
         handleLogout();
-      }, 5000); // 5 dk sonunda çıkış
+      }, 5000); // 5 sn sonunda çıkış
   
       return () => {
         clearInterval(interval);
@@ -163,7 +164,7 @@ function DashboardHeader() {
         aria-describedby="timeout-modal-description"
       >
         <Box className="modal">
-          <img style={{maxHeight: "100px"}} src="../../../../../../src/assets/LogoNonBackground.png" alt="bank_image" />
+          <img style={{maxHeight: "100px"}} src="../../assets/LogoNonBackground.png" alt="bank_image" />
           <div>
             {<CancelIcon className="icon" sx={{color: "red"}} />}
           </div>

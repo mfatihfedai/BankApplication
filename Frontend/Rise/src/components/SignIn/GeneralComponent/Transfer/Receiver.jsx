@@ -7,6 +7,9 @@ import { useReceiverFormSchema } from "../../../Schemas/ReceiverFormSchemas";
 import { useTranslation } from "react-i18next";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SendIcon from "@mui/icons-material/Send";
+import React from "react";
+import { getUserById } from "../../../../service/UserApi";
+import { useUser } from "../../../../context/UserContext";
 
 function Receiver() {
   const { t } = useTranslation(); // i18next hook
@@ -14,6 +17,7 @@ function Receiver() {
   const [transferMessage, setTransferMessage] = useState("");
   const [success, setSuccess] = useState(false);
   const receiverFormSchemas = useReceiverFormSchema();
+  const {user, newUser} = useUser();
 
   const handleClose = () => {
     setShowModal(false); // Modal'ı kapat
@@ -30,6 +34,8 @@ function Receiver() {
         isReceiver: false,
       };
       await createTransfer(transfer);
+      const newUserr = await getUserById(user.id);
+      newUser(newUserr)
       setShowModal(true);
       setSuccess(true);
       setTransferMessage(t("ParaGondermeBasari"));

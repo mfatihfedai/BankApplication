@@ -23,6 +23,8 @@ import { InvoiceFormSchemas } from "../../../Schemas/InvoiceFormSchemas";
 import "./invoice.css";
 import { useTranslation } from "react-i18next";
 import Loading from "../../../Core/Loading";
+import { getUserById } from "../../../../service/UserApi";
+import { useUser } from "../../../../context/UserContext";
 
 function Invoice() {
   const [loading, setLoading] = useState(false);
@@ -33,6 +35,7 @@ function Invoice() {
   const [showModal, setShowModal] = useState(false);
   const { t } = useTranslation();
   const invoiceFormSchemas = InvoiceFormSchemas();
+  const {user, newUser} = useUser();
 
   const iconStyle = (color) => ({
     fontSize: 60,
@@ -82,6 +85,8 @@ function Invoice() {
         };
 
         const response = await createInvoice(data);
+        const newUserr = await getUserById(user.id);
+        newUser(newUserr)
         if (response.status === 200) {
           setShowModal(true);
           setSuccess(true);
