@@ -2,7 +2,7 @@ import React from "react";
 import Logos from "../../../assets/LogoNonBackground.png";
 import Theme from "../../General/Theme.jsx";
 import Lang from "../../General/Lang.jsx";
-import "./Logo.css";
+import "./logo.css";
 
 function Logo() {
   return (
