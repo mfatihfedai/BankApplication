@@ -8,13 +8,14 @@ import { useEffect, useRef, useState } from "react";
 import Theme from "../General/Theme";
 import Lang from "../General/Lang";
 import LogoutButton from "../General/LogoutButton";
+import { Navigate, useNavigate } from "react-router";
 
 function Home() {
   const { t } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false); // Menü aç/kapat
   const [menuVisible, setMenuVisible] = useState(false);
   const [menusOpen, setMenusOpen] = useState(false);
-
+  const navigate = useNavigate();
   const signInsRef = useRef(null);
   const signInRef = useRef(null);
   const creditRatesRef = useRef(null);
@@ -122,15 +123,15 @@ function Home() {
         {menuVisible && (
           <div className={`home-menu-parent ${menusOpen ? "open" : ""}`}>
             <div className="home-menu-navbar">
-              <a href="/">
-                {t("Anasayfa")}
-              </a>
-              <a href="/about-us">
+              <Navigate to="/" replace>
+                {t("Anasayfa")} 
+              </Navigate>
+              <Navigate to="/about-us" replace>
                 {t("Hakkimizda")}
-              </a>
-              <a href="/contact">
+              </Navigate>
+              <Navigate to="/contact" replace>
                 {t("Iletisim")}
-              </a>
+              </Navigate>
             </div>
             <div className="home-menu-tools">
               <ul>
