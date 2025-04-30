@@ -132,7 +132,7 @@ const Contact = () => {
                   onChange={handleChange}
                 />
                 <Button type="submit" 
-                href={`mailto:info@yourdomain.com?subject=Contact&body=Name: ${formData.name}%0AEmail: ${formData.email}%0APhone: ${formData.phone}%0AMessage: ${formData.message}`}
+                href={`mailto:bankapplication34@gmail.com?subject=Contact&body=Name: ${formData.name}%0AEmail: ${formData.email}%0APhone: ${formData.phone}%0AMessage: ${formData.message}`}
                 variant="contained" fullWidth sx={{ mt: 2 }}>
                   {t("FormGonder")}
                 </Button>
