@@ -136,7 +136,7 @@ function Invoice() {
           >
             <img
               style={{ maxHeight: "100px" }}
-              src="../../../../../../src/assets/LogoNonBackground.png"
+              src="../../../../assets/LogoNonBackground.png"
               alt="bank_image"
             />
             <div>

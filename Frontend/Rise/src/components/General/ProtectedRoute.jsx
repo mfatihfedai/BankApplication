@@ -6,6 +6,7 @@ import Backdrop from "@mui/material/Backdrop";
 import { Box, Fade, Modal, Typography } from "@mui/material";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { useTranslation } from "react-i18next";
+import LogoNonBackground from "../../assets/LogoNonBackground.png"
 
 const ProtectedRoute = ({ role, children }) => {
   const { user, setUser } = useUser();
@@ -56,7 +57,7 @@ const ProtectedRoute = ({ role, children }) => {
           <Fade 
           in={isModalVisible}>
             <Box className="modal">
-              <img style={{maxHeight: "100px"}} src="../../../../../../src/assets/LogoNonBackground.png" alt="bank_image" />
+              <img style={{maxHeight: "100px"}} src={LogoNonBackground} alt="bank_image" />
               <div>
                 {<CancelIcon className="icon" sx={{color: "red"}} />}
               </div>
