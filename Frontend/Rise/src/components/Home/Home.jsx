@@ -28,7 +28,7 @@ function Home() {
       setTimeout(() => setMenusOpen(true), 10); // DOM’a görünür olduktan sonra animasyonu başlat
     } else {
       setMenusOpen(false);
-      setTimeout(() => setMenuVisible(false), 500); // animasyon süresi kadar bekle, sonra DOM’dan kaldır
+      setTimeout(() => setMenuVisible(false), 50); // animasyon süresi kadar bekle, sonra DOM’dan kaldır
     }
   };
 
@@ -93,20 +93,6 @@ function Home() {
         <Rates />
       </div>
       <div className="parentTablet"  onWheel={handleWheel} ref={creditRatesRef}>
-        <div className="credit-rates-container">
-          <Credit />
-          <button className="scroll-indicator" onClick={handleScrollIndicatorClicks}>
-            <span className="arrow">↓</span>
-            {t("GirisIcinKaydirin")}
-            <span className="arrow">↓</span>
-          </button>
-          <Rates />
-        </div>
-        <div className="sign-in-container" ref={signInsRef}>
-          <SignIn />
-        </div>
-      </div>
-      <div className="parentMobile" onWheel={handleWheels}>
         <button
           className={`hamburger-menus ${menuOpen ? "open" : ""}`}
           onClick={() => {setMenuOpen(!menuOpen); handleToggleMenu()}}
@@ -115,7 +101,6 @@ function Home() {
           <span></span>
           <span></span>
         </button>
-
         <div className={`blur-overlay ${menusOpen ? "active" : ""}`}></div>
         {menuVisible && (
           <div className={`home-menu-parent ${menusOpen ? "open" : ""}`}>
@@ -136,9 +121,52 @@ function Home() {
                 <li style={{ "--i": 2 }}><Lang /></li>
               </ul>
             </div>
-          
           </div>
-          
+        )}
+        
+        <div className="credit-rates-container">
+          <Credit />
+          <button className="scroll-indicator" onClick={handleScrollIndicatorClicks}>
+            <span className="arrow">↓</span>
+            {t("GirisIcinKaydirin")}
+            <span className="arrow">↓</span>
+          </button>
+          <Rates />
+        </div>
+        <div className="sign-in-container" ref={signInsRef}>
+          <SignIn />
+        </div>
+      </div>
+      <div className="parentMobile" onWheel={handleWheels}>
+      <button
+          className={`hamburger-menus ${menuOpen ? "open" : ""}`}
+          onClick={() => {setMenuOpen(!menuOpen); handleToggleMenu()}}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div className={`blur-overlay ${menusOpen ? "active" : ""}`}></div>
+        {menuVisible && (
+          <div className={`home-menu-parent ${menusOpen ? "open" : ""}`}>
+            <div className="home-menu-navbar">
+              <a href="/">
+                 {t("Anasayfa")}
+               </a>
+               <a href="/about-us">
+               {t("Hakkimizda")}
+               </a>
+               <a href="/contact">
+               {t("Iletisim")}
+               </a>
+            </div>
+            <div className="home-menu-tools">
+              <ul>
+                <li style={{ "--i": 1 }}><Theme /></li>
+                <li style={{ "--i": 2 }}><Lang /></li>
+              </ul>
+            </div>
+          </div>
         )}
         <div className="credit-container"  ref={creditRef}>
           <Credit />

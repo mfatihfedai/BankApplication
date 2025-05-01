@@ -25,6 +25,7 @@ import { useTranslation } from "react-i18next";
 import Loading from "../../../Core/Loading";
 import { getUserById } from "../../../../service/UserApi";
 import { useUser } from "../../../../context/UserContext";
+import LogoNonBackground from "../../../../assets/LogoNonBackground.png"
 
 function Invoice() {
   const [loading, setLoading] = useState(false);
@@ -136,7 +137,7 @@ function Invoice() {
           >
             <img
               style={{ maxHeight: "100px" }}
-              src="../../../../assets/LogoNonBackground.png"
+              src={LogoNonBackground}
               alt="bank_image"
             />
             <div>

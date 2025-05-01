@@ -14,16 +14,6 @@
     margin-left: 1rem;
 }
 
-.hamburger-menu {
-    display: none;
-    background: var(--color-blue);
-    color: var(--color-white);
-    font-size: 1.5rem;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-}
-
 .circular-menu {
     visibility: hidden;
 }
@@ -52,15 +42,6 @@
         z-index: 1000;
         transform: translateX(0);
         opacity: 1;
-    }
-
-    .hamburger-menu{
-        display: block;
-        position: absolute;
-        left: 0;
-        margin: 0;
-        border-radius: 0;
-        cursor: pointer; 
     }
 
     .component-item {

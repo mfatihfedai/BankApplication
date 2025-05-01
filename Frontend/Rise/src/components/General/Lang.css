@@ -63,9 +63,6 @@
     .language-list {
       width: 100px; 
     }
-  }
-
-  @media (max-width: 768px) {
     .language-dropdown {
       display: none;
   }

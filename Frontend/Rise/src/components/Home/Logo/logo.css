@@ -129,13 +129,6 @@
 
 @media (max-width: 1200px) {
   .lang-theme-container {
-    right: 2rem;
-    gap: 20px;
-  }
-}
-
-@media (max-width: 768px) {
-  .lang-theme-container {
     display: none;
   }
   .prisma-letter {

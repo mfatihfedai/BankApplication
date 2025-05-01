@@ -16,8 +16,8 @@
     font-size: 1.6rem;
     font-weight: 600;
     padding:0 2rem;
-    border-right: 2px solid var(--color-text);
-    border-left: 2px solid var(--color-text);
+    border-right: 2px solid var(--color-white);
+    border-left: 2px solid var(--color-white);
 
 }
 
@@ -26,7 +26,7 @@
     font-size: 1.6rem;
     font-weight: 600;
     padding:0 2rem;
-    border-right: 2px solid var(--color-text);
+    border-right: 2px solid var(--color-white);
 }
 
 .dashboard-header-logout-button{
@@ -38,7 +38,7 @@
     z-index: 1;
 }
 
-.hamburger-menus {
+.hamburger-menu {
     display: none;
     width: 86px;
     background: var(--color-blue);
@@ -67,83 +67,59 @@
     .dashboard-header-logout-button{
         border: none;
     }
-
+    .dashboard-header-empty {
+        display: block;
+        width: 180px;
+    }
     .logout-counter{
         display: none;
     }
 
     .dashboard-header-welcome{
-        border-right: none;
-        border-left: none;
         flex-wrap: wrap;
         justify-content: center;
     }
-   
-}
-
-@media (max-width: 768px) {
-  .dashboard-header {
-    align-items: center;
-    text-align: center;
-    padding-left: 2rem;
-  }
-  .dashboard-header-role {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-    padding: 0 1rem 0 0;
-  }
-  .dashboard-header-welcome {
-    font-size: 1rem;
-    padding: 0;
-    border: none;
-  }
-  .dashboard-header-logout-button {
-    display: none;
-   }
-   .dashboard-header-empty {
-    display: block;
-    width: 46px;
-   }
- /* Hamburger Menüsü */
-.hamburger-menus {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 75px;
-    right: 0px;
-    width: 46px;
-    height: 46px;
-    margin: 0 5px 0 0 ;
-    background: var(--color-blue);
-    cursor: pointer;
-    z-index: 1000;
-    transition: transform 0.3s ease;
-}
-
-.hamburger-menus span {
-    display: block;
-    width: 20px;
-    height: 2px;
-    background: var(--color-white);
-    margin: 2px 0;
-    border-radius: 2px;
-    transition: all 0.5s ease;
-}
-
-/* Çarpı Haline Dönüşüm */
-.hamburger-menus.open span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 3.5px) }
-
-.hamburger-menus.open span:nth-child(2) {
-    opacity: 0;
-}
-
-.hamburger-menus.open span:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -3.5px)
-}
-
+    .dashboard-header-logout-button {
+        display: none;
+    }
+    .hamburger-menu {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 75px;
+        right: 0px;
+        width: 80px;
+        height: 80px;
+        margin: 0 5px 0 0 ;
+        background: var(--color-blue);
+        cursor: pointer;
+        z-index: 1000;
+        transition: transform 0.3s ease;
+    }
+    
+    .hamburger-menu span {
+        display: block;
+        width: 20px;
+        height: 2px;
+        background: var(--color-white);
+        margin: 2px 0;
+        border-radius: 2px;
+        transition: all 0.5s ease;
+    }
+    
+    .hamburger-menu.open span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 3.5px) }
+    
+    .hamburger-menu.open span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .hamburger-menu.open span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -3.5px)
+    }
+    
 /* Çeyrek Daire Menü */
 .list-items {
     display: flex;
@@ -154,8 +130,8 @@
     position: absolute;
     top: 75px;
     right: 0;
-    width: 250px;
-    height: 250px;
+    width: 350px;
+    height: 350px;
     background: var(--color-primary);
     clip-path: circle(0% at 100% 0%);
     transition: clip-path 1.0s ease, opacity 0.5s ease;
@@ -181,6 +157,36 @@
     animation: slideIn 0.5s forwards;
     animation-delay: calc(0.2s * var(--i));
 }
+}
+
+@media (max-width: 768px) {
+  .dashboard-header {
+    align-items: center;
+    text-align: center;
+    padding-left: 2rem;
+  }
+  .dashboard-header-role {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    padding: 0 1rem 0 0;
+  }
+  .dashboard-header-welcome {
+    font-size: 1rem;
+    padding: 0;
+    border: none;
+  }
+   .dashboard-header-empty {
+    display: block;
+    width: 46px;
+   }
+   .hamburger-menu {
+        width: 46px;
+        height: 46px;
+   }
+   .list-items {
+    width: 250px;
+    height: 250px;
+   }
 
 @keyframes slideIn {
     from {

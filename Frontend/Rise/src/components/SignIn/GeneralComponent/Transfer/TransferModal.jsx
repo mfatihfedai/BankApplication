@@ -9,6 +9,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { useAdminMenu } from "../../../../context/AdminMenuContext";
 import { useTranslation } from "react-i18next";
+import LogoNonBackground from "../../../../assets/LogoNonBackground.png"
 
 export default function TransferModal({ open , handleClose, message, success }) {
   const { setComponentName } = useAdminMenu();
@@ -50,7 +51,7 @@ export default function TransferModal({ open , handleClose, message, success }) 
     >
       <Fade in={open}>
         <Box className="modal">
-        <img style={{maxHeight: "100px"}} src="../../../../assets/LogoNonBackground.png" alt="bank_image" />
+        <img style={{maxHeight: "100px"}} src={LogoNonBackground} alt="bank_image" />
           <div>
             {success ? (
               <CheckCircleIcon className="icon" sx={{color: "green"}} />
