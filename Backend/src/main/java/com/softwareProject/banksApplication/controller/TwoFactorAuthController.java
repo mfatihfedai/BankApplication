@@ -156,7 +156,7 @@ public class TwoFactorAuthController {
         //twoFactorAuthService ile yeni bir OTP üretilir ve mail olarak gönderilir.
         String otp = mailMessageService.generateOTP();
         long expiritionTime = System.currentTimeMillis() + 60000; // 60 saniye sonra süre bitecek.
-        mailMessageService.sendOTP(username, surname, email, otp);
+        // mailMessageService.sendOTP(username, surname, email, otp);
         //Localdeki HashMap e username ve otp bilgileri kaydedilir
         otpStorage.put(id, new OtpEntry(otp, expiritionTime));  // Save OTP for the user
         System.out.println(username + " " + email + " " + otp);
