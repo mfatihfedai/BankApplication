@@ -30,6 +30,7 @@ build/
 !**/src/test/**/build/
 
 src/main/resources/application-local.properties
+src/main/resources/application-global.properties
 
 ### VS Code ###
 .vscode/
