@@ -16,6 +16,9 @@ import { getLastFourInvoice, updateAutobill } from '../../../../service/InvoiceA
 import { useTranslation } from 'react-i18next';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import "./AutomaticPayments.css";
+import LogoNonBackground from "../../../../assets/LogoNonBackground.png"
+import i18n from "i18next";
+import { format } from "date-fns";
 
 function InvoiceDetailsModal({ open, onClose, invoice }) {
   const [localAutobill, setLocalAutobill] = useState(invoice.autobill);
@@ -33,7 +36,7 @@ function InvoiceDetailsModal({ open, onClose, invoice }) {
       const response = await getLastFourInvoice(invoice.invoiceNo);
       const formattedDatas = response.data.map((item) => ({
         id: item.id,
-        month: new Date(item.payDate).toLocaleString('tr-TR', { dateStyle: 'medium' }),
+        month: formatDateTime(item.payDate),
         [t("Odemeler")]: item.invoiceAmount,
       }));
       setDatas(formattedDatas);
@@ -42,6 +45,12 @@ function InvoiceDetailsModal({ open, onClose, invoice }) {
     } finally {
       setLoading(false);
     }
+  };
+
+  const formatDateTime = (dateTime) => {
+    const date = new Date(dateTime);
+    const locale = i18n.language === "tr" ? tr : undefined;
+    return format(date, "MMMM yyyy", { locale });
   };
 
   useEffect(() => {
@@ -150,7 +159,7 @@ function InvoiceDetailsModal({ open, onClose, invoice }) {
             justifyContent: "center",
             padding: "20px",
           }}>
-          <img style={{height: "100px", width: "100px"}} src="../../../../../../src/assets/LogoNonBackground.png" alt="bank_image" />
+          <img style={{height: "100px", width: "100px"}} src={LogoNonBackground} alt="bank_image" />
             <CheckCircleIcon sx={{color: "green", fontSize:"50px"}} />
             <DialogContent>
               <Typography>{modalInfo}</Typography>

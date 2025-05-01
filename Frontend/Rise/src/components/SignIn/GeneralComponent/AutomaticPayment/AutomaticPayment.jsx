@@ -6,6 +6,7 @@ import InvoiceDetailsModal from "./InvoiceDetailsModal";
 import { useTranslation } from "react-i18next";
 import Loading from "../../../Core/Loading";
 import i18next from "i18next";
+import { format } from "date-fns";
 
 function AutomaticPayment() {
   const [datas, setDatas] = useState([]);
@@ -20,10 +21,7 @@ function AutomaticPayment() {
       const response = await getAllAutobill();
       const formattedDatas = response.data.map((item) => ({
         id: item.id,
-        payDate: new Date(item.payDate).toLocaleString("tr-TR", {
-          dateStyle: "medium",
-          timeStyle: "short",
-        }),
+        payDate: formatDateTime(item.payDate),
         invoiceType: t(`InvoiceTypes.${item.invoiceType}`),
         invoiceNo: item.invoiceNo,
         amount: item.invoiceAmount,
@@ -35,6 +33,12 @@ function AutomaticPayment() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const formatDateTime = (dateTime) => {
+    const date = new Date(dateTime);
+    const locale = i18next.language === "tr" ? tr : undefined;
+    return format(date, "d MMM yyyy HH:mm", { locale });
   };
 
   useEffect(() => {

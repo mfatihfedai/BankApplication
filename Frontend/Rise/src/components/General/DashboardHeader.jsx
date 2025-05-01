@@ -15,7 +15,8 @@ import Lang from "./Lang";
 import { Typography } from "@mui/material";
 import CancelIcon from "@mui/icons-material/Cancel";
 import "../SignIn/GeneralComponent/Transfer/transfer.style.css"
-// import {LogoNonBackground} from "../../assets/LogoNonBackground.png";
+import LogoNonBackground from "../../assets/LogoNonBackground.png";
+import i18n from "i18next";
 
 function DashboardHeader() {
   const { user } = useUser();
@@ -42,7 +43,7 @@ function DashboardHeader() {
       setTimeout(() => setMenusOpen(true), 10); // DOM’a görünür olduktan sonra animasyonu başlat
     } else {
       setMenusOpen(false);
-      setTimeout(() => setMenuVisible(false), 500); // animasyon süresi kadar bekle, sonra DOM’dan kaldır
+      setTimeout(() => setMenuVisible(false), 50); // animasyon süresi kadar bekle, sonra DOM’dan kaldır
     }
   };
 
@@ -105,9 +106,15 @@ function DashboardHeader() {
     const lastLoginTimeEncrypt = localStorage.getItem("lastLoginTime");
     const lastLoginTime = decryptData(lastLoginTimeEncrypt);
     const date = new Date(lastLoginTime);
-    setFormattedDate(format(date, "d MMMM yyyy HH:mm", { locale: tr }));
+    setFormattedDate(formatDateTime(lastLoginTime));
     setRawDate(date);
   }, [formattedDate]);
+
+  const formatDateTime = (dateTime) => {
+    const date = new Date(dateTime);
+    const locale = i18n.language === "tr" ? tr : undefined;
+    return format(date, "d MMMM yyyy HH:mm", { locale });
+  };
 
   // Zamanı MM:SS formatına çevirme fonksiyonu
   const formatTime = (seconds) => {
@@ -136,7 +143,7 @@ function DashboardHeader() {
 
       <div className="dashboard-header-empty"></div>
       <button
-        className={`hamburger-menus ${menuOpen ? "open" : ""}`}
+        className={`hamburger-menu ${menuOpen ? "open" : ""}`}
         onClick={() => {setMenuOpen(!menuOpen); handleToggleMenu()}}
       >
         <span></span>
@@ -164,7 +171,7 @@ function DashboardHeader() {
         aria-describedby="timeout-modal-description"
       >
         <Box className="modal">
-          <img style={{maxHeight: "100px"}} src="../../assets/LogoNonBackground.png" alt="bank_image" />
+          <img style={{maxHeight: "100px"}} src={LogoNonBackground} alt="bank_image" />
           <div>
             {<CancelIcon className="icon" sx={{color: "red"}} />}
           </div>

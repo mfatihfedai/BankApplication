@@ -119,6 +119,16 @@
     animation: slideIn 0.5s forwards;
     animation-delay: calc(0.2s * var(--i));
   }
+  .hamburger-menus {
+    display: none;
+    width: 86px;
+    background: var(--color-blue);
+    color: var(--color-white);
+    font-size: 1.5rem;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
 
   /* Salınım animasyonu */
   @keyframes bounce {
@@ -148,24 +158,19 @@
     .parent {
         display: none;
     }
-    
     .parent-header {
         display: none;
     }
-
     .parentTablet {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
     }
-
     .sign-in-container {
         width: 100%;
         margin: 0 auto;
       }
-      
-      /* Credit ve Rates bileşenleri için */
     .credit-rates-container {
         display: flex;
         flex-direction: row;
@@ -175,10 +180,53 @@
         width: 100%;
         height: 100vh;
     }
-      
-    /* Credit ve Rates bileşenlerinin her biri */
     .credit-rates-container > div {
         flex: 1;
+    }
+    .home-menu-parent {
+      width: 450px;
+      height: 300px;
+    }
+    .home-menu-navbar > a {
+      font-size: 18px;
+    }
+    /* Hamburger Menüsü */
+    .hamburger-menus {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 75px;
+      right: 0px;
+      width: 58px;
+      height: 58px;
+      margin: 0 5px 0 0 ;
+      background: var(--color-blue);
+      cursor: pointer;
+      z-index: 1000;
+      transition: transform 0.3s ease;
+    }
+    .hamburger-menus span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--color-white);
+      margin: 2px 0;
+      border-radius: 2px;
+      transition: all 0.5s ease;
+    }
+
+    /* Çarpı Haline Dönüşüm */
+    .hamburger-menus.open span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 3.5px) }
+
+    .hamburger-menus.open span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger-menus.open span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -3.5px)
     }
 }
 @media (max-width: 768px) {
@@ -199,6 +247,10 @@
     .scroll-indicator {
       bottom: 5%;
     }
+    .hamburger-menus {
+      width: 46px;
+      height: 46px;
+    }
     .parentMobile > .hamburger-menus {
       position: absolute;
       margin: 0;
@@ -212,6 +264,13 @@
     .parentMobile > .home-menu-parent > .home-menu-tools > .list-items {
       width: 320px;
       top: 114px;
+    }
+    .home-menu-parent {
+      width: 320px;
+      height: 250px;
+    }
+    .home-menu-navbar > a {
+      font-size: 14px;
     }
   
 }
