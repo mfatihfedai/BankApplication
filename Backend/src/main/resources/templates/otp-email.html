@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>OTP Email</title>
+    </head>
+    <body style="background-color:#dddddd; width:100%; color:white; font-family:Arial, sans-serif; text-align:center; margin:0;">
+        <div style="background-color:#1d2033; width: 100%; max-width: 800px; margin:auto; padding:30px 0">
+            <img src="https://raw.githubusercontent.com/mfatihfedai/BankApplication-logo/refs/heads/main/PRISMABANK%20(2).png" alt="Logo" style="width:150px;" />
+            <div style="text-align: left; max-width: 450px; width: 100%; padding: 0 10px; margin: auto;">
+                <h3 style="font-size: 20px" th:text="'Hello ' + ${name} + ' ' + ${surname} + ','">Hello John Doe,</h3>
+                <h3 style="font-weight: normal; font-size: 20px">Your Security Code:</h3>
+                <h1 style="font-size:48px; font-weight:bold; margin:20px 0;" th:text="${otp}">123456</h1>
+                <p style="font-size: 20px; font-weight: 500">Please use the code above to complete your login. If you did not request this code, please secure your account immediately.</p>
+                <br>
+                <p style="font-size: 20px">Stay secure,</p>
+                <p style="font-size: 20px">Prisma Bank Team</p>
+                <hr style="border: 2px solid #343647; margin: 20px 0;"/>
+                <p style="margin-top:40px; color:#908e97; font-size: 18px">Thank you for banking with us.</p>
+                <p style="color:#908e97; font-size: 18px; line-height: 25px"> If you need technical assistance, please contact the PrismaBank Team.
+                    This email is sent by Prisma Bank. To view our complete Privacy & Cookie Policy and to contact us.
+                    99 S.t Jomblo Park, İstanbul 34000, Türkiye</p>
+                <h3 style="font-size:18px; color:#908e97;">Prisma Bank Team</h3>
+            </div>
+
+        </div>
+
+    </body>
+</html>

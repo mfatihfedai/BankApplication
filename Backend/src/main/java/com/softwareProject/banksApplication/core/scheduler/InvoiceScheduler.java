@@ -5,6 +5,7 @@ import com.softwareProject.banksApplication.entity.InvoiceInfo;
 import com.softwareProject.banksApplication.entity.UserInfo;
 import com.softwareProject.banksApplication.repo.InvoiceRepo;
 import com.softwareProject.banksApplication.service.abstracts.UserService;
+import jakarta.mail.MessagingException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
@@ -27,7 +28,7 @@ public class InvoiceScheduler {
     @Scheduled(cron = "0 0 0 1 * ?")  // Her ayın 1. günü saat 00:00'da çalışacak
     @Transactional
     @Async
-    public void processAutobillInvoices() {
+    public void processAutobillInvoices() throws MessagingException {
         List<InvoiceInfo> autobillInvoices = invoiceRepo.findLatestAutobillInvoices();
         Random random = new Random();
 
@@ -52,7 +53,6 @@ public class InvoiceScheduler {
                 System.out.println("Fatura ödendi: " + randomAmount + " TL. Kullanıcı bakiyesi: " + user.getBalance());
             } else {
                 mailMessageService.sendInvoiceNotification(user, randomAmount, false);  // Insufficient balance notification
-                System.out.println("Yetersiz bakiye. Fatura ödenemedi.");
             }
         }
     }

@@ -16,6 +16,7 @@ import com.softwareProject.banksApplication.entity.UserInfo;
 import com.softwareProject.banksApplication.repo.ReceiptRepo;
 import com.softwareProject.banksApplication.repo.UserRepo;
 import com.softwareProject.banksApplication.service.abstracts.UserService;
+import jakarta.mail.MessagingException;
 import org.passay.CharacterData;
 import org.passay.CharacterRule;
 import org.passay.EnglishCharacterData;
@@ -102,7 +103,7 @@ public class UserManager extends BaseManager<UserInfo, UserRepo, UserSaveRequest
     }
 
     @Override
-    public UserResponse forgetEmail(String email) {
+    public UserResponse forgetEmail(String email) throws MessagingException {
         UserInfo user = this.repository.findByEmail(email);
         if (user == null) {
             throw new NotFoundException("User not found.");

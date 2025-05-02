@@ -250,7 +250,7 @@
     height: 30px !important;
   }
   .MuiIconButton-root {
-    padding: 0 !important;
+    padding: 5px !important;
   }
   .MuiModal-root .MuiBox-root {
     max-width: 95% !important;

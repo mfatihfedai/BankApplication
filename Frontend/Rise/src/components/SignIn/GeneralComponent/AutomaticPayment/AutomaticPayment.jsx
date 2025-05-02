@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import Loading from "../../../Core/Loading";
 import i18next from "i18next";
 import { format } from "date-fns";
+import { tr } from "date-fns/locale";
 
 function AutomaticPayment() {
   const [datas, setDatas] = useState([]);
@@ -80,6 +81,9 @@ function AutomaticPayment() {
         rows={datas}
         columns={columns.map((col) => ({ ...col, flex: 1 }))}
         disableColumnMenu
+        sx={{
+          height: "578px"
+        }}
       />
       {modalOpen && (
         <InvoiceDetailsModal

@@ -35,7 +35,7 @@ public class InvoiceInfo {
     @Column(name = "autobill")
     private boolean autobill;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne()
     @JoinColumn(name = "invoice_receipt_id", referencedColumnName = "receipt_id")
     @JsonIgnore
     private ReceiptInfo receiptInfo;

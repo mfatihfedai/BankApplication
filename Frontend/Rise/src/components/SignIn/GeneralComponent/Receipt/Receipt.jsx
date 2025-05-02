@@ -112,7 +112,7 @@ function Receipt() {
   };
 
   const columns = [
-    { field: "payDate", headerName: t("IslemTarihi"), sortable: false },
+    { field: "payDate", headerName: t("IslemTarihi"), sortable: true },
     { field: "channel", headerName: t("Kanal"), sortable: true },
     { field: "description", headerName: t("Aciklama"), sortable: false },
     {
@@ -188,6 +188,9 @@ function Receipt() {
           sorting: {
             sortModel: [{ field: { logs }, sort: "desc" }],
           },
+        }}
+        sx={{
+          height: "578px"
         }}
       />
       <Modal
