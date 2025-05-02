@@ -51,7 +51,7 @@ function InvoiceDetailsModal({ open, onClose, invoice }) {
   const formatDateTime = (dateTime) => {
     const date = new Date(dateTime);
     const locale = i18n.language === "tr" ? tr : undefined;
-    return format(date, "MMMM yyyy", { locale });
+    return format(date, "MMM yy", { locale });
   };
 
   useEffect(() => {
