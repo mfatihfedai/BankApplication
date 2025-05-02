@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useRef, useState } from "react";
 import Theme from "../General/Theme";
 import Lang from "../General/Lang";
+import React from "react";
 
 function Home() {
   const { t } = useTranslation();
@@ -35,6 +36,34 @@ function Home() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+      // Menü dışına tıklandığında kapat
+    useEffect(() => {
+      const handleClickOutside = (e) => {
+        const menu = document.querySelector(".home-menu-parent");
+        const hamburger = document.querySelector(".hamburger-menus");
+  
+        if (
+          menusOpen && 
+          menu && 
+          hamburger && 
+          !menu.contains(e.target) && 
+          !hamburger.contains(e.target)
+        ) {
+          setMenusOpen(false);
+          setMenuOpen(false);
+          setTimeout(() => setMenuVisible(false), 300); // Animasyon süresi kadar bekle
+        }
+      };
+  
+      if (menusOpen) {
+        document.addEventListener("click", handleClickOutside);
+      }
+  
+      return () => {
+        document.removeEventListener("click", handleClickOutside);
+      };
+    }, [menusOpen]);
 
   const handleWheel = (event) => {
     const scrollTop = window.scrollY;

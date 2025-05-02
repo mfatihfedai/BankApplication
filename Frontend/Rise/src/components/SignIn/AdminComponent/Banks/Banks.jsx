@@ -179,6 +179,7 @@ function Banks() {
         disableSelectionOnClick
         disableRowSelectionOnClick
         disableVirtualization
+        sx={{height:"578px"}}
       />
 
       {/* Modallar */}

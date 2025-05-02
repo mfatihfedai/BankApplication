@@ -10,6 +10,7 @@ import com.softwareProject.banksApplication.dto.response.user.UserResponse;
 import com.softwareProject.banksApplication.entity.UserInfo;
 import com.softwareProject.banksApplication.core.auth.MailMessageService;
 import com.softwareProject.banksApplication.service.abstracts.UserService;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -44,7 +45,7 @@ public class TwoFactorAuthController {
     private final UserService userService;
 
     @PostMapping(LOGIN)
-    public ResponseEntity<LoginResponse> login(@RequestParam String identityNo, @RequestParam String password) {
+    public ResponseEntity<LoginResponse> login(@RequestParam String identityNo, @RequestParam String password) throws MessagingException {
 
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(identityNo, password));
 
@@ -76,7 +77,7 @@ public class TwoFactorAuthController {
     }
 
     @GetMapping("/generate-otp/{id}")
-    public String generateOtp(@PathVariable Long id) {
+    public String generateOtp(@PathVariable Long id) throws MessagingException {
         generateOtpMethod(id);
         return "redirect:/auth/verify";  // Redirect to OTP verification page
     }
@@ -123,7 +124,7 @@ public class TwoFactorAuthController {
         if (otpEntry != null) {
             if(System.currentTimeMillis() > otpEntry.expiritionTime()){
                 otpStorage.remove(id);
-                System.out.println("otp expireddddd");
+                System.out.println("otp expired");
                 throw new NotValidException("OTP Expired");
             }
             if (otpEntry.otp().equals(otp)) {
@@ -147,7 +148,7 @@ public class TwoFactorAuthController {
         return "verify";  // Return the HTML page for OTP input
     }
 
-    private void generateOtpMethod(Long id) {
+    private void generateOtpMethod(Long id) throws MessagingException {
         UserInfo userr = userService.getById(id);
         String email = userr.getEmail();
         String username = userr.getName();
@@ -155,7 +156,7 @@ public class TwoFactorAuthController {
 
         //twoFactorAuthService ile yeni bir OTP üretilir ve mail olarak gönderilir.
         String otp = mailMessageService.generateOTP();
-        long expiritionTime = System.currentTimeMillis() + 60000; // 60 saniye sonra süre bitecek.
+        long expiritionTime = System.currentTimeMillis() + 90000; // 60 saniye sonra süre bitecek.
         // mailMessageService.sendOTP(username, surname, email, otp);
         //Localdeki HashMap e username ve otp bilgileri kaydedilir
         otpStorage.put(id, new OtpEntry(otp, expiritionTime));  // Save OTP for the user

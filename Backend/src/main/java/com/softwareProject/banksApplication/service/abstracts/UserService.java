@@ -5,6 +5,7 @@ import com.softwareProject.banksApplication.dto.request.user.UserSaveRequest;
 import com.softwareProject.banksApplication.dto.request.user.UserUpdateRequest;
 import com.softwareProject.banksApplication.dto.response.user.UserResponse;
 import com.softwareProject.banksApplication.entity.UserInfo;
+import jakarta.mail.MessagingException;
 
 import java.util.Optional;
 
@@ -13,6 +14,6 @@ public interface UserService extends IBaseService<UserInfo, UserSaveRequest, Use
     UserInfo save(UserInfo user);
     CursorResponse<UserResponse> searchByKeyword(int page, int pageSize, String keyword);
     Optional<UserInfo> isAccountNumberExist(Long accountNumber);
-    UserResponse forgetEmail(String email);
+    UserResponse forgetEmail(String email) throws MessagingException;
     UserInfo findByAccountNumber(Long receiverAccountNo);
 }

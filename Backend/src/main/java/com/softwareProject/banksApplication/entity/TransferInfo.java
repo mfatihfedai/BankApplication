@@ -41,7 +41,7 @@ public class TransferInfo {
     @Column(name = "is_receiver")
     private boolean isReceiver;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne()
     @JoinColumn(name = "transfer_receipt_id", referencedColumnName = "receipt_id")
     @JsonIgnore
     private ReceiptInfo receiptInfo;

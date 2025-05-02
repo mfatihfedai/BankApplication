@@ -33,7 +33,7 @@ function DashboardHeader() {
 
   // Sayaç sıfırlama fonksiyonu
   const resetTimer = useCallback(() => {
-    setTime(300); // burada ki saniye tıklandıktan sonra tetikelnen sayaç
+    setTime(300); // burada ki saniye tıklandıktan sonra tetiklenen sayaç
   }, []);
 
 
@@ -86,7 +86,7 @@ function DashboardHeader() {
       const timeout = setTimeout(async () => {
         await logoutUser(user);
         handleLogout();
-      }, 5000); // 5 sn sonunda çıkış
+      }, 10000); // 10 sn sonunda çıkış
   
       return () => {
         clearInterval(interval);
@@ -124,6 +124,34 @@ function DashboardHeader() {
       .toString()
       .padStart(2, "0")}`;
   };
+
+    // Menü dışına tıklandığında kapat
+    useEffect(() => {
+      const handleClickOutside = (e) => {
+        const menu = document.querySelector(".list-items");
+        const hamburger = document.querySelector(".hamburger-menu");
+  
+        if (
+          menusOpen && 
+          menu && 
+          hamburger && 
+          !menu.contains(e.target) && 
+          !hamburger.contains(e.target)
+        ) {
+          setMenusOpen(false);
+          setMenuOpen(false);
+          setTimeout(() => setMenuVisible(false), 300); // Animasyon süresi kadar bekle
+        }
+      };
+  
+      if (menusOpen) {
+        document.addEventListener("click", handleClickOutside);
+      }
+  
+      return () => {
+        document.removeEventListener("click", handleClickOutside);
+      };
+    }, [menusOpen]);
 
   return (
     <div className="dashboard-header">

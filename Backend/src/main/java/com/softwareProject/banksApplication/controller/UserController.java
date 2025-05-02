@@ -7,6 +7,7 @@ import com.softwareProject.banksApplication.dto.request.user.UserUpdateRequest;
 import com.softwareProject.banksApplication.dto.response.user.UserResponse;
 import com.softwareProject.banksApplication.entity.UserInfo;
 import com.softwareProject.banksApplication.service.abstracts.UserService;
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -74,7 +75,7 @@ public class UserController {
     }
 
     @PostMapping("/forgetPass")
-    public ResponseEntity<String> forgetPass(@RequestBody String email){
+    public ResponseEntity<String> forgetPass(@RequestBody String email) throws MessagingException {
         UserResponse userResponse = this.service.forgetEmail(email);
         if (userResponse != null) {
             return ResponseEntity.ok().build();
