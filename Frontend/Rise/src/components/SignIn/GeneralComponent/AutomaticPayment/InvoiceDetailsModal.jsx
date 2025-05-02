@@ -19,6 +19,7 @@ import "./AutomaticPayments.css";
 import LogoNonBackground from "../../../../assets/LogoNonBackground.png"
 import i18n from "i18next";
 import { format } from "date-fns";
+import { tr } from "date-fns/locale";
 
 function InvoiceDetailsModal({ open, onClose, invoice }) {
   const [localAutobill, setLocalAutobill] = useState(invoice.autobill);
