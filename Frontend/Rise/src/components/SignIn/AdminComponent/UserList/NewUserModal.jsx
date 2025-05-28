@@ -74,7 +74,7 @@ const NewUserModal = ({ open, onClose }) => {
             flexWrap: "wrap",
             flexDirection: "column",
             textAlign: "center",
-            padding: "10",
+            padding: "32px",
             position: "absolute",
             top: "50%",
             left: "50%",

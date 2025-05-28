@@ -87,7 +87,7 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
             flexDirection: "column",
             textAlign: "center",
             gap: 3,
-            padding: "10px",
+            padding: 4,
             position: "absolute",
             top: "50%",
             left: "50%",

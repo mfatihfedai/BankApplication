@@ -148,6 +148,12 @@ public class TwoFactorAuthController {
         return "verify";  // Return the HTML page for OTP input
     }
 
+    @GetMapping("/demo-otp")
+    @ResponseBody
+    public String demoOtp(@RequestParam Long id) {
+        return otpStorage.get(id).otp;
+    }
+
     private void generateOtpMethod(Long id) throws MessagingException {
         UserInfo userr = userService.getById(id);
         String email = userr.getEmail();
@@ -156,7 +162,7 @@ public class TwoFactorAuthController {
 
         //twoFactorAuthService ile yeni bir OTP üretilir ve mail olarak gönderilir.
         String otp = mailMessageService.generateOTP();
-        long expiritionTime = System.currentTimeMillis() + 90000; // 60 saniye sonra süre bitecek.
+        long expiritionTime = System.currentTimeMillis() + 120000; // 120 saniye sonra süre bitecek.
         // mailMessageService.sendOTP(username, surname, email, otp);
         //Localdeki HashMap e username ve otp bilgileri kaydedilir
         otpStorage.put(id, new OtpEntry(otp, expiritionTime));  // Save OTP for the user

@@ -36,6 +36,11 @@ const resources = {
             SureDoldu: "Süre doldu!",
             DogrulamaKodu: "Doğrulama Kodu",
             Dogrula: "Doğrula",
+            DemoKodu: "Demo Hesap Geçici Giriş Kodu",
+            DemoKullaniciSilemez: "Demo kullanıcı hesap silinemez.",
+            DemoKullaniciGuncelleyemez: "Demo kullanıcı hesap güncelleyemez.",
+            DemoKullaniciEklemeyemez: "Demo kullanıcı hesap ekleyemez.",
+            DemoKullaniciFaturaGuncelleyemez: "Demo kullanıcı fatura güncelleyemez.",
             // Rates
             GuncelKurlar: "Güncel Kurlar",
             BankaSatis: "Banka Satış",
@@ -337,6 +342,11 @@ const resources = {
             SureDoldu: "Time is up!",
             DogrulamaKodu: "Verification Code",
             Dogrula: "Verıfy",
+            DemoKodu: "Demo Account Temporary Login Code",
+            DemoKullaniciSilemez: "Demo user cannot delete accounts.",
+            DemoKullaniciGuncelleyemez: "Demo user cannot update accounts.",
+            DemoKullaniciEklemeyemez: "Demo user cannot add accounts.",
+            DemoKullaniciFaturaGuncelleyemez: "Demo user cannot update invoices.",
             // Rates
             GuncelKurlar: "Current Rates",
             BankaSatis: "Bank Sales",

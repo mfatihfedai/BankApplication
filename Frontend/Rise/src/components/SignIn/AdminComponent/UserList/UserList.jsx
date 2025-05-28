@@ -30,6 +30,7 @@ function UserList() {
   const [selectedUser, setSelectedUser] = useState(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState(null);
+  const isDemo = user.email === "demoprismabank@gmail.com";
 
   const fetchDatas = async (keyword, page) => {
     setLoading(true);
@@ -90,8 +91,13 @@ function UserList() {
         <div className="edit-list">
           <IconButton
             onClick={() => {
-              setSelectedUser(params.row.actions);
-              setUpdateUserModal(true);
+              if (isDemo) {
+                alert(t("DemoKullaniciGuncelleyemez"));
+                return;
+              } else {
+                setSelectedUser(params.row.actions);
+                setUpdateUserModal(true);
+              }
             }}
           >
             <EditIcon style={{color: "var(--color-text)"}}/>
@@ -99,8 +105,12 @@ function UserList() {
           <IconButton
             color="error"
             onClick={() => {
-              setSelectedUserId(params.row.actions.id);
-              setIsDeleteModalOpen(true);
+              if(isDemo) { 
+                alert(t("DemoKullaniciSilemez"))}
+              else {
+                setSelectedUserId(params.row.actions.id);
+                setIsDeleteModalOpen(true);
+              }
             }}
           >
             <DeleteIcon />
@@ -118,7 +128,9 @@ function UserList() {
           <Button
             variant="contained"
             startIcon={<AddIcon />}
-            onClick={() => setNewUserModal(true)}
+            onClick={() => 
+            (isDemo ? alert(t("DemoKullaniciEklemeyemez")) :
+              setNewUserModal(true))}
           >
             {t("YeniKullanici")}
           </Button>
