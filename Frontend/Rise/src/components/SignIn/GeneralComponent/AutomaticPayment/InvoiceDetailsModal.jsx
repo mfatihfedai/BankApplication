@@ -137,7 +137,7 @@ function InvoiceDetailsModal({ open, onClose, invoice }) {
         </Box>
 
         <Box sx={{ mt: 2, display: 'flex', flexDirection: isMobile ? 'column' : 'row', justifyContent: 'space-between', alignItems: isMobile ? 'stretch' : 'center', gap: isMobile ? '1rem' : 0, boxShadow: "0 0 0 0 !important", }}>
-          <Button variant="contained" sx={{ width: isMobile ? '100%' : 'auto' }} onClick={isDemo ? alert(t("DemoKullaniciFaturaGuncelleyemez")): {handleSave}}>{t("Kaydet")}</Button>
+          <Button variant="contained" sx={{ width: isMobile ? '100%' : 'auto' }} disabled={isDemo} onClick={handleSave}>{t("Kaydet")}</Button>
           <Button variant="contained" sx={{ width: isMobile ? '100%' : 'auto' }} onClick={onClose}>{t("Kapat")}</Button>
         </Box>
 

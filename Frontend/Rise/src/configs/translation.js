@@ -41,6 +41,7 @@ const resources = {
             DemoKullaniciGuncelleyemez: "Demo kullanıcı hesap güncelleyemez.",
             DemoKullaniciEklemeyemez: "Demo kullanıcı hesap ekleyemez.",
             DemoKullaniciFaturaGuncelleyemez: "Demo kullanıcı fatura güncelleyemez.",
+            DemoKullanicisiSifirlamaYapamazsiniz: "Demo kullanıcısının şifresi sıfırlanamaz.",
             // Rates
             GuncelKurlar: "Güncel Kurlar",
             BankaSatis: "Banka Satış",
@@ -343,10 +344,11 @@ const resources = {
             DogrulamaKodu: "Verification Code",
             Dogrula: "Verıfy",
             DemoKodu: "Demo Account Temporary Login Code",
-            DemoKullaniciSilemez: "Demo user cannot delete accounts.",
-            DemoKullaniciGuncelleyemez: "Demo user cannot update accounts.",
-            DemoKullaniciEklemeyemez: "Demo user cannot add accounts.",
-            DemoKullaniciFaturaGuncelleyemez: "Demo user cannot update invoices.",
+            DemoKullaniciSilemez: "Demo account cannot delete accounts.",
+            DemoKullaniciGuncelleyemez: "Demo account cannot update accounts.",
+            DemoKullaniciEklemeyemez: "Demo account cannot add accounts.",
+            DemoKullaniciFaturaGuncelleyemez: "Demo account cannot update invoices.",
+            DemoKullanicisiSifirlamaYapamazsiniz: "You cannot reset the demo account password.",
             // Rates
             GuncelKurlar: "Current Rates",
             BankaSatis: "Bank Sales",
