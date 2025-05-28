@@ -15,7 +15,6 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { forgetPass } from "../../../service/ForgetPassApi";
 import "./forgetPassword.css";
-import { useTheme } from "../../../context/ThemeContext";
 
 const ForgetPassword = () => {
   const [loading, setLoading] = useState(false);
@@ -37,6 +36,10 @@ const ForgetPassword = () => {
     validateOnBlur: false,
     onSubmit: async (values) => {
       try {
+        if(values.email === "demoprismabank@gmail.com") {
+          alert(t("DemoKullanicisiSifirlamaYapamazsiniz"));
+          return;
+        }
         setLoading(true);
         setUserNotFound(false);
         setSuccess(false);

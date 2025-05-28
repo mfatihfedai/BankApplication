@@ -30,7 +30,7 @@ public interface InvoiceRepo extends JpaRepository<InvoiceInfo, Long> {
           FROM receipts r
           WHERE r.receipt_user_id = :userId
       )
-    ORDER BY i.pay_date DESC
+    ORDER BY i.pay_date ASC
     LIMIT 4
 """, nativeQuery = true)
     List<InvoiceInfo> findLastFourInvoiceAmount(@Param("invoiceNo") Long invoiceNo, @Param("userId") Long userId);
