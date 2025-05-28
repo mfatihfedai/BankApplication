@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "../../../context/UserContext";
 import { TextField, Button, Box, Typography } from "@mui/material";
 import LinearProgressBar from "../../General/LinearProgressBar";
-import { verifyUser } from "../../../service/VerifyApi";
+import { verifyUser, demoOtp } from "../../../service/VerifyApi";
 import "./verify.style.css"
 import { useTranslation } from "react-i18next";
 
@@ -16,6 +16,26 @@ const Verify = () => {
   const email = user?.email;
   const maskedEmail = maskEmail(email);
   const { t } = useTranslation();
+  const [temporaryOtp, setTemporaryOtp] = useState("");
+
+  useEffect(() => {
+    const email = user?.email;
+    if ( email === "demoprismabank@gmail.com") {
+      demoOtp(user.id)
+        .then((response) => {
+          if (response.status === 200) {
+            console.log(response);
+            setTemporaryOtp(response.data);
+          } else {
+            setError("Demo OTP request failed.");
+          }
+        })
+        .catch((err) => {
+          console.error("Demo OTP request failed:", err.message);
+          setError("An error occurred while requesting demo OTP.");
+        });
+    }
+  }, []);
 
   // Sayaç için useEffect
   useEffect(() => {
@@ -129,6 +149,14 @@ const Verify = () => {
           {error && <p style={{ color: "var(--color-red)" }}>{error}</p>}
 
           <LinearProgressBar initialSecond={60} />
+          {temporaryOtp && (
+            <Typography
+              variant="body2"
+              sx={{ color: "var(--color-text)", textAlign: "center" }}
+            >
+              {t("DemoKodu")}: {temporaryOtp}
+            </Typography>
+          )}
 
           <Button
             type="submit"

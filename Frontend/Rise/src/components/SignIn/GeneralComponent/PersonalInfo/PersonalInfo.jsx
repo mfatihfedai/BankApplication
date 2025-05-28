@@ -32,6 +32,7 @@ function PersonalInfo() {
   const [successMessage, setSuccessMessage] = useState("");
   const { componentName } = useAdminMenu();
   const { t } = useTranslation();
+  const isDemo = user.email === "demoprismabank@gmail.com";
 
   useEffect(() => {
     setFormData({
@@ -174,7 +175,7 @@ function PersonalInfo() {
                 sx={{
                   display: componentName == "Home" ? "none" : "block",
                 }}
-                onClick={() => setModalOpen(true)}
+                onClick={() => isDemo ? alert(t("DemoKullaniciGuncelleyemez")) :  setModalOpen(true)}
               >
                 {t("BilgileriGuncelle")}
               </Button>
