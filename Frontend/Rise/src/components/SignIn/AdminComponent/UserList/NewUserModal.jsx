@@ -39,10 +39,7 @@ const NewUserModal = ({ open, onClose }) => {
           role: values.registerRole,
           balance: values.registerBalance,
         };
-        console.log(newUser);
-
         const response = await createUser(newUser);
-        console.log(response);
         if (response.status === 200) {
           setSuccess(true);
           setSuccessModalOpen(true);

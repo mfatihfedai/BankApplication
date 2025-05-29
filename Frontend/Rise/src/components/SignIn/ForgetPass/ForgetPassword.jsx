@@ -44,7 +44,6 @@ const ForgetPassword = () => {
         setUserNotFound(false);
         setSuccess(false);
         const response = await forgetPass(values.email);
-        console.log(response);
         if (response.status === 200) {
           setSuccess(true);
         } else if(response.status === 404) {
