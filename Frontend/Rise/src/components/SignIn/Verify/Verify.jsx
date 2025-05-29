@@ -24,7 +24,6 @@ const Verify = () => {
       demoOtp(user.id)
         .then((response) => {
           if (response.status === 200) {
-            console.log(response);
             setTemporaryOtp(response.data);
           } else {
             setError("Demo OTP request failed.");

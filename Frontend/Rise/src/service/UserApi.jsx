@@ -18,7 +18,6 @@ export const createUser = async (user) => {
 export const getUserById = async (id) => {
   try {
     const response = await axios.get(`${apiUrl}/${id}`);
-    console.log(response);
     return response.data;
   } catch (error) {
     console.log(error.message);

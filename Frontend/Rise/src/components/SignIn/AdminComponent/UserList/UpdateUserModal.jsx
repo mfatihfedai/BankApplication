@@ -33,11 +33,10 @@ const UpdateUserModal = ({ open, onClose, userData }) => {
 
       const errors = await formik.validateForm(); //validasyon hatalarında yanlış updatei engelledim
       if (Object.keys(errors).length > 0) {
-        console.log("Validation hatalarıııııı:", errors);
+        console.log("Validation hataları:", errors);
         return;
       }
       const response = await updateUser(userData.id, user);
-      console.log(user);
 
       if (response.status === 200) {
         setSuccessMessage(t("KullaniciGuncelleBasarili"));

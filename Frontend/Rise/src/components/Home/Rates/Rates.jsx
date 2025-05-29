@@ -28,10 +28,8 @@ function Rates() {
   const filteredRates = allRates.filter(([currency]) => 
     currency === 'USD' || currency === 'EUR' || currency === 'GBP' || currency === 'CHF'
   ); 
-
-  // console.log(filteredRates);
  
-  //üst menü tekrar oluşturulacak aynı şekilde altıı boş kalacak
+  //üst menü tekrar oluşturulacak aynı şekilde altı boş kalacak
 
   return (
     <div className='rates'>
